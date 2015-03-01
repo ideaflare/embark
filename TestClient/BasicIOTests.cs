@@ -15,11 +15,13 @@ namespace TestClient
         [ClassInitialize]
         public static void InitializeConnection(TestContext tc)
         {
-            var testDir = Environment.CurrentDirectory + "\\TestData";
+            var testDir = @"C:\MyTemp\Embark\TestData\";
 
             if (Directory.Exists(testDir))
-                Directory.Delete(testDir, recursive: true);
-            
+            {
+                //Directory.Delete(testDir, recursive: true);
+            }
+
             Directory.CreateDirectory(testDir);
 
             io = new Port(testDir);
@@ -62,12 +64,14 @@ namespace TestClient
             //Act
 
             //Assert
+            throw new NotImplementedException();
 
         }
 
         [TestMethod]
         public void ReadSheep_IsSheep()
         {
+            throw new NotImplementedException();
 
         }
 
