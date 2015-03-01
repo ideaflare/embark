@@ -11,7 +11,7 @@ Basic:
 - Delete(id)
 
 Range:
-- UpdateWhere(tag, object with similar properties, optional: similar end ranges)
+- UpdateWhere(tag, new object value, object with similar properties, optional: similar end ranges)
 - GetWhere(..)
 - DeleteWhere(..)
 
@@ -21,7 +21,7 @@ The intent of Embark is to stay clean, simple and minimal.
 Extra features like database replication, backup, user rights, etc..
 will be the core of another project (voyage, coming soon!) so that embark itself will remain crisp and friendly :)
 
-You can add the ebark client Nuget package, download and run the server from [here](http://example.todo/), then simply continue coding.
+You can add the embark client Nuget package, download and run the server from [here](http://example.todo/), then simply continue developing.
 Or if you prefer, download and compile the client library and server - it will only take a minute.
 
 Sample usage:
