@@ -8,7 +8,7 @@ namespace EmbarkClient
 {
     public static class Gateway
     {
-        public static long Insert(Object someting, string tag)
+        public static long Insert(string tag, object something)
         {
             //Serialize object to jSon
 

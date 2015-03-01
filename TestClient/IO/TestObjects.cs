@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,18 @@ namespace TestClient.IO
         internal static Sheep GetTestSheep()
         {
             return new Sheep("Candyfloss", 12, IceCream.Vanilla);
+        }
+
+        internal List<Sheep> GetTestHerd(int count = 10)
+        {
+            var r = new Random();
+            return Enumerable.Range(0, count)
+                .Select(i => new Sheep(
+                    name: Path.GetRandomFileName().Replace(".", ""),
+                    age: r.Next(1, 15),
+                    favouriteIceCream: (IceCream)r.Next(0, 4)
+                    ))
+                .ToList();
         }
     }
 

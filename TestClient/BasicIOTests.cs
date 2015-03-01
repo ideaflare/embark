@@ -12,7 +12,7 @@ namespace TestClient
             var sheep = TestObjects.GetTestSheep();
             var tag = "sheep";
 
-            long id = EmbarkClient.Gateway.Insert(sheep, tag);
+            long id = EmbarkClient.Gateway.Insert(tag, sheep);
 
             return id;
         }
