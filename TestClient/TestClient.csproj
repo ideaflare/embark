@@ -55,9 +55,9 @@
     <Compile Include="IO\TestObjects.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmbarkClient\EmbarkClient.csproj">
+    <ProjectReference Include="..\EmbarkClient\Client.csproj">
       <Project>{8622642b-2152-431d-8eea-8c2904ec3a0f}</Project>
-      <Name>EmbarkClient</Name>
+      <Name>Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

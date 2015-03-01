@@ -42,8 +42,12 @@
     <Compile Include="Port.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="IO\" />
+    <ProjectReference Include="..\DataStore\DataStore.csproj">
+      <Project>{2359c522-3f62-4ef5-901b-ff05b869c67d}</Project>
+      <Name>DataStore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

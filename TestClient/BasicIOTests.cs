@@ -2,12 +2,29 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.IO;
 using EmbarkClient;
+using System.IO;
 
 namespace TestClient
 {
     [TestClass]
     public class BasicIOTests
     {
+        //private static Gateway gateWay = new Gateway(System.Net.IPAddress.Parse("127.0.0.1"), 80);
+        private static Port io;
+
+        [ClassInitialize]
+        public static void InitializeConnection(TestContext tc)
+        {
+            var testDir = Environment.CurrentDirectory + "\\TestData";
+
+            if (Directory.Exists(testDir))
+                Directory.Delete(testDir, recursive: true);
+            
+            Directory.CreateDirectory(testDir);
+
+            io = new Port(testDir);
+        }
+
         //basic
         [TestMethod]
         public void Create_ReturnsID()
@@ -15,7 +32,7 @@ namespace TestClient
             var sheep = TestObjects.GetTestSheep();
             var tag = "sheep";
 
-            object id = Port.Insert(tag, sheep);
+            object id = io.Insert(tag, sheep);
 
             Assert.AreEqual(typeof(long), id.GetType());
         }
@@ -26,9 +43,9 @@ namespace TestClient
             var saved = TestObjects.GetTestSheep();
             var tag = "sheep";
 
-            long id = Port.Insert(tag, saved);
+            long id = io.Insert(tag, saved);
 
-            Sheep loaded = Port.Get<Sheep>(tag, id);
+            Sheep loaded = io.Get<Sheep>(tag, id);
 
             Assert.AreEqual(saved.Name, loaded.Name);
             Assert.AreEqual(saved.Age, loaded.Age);
@@ -77,9 +94,9 @@ namespace TestClient
             var sheep = TestObjects.GetTestSheep();
             var tag = "sheep";
 
-            long id = Port.Insert(tag, sheep);
+            long id = io.Insert(tag, sheep);
 
-            Cat cat = Port.Get<Cat>(tag, id);
+            Cat cat = io.Get<Cat>(tag, id);
 
             Assert.AreEqual(cat.Name, sheep.Name);
             Assert.AreEqual(cat.Age, sheep.Age);
