@@ -11,7 +11,7 @@ Basic:
 - Delete(id)
 
 Range:
-- UpdateWhere(tag, object with similar properties, optional: similar end ranges)
+- UpdateWhere(tag, new object value, object with similar properties, optional: similar end ranges)
 - GetWhere(..)
 - DeleteWhere(..)
 
