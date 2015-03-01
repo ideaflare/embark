@@ -1,34 +1,38 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.IO;
+using EmbarkClient;
 
 namespace TestClient
 {
     [TestClass]
     public class BasicIOTests
     {
-        private static long SaveNewSheep()
-        {
-            var sheep = TestObjects.GetTestSheep();
-            var tag = "sheep";
-
-            long id = EmbarkClient.Gateway.Insert(tag, sheep);
-
-            return id;
-        }
-
         //basic
         [TestMethod]
         public void Create_ReturnsID()
         {
-            object id = SaveNewSheep();
+            var sheep = TestObjects.GetTestSheep();
+            var tag = "sheep";
+
+            object id = Port.Insert(tag, sheep);
+
             Assert.AreEqual(typeof(long), id.GetType());
         }
 
         [TestMethod]
-        public void Read_SpecificSheepIsSheep()
+        public void GetSavedSheep_IsSameSheep()
         {
+            var saved = TestObjects.GetTestSheep();
+            var tag = "sheep";
 
+            long id = Port.Insert(tag, saved);
+
+            Sheep loaded = Port.Get<Sheep>(tag, id);
+
+            Assert.AreEqual(saved.Name, loaded.Name);
+            Assert.AreEqual(saved.Age, loaded.Age);
+            Assert.AreEqual(saved.FavouriteIceCream, loaded.FavouriteIceCream);
         }
         
 
@@ -47,7 +51,6 @@ namespace TestClient
         [TestMethod]
         public void ReadSheep_IsSheep()
         {
-            long id = SaveNewSheep();
 
         }
 
@@ -66,6 +69,22 @@ namespace TestClient
 
             //save new id's to previous id's
             throw new NotImplementedException();
+        }
+        
+        [TestMethod]
+        public void Sheep_CanTurnIntoACat()
+        {
+            var sheep = TestObjects.GetTestSheep();
+            var tag = "sheep";
+
+            long id = Port.Insert(tag, sheep);
+
+            Cat cat = Port.Get<Cat>(tag, id);
+
+            Assert.AreEqual(cat.Name, sheep.Name);
+            Assert.AreEqual(cat.Age, sheep.Age);
+            Assert.AreEqual(cat.FurDensity, (new Cat()).FurDensity);
+            Assert.AreEqual(cat.HasMeme, (new Cat()).HasMeme);
         }
 
         //extra

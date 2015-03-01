@@ -41,6 +41,14 @@ namespace TestClient.IO
         public IceCream FavouriteIceCream { get; set; }
     }
 
+    public class Cat
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public double FurDensity { get; set; }
+        public bool HasMeme { get; set; }
+    }
+
     public enum IceCream
     {
         Bubblegum,
