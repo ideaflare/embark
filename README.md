@@ -22,7 +22,7 @@ Extra features like database replication, backup, user rights, etc..
 will be the core of another project (voyage, coming soon!) so that embark itself will remain crisp and friendly :)
 
 You can add the ebark client Nuget package, download and run the server from [here](http://example.todo/), then simply continue coding.
-Or if you prefer, download and compile the libs and server - it will only take a minute.
+Or if you prefer, download and compile the client library and server - it will only take a minute.
 
 Sample usage:
 
