@@ -1,16 +1,17 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.IO;
-using EmbarkClient;
 using System.IO;
+using Embark;
+using Embark.Interfaces;
 
 namespace TestClient
 {
     [TestClass]
-    public class BasicIOTests
+    public class TestLocal
     {
         //private static Gateway gateWay = new Gateway(System.Net.IPAddress.Parse("127.0.0.1"), 80);
-        private static Port io;
+        private static IChannel io;
 
         [ClassInitialize]
         public static void InitializeConnection(TestContext tc)
@@ -24,7 +25,7 @@ namespace TestClient
 
             Directory.CreateDirectory(testDir);
 
-            io = new Port(testDir);
+            io = new Client(testDir).IOChannel;
         }
 
         //basic
