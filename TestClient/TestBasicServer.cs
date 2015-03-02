@@ -4,11 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace TestClient
 {
     [TestClass]
-    public class TestServer
+    public class TestBasicServer
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-        }
     }
 }

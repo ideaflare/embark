@@ -25,7 +25,6 @@ namespace Embark.Cache
         private object syncRoot = new object();
 
         // Basic
-
         public long Insert<T>(string tag, T something) where T : class
         {
             //Serialize object to jSon
@@ -35,9 +34,7 @@ namespace Embark.Cache
             var key = keyProvider.GetKey(tag);
                 
             // TODO 3 offload to queue that gets processed by task
-            var tagDir = tagPaths.GetTagDir(tag);
-
-            var savePath = tagDir + key.ToString() + ".txt";
+            var savePath = tagPaths.GetJsonPath(tag, key);
 
             // TODO 1 NB get a document only lock, instead of all repositories lock
             lock (syncRoot)
@@ -50,19 +47,54 @@ namespace Embark.Cache
             }
         }
 
+
         public T Get<T>(string tag, long id) where T : class
         {
-            throw new NotImplementedException();
+            var savePath = tagPaths.GetJsonPath(tag, id);
+
+            string jsonText;
+            // TODO lock row only
+            lock (syncRoot)
+            {
+                if (!File.Exists(savePath))
+                    return null;
+
+                jsonText = File.ReadAllText(savePath);
+            }
+            return JsonConvert.DeserializeObject<T>(jsonText);
         }
 
-        public bool Update<T>(string tag, T something) where T : class
+        public bool Update<T>(string tag, long id, T something) where T : class
         {
-            throw new NotImplementedException();
+            var savePath = tagPaths.GetJsonPath(tag, id);
+            
+            string jsonText = JsonConvert.SerializeObject(something, Formatting.Indented);
+
+            lock(syncRoot)
+            {
+                if (!File.Exists(savePath))
+                    return false;
+                else
+                {
+                    File.WriteAllText(savePath, jsonText);
+                    return true;
+                }
+            }
         }
 
         public bool Delete(string tag, long id)
         {
-            throw new NotImplementedException();
+            var savePath = tagPaths.GetJsonPath(tag, id);
+
+            lock (syncRoot)
+            {
+                if (File.Exists(savePath))
+                {
+                    File.Delete(savePath);
+                    return true;
+                }
+                else return false;
+            }
         }
 
 

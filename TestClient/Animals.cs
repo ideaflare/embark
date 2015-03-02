@@ -1,41 +1,40 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TestClient.IO
 {
-    internal class TestObjects
+    internal class Animals
     {
         internal static Sheep GetTestSheep()
         {
-            return new Sheep("Candyfloss", 12, IceCream.Vanilla);
+            var r = rnd.Value;
+            return new Sheep
+            {
+                Name = petNames[r.Next(0, petNames.Length)],
+                Age = r.Next(1, 15),
+                FavouriteIceCream = (IceCream)r.Next(0, 4)
+            };
         }
 
         internal List<Sheep> GetTestHerd(int count = 10)
         {
-            var r = new Random();
             return Enumerable.Range(0, count)
-                .Select(i => new Sheep(
-                    name: Path.GetRandomFileName().Replace(".", ""),
-                    age: r.Next(1, 15),
-                    favouriteIceCream: (IceCream)r.Next(0, 4)
-                    ))
+                .Select(i => GetTestSheep())
                 .ToList();
         }
+
+        static ThreadLocal<Random> rnd = new ThreadLocal<Random>(() => new Random());
+        static string[] petNames = new string[] { "Candyfloss", "Dimples", " Fluffy", " Jingles", " Monkey", " Rambo", " Snowball", " Tumble", " Zebra" };
     }
 
     public class Sheep
     {
-        public Sheep(string name, int age, IceCream favouriteIceCream)
-        {
-            this.Name = name;
-            this.Age = age;
-            this.FavouriteIceCream = favouriteIceCream;
-        }
-
         public string Name { get; set; }
         public int Age { get; set; }
         public IceCream FavouriteIceCream { get; set; }

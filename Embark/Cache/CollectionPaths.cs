@@ -19,7 +19,7 @@ namespace Embark.Cache
         }
 
         private string collectionDirectory;
-        private static ConcurrentDictionary<string, string> tagPathLookup = new ConcurrentDictionary<string,string>();
+        private static ConcurrentDictionary<string, string> tagPathLookup = new ConcurrentDictionary<string, string>();
 
         public string GetTagDir(string tag)
         {
@@ -30,6 +30,13 @@ namespace Embark.Cache
                         Directory.CreateDirectory(tagDir);
                     return tagDir;
                 });
+        }
+
+        public string GetJsonPath(string tag, long key)
+        {
+            var tagDir = GetTagDir(tag);
+            var savePath = tagDir + key.ToString() + ".txt";
+            return savePath;
         }
     }
 }

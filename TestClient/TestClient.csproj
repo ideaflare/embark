@@ -50,10 +50,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestLocal.cs" />
+    <Compile Include="Channel.cs" />
+    <Compile Include="TestBasicLocal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Animals.cs" />
-    <Compile Include="TestServer.cs" />
+    <Compile Include="TestBasicServer.cs" />
+    <Compile Include="TestEdgeLocal.cs" />
+    <Compile Include="TestFunctionality.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">
