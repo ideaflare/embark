@@ -56,7 +56,7 @@
     <Compile Include="TestServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataStore\Embark.csproj">
+    <ProjectReference Include="..\Embark\Embark.csproj">
       <Project>{2359c522-3f62-4ef5-901b-ff05b869c67d}</Project>
       <Name>Embark</Name>
     </ProjectReference>
