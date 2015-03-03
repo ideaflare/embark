@@ -22,9 +22,9 @@ namespace TestClient
 
             Directory.CreateDirectory(testDir);
 
-            localCache = (new Client(testDir)).IOChannel;
+            localCache = new Client(testDir);
 
-            //serverCache = (new Client(IPAddress.Parse("127.0.0.1"), 80)).IOChannel;
+            //serverCache = new Client("127.0.0.1", 80);
         }
     }
 }

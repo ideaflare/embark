@@ -15,16 +15,14 @@ namespace TestClient
         void SimpleDemo()
         {
             // arrange some guinea pig
-            var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
             var tag = "sheep";
+            var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
             
             // save data locally
-            var client = new Embark.Client(@"C:\MyTemp\Embark");
+            var io = new Embark.Client(@"C:\MyTemp\Embark");
 
             // or over a network
-            // var client = new Embark.Client("127.0.0.1"), 80);// Not implemented, yet..
-
-            var io = client.IOChannel;
+            //var io = Embark.Client.GetServerConnection("127.0.0.1", 80);// Not implemented, yet..
 
             // insert
             long id = io.Insert(tag, pet);

@@ -1,5 +1,4 @@
 ﻿using Embark.Interfaces;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Embark.Cache
 {
-    public class Repository : IChannel
+    public class Repository  
     {
         public Repository(string dataDirectory)
         {
@@ -25,11 +24,8 @@ namespace Embark.Cache
         private object syncRoot = new object();
 
         // Basic
-        public long Insert<T>(string tag, T something) where T : class
+        public long Insert(string tag, string jsonText)
         {
-            //Serialize object to jSon
-            string jsonText = JsonConvert.SerializeObject(something, Formatting.Indented);
-
             // Get ID from IDGen
             var key = keyProvider.GetKey(tag);
                 
@@ -46,9 +42,8 @@ namespace Embark.Cache
                 return key;
             }
         }
-
-
-        public T Get<T>(string tag, long id) where T : class
+        
+        public string Get(string tag, long id)
         {
             var savePath = tagPaths.GetJsonPath(tag, id);
 
@@ -61,15 +56,13 @@ namespace Embark.Cache
 
                 jsonText = File.ReadAllText(savePath);
             }
-            return JsonConvert.DeserializeObject<T>(jsonText);
+            return jsonText;
         }
 
-        public bool Update<T>(string tag, long id, T something) where T : class
+        public bool Update(string tag, long id, string jsonText)
         {
             var savePath = tagPaths.GetJsonPath(tag, id);
             
-            string jsonText = JsonConvert.SerializeObject(something, Formatting.Indented);
-
             lock(syncRoot)
             {
                 if (!File.Exists(savePath))
