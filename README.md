@@ -1,5 +1,5 @@
 # embark
-Easy to use document database with only 7 commands,
+Easy to use document database with only a few commands,
 so that you don't have to learn a whole new framework to get going.. ideal for projects with an agile code-first approach, or if you just want something for now while prototyping.
 
 ###basic:
@@ -24,16 +24,14 @@ If you want to save data over a network then download and run the server from [h
 Sample usage:
 ```csharp
 // arrange some guinea pig
-var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
 var tag = "sheep";
-
+var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
+ 
 // save data locally
-var client = new Embark.Client(@"C:\MyTemp\Embark");
+var io = new Embark.Client(@"C:\MyTemp\Embark");
 
 // or over a network
-var client = new Embark.Client("127.0.0.1", 80);// Not implemented, yet..
-
-var io = client.IOChannel;
+var io = new Embark.Client("127.0.0.1", 80);// Not implemented, yet..
 
 // insert
 long id = io.Insert(tag, pet);
@@ -50,4 +48,4 @@ bool hasSheepUpdated = io.Update(tag, id, fluffy);
 bool hasSheepVanished = io.Delete(tag, id);
 ```
 
-To check out current developments go to [the trello organization embarkdb](https://trello.com/embarkdb)
+To check out current developments go to [embarkdb on trello](https://trello.com/embarkdb)
