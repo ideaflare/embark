@@ -22,7 +22,7 @@ namespace TestClient
             var io = new Embark.Client(@"C:\MyTemp\Embark");
 
             // or over a network
-            //var io = Embark.Client.GetServerConnection("127.0.0.1", 80);// Not implemented, yet..
+            //var io = new Embark.Client("127.0.0.1", 80);// Not implemented, yet..
 
             // insert
             long id = io.Insert(tag, pet);

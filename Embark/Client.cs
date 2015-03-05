@@ -30,11 +30,14 @@ namespace Embark
         /// Starts a new embark db on a local directory,
         /// or connects to local current process db if one is already running
         /// </summary>
-        /// <param name="localFolder">Local folder in which to save data</param>
+        /// <param name="directory">A folder path in which to save data</param>
         /// <returns>IChannel with db commands</returns>
-        public Client(string localFolder)
+        public Client(string directory)
         {
-            var db = localDataBases.GetOrAdd(localFolder, (dir) => new Repository(dir));
+            if (!directory.EndsWith("\\"))
+                directory += "\\";
+
+            var db = localDataBases.GetOrAdd(directory, (dir) => new Repository(dir));
 
             this.channel = db;
         }
@@ -60,7 +63,7 @@ namespace Embark
             else return JsonConvert.DeserializeObject<T>(jsonText);
         }
 
-        public bool Update<T>(string tag, long id, T objectToUpdate) where T : class
+        public bool Update(string tag, long id, object objectToUpdate)
         {
             string jsonText = JsonConvert.SerializeObject(objectToUpdate, Formatting.Indented);
             return channel.Update(tag, id, jsonText);
@@ -70,21 +73,24 @@ namespace Embark
         {
             return channel.Delete(tag, id);
         }
+ 
+        public IEnumerable<T> GetWhere<T>(string tag, object searchObject, object optionalEndrange = null) where T : class
+        {
+            var jsonTextEnumerable = channel.GetWhere(tag, searchObject, optionalEndrange);
+            foreach(var jsonText in jsonTextEnumerable)
+            {
+                yield return JsonConvert.DeserializeObject<T>(jsonText);
+            }
+        }
 
-        public List<T> GetWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class
+        public int UpdateWhere(string tag, object newValue, object searchObject, object optionalEndrange = null)
         {
             throw new NotImplementedException();
         }
 
-        public int UpdateWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class
+        public int DeleteWhere(string tag, object searchObject, object optionalEndrange = null)
         {
             throw new NotImplementedException();
         }
-
-        public int DeleteWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

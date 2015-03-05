@@ -1,4 +1,6 @@
 ﻿using Embark.Interfaces;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Embark.Cache
 {
-    public class Repository  
+    public class Repository 
     {
         public Repository(string dataDirectory)
         {
@@ -93,19 +95,42 @@ namespace Embark.Cache
 
         // Range
 
-        public List<T> GetWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class
+        public IEnumerable<string> GetWhere(string tag, object queryObject, object optionalEndrange = null)
         {
-            throw new NotImplementedException();
+            lock(syncRoot)
+            {
+                var tagDir = tagPaths.GetTagDir(tag);
+                var allItems = Directory.GetFiles(tagDir);
+
+                var query = JObject.FromObject(queryObject);
+                foreach (var item in allItems)
+                {
+                    var json = File.ReadAllText(item);
+                    var target = (JObject)JsonConvert.DeserializeObject(json);
+                    if (IsMatch(query, target))
+                        yield return json;
+                }
+            }
         }
 
-        public int UpdateWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class
+        public int UpdateWhere(string tag, object newValue, object oldValue, object optionalEndrange = null) 
         {
             throw new NotImplementedException();
         }
                 
-        public int DeleteWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class
+        public int DeleteWhere(string tag, object newValue, object oldValue, object optionalEndrange = null)
         {
             throw new NotImplementedException();
+        }
+
+        public bool IsMatch(JObject query, JObject target)
+        {
+            var tProp = target.Properties();
+            return query
+                .Properties()
+                .All(tp => tProp.Any(qp =>
+                    tp.Name == qp.Name &&
+                    tp.Value.ToString() == qp.Value.ToString()));
         }
     }
 }

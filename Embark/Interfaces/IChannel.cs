@@ -18,14 +18,15 @@ namespace Embark.Interfaces
         /// <param name="objectToInsert">Anything json serializable/deserializable object to save</param>
         /// <returns>An Int64 ID unique to the collection the object is saved in</returns>
         long Insert<T>(string tag, T objectToInsert) where T : class;
-
         T Get<T>(string tag, long id) where T : class;
-        bool Update<T>(string tag, long id, T objectToUpdate) where T : class;
+
+        bool Update(string tag, long id, object objectToUpdate);
         bool Delete(string tag, long id);
 
         // Range
-        List<T> GetWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class;
-        int UpdateWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class;
-        int DeleteWhere<T>(string tag, T newValue, T oldValue, T optionalEndrange = null) where T : class;
+        IEnumerable<T> GetWhere<T>(string tag, object searchObject, object optionalEndrange = null) where T : class;
+
+        int UpdateWhere(string tag, object newValue, object searchObject, object optionalEndrange = null);
+        int DeleteWhere(string tag, object searchObject, object optionalEndrange = null);
     }
 }

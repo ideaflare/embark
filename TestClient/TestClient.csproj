@@ -58,6 +58,7 @@
     <Compile Include="TestBasicServer.cs" />
     <Compile Include="TestEdgeLocal.cs" />
     <Compile Include="TestFunctionality.cs" />
+    <Compile Include="TestRangeLocal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">
