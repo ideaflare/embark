@@ -13,10 +13,10 @@ namespace TestClient
         public void GetWhereMatch()
         {
             // arrange
+            var tag = "sheep";
             var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum };
-            var tag = "sheep";
                         
             // act            
             long id = Channel.localCache.Insert(tag, oldWooly);
@@ -29,8 +29,10 @@ namespace TestClient
 
             // assert
             Assert.AreEqual(2, ancients.Count);
+
             Assert.IsFalse(ancients.Any(s => s.Age != 100));
             Assert.IsFalse(ancients.Any(s => s.Name == "Lassy"));
+
             Assert.IsTrue(ancients.Any(s => s.Name == "Wooly"));
             Assert.IsTrue(ancients.Any(s => s.Name == "Dusty"));
 
