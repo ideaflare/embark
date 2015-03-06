@@ -13,61 +13,23 @@ namespace Embark.Cache
     {
         internal KeyProvider(string keysDirectory)
         {
-            if (!Directory.Exists(keysDirectory))
-            {
+            if (!Directory.Exists(keysDirectory))            
                 Directory.CreateDirectory(keysDirectory);
-                tagKeyProviders = new ConcurrentDictionary<string, TagKeys>();
-            }
+            
+            keysFile = keysDirectory + "LatestKey.txt";
+
+            if (!File.Exists(keysFile))            
+                File.WriteAllText(keysFile,"0");            
             else
             {
-                var existingKeys = Directory.EnumerateFiles(keysDirectory)
-                    .Select(tagKeysFile => new KeyValuePair<string,TagKeys>(
-                        Path.GetFileNameWithoutExtension(tagKeysFile),
-                        new TagKeys(tagKeysFile)))
-                    .ToList();
-
-                tagKeyProviders = new ConcurrentDictionary<string, TagKeys>(existingKeys);
+                var keyTxt = File.ReadAllText(keysFile);
+                lastKey = Int64.Parse(keyTxt);
             }
-
-            this.keysDirectory = keysDirectory;
-        }
-
-        private string keysDirectory;
-
-        private ConcurrentDictionary<string, TagKeys> tagKeyProviders;
-
-        public long GetKey(string tag)
-        {
-            var tagIDProvider = tagKeyProviders.GetOrAdd(tag,
-                (newTag) =>
-                {
-                    var tagFile = keysDirectory + newTag + ".txt";
-                    return new TagKeys(tagFile);
-                });
-
-            return tagIDProvider.GetNewKey();
-        }
-    }
-
-    class TagKeys
-    {
-        public TagKeys(string tagFile)
-        {
-            if (!File.Exists(tagFile))
-            {
-                File.WriteAllText(tagFile,"0");
-            }
-            else
-            {
-                var tagTxt = File.ReadAllText(tagFile);
-                lastKey = Int64.Parse(tagTxt);
-            }
-
-            this.tagFile = tagFile;
         }
 
         long lastKey = 0;
-        string tagFile;
+
+        string keysFile;
         object syncRoot = new object();
 
         public long GetNewKey()
@@ -80,8 +42,12 @@ namespace Embark.Cache
 
             lock(syncRoot)
             {
-                lastKey += 1;
-                File.WriteAllText(tagFile, lastKey.ToString());
+                var newKey = DateTime.Now.Ticks;
+                while (newKey <= lastKey)
+                    newKey++;
+                lastKey = newKey;
+
+                File.WriteAllText(keysFile, lastKey.ToString());
                 return lastKey;
             }
         }

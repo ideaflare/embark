@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 
 namespace TestClient
 {
-    internal class Channel
+    [TestClass]
+    public class Channel
     {
         internal static IChannel localCache;
         internal static IChannel serverCache = null;
-        
-        static Channel()
+
+        [AssemblyInitialize()]
+        public static void MyTestInitialize(TestContext testContext)
         {
             var testDir = @"C:\MyTemp\Embark\TestData\";
 

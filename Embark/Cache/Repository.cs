@@ -15,7 +15,7 @@ namespace Embark.Cache
         public Repository(string dataDirectory)
         {
             var collectionsFolder = dataDirectory + @"\Collections\";
-            var keysFolder = dataDirectory + @"\Keys\";
+            var keysFolder = dataDirectory + @"\Map\";
             
             this.keyProvider = new KeyProvider(keysFolder);
             this.tagPaths = new CollectionPaths(collectionsFolder);
@@ -29,7 +29,7 @@ namespace Embark.Cache
         public long Insert(string tag, string jsonText)
         {
             // Get ID from IDGen
-            var key = keyProvider.GetKey(tag);
+            var key = keyProvider.GetNewKey();
                 
             // TODO 3 offload to queue that gets processed by task
             var savePath = tagPaths.GetJsonPath(tag, key);
