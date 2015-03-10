@@ -18,17 +18,16 @@ namespace TestClient
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
             
             // save data locally
-            var db = new Embark.Client(@"C:\MyTemp\Embark");
+            var db = new Embark.Client(/* directory: Directory.GetCurrentDirectory() */);
             
             // or over a network
-            //var io = new Embark.Client("127.0.0.1", 80);// Not implemented, yet..
-
-            // reference to a collection
-            var io = db["sheep"];
-
+            // var io = new Embark.Client("127.0.0.1", 8765);// Not implemented, yet..
+            
             // insert
-            long id = io.Insert(pet);
-            // or long id = db["sheep"].Insert(pet);
+            long id = db["sheep"].Insert(pet);
+
+            // reference collections so you don't have to keep typing them out
+            var io = db["sheep"];
 
             // get
             Sheep fluffy = io.Select<Sheep>(id);

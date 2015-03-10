@@ -25,7 +25,8 @@ namespace TestClient
 
             Directory.CreateDirectory(testDir);
 
-            localCache = new Client(testDir);
+            //localCache = new Client(testDir);
+            localCache = new Client();
 
             localSheep = localCache["sheep"];
             //serverCache = new Client("127.0.0.1", 80);

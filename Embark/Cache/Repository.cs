@@ -12,10 +12,13 @@ namespace Embark.Cache
 {
     public class Repository 
     {
-        public Repository(string dataDirectory)
+        public Repository(string directory)
         {
-            var collectionsFolder = dataDirectory + @"\Collections\";
-            var keysFolder = dataDirectory + @"\Map\";
+            if (!directory.EndsWith("\\"))
+                directory += "\\";
+
+            var collectionsFolder = directory + @"Collections\";
+            var keysFolder = directory + @"Map\";
             
             this.keyProvider = new KeyProvider(keysFolder);
             this.tagPaths = new CollectionPaths(collectionsFolder);

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,14 +25,8 @@ namespace Embark
         public Client(string directory = null)
         {
             if (directory == null)
-            {
-                var entryPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                directory = System.IO.Path.GetFullPath(entryPath);
-            }
-
-            if (!directory.EndsWith("\\"))
-                directory += "\\";
-
+                directory = Directory.GetCurrentDirectory();            
+            
             this.localDB = localDBs.GetOrAdd(directory, (dir) => new Repository(dir));
         }
 
