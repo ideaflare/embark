@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestClient.IO;
+using TestClient.IO.TestData;
 
 namespace TestClient
 {
@@ -23,18 +24,18 @@ namespace TestClient
             // or over a network
             // var io = new Embark.Client("127.0.0.1", 8765);// Not implemented, yet..
             
-            // insert
-            long id = db["sheep"].Insert(pet);
-
-            // reference collections so you don't have to keep typing them out
+            // reference collections when used a lot so you don't have to keep typing them out
             var io = db["sheep"];
+
+            // insert
+            long id = io.Insert(pet);
 
             // get
             Sheep fluffy = io.Select<Sheep>(id);
 
             // update
             fluffy.FavouriteIceCream = IceCream.Strawberry;            
-            bool hasSheepUpdated = io.Update(id, fluffy);
+            bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
 
             // delete
             bool hasSheepVanished = io.Delete(id);

@@ -3,6 +3,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.IO;
 using System.Collections.Generic;
+using TestClient.IO.TestData;
+using TestClient.TestData;
 
 namespace TestClient
 {
@@ -18,11 +20,11 @@ namespace TestClient
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum };
                         
             // act            
-            long id = TestData.localSheep.Insert(oldWooly);
-            long id2 = TestData.localSheep.Insert(oldDusty);
-            long id3 = TestData.localSheep.Insert(youngLassy);
+            long id = Cache.localSheep.Insert(oldWooly);
+            long id2 = Cache.localSheep.Insert(oldDusty);
+            long id3 = Cache.localSheep.Insert(youngLassy);
 
-            IEnumerable<Sheep> matchQuery = TestData.localSheep.SelectLike<Sheep>(new { Age = 100 });
+            IEnumerable<Sheep> matchQuery = Cache.localSheep.SelectLike<Sheep>(new { Age = 100 });
 
             var ancients = matchQuery.ToList();
 
@@ -36,9 +38,9 @@ namespace TestClient
             Assert.IsTrue(ancients.Any(s => s.Name == "Dusty"));
 
             // cleanup
-            TestData.localSheep.Delete(id);
-            TestData.localSheep.Delete(id2);
-            TestData.localSheep.Delete(id3);
+            Cache.localSheep.Delete(id);
+            Cache.localSheep.Delete(id2);
+            Cache.localSheep.Delete(id3);
         }
     }
 }

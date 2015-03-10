@@ -9,10 +9,10 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestClient
+namespace TestClient.TestData
 {
     [TestClass]
-    public class TestData
+    public class Cache
     {
         internal static Client localCache;
         internal static Client serverCache = null;

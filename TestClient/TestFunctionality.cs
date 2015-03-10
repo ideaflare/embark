@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.IO;
 using System.Linq;
 using System.Diagnostics;
+using TestClient.TestData;
+using TestClient.IO.TestData;
 
 namespace TestClient
 {
@@ -20,7 +22,7 @@ namespace TestClient
             var sw = Stopwatch.StartNew();
             var newIDs = Enumerable.Range(0, totalInserts)
                 .AsParallel()
-                .Select(i => TestData.localSheep.Insert(new { Number = i, Text = "Hi" }))
+                .Select(i => Cache.localSheep.Insert(new { Number = i, Text = "Hi" }))
                 .ToList();
             sw.Stop();
 
@@ -30,7 +32,7 @@ namespace TestClient
             Assert.IsTrue(sw.ElapsedMilliseconds < timePerInsert * totalInserts);
 
             // cleanup
-            newIDs.AsParallel().ForAll(id => TestData.localSheep.Delete(id));
+            newIDs.AsParallel().ForAll(id => Cache.localSheep.Delete(id));
         }
 
         [TestMethod]
@@ -38,7 +40,7 @@ namespace TestClient
         {
             // arrange
             var now = DateTime.Now;
-            long id = TestData.localSheep.Insert(new { Numero = "Uno" });
+            long id = Cache.localSheep.Insert(new { Numero = "Uno" });
 
             // act
             var timestamp = new DateTime(id);
@@ -48,7 +50,7 @@ namespace TestClient
             Assert.IsTrue(timeDiff.TotalSeconds < 1);
 
             // cleanup
-            TestData.localSheep.Delete(id);
+            Cache.localSheep.Delete(id);
         }
 
         [TestMethod]
@@ -56,9 +58,9 @@ namespace TestClient
         {
             var sheep = Animals.GetTestSheep();
 
-            long id = TestData.localSheep.Insert(sheep);
+            long id = Cache.localSheep.Insert(sheep);
 
-            Cat cat = TestData.localSheep.Select<Cat>(id);
+            Cat cat = Cache.localSheep.Select<Cat>(id);
 
             Assert.AreEqual(cat.Name, sheep.Name);
             Assert.AreEqual(cat.Age, sheep.Age);
@@ -66,7 +68,7 @@ namespace TestClient
             Assert.AreEqual(cat.HasMeme, (new Cat()).HasMeme);
 
             // cleanup
-            TestData.localSheep.Delete(id);
+            Cache.localSheep.Delete(id);
         }
 
         //[TestMethod]
