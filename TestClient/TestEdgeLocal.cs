@@ -13,7 +13,7 @@ namespace TestClient
         [TestMethod]
         public void UpdateNonExisting_ReturnsFalse()
         {
-
+            throw new NotImplementedException();
         }
     }
 }

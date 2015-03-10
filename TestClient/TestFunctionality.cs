@@ -20,7 +20,7 @@ namespace TestClient
             var sw = Stopwatch.StartNew();
             var newIDs = Enumerable.Range(0, totalInserts)
                 .AsParallel()
-                .Select(i => Channel.localCache.Insert("IDTest", new { Number = i, Text = "Hi" }))
+                .Select(i => TestData.localSheep.Insert(new { Number = i, Text = "Hi" }))
                 .ToList();
             sw.Stop();
 
@@ -30,7 +30,7 @@ namespace TestClient
             Assert.IsTrue(sw.ElapsedMilliseconds < timePerInsert * totalInserts);
 
             // cleanup
-            newIDs.AsParallel().ForAll(id => Channel.localCache.Delete("IDTest", id));
+            newIDs.AsParallel().ForAll(id => TestData.localSheep.Delete(id));
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace TestClient
         {
             // arrange
             var now = DateTime.Now;
-            long id = Channel.localCache.Insert("IDTest", new { Numero = "Uno" });
+            long id = TestData.localSheep.Insert(new { Numero = "Uno" });
 
             // act
             var timestamp = new DateTime(id);
@@ -48,18 +48,17 @@ namespace TestClient
             Assert.IsTrue(timeDiff.TotalSeconds < 1);
 
             // cleanup
-            Channel.localCache.Delete("IDTest", id);
+            TestData.localSheep.Delete(id);
         }
 
         [TestMethod]
         public void Sheep_CanTurnIntoACat()
         {
-            var tag = "sheep";
             var sheep = Animals.GetTestSheep();
 
-            long id = Channel.localCache.Insert(tag, sheep);
+            long id = TestData.localSheep.Insert(sheep);
 
-            Cat cat = Channel.localCache.Get<Cat>(tag, id);
+            Cat cat = TestData.localSheep.Select<Cat>(id);
 
             Assert.AreEqual(cat.Name, sheep.Name);
             Assert.AreEqual(cat.Age, sheep.Age);
@@ -67,7 +66,7 @@ namespace TestClient
             Assert.AreEqual(cat.HasMeme, (new Cat()).HasMeme);
 
             // cleanup
-            Channel.localCache.Delete("sheep", id);
+            TestData.localSheep.Delete(id);
         }
 
         //[TestMethod]

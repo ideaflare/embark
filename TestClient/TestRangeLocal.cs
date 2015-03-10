@@ -13,17 +13,16 @@ namespace TestClient
         public void GetWhereMatch()
         {
             // arrange
-            var tag = "sheep";
             var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum };
                         
             // act            
-            long id = Channel.localCache.Insert(tag, oldWooly);
-            long id2 = Channel.localCache.Insert(tag, oldDusty);
-            long id3 = Channel.localCache.Insert(tag, youngLassy);
+            long id = TestData.localSheep.Insert(oldWooly);
+            long id2 = TestData.localSheep.Insert(oldDusty);
+            long id3 = TestData.localSheep.Insert(youngLassy);
 
-            IEnumerable<Sheep> matchQuery = Channel.localCache.GetWhere<Sheep>(tag, new { Age = 100 });
+            IEnumerable<Sheep> matchQuery = TestData.localSheep.SelectLike<Sheep>(new { Age = 100 });
 
             var ancients = matchQuery.ToList();
 
@@ -37,9 +36,9 @@ namespace TestClient
             Assert.IsTrue(ancients.Any(s => s.Name == "Dusty"));
 
             // cleanup
-            Channel.localCache.Delete(tag, id);
-            Channel.localCache.Delete(tag, id2);
-            Channel.localCache.Delete(tag, id3);
+            TestData.localSheep.Delete(id);
+            TestData.localSheep.Delete(id2);
+            TestData.localSheep.Delete(id3);
         }
     }
 }

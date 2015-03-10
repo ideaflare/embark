@@ -12,10 +12,11 @@ using System.Threading.Tasks;
 namespace TestClient
 {
     [TestClass]
-    public class Channel
+    public class TestData
     {
-        internal static IChannel localCache;
-        internal static IChannel serverCache = null;
+        internal static Client localCache;
+        internal static Client serverCache = null;
+        internal static IDataStore localSheep;
 
         [AssemblyInitialize()]
         public static void MyTestInitialize(TestContext testContext)
@@ -26,6 +27,7 @@ namespace TestClient
 
             localCache = new Client(testDir);
 
+            localSheep = localCache["sheep"];
             //serverCache = new Client("127.0.0.1", 80);
         }
     }
