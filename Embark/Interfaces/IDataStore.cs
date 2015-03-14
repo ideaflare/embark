@@ -32,7 +32,6 @@ namespace Embark.Interfaces
         // Range
         IEnumerable<T> SelectLike<T>(object searchObject)
             where T : class;
-
         IEnumerable<T> SelectBetween<T>(object searchObject, object optionalEndrange) 
             where T : class;
 

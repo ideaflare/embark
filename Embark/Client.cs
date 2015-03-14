@@ -21,13 +21,10 @@ namespace Embark
         /// or connects to local current process db if one is already running
         /// </summary>
         /// <param name="directory">A folder path in which to save data</param>
-        /// <returns>IChannel with db commands</returns>
-        public Client(string directory = null)
+        /// <returns>Client with db commands</returns>
+        public static Client GetLocalDB(string directory = null)
         {
-            if (directory == null)
-                directory = Directory.GetCurrentDirectory();            
-            
-            this.localDB = localDBs.GetOrAdd(directory, (dir) => new Repository(dir));
+            return new Client(directory);
         }
 
         /// <summary>
@@ -35,9 +32,26 @@ namespace Embark
         /// </summary>
         /// <param name="ip">IP Address of server</param>
         /// <param name="port">Port data is sent/received</param>
-        /// <returns>IChannel with db commands</returns>
-        public Client(string ip, int port)
+        /// <returns>Client with db commands</returns>
+        public static Client GetNetworkDB(string ip, int port)
         {
+            return new Client(ip, port);
+        }
+
+        private Client(string directory = null)
+        {
+            if (directory == null)
+                directory = Directory.GetCurrentDirectory();            
+            
+            this.localDB = localDBs.GetOrAdd(directory, (dir) => new Repository(dir));
+        }
+
+        private Client(string ip, int port)
+        {
+            // Test connection
+
+            // Return network client
+
             throw new NotImplementedException();
         }
 

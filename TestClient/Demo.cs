@@ -19,10 +19,10 @@ namespace TestClient
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
             
             // save data locally
-            var db = new Embark.Client(/* directory: Directory.GetCurrentDirectory() */);
+            var db = Embark.Client.GetLocalDB(/* directory: Directory.GetCurrentDirectory() */);
             
             // or over a network
-            // var io = new Embark.Client("127.0.0.1", 8765);// Not implemented, yet..
+            // var io = Embark.Client.GetNetworkDB("127.0.0.1", 8765);// Not implemented, yet..
             
             // reference collections when used a lot so you don't have to keep typing them out
             var io = db["sheep"];
@@ -44,26 +44,31 @@ namespace TestClient
         void SearchDemo()
         {
             // arrange some guinea pig
-            var tag = "sheep";
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
-            
-            // save data locally
-            var db = new Embark.Client();
 
+            // save data locally
+            var db = Embark.Client.GetLocalDB(/* directory: Directory.GetCurrentDirectory() */);
+
+            // or over a network
+            // var io = Embark.Client.GetNetworkDB("127.0.0.1", 8765);// Not implemented, yet..
+
+            // reference collections when used a lot so you don't have to keep typing them out
             var io = db["sheep"];
 
-            var itag = db[tag];
+            // insert
+            long id = io.Insert(pet);
 
-            io.Delete(15);
+            // get
+            Sheep fluffy = io.Select<Sheep>(id);
 
-            itag.Select<Sheep>(53);
+            // update
+            fluffy.FavouriteIceCream = IceCream.Strawberry;
+            bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
 
-            //itag.SelectLike<Cat>(new { Name = "Miaau" });
-            itag.SelectLike<Cat>(15);
+            // delete
+            bool hasSheepVanished = io.Delete(id);
 
-            db["cat"].Select<Cat>(31);
-
-            itag.UpdateBetween(new { FurDensity = 0.7, Name = "A" },
+            io.UpdateBetween(new { FurDensity = 0.7, Name = "A" },
                 new { FurDensity = 0.6, Name = "B" },
                 new { Name = "Mass" });
         }
