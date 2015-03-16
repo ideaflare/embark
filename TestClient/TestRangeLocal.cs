@@ -12,7 +12,7 @@ namespace TestClient
     public class TestRangeLocal
     {
         [TestMethod]
-        public void GetWhereMatch()
+        public void GetSelectLike()
         {
             // arrange
             var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
@@ -36,11 +36,6 @@ namespace TestClient
 
             Assert.IsTrue(ancients.Any(s => s.Name == "Wooly"));
             Assert.IsTrue(ancients.Any(s => s.Name == "Dusty"));
-
-            // cleanup
-            Cache.localSheep.Delete(id);
-            Cache.localSheep.Delete(id2);
-            Cache.localSheep.Delete(id3);
         }
     }
 }

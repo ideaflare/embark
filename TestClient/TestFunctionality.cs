@@ -30,9 +30,6 @@ namespace TestClient
             Assert.AreEqual(newIDs.Count, newIDs.Distinct().Count());
             // and completed under a second
             Assert.IsTrue(sw.ElapsedMilliseconds < timePerInsert * totalInserts);
-
-            // cleanup
-            newIDs.AsParallel().ForAll(id => Cache.localSheep.Delete(id));
         }
 
         [TestMethod]
@@ -48,9 +45,6 @@ namespace TestClient
             // assert
             var timeDiff = timestamp.Subtract(now);
             Assert.IsTrue(timeDiff.TotalSeconds < 1);
-
-            // cleanup
-            Cache.localSheep.Delete(id);
         }
 
         [TestMethod]
@@ -66,9 +60,6 @@ namespace TestClient
             Assert.AreEqual(cat.Age, sheep.Age);
             Assert.AreEqual(cat.FurDensity, (new Cat()).FurDensity);
             Assert.AreEqual(cat.HasMeme, (new Cat()).HasMeme);
-
-            // cleanup
-            Cache.localSheep.Delete(id);
         }
 
         //[TestMethod]

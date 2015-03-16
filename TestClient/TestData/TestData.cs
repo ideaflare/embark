@@ -16,12 +16,15 @@ namespace TestClient.TestData
     {
         internal static Client localCache;
         internal static Client serverCache = null;
-        internal static IDataStore localSheep;
+        internal static Collection localSheep;
+
+        private static string testDir = @"C:\MyTemp\Embark\TestData\";
 
         [AssemblyInitialize()]
         public static void MyTestInitialize(TestContext testContext)
         {
-            var testDir = @"C:\MyTemp\Embark\TestData\";
+            if (Directory.Exists(testDir))
+                Directory.Delete(testDir, recursive: true);
 
             Directory.CreateDirectory(testDir);
 
@@ -30,6 +33,13 @@ namespace TestClient.TestData
 
             localSheep = localCache["sheep"];
             //serverCache = new Client("127.0.0.1", 80);
+        }
+
+        [AssemblyCleanup()]
+        public static void MytestCleanup()
+        {
+            if (Directory.Exists(testDir))
+                Directory.Delete(testDir, recursive: true);
         }
     }
 }

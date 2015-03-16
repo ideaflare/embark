@@ -34,11 +34,10 @@ namespace Embark.Cache
 
         public long GetNewKey()
         {
-            // TODO 1 Create task loop class, so ID's are returned instantly,
-            // but saving new ID's are done concurrently, and a count of all
-            // new global ID's generated are saved, so that inexpected shutdown
-            // increments all new last known ID's to maintain consistency.
-            //return Interlocked.Increment(ref lastID);
+            // TODO 1 Append to logfile to return faster
+            // 2nd task runs that empties log(s) to text file.
+            // Write generically so that log writer/comitter(s)
+            // can be re-used for collection insert/update/delete commands also
 
             lock(syncRoot)
             {

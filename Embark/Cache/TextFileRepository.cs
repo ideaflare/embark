@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Embark.Cache
 {
-    public class Repository 
+    public class TextFileRepository : ITextDataStore
     {
-        public Repository(string directory)
+        public TextFileRepository(string directory)
         {
             if (!directory.EndsWith("\\"))
                 directory += "\\";
@@ -29,7 +29,7 @@ namespace Embark.Cache
         private object syncRoot = new object();
 
         // Basic
-        public long Insert(string tag, string jsonText)
+        long ITextDataStore.Insert(string tag, string objectToInsert)
         {
             // Get ID from IDGen
             var key = keyProvider.GetNewKey();
@@ -41,14 +41,14 @@ namespace Embark.Cache
             lock (syncRoot)
             {
                 // Save object to tag dir
-                File.WriteAllText(savePath, jsonText);
+                File.WriteAllText(savePath, objectToInsert);
 
                 //Return ID to client
                 return key;
             }
         }
         
-        public string Get(string tag, long id)
+        string ITextDataStore.Select(string tag, long id)
         {
             var savePath = tagPaths.GetJsonPath(tag, id);
 
@@ -64,7 +64,7 @@ namespace Embark.Cache
             return jsonText;
         }
 
-        public bool Update(string tag, long id, string jsonText)
+        bool ITextDataStore.Update(string tag, long id, string objectToUpdate)
         {
             var savePath = tagPaths.GetJsonPath(tag, id);
             
@@ -74,13 +74,13 @@ namespace Embark.Cache
                     return false;
                 else
                 {
-                    File.WriteAllText(savePath, jsonText);
+                    File.WriteAllText(savePath, objectToUpdate);
                     return true;
                 }
             }
         }
 
-        public bool Delete(string tag, long id)
+        bool ITextDataStore.Delete(string tag, long id)
         {
             var savePath = tagPaths.GetJsonPath(tag, id);
 
@@ -95,45 +95,48 @@ namespace Embark.Cache
             }
         }
 
-
-        // Range
-
-        public IEnumerable<string> GetWhere(string tag, object queryObject, object optionalEndrange = null)
+        IEnumerable<string> ITextDataStore.SelectLike(string tag, string searchObject)
         {
             lock(syncRoot)
             {
                 var tagDir = tagPaths.GetTagDir(tag);
                 var allItems = Directory.GetFiles(tagDir);
 
-                var query = JObject.FromObject(queryObject);
+                //var query = JObject.FromObject(searchObject);
+                var query = JObject.Parse(searchObject);
                 foreach (var item in allItems)
                 {
                     var json = File.ReadAllText(item);
                     var target = (JObject)JsonConvert.DeserializeObject(json);
-                    if (IsMatch(query, target))
+                    if (Comparison.IsMatch(query, target))
                         yield return json;
                 }
             }
-        }
-
-        public int UpdateWhere(string tag, object newValue, object oldValue, object optionalEndrange = null) 
-        {
-            throw new NotImplementedException();
-        }
-                
-        public int DeleteWhere(string tag, object newValue, object oldValue, object optionalEndrange = null)
+        }               
+        
+        int ITextDataStore.UpdateLike(string tag, string searchObject, string newValue)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsMatch(JObject query, JObject target)
+        int ITextDataStore.DeleteLike(string tag, string searchObject)
         {
-            var tProp = target.Properties();
-            return query
-                .Properties()
-                .All(tp => tProp.Any(qp =>
-                    tp.Name == qp.Name &&
-                    tp.Value.ToString() == qp.Value.ToString()));
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<string> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
+        {
+            throw new NotImplementedException();
+        }
+
+        int ITextDataStore.UpdateBetween(string tag, string startRange, string endRange, string newValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        int ITextDataStore.DeleteBetween(string tag, string startRange, string endRange)
+        {
+            throw new NotImplementedException();
         }
     }
 }

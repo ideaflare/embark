@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Embark
@@ -43,7 +44,7 @@ namespace Embark
             if (directory == null)
                 directory = Directory.GetCurrentDirectory();            
             
-            this.localDB = localDBs.GetOrAdd(directory, (dir) => new Repository(dir));
+            this.dataStore = knownConnections.GetOrAdd(directory, (dir) => new TextFileRepository(dir));
         }
 
         private Client(string ip, int port)
@@ -55,18 +56,26 @@ namespace Embark
             throw new NotImplementedException();
         }
 
-        private static ConcurrentDictionary<string, Repository> localDBs = new ConcurrentDictionary<string, Repository>();
+        private static ConcurrentDictionary<string, ITextDataStore> knownConnections = new ConcurrentDictionary<string, ITextDataStore>();
 
-        private Repository localDB;
+        private ITextDataStore dataStore;
 
-        public IDataStore Generic { get { return this["Generic"]; } }
+        public Collection Generic { get { return this["Generic"]; } }
 
-        public IDataStore this[string index]
+        public Collection this[string index]
         {
-            get
-            {
-                return new Collection(index, localDB);
-            }
+            get { return GetCollection(index); }
+        }
+
+        public Collection GetCollection(string collectionName)
+        {
+            if (collectionName == null || collectionName.Length < 1)
+                throw new ArgumentException("Collection name should be at least one alphanumerical or underscore character.");
+
+            if (!Regex.IsMatch(collectionName, "^[A-Za-z0-9_]+?$"))
+                throw new NotSupportedException("Only alphanumerical & underscore characters supported in collection names.");
+
+            return new Collection(collectionName, dataStore);
         }
     }
 }

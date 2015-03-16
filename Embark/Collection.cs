@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Embark
 {
-    public class Collection : IDataStore
+    public class Collection
     {
-        public Collection(string tag, Repository repository)
+        public Collection(string tag, ITextDataStore repository)
         {
             this.tag = tag;
             this.channel = repository;
         }
 
         string tag;
-        Repository channel;
+        ITextDataStore channel;
 
         public long Insert<T>(T objectToInsert) where T : class
         {
@@ -28,7 +28,7 @@ namespace Embark
 
         public T Select<T>(long id) where T : class
         {
-            var jsonText = channel.Get(tag, id);
+            var jsonText = channel.Select(tag, id);
 
             return jsonText == null ? null :
                 JsonConvert.DeserializeObject<T>(jsonText);
@@ -48,24 +48,16 @@ namespace Embark
         public IEnumerable<T> SelectLike<T>(Object searchObject)
             where T : class
         {
-            var jsonTextEnumerable = channel.GetWhere(tag, searchObject);
+            string jsonTextObject = JsonConvert.SerializeObject(searchObject, Formatting.Indented);
+
+            var jsonTextEnumerable = channel.SelectLike(tag, jsonTextObject);
             foreach (var jsonText in jsonTextEnumerable)
             {
                 yield return JsonConvert.DeserializeObject<T>(jsonText);
             }
         }
 
-        public IEnumerable<T> SelectBetween<T>(object searchObject, object optionalEndrange) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public int UpdateLike(object searchObject, object newValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int UpdateBetween(object searchObject, object endrange, object newValue)
+        public int UpdateLike(object startRange, object endRange)
         {
             throw new NotImplementedException();
         }
@@ -75,7 +67,17 @@ namespace Embark
             throw new NotImplementedException();
         }
 
-        public int DeleteBetween(object searchObject, object optionalEndrange)
+        public IEnumerable<T> SelectBetween<T>(object startRange, object endRange) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateBetween(object startRange, object endRange, object newValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteBetween(object startRange, object endRange)
         {
             throw new NotImplementedException();
         }

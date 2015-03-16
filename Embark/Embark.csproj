@@ -44,15 +44,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\CollectionPaths.cs" />
+    <Compile Include="Cache\Comparison.cs" />
     <Compile Include="Cache\KeyProvider.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="Cache\Repository.cs" />
+    <Compile Include="Cache\TextFileRepository.cs" />
     <Compile Include="Collection.cs" />
-    <Compile Include="Interfaces\IDataStore.cs" />
+    <Compile Include="Interfaces\ICollection.cs" />
+    <Compile Include="Interfaces\ITextDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Web\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

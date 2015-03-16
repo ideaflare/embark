@@ -9,7 +9,7 @@ namespace Embark.Interfaces
     /// <summary>
     /// All commands to insert/get/update/delete documents
     /// </summary>
-    public interface IDataStore
+    public interface ITextDataStore
     {
         // Basic
 
@@ -20,25 +20,25 @@ namespace Embark.Interfaces
         /// <param name="tag">A name of the collection to save it in</param>
         /// <param name="objectToInsert">Anything json serializable/deserializable object to save</param>
         /// <returns>An Int64 ID unique to the collection the object is saved in</returns>
-        long Insert<T>(T objectToInsert) 
-            where T : class;
+        long Insert(string tag, string objectToInsert);
 
-        T Select<T>(long id) 
-            where T : class;
+        string Select(string tag, long id);
 
-        bool Update(long id, object objectToUpdate);
-        bool Delete(long id);
+        bool Update(string tag, long id, string objectToUpdate);
+        bool Delete(string tag, long id);
 
-        // Range
-        IEnumerable<T> SelectLike<T>(object searchObject)
-            where T : class;
-        IEnumerable<T> SelectBetween<T>(object searchObject, object optionalEndrange) 
-            where T : class;
+        // Like
+        IEnumerable<string> SelectLike(string tag, string searchObject);
 
-        int UpdateLike(object searchObject, object newValue);
-        int UpdateBetween(object searchObject, object endrange, object newValue);
+        int UpdateLike(string tag, string searchObject, string newValue);
 
-        int DeleteLike(object searchObject);
-        int DeleteBetween(object searchObject, object optionalEndrange);
+        int DeleteLike(string tag, string searchObject);
+
+        // Between
+        IEnumerable<string> SelectBetween(string tag, string startRange, string endRange);
+
+        int UpdateBetween(string tag, string startRange, string endRange, string newValue);
+
+        int DeleteBetween(string tag, string startRange, string endRange);
     }
 }

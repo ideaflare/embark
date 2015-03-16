@@ -19,7 +19,7 @@ namespace TestClient
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
             
             // save data locally
-            var db = Embark.Client.GetLocalDB(/* directory: Directory.GetCurrentDirectory() */);
+            var db = Embark.Client.GetLocalDB(/* directory defaults to: Directory.GetCurrentDirectory() */);
             
             // or over a network
             // var io = Embark.Client.GetNetworkDB("127.0.0.1", 8765);// Not implemented, yet..
@@ -47,7 +47,7 @@ namespace TestClient
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
 
             // save data locally
-            var db = Embark.Client.GetLocalDB(/* directory: Directory.GetCurrentDirectory() */);
+            var db = Embark.Client.GetLocalDB(/* directory defaults to: Directory.GetCurrentDirectory() */);
 
             // or over a network
             // var io = Embark.Client.GetNetworkDB("127.0.0.1", 8765);// Not implemented, yet..
