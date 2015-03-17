@@ -55,7 +55,8 @@ namespace Embark
         private static ConcurrentDictionary<string, ITextDataStore> knownConnections = new ConcurrentDictionary<string, ITextDataStore>();
 
         private ITextDataStore dataStore;
-        private ITextConverter textConverter = new JsonNetConverter();
+        //private ITextConverter textConverter = new JsonNetConverter();
+        private ITextConverter textConverter = new JavascriptSerializerConverter();
 
         public Collection Generic { get { return this["Generic"]; } }
 
