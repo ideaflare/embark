@@ -34,14 +34,12 @@ namespace TestClient
         {
             var na = Client.GetLocalDB()[null];
         }
-
-
-
+        
         [TestMethod]
-        public void SaveBlob_Works()
+        public void SaveBlob_CanDeserializeToByteArray()
         {
             // arrange
-            byte[] savedData = new byte[1024];
+            byte[] savedData = new byte[64];
             (new Random()).NextBytes(savedData);
 
             var saved = new { blob = savedData };
@@ -57,7 +55,6 @@ namespace TestClient
             Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedData));
         }
                 
-
         //[TestMethod]
         public void UpdateNonExisting_ReturnsFalse()
         {
