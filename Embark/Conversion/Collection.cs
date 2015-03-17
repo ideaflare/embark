@@ -1,5 +1,4 @@
 ﻿using Embark.Interfaces;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,36 +9,36 @@ namespace Embark.Conversion
 {
     public class Collection
     {
-        public Collection(string tag, ITextDataStore textDataStore)
+        public Collection(string tag, ITextDataStore textDataStore, ITextConverter textConverter)
         {
             this.tag = tag;
             this.textDataStore = textDataStore;
+            this.textConverter = textConverter;
         }
 
         string tag;
         ITextDataStore textDataStore;
+        ITextConverter textConverter;
 
         public long Insert<T>(T objectToInsert) where T : class
-        {
-            var lizer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var JTx = lizer.Serialize(objectToInsert);
+        {   
+            string text = textConverter.ToText(objectToInsert);
 
-            string jsonText = JsonConvert.SerializeObject(objectToInsert, Formatting.Indented);
-            return textDataStore.Insert(tag, jsonText);
+            return textDataStore.Insert(tag, text);
         }
 
         public T Select<T>(long id) where T : class
         {
-            var jsonText = textDataStore.Select(tag, id);
+            var text = textDataStore.Select(tag, id);
 
-            return jsonText == null ? null :
-                JsonConvert.DeserializeObject<T>(jsonText);
+            return text == null ? null :
+                textConverter.ToObject<T>(text);
         }
 
         public bool Update(long id, object objectToUpdate)
         {
-            string jsonText = JsonConvert.SerializeObject(objectToUpdate, Formatting.Indented);
-            return textDataStore.Update(tag, id, jsonText);
+            string text = textConverter.ToText(objectToUpdate);
+            return textDataStore.Update(tag, id, text);
         }
 
         public bool Delete(long id)
@@ -47,15 +46,16 @@ namespace Embark.Conversion
             return textDataStore.Delete(tag, id);
         }
 
-        public IEnumerable<T> SelectLike<T>(Object searchObject)
+        public IEnumerable<T> SelectLike<T>(object searchObject)
             where T : class
         {
-            string jsonTextObject = JsonConvert.SerializeObject(searchObject, Formatting.Indented);
+            string searchText = textConverter.ToText(searchObject);
 
-            var jsonTextEnumerable = textDataStore.SelectLike(tag, jsonTextObject);
-            foreach (var jsonText in jsonTextEnumerable)
+            var searchResults = textDataStore.SelectLike(tag, searchText);
+
+            foreach (var result in searchResults)
             {
-                yield return JsonConvert.DeserializeObject<T>(jsonText);
+                yield return textConverter.ToObject<T>(result);
             }
         }
 

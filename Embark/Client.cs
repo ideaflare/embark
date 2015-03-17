@@ -40,7 +40,7 @@ namespace Embark
             if (directory == null)
                 directory = Directory.GetCurrentDirectory();            
             
-            this.dataStore = knownConnections.GetOrAdd(directory, (dir) => new TextFileRepository(dir));
+            this.dataStore = knownConnections.GetOrAdd(directory, (dir) => new TextFileRepository(dir, textConverter));
         }
 
         private Client(string ip, int port)
@@ -55,6 +55,7 @@ namespace Embark
         private static ConcurrentDictionary<string, ITextDataStore> knownConnections = new ConcurrentDictionary<string, ITextDataStore>();
 
         private ITextDataStore dataStore;
+        private ITextConverter textConverter = new JsonNetConverter();
 
         public Collection Generic { get { return this["Generic"]; } }
 
@@ -71,7 +72,7 @@ namespace Embark
             if (!Regex.IsMatch(collectionName, "^[A-Za-z0-9_]+?$"))
                 throw new NotSupportedException("Only alphanumerical & underscore characters supported in collection names.");
 
-            return new Collection(collectionName, dataStore);
+            return new Collection(collectionName, dataStore, textConverter);
         }
     }
 }

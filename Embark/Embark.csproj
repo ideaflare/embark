@@ -45,8 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conversion\Formatter.cs" />
+    <Compile Include="Conversion\JsonNetConverter.cs" />
+    <Compile Include="Interfaces\ITextConverter.cs" />
     <Compile Include="Storage\CollectionPaths.cs" />
-    <Compile Include="Conversion\Comparison.cs" />
     <Compile Include="Storage\KeyProvider.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Storage\TextFileRepository.cs" />
@@ -56,10 +57,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="Web\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Web\" />
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,7 +11,7 @@ namespace Embark.Storage
 {
     public class TextFileRepository : ITextDataStore
     {
-        public TextFileRepository(string directory)
+        public TextFileRepository(string directory, ITextConverter textComparer)
         {
             if (!directory.EndsWith("\\"))
                 directory += "\\";
@@ -21,11 +21,15 @@ namespace Embark.Storage
             
             this.keyProvider = new KeyProvider(keysFolder);
             this.tagPaths = new CollectionPaths(collectionsFolder);
+
+            this.textComparer = textComparer;
         }
         
         private KeyProvider keyProvider;
         private CollectionPaths tagPaths;
         private object syncRoot = new object();
+
+        private ITextConverter textComparer;
 
         // Basic
         long ITextDataStore.Insert(string tag, string objectToInsert)
@@ -99,12 +103,12 @@ namespace Embark.Storage
             lock(syncRoot)
             {
                 var tagDir = tagPaths.GetCollectionDirectory(tag);
-                var allItems = Directory
-                    .GetFiles(tagDir)
-                    .Select(f => File.ReadAllText(f))
-                    .ToList();
 
-                return Comparison.GetLikeMatches(searchObject, allItems);                
+                var allFiles = Directory
+                    .EnumerateFiles(tagDir)
+                    .Select(f => File.ReadAllText(f));
+
+                return textComparer.GetLikeMatches(searchObject, allFiles);
             }
         }               
         

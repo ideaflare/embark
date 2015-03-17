@@ -21,6 +21,8 @@ namespace TestClient
             if (Directory.Exists(defaultDir))
                 Directory.Delete(defaultDir, recursive: true);
 
+            SimpleDemo();
+
             var db = Embark.Client.GetLocalDB().Generic;
                        
             object box = 235;
@@ -39,7 +41,7 @@ namespace TestClient
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
             
             // save data locally
-            var db = Embark.Client.GetLocalDB(/* directory defaults to: Directory.GetCurrentDirectory() */);
+            var db = Embark.Client.GetLocalDB(@"C:\Embark\"); /* Client.GetLocalDB() defaults to: Directory.GetCurrentDirectory() */
             
             // or over a network
             // var io = Embark.Client.GetNetworkDB("127.0.0.1", 8765);// Not implemented, yet..

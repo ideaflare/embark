@@ -8,9 +8,9 @@ namespace Embark.Conversion
 {
     internal static class Formatter
     {
-        public static string Indent = "   ";
+        static string Indent = "   ";
 
-        public static void AppendIndent(StringBuilder sb, int count)
+        static void AppendIndent(StringBuilder sb, int count)
         {
             for (; count > 0; --count) sb.Append(Indent);
         }
