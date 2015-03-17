@@ -1,14 +1,13 @@
-﻿using Embark.Interfaces;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Embark.Interfaces;
+using Embark.Conversion;
 
-namespace Embark.Cache
+namespace Embark.Storage
 {
     public class TextFileRepository : ITextDataStore
     {
@@ -35,7 +34,7 @@ namespace Embark.Cache
             var key = keyProvider.GetNewKey();
                 
             // TODO 3 offload to queue that gets processed by task
-            var savePath = tagPaths.GetJsonPath(tag, key);
+            var savePath = tagPaths.GetDocumentPath(tag, key);
 
             // TODO 1 NB get a document only lock, instead of all repositories lock
             lock (syncRoot)
@@ -50,7 +49,7 @@ namespace Embark.Cache
         
         string ITextDataStore.Select(string tag, long id)
         {
-            var savePath = tagPaths.GetJsonPath(tag, id);
+            var savePath = tagPaths.GetDocumentPath(tag, id);
 
             string jsonText;
             // TODO lock row only
@@ -66,7 +65,7 @@ namespace Embark.Cache
 
         bool ITextDataStore.Update(string tag, long id, string objectToUpdate)
         {
-            var savePath = tagPaths.GetJsonPath(tag, id);
+            var savePath = tagPaths.GetDocumentPath(tag, id);
             
             lock(syncRoot)
             {
@@ -82,7 +81,7 @@ namespace Embark.Cache
 
         bool ITextDataStore.Delete(string tag, long id)
         {
-            var savePath = tagPaths.GetJsonPath(tag, id);
+            var savePath = tagPaths.GetDocumentPath(tag, id);
 
             lock (syncRoot)
             {
@@ -99,18 +98,13 @@ namespace Embark.Cache
         {
             lock(syncRoot)
             {
-                var tagDir = tagPaths.GetTagDir(tag);
-                var allItems = Directory.GetFiles(tagDir);
+                var tagDir = tagPaths.GetCollectionDirectory(tag);
+                var allItems = Directory
+                    .GetFiles(tagDir)
+                    .Select(f => File.ReadAllText(f))
+                    .ToList();
 
-                //var query = JObject.FromObject(searchObject);
-                var query = JObject.Parse(searchObject);
-                foreach (var item in allItems)
-                {
-                    var json = File.ReadAllText(item);
-                    var target = (JObject)JsonConvert.DeserializeObject(json);
-                    if (Comparison.IsMatch(query, target))
-                        yield return json;
-                }
+                return Comparison.GetLikeMatches(searchObject, allItems);                
             }
         }               
         

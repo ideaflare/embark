@@ -1,5 +1,4 @@
-﻿using Embark.Cache;
-using Embark.Interfaces;
+﻿using Embark.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,28 +6,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark
+namespace Embark.Conversion
 {
     public class Collection
     {
-        public Collection(string tag, ITextDataStore repository)
+        public Collection(string tag, ITextDataStore textDataStore)
         {
             this.tag = tag;
-            this.channel = repository;
+            this.textDataStore = textDataStore;
         }
 
         string tag;
-        ITextDataStore channel;
+        ITextDataStore textDataStore;
 
         public long Insert<T>(T objectToInsert) where T : class
         {
+            var lizer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var JTx = lizer.Serialize(objectToInsert);
+
             string jsonText = JsonConvert.SerializeObject(objectToInsert, Formatting.Indented);
-            return channel.Insert(tag, jsonText);
+            return textDataStore.Insert(tag, jsonText);
         }
 
         public T Select<T>(long id) where T : class
         {
-            var jsonText = channel.Select(tag, id);
+            var jsonText = textDataStore.Select(tag, id);
 
             return jsonText == null ? null :
                 JsonConvert.DeserializeObject<T>(jsonText);
@@ -37,12 +39,12 @@ namespace Embark
         public bool Update(long id, object objectToUpdate)
         {
             string jsonText = JsonConvert.SerializeObject(objectToUpdate, Formatting.Indented);
-            return channel.Update(tag, id, jsonText);
+            return textDataStore.Update(tag, id, jsonText);
         }
 
         public bool Delete(long id)
         {
-            return channel.Delete(tag, id);
+            return textDataStore.Delete(tag, id);
         }
 
         public IEnumerable<T> SelectLike<T>(Object searchObject)
@@ -50,7 +52,7 @@ namespace Embark
         {
             string jsonTextObject = JsonConvert.SerializeObject(searchObject, Formatting.Indented);
 
-            var jsonTextEnumerable = channel.SelectLike(tag, jsonTextObject);
+            var jsonTextEnumerable = textDataStore.SelectLike(tag, jsonTextObject);
             foreach (var jsonText in jsonTextEnumerable)
             {
                 yield return JsonConvert.DeserializeObject<T>(jsonText);

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark.Cache
+namespace Embark.Storage
 {
     internal class CollectionPaths
     {
@@ -21,7 +21,7 @@ namespace Embark.Cache
         private string collectionDirectory;
         private static ConcurrentDictionary<string, string> tagPathLookup = new ConcurrentDictionary<string, string>();
 
-        public string GetTagDir(string tag)
+        public string GetCollectionDirectory(string tag)
         {
             return tagPathLookup.GetOrAdd(tag, newSeenTag =>
                 {
@@ -32,9 +32,9 @@ namespace Embark.Cache
                 });
         }
 
-        public string GetJsonPath(string tag, long key)
+        public string GetDocumentPath(string tag, long key)
         {
-            var tagDir = GetTagDir(tag);
+            var tagDir = GetCollectionDirectory(tag);
             var savePath = tagDir + key.ToString() + ".txt";
             return savePath;
         }

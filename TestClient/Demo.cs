@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,26 @@ namespace TestClient
     /// </summary>
     class Demo
     {
-        void SimpleDemo()
+        public static void Main()
+        {
+            var defaultDir = Directory.GetCurrentDirectory() + "\\Collections\\";
+
+            if (Directory.Exists(defaultDir))
+                Directory.Delete(defaultDir, recursive: true);
+
+            var db = Embark.Client.GetLocalDB().Generic;
+                       
+            object box = 235;
+
+            long id = db.Insert(box);
+
+            var n = db.Select<object>(id);
+
+            var search = db.SelectLike<object>("235").ToList();
+
+        }
+
+        static void SimpleDemo()
         {
             // arrange some guinea pig
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
@@ -41,7 +61,7 @@ namespace TestClient
             bool hasSheepVanished = io.Delete(id);
         }
 
-        void SearchDemo()
+        static void SearchDemo()
         {
             // arrange some guinea pig
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };

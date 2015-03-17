@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Embark.Cache
+namespace Embark.Storage
 {
     internal sealed class KeyProvider
     {
