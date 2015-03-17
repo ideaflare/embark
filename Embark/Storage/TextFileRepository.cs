@@ -120,6 +120,21 @@ namespace Embark.Storage
         int ITextDataStore.DeleteLike(string tag, string searchObject)
         {
             throw new NotImplementedException();
+
+            //lock (syncRoot)
+            //{
+            //    var tagDir = tagPaths.GetCollectionDirectory(tag);
+
+            //    var allFiles = Directory
+            //        .EnumerateFiles(tagDir)
+            //        .Select(f => File.ReadAllText(f))
+            //        .ToList();
+
+            //    var matches =  textComparer.GetLikeMatches(searchObject, allFiles);
+
+            //    var similarFiles = allFiles.Where(f => matches.Any(m => m.Equals(f)));
+            //}
+
         }
 
         IEnumerable<string> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)

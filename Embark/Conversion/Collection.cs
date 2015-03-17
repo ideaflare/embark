@@ -66,7 +66,9 @@ namespace Embark.Conversion
 
         public int DeleteLike(object searchObject)
         {
-            throw new NotImplementedException();
+            string deleteSearch = textConverter.ToText(searchObject);
+
+            return textDataStore.DeleteLike(tag, deleteSearch);
         }
 
         public IEnumerable<T> SelectBetween<T>(object startRange, object endRange) where T : class

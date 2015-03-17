@@ -1,10 +1,13 @@
 ﻿using Embark;
+using Embark.Conversion;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestClient.TestData;
 
 namespace TestClient
 {
@@ -31,6 +34,29 @@ namespace TestClient
         {
             var na = Client.GetLocalDB()[null];
         }
+
+
+
+        [TestMethod]
+        public void SaveBlob_Works()
+        {
+            // arrange
+            byte[] savedData = new byte[1024];
+            (new Random()).NextBytes(savedData);
+
+            var saved = new { blob = savedData };
+
+            long id = Cache.localCache.Generic.Insert(saved);
+
+            // act
+            var loaded = Cache.localCache.Generic.Select<Dictionary<string,object>>(id);
+            var blob = loaded["blob"];
+            byte[] loadedData = DeserializedHelper.GetByteArray(blob);
+
+            // assert
+            Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedData));
+        }
+                
 
         //[TestMethod]
         public void UpdateNonExisting_ReturnsFalse()
