@@ -42,7 +42,7 @@ namespace Embark.Conversion
                 .Select(c => TextFormatter.JsonPrettyPrint(c.text));
         }
 
-        public bool IsMatch(object a, object b)
+        private bool IsMatch(object a, object b)
         {
             var dA = a as Dictionary<string, object>;
 
@@ -71,6 +71,55 @@ namespace Embark.Conversion
         
         IEnumerable<string> ITextConverter.GetBetweenMatches(string startRange, string endRange, IEnumerable<string> compareValues)
         {
+            var startLookup = serializer.Deserialize<Dictionary<string, object>>(startRange);
+            var endLookup = serializer.Deserialize<Dictionary<string, object>>(endRange);
+
+            return compareValues
+               .Select(txt => new
+               {
+                   text = txt,
+                   graph = serializer.Deserialize<Dictionary<string, object>>(txt)
+               })
+               .Where(comparison => IsBetweenMatch(startLookup, endLookup, comparison.graph))
+               .Select(c => TextFormatter.JsonPrettyPrint(c.text));
+
+            throw new NotImplementedException();
+        }
+
+        private bool IsBetweenMatch(object startLookup, object endLookup, object compareValue)
+        {
+            var sL = startLookup as Dictionary<string, object>;
+            if (sL != null)
+            {
+                var eL = endLookup as Dictionary<string, object>;
+                if (eL != null)
+                {
+                    var cL = compareValue as Dictionary<string, object>;
+                    if (cL != null)
+                    {
+                        foreach (var sValue in sL)
+                        {
+                            object eValue;
+                            if (eL.TryGetValue(sValue.Key, out eValue))
+                            {
+                                object cValue;
+                                if (cL.TryGetValue(sValue.Key, out cValue))
+                                {
+                                    if (!IsBetweenMatch(sValue.Value, eValue, cValue))
+                                        return false;
+                                }
+                            }
+                            else return false;
+                        }
+                    }
+                    return true;
+                }
+                else return false;
+            }
+            else
+            {
+                // compare types, cast to numeric or string
+            }
             throw new NotImplementedException();
         }
     }

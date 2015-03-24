@@ -12,14 +12,22 @@ namespace EmbarkWebHost
     {
         static void Main(string[] args)
         {
-            Uri url = new Uri("http://localhost:8000/ola/");
-            using(var wh = new WebServiceHost(typeof(Test),url))
-            {
-                wh.Open();
-                Console.WriteLine("Service running, press any key to exit...");
-                Console.ReadLine();
-                wh.Close();
-            }
+            var server = new Embark.Server();
+            server.Start();
+
+            Console.WriteLine("Service running, press any key to exit...");
+            Console.ReadLine();
+
+            server.Stop();
+
+            //Uri url = new Uri("http://localhost:8000/ola/");
+            //using(var wh = new WebServiceHost(typeof(Test),url))
+            //{
+            //    wh.Open();
+            //    Console.WriteLine("Service running, press any key to exit...");
+            //    Console.ReadLine();
+            //    wh.Close();
+            //}
         }
     }
 

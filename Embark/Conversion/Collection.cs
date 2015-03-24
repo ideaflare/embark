@@ -29,7 +29,7 @@ namespace Embark.Conversion
 
         public T Select<T>(long id) where T : class
         {
-            var text = textDataStore.Select(tag, id);
+            var text = textDataStore.Select(tag, id.ToString());
 
             return text == null ? null :
                 textConverter.ToObject<T>(text);
@@ -38,12 +38,12 @@ namespace Embark.Conversion
         public bool Update(long id, object objectToUpdate)
         {
             string text = textConverter.ToText(objectToUpdate);
-            return textDataStore.Update(tag, id, text);
+            return textDataStore.Update(tag, id.ToString(), text);
         }
 
         public bool Delete(long id)
         {
-            return textDataStore.Delete(tag, id);
+            return textDataStore.Delete(tag, id.ToString());
         }
 
         public IEnumerable<T> SelectLike<T>(object searchObject)
@@ -59,29 +59,7 @@ namespace Embark.Conversion
             }
         }
 
-        public int UpdateLike(object startRange, object endRange)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int DeleteLike(object searchObject)
-        {
-            string deleteSearch = textConverter.ToText(searchObject);
-
-            return textDataStore.DeleteLike(tag, deleteSearch);
-        }
-
         public IEnumerable<T> SelectBetween<T>(object startRange, object endRange) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public int UpdateBetween(object startRange, object endRange, object newValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int DeleteBetween(object startRange, object endRange)
         {
             throw new NotImplementedException();
         }

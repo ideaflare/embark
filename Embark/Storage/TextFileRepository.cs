@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Embark.Interfaces;
 using Embark.Conversion;
+using System.ServiceModel;
 
 namespace Embark.Storage
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class TextFileRepository : ITextDataStore
     {
         public TextFileRepository(string directory, ITextConverter textComparer)
@@ -38,7 +40,7 @@ namespace Embark.Storage
             var key = keyProvider.GetNewKey();
                 
             // TODO 3 offload to queue that gets processed by task
-            var savePath = tagPaths.GetDocumentPath(tag, key);
+            var savePath = tagPaths.GetDocumentPath(tag, key.ToString());
 
             // TODO 1 NB get a document only lock, instead of all repositories lock
             lock (syncRoot)
@@ -51,7 +53,7 @@ namespace Embark.Storage
             }
         }
         
-        string ITextDataStore.Select(string tag, long id)
+        string ITextDataStore.Select(string tag, string id)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 
@@ -67,7 +69,7 @@ namespace Embark.Storage
             return jsonText;
         }
 
-        bool ITextDataStore.Update(string tag, long id, string objectToUpdate)
+        bool ITextDataStore.Update(string tag, string id, string objectToUpdate)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
             
@@ -83,7 +85,7 @@ namespace Embark.Storage
             }
         }
 
-        bool ITextDataStore.Delete(string tag, long id)
+        bool ITextDataStore.Delete(string tag, string id)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 
@@ -110,46 +112,20 @@ namespace Embark.Storage
 
                 return textComparer.GetLikeMatches(searchObject, allFiles);
             }
-        }               
-        
-        int ITextDataStore.UpdateLike(string tag, string searchObject, string newValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        int ITextDataStore.DeleteLike(string tag, string searchObject)
-        {
-            throw new NotImplementedException();
-
-            //lock (syncRoot)
-            //{
-            //    var tagDir = tagPaths.GetCollectionDirectory(tag);
-
-            //    var allFiles = Directory
-            //        .EnumerateFiles(tagDir)
-            //        .Select(f => File.ReadAllText(f))
-            //        .ToList();
-
-            //    var matches =  textComparer.GetLikeMatches(searchObject, allFiles);
-
-            //    var similarFiles = allFiles.Where(f => matches.Any(m => m.Equals(f)));
-            //}
-
         }
 
         IEnumerable<string> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
         {
-            throw new NotImplementedException();
-        }
+            lock (syncRoot)
+            {
+                var tagDir = tagPaths.GetCollectionDirectory(tag);
 
-        int ITextDataStore.UpdateBetween(string tag, string startRange, string endRange, string newValue)
-        {
-            throw new NotImplementedException();
-        }
+                var allFiles = Directory
+                    .EnumerateFiles(tagDir)
+                    .Select(f => File.ReadAllText(f));
 
-        int ITextDataStore.DeleteBetween(string tag, string startRange, string endRange)
-        {
-            throw new NotImplementedException();
+                return textComparer.GetBetweenMatches(startRange, endRange, allFiles);
+            }
         }
     }
 }

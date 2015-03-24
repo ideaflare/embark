@@ -47,7 +47,9 @@
     <Compile Include="Conversion\JavascriptSerializerConverter.cs" />
     <Content Include="Conversion\JsonNetConverter.cs.txt" />
     <Compile Include="Interfaces\ITextConverter.cs" />
+    <Compile Include="Server.cs" />
     <Compile Include="Storage\CollectionPaths.cs" />
+    <Compile Include="Conversion\DocumentWrapper.cs" />
     <Compile Include="Storage\KeyProvider.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Storage\TextFileRepository.cs" />

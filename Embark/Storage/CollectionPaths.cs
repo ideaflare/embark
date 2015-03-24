@@ -32,10 +32,10 @@ namespace Embark.Storage
                 });
         }
 
-        public string GetDocumentPath(string tag, long key)
+        public string GetDocumentPath(string tag, string key)
         {
             var tagDir = GetCollectionDirectory(tag);
-            var savePath = tagDir + key.ToString() + ".txt";
+            var savePath = tagDir + key + ".txt";
             return savePath;
         }
     }

@@ -44,7 +44,7 @@ namespace TestClient
             var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: Directory.GetCurrentDirectory() */
 
             // or over a network (via REST API)
-            //var io = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
+            //var db = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
 
             // collections created on-the-fly if needed
             var io = db["sheep"];
@@ -90,9 +90,9 @@ namespace TestClient
             // delete
             bool hasSheepVanished = io.Delete(id);
 
-            io.UpdateBetween(new { FurDensity = 0.7, Name = "A" },
-                new { FurDensity = 0.6, Name = "B" },
-                new { Name = "Mass" });
+            //io.UpdateBetween(new { FurDensity = 0.7, Name = "A" },
+            //    new { FurDensity = 0.6, Name = "B" },
+            //    new { Name = "Mass" });
         }
     }
 }
