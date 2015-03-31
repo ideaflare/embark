@@ -2,7 +2,6 @@
 using Embark.Interfaces;
 using Embark.Storage;
 using System;
-using System.IO;
 using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 
@@ -27,29 +26,28 @@ namespace Embark
         /// <summary>
         /// New client connection to a server
         /// </summary>
-        /// <param name="ip">IP Address of server</param>
+        /// <param name="address">IP Address of server</param>
         /// <param name="port">Port data is sent/received</param>
         /// <returns>Client with db commands</returns>
-        public static Client GetNetworkDB(string ip, int port)
+        public static Client GetNetworkDB(string address = null, int port = 8080)
         {
-            return new Client(ip, port);
+            return new Client(address, port);
         }
 
-        private Client(string directory = null)
+        private Client(string directory)
         {
             if (directory == null)
-                directory = Directory.GetCurrentDirectory();            
+                directory = @"C:\MyTemp\Embark\Local\";          
             
             this.dataStore = knownConnections.GetOrAdd(directory, (dir) => new TextFileRepository(dir, textConverter));
         }
 
-        private Client(string ip, int port)
+        private Client(string address, int port)
         {
-            // Test connection
+            // TODO Test connection
 
-            // Return network client
-
-            throw new NotImplementedException();
+            Uri uri = new Uri("http://" + address + ":" + port + "/embark/");
+            this.dataStore = new WebServiceRepository(uri);
         }
 
         private static ConcurrentDictionary<string, ITextDataStore> knownConnections = new ConcurrentDictionary<string, ITextDataStore>();

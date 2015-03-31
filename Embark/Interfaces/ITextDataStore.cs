@@ -25,8 +25,10 @@ namespace Embark.Interfaces
         /// <returns>An Int64 ID unique to the collection the object is saved in</returns>
         [OperationContract,
         WebInvoke(Method = "POST",
-            UriTemplate = "{tag}/{objectToInsert}",
-            ResponseFormat = WebMessageFormat.Json)]
+            UriTemplate = "{tag}",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json
+            )]
         long Insert(string tag, string objectToInsert);
 
         [OperationContract,

@@ -41,7 +41,7 @@ namespace TestClient
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
 
             // save data locally
-            var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: Directory.GetCurrentDirectory() */
+            var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: C:\MyTemp\Embark\Local\ */
 
             // or over a network (via REST API)
             //var db = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
