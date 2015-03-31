@@ -15,8 +15,8 @@ var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
 // save data locally
 var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: Directory.GetCurrentDirectory() */
 
-// or over a network (via REST API)
-var io = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
+// or over a network via REST API to WCF server *see usage section below*
+var io = Embark.Client.GetNetworkDB("127.0.0.1", 8080);
 
 // collections created on-the-fly if needed
 var io = db["sheep"];
@@ -44,11 +44,7 @@ bool hasSheepVanished = io.Delete(id);
 
 ####range:
 - GetLike(new { Name = "Rocket"})
-- UpdateLike(new document, ..) 
-- DeleteLike(..)
 - GetBetween(new { Score = 15}, new { Score = 39.21})
-- UpdateBetween(..)
-- DeleteBetween(..)
 
 ####other:
 - byte[] GetByteArray(object blob) to help with blob deserialization
@@ -60,8 +56,9 @@ Extra features like database replication, backup, user rights, etc.. will be don
 
 ##Usage
 
-You can add the embark client [Nuget package](http://example.todo/), then copy paste the sample code and then simply continue developing right away.
+You can add the embark client [Nuget package](http://example.todo/), copy paste the sample code and then simply continue developing right away.
 
-If you want to save data over a network then download and run the server from [here](http://example.todo/). If you prefer to know the running code, feel free to download and compile - it will only take a minute.
+If you want to save data over a network then download and run the server from [here](http://example.todo/). If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
+NOTE either run the server in admin mode or [allow your server app to use the your-machine:port/embark/ uri ](http://stackoverflow.com/a/17242260/4650900)
 
 To check out current developments go to [embarkdb on trello](https://trello.com/embarkdb)
