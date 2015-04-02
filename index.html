@@ -19,8 +19,7 @@
     </section>
 
     <section class="main-content">
-      <p>Easy to use document database with only a few commands,
-so that you don't have to learn a whole new framework to get going and defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.</p>
+      <p>Easy to use document database with only a few commands, so that you don't have to learn a whole new framework to get going. Embark allows you to defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.</p>
 
 <h2>
 <a id="visibility" class="anchor" href="#visibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visibility</h2>
@@ -62,18 +61,17 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <a id="basic" class="anchor" href="#basic" aria-hidden="true"><span class="octicon octicon-link"></span></a>basic:</h4>
 
 <ul>
-<li>Insert(object)</li>
-<li>Update(id, object)</li>
-<li>Get(id)</li>
-<li>Delete(id)</li>
+<li>Insert(object) returns Int64 ID</li>
+<li>Update(id, object) returns bool successful</li>
+<li>Select(id) returns document</li>
+<li>Delete(id) returns bool successful</li>
 </ul>
 
 <h4>
 <a id="range" class="anchor" href="#range" aria-hidden="true"><span class="octicon octicon-link"></span></a>range:</h4>
 
 <ul>
-<li>GetLike(new { Name = "Rocket"})</li>
-<li>GetBetween(new { Score = 15}, new { Score = 39.21})</li>
+<li>SelectLike(new { Name = "Rocket"})</li>
 </ul>
 
 <h4>
@@ -83,21 +81,33 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <li>byte[] GetByteArray(object blob) to help with blob deserialization</li>
 </ul>
 
+<h4>
+<a id="in-development" class="anchor" href="#in-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+<a href="https://trello.com/b/rtqlPmrM/development">in development</a>:</h4>
+
+<ul>
+<li>SelectBetween(new { Score = 15}, new { Score = 39.21})</li>
+<li>SelectAll()</li>
+<li>CountAll()</li>
+<li>GetCollection&lt; T &gt;("name")</li>
+<li>Document Wrapper with ID &amp; timestamp</li>
+</ul>
+
 <p><strong>That's it!</strong></p>
 
 <p>The intent of embark is to stay clean, simple and minimal.. with a complete source code download of under 50 kilobytes, and no external dependencies other than the .NET framework.</p>
 
-<p>Extra features like database replication, backup, user rights, security, etc.. will be done in another project (<a href="https://trello.com/splashdb">splash</a>, coming soon!) so that the core embark itself will remain crisp and friendly :)</p>
+<p>Extra features like database replication, backup, user rights, security, etc.. and to be a general end-all solution, is not the aim of this project. By dodging increasing complexity from scope-creep, the core embark itself will remain crisp and friendly :)</p>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>You can add the embark client <a href="http://example.todo/">Nuget package</a>, copy paste the sample code and then simply continue developing right away.</p>
+<p>You can add the <a href="https://www.nuget.org/packages/Embark/">Embark NuGet package</a>, copy paste the sample code and then simply continue developing right away.</p>
 
 <p>If you want to save data over a network then download and run the server from <a href="http://example.todo/">here</a>. If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
 NOTE either run the server in admin mode or <a href="http://stackoverflow.com/a/17242260/4650900">allow your server app to use the your-machine:port/embark/ uri </a></p>
 
-<p>To check out current developments go to <a href="https://trello.com/embarkdb">embarkdb on trello</a></p>
+<p>To check out current developments go to <a href="https://trello.com/b/rtqlPmrM/development">embarkdb on trello</a></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/ubrgw/embark">Embark</a> is maintained by <a href="https://github.com/ubrgw">ubrgw</a>.</span>
