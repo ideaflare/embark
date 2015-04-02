@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Embark by ubrgw</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Embark</h1>
+      <h2 class="project-tagline">Easy to use document database for agile projects with a code-first focus.</h2>
+      <a href="https://github.com/ubrgw/embark" class="btn">View on GitHub</a>
+      <a href="https://github.com/ubrgw/embark/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/ubrgw/embark/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p>Easy to use document database with only a few commands,
+so that you don't have to learn a whole new framework to get going and defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.</p>
+
+<h2>
+<a id="visibility" class="anchor" href="#visibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visibility</h2>
+
+<p>Documents are saved in .txt files in folders for each collection so you can easily view/edit data while developing. The default serialization is Json, but you can also plug in some other format like YAML or DSON if you like.</p>
+
+<h2>
+<a id="simplicity" class="anchor" href="#simplicity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simplicity</h2>
+
+<div class="highlight highlight-csharp"><pre><span class="pl-c">// arrange some guinea pig</span>
+<span class="pl-k">var</span> pet = <span class="pl-k">new</span> Sheep { Name = <span class="pl-s"><span class="pl-pds">"</span>Fluffy<span class="pl-pds">"</span></span>, FavouriteIceCream = IceCream.Vanilla };
+
+<span class="pl-c">// save data locally</span>
+<span class="pl-k">var</span> db = Embark.Client.GetLocalDB(<span class="pl-s"><span class="pl-pds">@"C:\AnimalsDB\"</span></span>); <span class="pl-c">/* Client.GetLocalDB() defaults to: Directory.GetCurrentDirectory() */</span>
+
+<span class="pl-c">// or over a network via REST API to WCF server *see usage section below*</span>
+<span class="pl-k">var</span> io = Embark.Client.GetNetworkDB(<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-c1">8080</span>);
+
+<span class="pl-c">// collections created on-the-fly if needed</span>
+<span class="pl-k">var</span> io = db[<span class="pl-s"><span class="pl-pds">"</span>sheep<span class="pl-pds">"</span></span>];
+
+<span class="pl-c">// insert</span>
+<span class="pl-k">long</span> id = io.Insert(pet);
+
+<span class="pl-c">// get</span>
+Sheep fluffy = io.Select&lt;Sheep&gt;(id);
+
+<span class="pl-c">// update</span>
+fluffy.FavouriteIceCream = IceCream.Strawberry;
+<span class="pl-k">bool</span> fluffyNowLikesStrawberry = io.Update(id, fluffy);
+
+<span class="pl-c">// delete</span>
+<span class="pl-k">bool</span> hasSheepVanished = io.Delete(id);</pre></div>
+
+<h3>
+<a id="all-the-commands-are" class="anchor" href="#all-the-commands-are" aria-hidden="true"><span class="octicon octicon-link"></span></a>All the commands are</h3>
+
+<h4>
+<a id="basic" class="anchor" href="#basic" aria-hidden="true"><span class="octicon octicon-link"></span></a>basic:</h4>
+
+<ul>
+<li>Insert(object)</li>
+<li>Update(id, object)</li>
+<li>Get(id)</li>
+<li>Delete(id)</li>
+</ul>
+
+<h4>
+<a id="range" class="anchor" href="#range" aria-hidden="true"><span class="octicon octicon-link"></span></a>range:</h4>
+
+<ul>
+<li>GetLike(new { Name = "Rocket"})</li>
+<li>GetBetween(new { Score = 15}, new { Score = 39.21})</li>
+</ul>
+
+<h4>
+<a id="other" class="anchor" href="#other" aria-hidden="true"><span class="octicon octicon-link"></span></a>other:</h4>
+
+<ul>
+<li>byte[] GetByteArray(object blob) to help with blob deserialization</li>
+</ul>
+
+<p><strong>That's it!</strong></p>
+
+<p>The intent of embark is to stay clean, simple and minimal.. with a complete source code download of under 50 kilobytes, and no external dependencies other than the .NET framework.</p>
+
+<p>Extra features like database replication, backup, user rights, security, etc.. will be done in another project (<a href="https://trello.com/splashdb">splash</a>, coming soon!) so that the core embark itself will remain crisp and friendly :)</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>You can add the embark client <a href="http://example.todo/">Nuget package</a>, copy paste the sample code and then simply continue developing right away.</p>
+
+<p>If you want to save data over a network then download and run the server from <a href="http://example.todo/">here</a>. If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
+NOTE either run the server in admin mode or <a href="http://stackoverflow.com/a/17242260/4650900">allow your server app to use the your-machine:port/embark/ uri </a></p>
+
+<p>To check out current developments go to <a href="https://trello.com/embarkdb">embarkdb on trello</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/ubrgw/embark">Embark</a> is maintained by <a href="https://github.com/ubrgw">ubrgw</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
