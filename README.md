@@ -1,5 +1,5 @@
 # embark
-Easy to use document database with only a few commands, so that you don't have to learn a whole new framework to get going and defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.
+Easy to use document database with only a few commands, so that you don't have to learn a whole new framework to get going. Embark allows you to defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.
 
 ##Visibility
 
@@ -47,7 +47,7 @@ bool hasSheepVanished = io.Delete(id);
 ####other:
 - byte[] GetByteArray(object blob) to help with blob deserialization
 
-####in development:
+####[in development](https://trello.com/b/rtqlPmrM/development):
 - SelectBetween(new { Score = 15}, new { Score = 39.21})
 - SelectAll()
 - CountAll()
@@ -58,7 +58,7 @@ bool hasSheepVanished = io.Delete(id);
 
 The intent of embark is to stay clean, simple and minimal.. with a complete source code download of under 50 kilobytes, and no external dependencies other than the .NET framework.
 
-To prevent complexity from scope-creep, more advanced database features like replication, backup, user rights, security, etc.. and to be a general end-all solution, is not the aim of this project. The core embark itself will remain crisp and friendly :)
+Extra features like database replication, backup, user rights, security, etc.. and to be a general end-all solution, is not the aim of this project. By dodging increasing complexity from scope-creep, the core embark itself will remain crisp and friendly :)
 
 ##Usage
 
@@ -67,4 +67,4 @@ You can add the [Embark NuGet package](https://www.nuget.org/packages/Embark/), 
 If you want to save data over a network then download and run the server from [here](http://example.todo/). If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
 NOTE either run the server in admin mode or [allow your server app to use the your-machine:port/embark/ uri ](http://stackoverflow.com/a/17242260/4650900)
 
-To check out current developments go to [embarkdb on trello](https://trello.com/embarkdb)
+To check out current developments go to [embarkdb on trello](https://trello.com/b/rtqlPmrM/development)
