@@ -37,17 +37,23 @@ bool hasSheepVanished = io.Delete(id);
 ###All the commands are
 
 ####basic:
-- Insert(object)
-- Update(id, object)
-- Get(id)
-- Delete(id)
+- Insert(object) returns Int64 ID
+- Update(id, object) returns bool successful
+- Select(id) returns document
+- Delete(id) returns bool successful
 
 ####range:
-- GetLike(new { Name = "Rocket"})
-- GetBetween(new { Score = 15}, new { Score = 39.21})
+- SelectLike(new { Name = "Rocket"})
 
 ####other:
 - byte[] GetByteArray(object blob) to help with blob deserialization
+
+####in development:
+- SelectBetween(new { Score = 15}, new { Score = 39.21})
+- SelectAll()
+- CountAll()
+- GetCollection< T >("name")
+- Document Wrapper with ID & timestamp
 
 **That's it!**
 
