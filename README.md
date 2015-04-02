@@ -62,7 +62,7 @@ Extra features like database replication, backup, user rights, etc.. will be don
 
 ##Usage
 
-You can add the embark client [Nuget package](http://example.todo/), copy paste the sample code and then simply continue developing right away.
+You can add the [Embark NuGet package](https://www.nuget.org/packages/Embark/), copy paste the sample code and then simply continue developing right away.
 
 If you want to save data over a network then download and run the server from [here](http://example.todo/). If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
 NOTE either run the server in admin mode or [allow your server app to use the your-machine:port/embark/ uri ](http://stackoverflow.com/a/17242260/4650900)
