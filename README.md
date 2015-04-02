@@ -1,6 +1,5 @@
 # embark
-Easy to use document database with only a few commands,
-so that you don't have to learn a whole new framework to get going.. ideal for projects with an agile code-first approach, or if you just want something for now while prototyping.
+Easy to use document database with only a few commands, so that you don't have to learn a whole new framework to get going and defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.
 
 ##Visibility
 
@@ -57,8 +56,9 @@ bool hasSheepVanished = io.Delete(id);
 
 **That's it!**
 
-The intent of embark is to stay clean, simple and minimal..
-Extra features like database replication, backup, user rights, etc.. will be done in another project ([splash](https://trello.com/splashdb), coming soon!) so that the core embark itself will remain crisp and friendly :)
+The intent of embark is to stay clean, simple and minimal.. with a complete source code download of under 50 kilobytes, and no external dependencies other than the .NET framework.
+
+To prevent complexity from scope-creep, more advanced database features like replication, backup, user rights, security, etc.. and to be a general end-all solution, is not the aim of this project. The core embark itself will remain crisp and friendly :)
 
 ##Usage
 
