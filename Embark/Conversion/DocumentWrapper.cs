@@ -13,14 +13,15 @@ namespace Embark.Convension
     {
         public long ID { get; internal set; }
 
-        private object obj;
-        public object Value
-        {
-            get { return (T)obj; }
-            internal set { obj = value; }
-        }
+        public T Value { get; set; }
 
         public DateTime Timestamp { get { return new DateTime(ID); } }
+
+        //public void Update() { }
+        //private Embark.Conversion.Collection
+
+        // ?
+        //public T Unwrap() { return Value; }
     }
 
 }
