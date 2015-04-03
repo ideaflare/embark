@@ -26,7 +26,7 @@ namespace Embark
             if (textConverter == null)
                 textConverter = new JavascriptSerializerConverter();
 
-            TextFileRepository textRepository = new TextFileRepository(directory, textConverter);
+            var textRepository = new TextFileRepository(directory, textConverter);
 
             Uri url = new Uri("http://localhost:" + port + "/embark/");
             webHost = new WebServiceHost(textRepository, url);

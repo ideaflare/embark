@@ -22,7 +22,7 @@ namespace TestClient.IO.TestData
             };
         }
 
-        internal List<Sheep> GetTestHerd(int count = 10)
+        internal static List<Sheep> GetTestHerd(int count = 10)
         {
             return Enumerable.Range(0, count)
                 .Select(i => GetTestSheep())

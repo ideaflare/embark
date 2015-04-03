@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EmbarkWebHost
 {
-    class Program
+    class ConsoleWebServer
     {
         static void Main(string[] args)
         {

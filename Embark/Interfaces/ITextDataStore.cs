@@ -48,6 +48,13 @@ namespace Embark.Interfaces
             ResponseFormat = WebMessageFormat.Json)]
         string Select(string tag, string id);
 
+        // TODO 5 OPT Instead of returning IEnumerable object, return Iterator with ID list that calls select(id) internally.
+
+        [OperationContract,
+        WebGet(UriTemplate = "{tag}/All/",
+            ResponseFormat = WebMessageFormat.Json)]
+        IEnumerable<string> SelectAll(string tag);
+
         // Like
         [OperationContract,
         WebGet(UriTemplate = "{tag}/Like/{searchObject}",

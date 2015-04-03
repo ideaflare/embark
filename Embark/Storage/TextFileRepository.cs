@@ -53,22 +53,6 @@ namespace Embark.Storage
             }
         }
         
-        string ITextDataStore.Select(string tag, string id)
-        {
-            var savePath = tagPaths.GetDocumentPath(tag, id);
-
-            string jsonText;
-            // TODO lock row only
-            lock (syncRoot)
-            {
-                if (!File.Exists(savePath))
-                    return null;
-
-                jsonText = File.ReadAllText(savePath);
-            }
-            return jsonText;
-        }
-
         bool ITextDataStore.Update(string tag, string id, string objectToUpdate)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
@@ -97,6 +81,36 @@ namespace Embark.Storage
                     return true;
                 }
                 else return false;
+            }
+        }
+
+        string ITextDataStore.Select(string tag, string id)
+        {
+            var savePath = tagPaths.GetDocumentPath(tag, id);
+
+            string jsonText;
+            // TODO lock row only
+            lock (syncRoot)
+            {
+                if (!File.Exists(savePath))
+                    return null;
+
+                jsonText = File.ReadAllText(savePath);
+            }
+            return jsonText;
+        }
+
+        IEnumerable<string> ITextDataStore.SelectAll(string tag)
+        {
+            lock(syncRoot)
+            {
+                var tagDir = tagPaths.GetCollectionDirectory(tag);
+
+                var allFiles = Directory
+                    .EnumerateFiles(tagDir)
+                    .Select(f => File.ReadAllText(f));
+
+                return allFiles;
             }
         }
 

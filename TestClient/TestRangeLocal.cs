@@ -10,7 +10,35 @@ namespace TestClient
 {
     [TestClass]
     public class TestRangeLocal
-    {        
+    {
+
+        [TestMethod]
+        public void SelectAll_ReturnsAllItems()
+        {
+            //Arrange
+            var allTestCollection = Cache.localCache["SelectAll"];
+            var testHerd = Animals.GetTestHerd(5);
+
+            foreach (var sheep in testHerd)
+            {
+                allTestCollection.Insert(sheep);
+            }
+
+            //Act
+            var querySheep = allTestCollection.SelectAll<Sheep>().ToArray();
+
+            //Assert
+            Assert.AreEqual(testHerd.Count, querySheep.Count());
+
+            // Assumption that insert order = fetch order. If this changes, change the unit test and allow unordered insert & query.
+            for (int i = 0; i < testHerd.Count; i++)
+            {
+                Assert.AreEqual(testHerd[i].Name, querySheep[i].Name);
+                Assert.AreEqual(testHerd[i].Age, querySheep[i].Age);
+                Assert.AreEqual(testHerd[i].FavouriteIceCream, querySheep[i].FavouriteIceCream);
+            }
+        }
+
         [TestMethod]
         public void GetSelectLike()
         {

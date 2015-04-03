@@ -52,6 +52,11 @@ namespace Embark.Storage
             return CallRemoteDatastore<string>((store) => store.Select(tag, id));
         }
 
+        IEnumerable<string> ITextDataStore.SelectAll(string tag)
+        {
+            return CallRemoteDatastore<IEnumerable<string>>((store) => store.SelectAll(tag));
+        }
+
         IEnumerable<string> ITextDataStore.SelectLike(string tag, string searchObject)
         {
             return CallRemoteDatastore<IEnumerable<string>>((store) => store.SelectLike(tag, searchObject));
@@ -96,5 +101,8 @@ namespace Embark.Storage
 
         //    return client;
         //}
+
+
+        
     }
 }

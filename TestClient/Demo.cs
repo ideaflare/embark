@@ -16,7 +16,9 @@ namespace TestClient
     {
         public static void Main()
         {
-            var defaultDir = Directory.GetCurrentDirectory() + "\\Collections\\";
+            //var defaultDir = Directory.GetCurrentDirectory() + "\\Collections\\";
+            //var defaultDir = @"C:\MyTemp\Embark\Local\Collections\";
+            var defaultDir = @"C:\AnimalsDB\Collections\";
 
             if (Directory.Exists(defaultDir))
                 Directory.Delete(defaultDir, recursive: true);

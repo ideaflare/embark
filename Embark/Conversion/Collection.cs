@@ -27,14 +27,6 @@ namespace Embark.Conversion
             return textDataStore.Insert(tag, text);
         }
 
-        public T Select<T>(long id) where T : class
-        {
-            var text = textDataStore.Select(tag, id.ToString());
-
-            return text == null ? null :
-                textConverter.ToObject<T>(text);
-        }
-
         public bool Update(long id, object objectToUpdate)
         {
             string text = textConverter.ToText(objectToUpdate);
@@ -44,6 +36,20 @@ namespace Embark.Conversion
         public bool Delete(long id)
         {
             return textDataStore.Delete(tag, id.ToString());
+        }
+
+        public T Select<T>(long id) where T : class
+        {
+            var text = textDataStore.Select(tag, id.ToString());
+
+            return text == null ? null :
+                textConverter.ToObject<T>(text);
+        }
+
+        public IEnumerable<T> SelectAll<T>()
+        {
+            return textDataStore.SelectAll(tag)
+                .Select(item => textConverter.ToObject<T>(item));
         }
 
         public IEnumerable<T> SelectLike<T>(object searchObject)
@@ -63,5 +69,6 @@ namespace Embark.Conversion
         {
             throw new NotImplementedException();
         }
+
     }
 }
