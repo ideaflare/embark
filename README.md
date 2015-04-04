@@ -43,13 +43,12 @@ bool hasSheepVanished = io.Delete(id);
 
 ####range:
 - SelectLike(new { Name = "Rocket"})
-- SelectAll()
+- SelectAll() returns Document Wrapper with ID & timestamp
 
 ####other:
 - byte[] GetByteArray(object blob) to help with blob deserialization
 
 ####[in development](https://trello.com/b/rtqlPmrM/development):
-- Document Wrapper with ID & timestamp
 - SelectBetween(new { Score = 15}, new { Score = 39.21})
 - GetCollection< T >("name")
 - CountAll()
