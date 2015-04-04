@@ -8,7 +8,7 @@ using System.Web.Script.Serialization;
 
 namespace Embark.Conversion
 {
-    class JavascriptSerializerConverter : ITextConverter
+    internal class JavascriptSerializerConverter : ITextConverter
     {
         public JavascriptSerializerConverter()
         {

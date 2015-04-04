@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Embark.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -12,7 +13,7 @@ namespace Embark.Interfaces
     /// All commands to insert/get/update/delete documents
     /// </summary>
     [ServiceContract()]
-    public interface ITextDataStore
+    internal interface ITextDataStore
     {
         // Basic
 
@@ -53,7 +54,7 @@ namespace Embark.Interfaces
         [OperationContract,
         WebGet(UriTemplate = "{tag}/All/",
             ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<string> SelectAll(string tag);
+        IEnumerable<DataEnvelope> SelectAll(string tag);
 
         // Like
         [OperationContract,

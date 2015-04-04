@@ -5,6 +5,7 @@ using TestClient.IO;
 using System.Collections.Generic;
 using TestClient.IO.TestData;
 using TestClient.TestData;
+using Embark.Conversion;
 
 namespace TestClient
 {
@@ -19,23 +20,33 @@ namespace TestClient
             var allTestCollection = Cache.localCache["SelectAll"];
             var testHerd = Animals.GetTestHerd(5);
 
+            var wrappedHerd = new List<WrappedSheep>();
+
             foreach (var sheep in testHerd)
             {
-                allTestCollection.Insert(sheep);
+                var id = allTestCollection.Insert(sheep);
+                wrappedHerd.Add(new WrappedSheep { ID = id, Sheep = sheep });
             }
 
             //Act
-            var querySheep = allTestCollection.SelectAll<Sheep>().ToArray();
+            var querySheep = allTestCollection.SelectAll<Sheep>();
+
+            var unwrappedHerd = querySheep.Unwrap().ToArray();
 
             //Assert
             Assert.AreEqual(testHerd.Count, querySheep.Count());
 
+            foreach(var documentWrapper in querySheep)
+            {
+                var wrappedSheep = wrappedHerd.Where(ws => ws.ID == documentWrapper.ID).Single();
+
+                Assert.IsTrue(documentWrapper.Value.Equals( wrappedSheep.Sheep));
+            }
+
             // Assumption that insert order = fetch order. If this changes, change the unit test and allow unordered insert & query.
             for (int i = 0; i < testHerd.Count; i++)
             {
-                Assert.AreEqual(testHerd[i].Name, querySheep[i].Name);
-                Assert.AreEqual(testHerd[i].Age, querySheep[i].Age);
-                Assert.AreEqual(testHerd[i].FavouriteIceCream, querySheep[i].FavouriteIceCream);
+                Assert.IsTrue(testHerd[i].Equals(unwrappedHerd[i]));
             }
         }
 

@@ -9,16 +9,17 @@ namespace Embark.Conversion
 {
     public class Collection
     {
-        public Collection(string tag, ITextDataStore textDataStore, ITextConverter textConverter)
+        internal Collection(string tag, ITextDataStore textDataStore, ITextConverter textConverter)
         {
             this.tag = tag;
             this.textDataStore = textDataStore;
             this.textConverter = textConverter;
         }
 
+        public ITextConverter textConverter;
+
         string tag;
         ITextDataStore textDataStore;
-        ITextConverter textConverter;
 
         public long Insert<T>(T objectToInsert) where T : class
         {   
@@ -46,10 +47,11 @@ namespace Embark.Conversion
                 textConverter.ToObject<T>(text);
         }
 
-        public IEnumerable<T> SelectAll<T>()
+        public IEnumerable<DocumentWrapper<T>> SelectAll<T>()
         {
             return textDataStore.SelectAll(tag)
-                .Select(item => textConverter.ToObject<T>(item));
+                .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
+
         }
 
         public IEnumerable<T> SelectLike<T>(object searchObject)

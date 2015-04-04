@@ -12,11 +12,11 @@ using System.Web.Script.Serialization;
 
 namespace Embark.Storage
 {
-    public class WebServiceRepository : ITextDataStore
+    internal class WebServiceRepository : ITextDataStore
     {
-        public WebServiceRepository(Uri serviceUri)
+        public WebServiceRepository(string serviceAbsoluteUri)
         {
-            this.serviceAbsoluteUri = serviceUri.AbsoluteUri;
+            this.serviceAbsoluteUri = serviceAbsoluteUri;
         }
 
         private T CallRemoteDatastore<T>(Func<ITextDataStore,T> func)
@@ -52,9 +52,9 @@ namespace Embark.Storage
             return CallRemoteDatastore<string>((store) => store.Select(tag, id));
         }
 
-        IEnumerable<string> ITextDataStore.SelectAll(string tag)
+        IEnumerable<DataEnvelope> ITextDataStore.SelectAll(string tag)
         {
-            return CallRemoteDatastore<IEnumerable<string>>((store) => store.SelectAll(tag));
+            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.SelectAll(tag));
         }
 
         IEnumerable<string> ITextDataStore.SelectLike(string tag, string searchObject)

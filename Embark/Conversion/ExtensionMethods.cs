@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace Embark.Conversion
 {
-    public class DeserializedHelper
+    public static class ExtensionMethods
     {
-        public static byte[] GetByteArray(object blob)
+        /// <summary>
+        /// Deserialize a serialized byte[] 
+        /// </summary>
+        public static byte[] GetByteArray(this object blob)
         {
             var list = ((ArrayList)blob);
 
@@ -18,6 +21,11 @@ namespace Embark.Conversion
             return deserialized
                 .Select(i => Convert.ToByte(i))
                 .ToArray();
+        }
+
+        public static IEnumerable<T> Unwrap<T>(this IEnumerable<DocumentWrapper<T>> documents)
+        {
+            return documents.Select(doc => doc.Value);
         }
     }
 }

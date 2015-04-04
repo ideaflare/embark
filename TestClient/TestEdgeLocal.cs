@@ -44,12 +44,12 @@ namespace TestClient
 
             var saved = new { blob = savedData };
 
-            long id = Cache.localCache.Generic.Insert(saved);
+            long id = Cache.localCache.Basic.Insert(saved);
 
             // act
-            var loaded = Cache.localCache.Generic.Select<Dictionary<string,object>>(id);
+            var loaded = Cache.localCache.Basic.Select<Dictionary<string,object>>(id);
             var blob = loaded["blob"];
-            byte[] loadedData = DeserializedHelper.GetByteArray(blob);
+            byte[] loadedData = ExtensionMethods.GetByteArray(blob);
 
             // assert
             Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedData));

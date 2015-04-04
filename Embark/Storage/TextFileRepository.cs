@@ -11,7 +11,7 @@ using System.ServiceModel;
 namespace Embark.Storage
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class TextFileRepository : ITextDataStore
+    internal class TextFileRepository : ITextDataStore
     {
         public TextFileRepository(string directory, ITextConverter textComparer)
         {
@@ -100,17 +100,21 @@ namespace Embark.Storage
             return jsonText;
         }
 
-        IEnumerable<string> ITextDataStore.SelectAll(string tag)
+        IEnumerable<DataEnvelope> ITextDataStore.SelectAll(string tag)
         {
             lock(syncRoot)
             {
                 var tagDir = tagPaths.GetCollectionDirectory(tag);
 
-                var allFiles = Directory
+                var allData = Directory
                     .EnumerateFiles(tagDir)
-                    .Select(f => File.ReadAllText(f));
+                    .Select(f => new DataEnvelope
+                    {
+                        ID = long.Parse(Path.GetFileNameWithoutExtension(f)),
+                        Text = File.ReadAllText(f)
+                    });
 
-                return allFiles;
+                return allData;
             }
         }
 

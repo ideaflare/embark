@@ -17,7 +17,7 @@ namespace DemoWebClient
             var thisPc = System.Net.Dns.GetHostName();
             var db = Embark.Client.GetNetworkDB(thisPc);
 
-            var id = db.Generic.Insert(new { Name = "Yana" });
+            var id = db.Basic.Insert(new { Name = "Yana" });
 
             //var allDocs = db.Generic.s
 

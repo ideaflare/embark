@@ -18,7 +18,7 @@ namespace Embark
         /// </summary>
         /// <param name="directory">A folder path in which to save data</param>
         /// <returns>Client with db commands</returns>
-        public static Client GetLocalDB(string directory = null)
+        public static Client GetLocalDB(string directory = @"C:\MyTemp\Embark\Local\")
         {
             return new Client(directory);
         }
@@ -35,10 +35,7 @@ namespace Embark
         }
 
         private Client(string directory)
-        {
-            if (directory == null)
-                directory = @"C:\MyTemp\Embark\Local\";          
-            
+        {      
             this.dataStore = knownConnections.GetOrAdd(directory, (dir) => new TextFileRepository(dir, textConverter));
         }
 
@@ -47,16 +44,18 @@ namespace Embark
             // TODO Test connection
 
             Uri uri = new Uri("http://" + address + ":" + port + "/embark/");
-            this.dataStore = new WebServiceRepository(uri);
+
+            this.dataStore = knownConnections.GetOrAdd(uri.AbsoluteUri, (server) => new WebServiceRepository(server));
         }
 
         private static ConcurrentDictionary<string, ITextDataStore> knownConnections = new ConcurrentDictionary<string, ITextDataStore>();
 
         private ITextDataStore dataStore;
+
         //private ITextConverter textConverter = new JsonNetConverter();
         private ITextConverter textConverter = new JavascriptSerializerConverter();
 
-        public Collection Generic { get { return this["Generic"]; } }
+        public Collection Basic { get { return this["Basic"]; } }
 
         public Collection this[string index]
         {
@@ -65,13 +64,25 @@ namespace Embark
 
         public Collection GetCollection(string collectionName)
         {
+            ValidateCollectionName(collectionName);
+
+            return new Collection(collectionName, dataStore, textConverter);
+        }
+
+        //public CollectionT<T> GetCollection<T>(string collectionName)
+        //{
+        //    ValidateCollectionName(collectionName);
+
+        //    return new CollectionT<T>(collectionName, dataStore, textConverter);
+        //}
+
+        private static void ValidateCollectionName(string collectionName)
+        {
             if (collectionName == null || collectionName.Length < 1)
                 throw new ArgumentException("Collection name should be at least one alphanumerical or underscore character.");
 
             if (!Regex.IsMatch(collectionName, "^[A-Za-z0-9_]+?$"))
                 throw new NotSupportedException("Only alphanumerical & underscore characters supported in collection names.");
-
-            return new Collection(collectionName, dataStore, textConverter);
         }
     }
 }

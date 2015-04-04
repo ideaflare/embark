@@ -33,11 +33,18 @@ namespace TestClient.IO.TestData
         static string[] petNames = new string[] { "Candyfloss", "Dimples", " Fluffy", " Jingles", " Monkey", " Rambo", " Snowball", " Tumble", " Zebra" };
     }
 
-    public class Sheep
+    public class Sheep : IEquatable<Sheep>
     {
         public string Name { get; set; }
         public int Age { get; set; }
         public IceCream FavouriteIceCream { get; set; }
+        
+        public bool Equals(Sheep other)
+        {
+            return this.Name == other.Name &&
+                this.Age == other.Age &&
+                this.FavouriteIceCream == other.FavouriteIceCream;
+        }
     }
 
     public class Cat

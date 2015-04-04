@@ -9,7 +9,7 @@ namespace Embark.Interfaces
     /// <summary>
     /// All commands to insert/get/update/delete documents
     /// </summary>
-    public interface ICollection
+    internal interface ICollection
     {
         // Basic
 
