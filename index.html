@@ -19,7 +19,10 @@
     </section>
 
     <section class="main-content">
-      <p>Easy to use document database with only a few commands, so that you don't have to learn a whole new framework to get going. Embark allows you to defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.</p>
+      <h1>
+<a id="embark" class="anchor" href="#embark" aria-hidden="true"><span class="octicon octicon-link"></span></a>embark</h1>
+
+<p>Easy to use document database with only a few commands, so that you don't have to learn a whole new framework to get going. Embark allows you to defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.</p>
 
 <h2>
 <a id="visibility" class="anchor" href="#visibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visibility</h2>
@@ -36,7 +39,7 @@
 <span class="pl-k">var</span> db = Embark.Client.GetLocalDB(<span class="pl-s"><span class="pl-pds">@"C:\AnimalsDB\"</span></span>); <span class="pl-c">/* Client.GetLocalDB() defaults to: Directory.GetCurrentDirectory() */</span>
 
 <span class="pl-c">// or over a network via REST API to WCF server *see usage section below*</span>
-<span class="pl-k">var</span> io = Embark.Client.GetNetworkDB(<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-c1">8080</span>);
+<span class="pl-k">var</span> io = Embark.Client.GetNetworkDB(<span class="pl-s"><span class="pl-pds">"</span>192.168.1.24<span class="pl-pds">"</span></span>, <span class="pl-c1">8080</span>);
 
 <span class="pl-c">// collections created on-the-fly if needed</span>
 <span class="pl-k">var</span> io = db[<span class="pl-s"><span class="pl-pds">"</span>sheep<span class="pl-pds">"</span></span>];
@@ -62,8 +65,8 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 
 <ul>
 <li>Insert(object) returns Int64 ID</li>
-<li>Update(id, object) returns bool successful</li>
 <li>Select(id) returns document</li>
+<li>Update(id, object) returns bool successful</li>
 <li>Delete(id) returns bool successful</li>
 </ul>
 
@@ -72,6 +75,7 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 
 <ul>
 <li>SelectLike(new { Name = "Rocket"})</li>
+<li>SelectAll()</li>
 </ul>
 
 <h4>
@@ -86,11 +90,10 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <a href="https://trello.com/b/rtqlPmrM/development">in development</a>:</h4>
 
 <ul>
-<li>SelectBetween(new { Score = 15}, new { Score = 39.21})</li>
-<li>SelectAll()</li>
-<li>CountAll()</li>
-<li>GetCollection&lt; T &gt;("name")</li>
 <li>Document Wrapper with ID &amp; timestamp</li>
+<li>SelectBetween(new { Score = 15}, new { Score = 39.21})</li>
+<li>GetCollection&lt; T &gt;("name")</li>
+<li>CountAll()</li>
 </ul>
 
 <p><strong>That's it!</strong></p>
@@ -107,7 +110,7 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <p>If you want to save data over a network then download and run the server from <a href="http://example.todo/">here</a>. If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
 NOTE either run the server in admin mode or <a href="http://stackoverflow.com/a/17242260/4650900">allow your server app to use the your-machine:port/embark/ uri </a></p>
 
-<p>To check out current developments go to <a href="https://trello.com/b/rtqlPmrM/development">embarkdb on trello</a></p>
+<p>To check out current developments go to <a href="https://trello.com/b/rtqlPmrM/development">embarkdb on trello</a> &amp; please feel free to contact me @ <a href="mailto:ubrgw@users.noreply.github.com">ubrgw@users.noreply.github.com</a> with any feedback, suggestions or to get involved!</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/ubrgw/embark">Embark</a> is maintained by <a href="https://github.com/ubrgw">ubrgw</a>.</span>
