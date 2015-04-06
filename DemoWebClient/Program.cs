@@ -11,7 +11,7 @@ namespace DemoWebClient
     {
         static void Main(string[] args)
         {
-            var server = new Server(port:8000);
+            var server = new Server();
             server.Start();
 
             var thisPc = System.Net.Dns.GetHostName();
