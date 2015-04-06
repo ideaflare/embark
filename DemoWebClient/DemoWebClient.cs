@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DemoWebClient
 {
-    class Program
+    class DemoWebClient
     {
         static void Main(string[] args)
         {
@@ -19,7 +19,7 @@ namespace DemoWebClient
 
             var id = db.Basic.Insert(new { Name = "Yana" });
 
-            //var allDocs = db.Generic.s
+            var allDocs = db.Basic.SelectAll<Object>();
 
             Console.Write("server running, press any key to stop");
             Console.Read();

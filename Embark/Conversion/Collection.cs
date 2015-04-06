@@ -51,7 +51,6 @@ namespace Embark.Conversion
         {
             return textDataStore.SelectAll(tag)
                 .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
-
         }
 
         public IEnumerable<T> SelectLike<T>(object searchObject)

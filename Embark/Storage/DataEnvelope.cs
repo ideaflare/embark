@@ -12,7 +12,7 @@ namespace Embark.Storage
     /// <remarks> Used instead of Tuple or KeyValuePair,
     /// because their key/item properties are get only,
     /// and any unknown object/text serializer can be passed to Embark that might not serialize/deserialize non-POCO classes correctly</remarks>
-    internal class DataEnvelope
+    public class DataEnvelope
     {
         public long ID { get; set; }
         public string Text { get; set; }
