@@ -55,13 +55,26 @@ namespace Embark
         //private ITextConverter textConverter = new JsonNetConverter();
         private ITextConverter textConverter = new JavascriptSerializerConverter();
 
+        /// <summary>
+        /// Basic collection named "Basic"
+        /// </summary>
         public Collection Basic { get { return this["Basic"]; } }
 
+        /// <summary>
+        /// Indexer to return collection with name of index
+        /// </summary>
+        /// <param name="index">Name of the collection</param>
+        /// <returns>Calls <see cref="Client.GetCollection"/> to return a collection with possible DB commands.</returns>
         public Collection this[string index]
         {
             get { return GetCollection(index); }
         }
 
+        /// <summary>
+        /// Get a collection associated with the Client datastore and text converter.
+        /// </summary>
+        /// <param name="collectionName">Name of the collection</param>
+        /// <returns>Collection class with commands to perform against the collection</returns>
         public Collection GetCollection(string collectionName)
         {
             ValidateCollectionName(collectionName);

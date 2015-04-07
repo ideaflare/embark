@@ -20,7 +20,6 @@ namespace Embark.Interfaces
         /// <summary>
         /// Insert a json serializable object to save to a collection
         /// </summary>
-        /// <typeparam name="T">Any json serializable/deserializable object</typeparam>
         /// <param name="tag">A name of the collection to save it in</param>
         /// <param name="objectToInsert">Anything json serializable/deserializable object to save</param>
         /// <returns>An Int64 ID unique to the collection the object is saved in</returns>
