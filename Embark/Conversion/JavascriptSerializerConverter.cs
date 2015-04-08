@@ -1,5 +1,7 @@
 ﻿using Embark.Interfaces;
+using Embark.Storage;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,23 +71,33 @@ namespace Embark.Conversion
             else return a.Equals(b);
         }
         
-        IEnumerable<string> ITextConverter.GetBetweenMatches(string startRange, string endRange, IEnumerable<string> compareValues)
+        IEnumerable<DataEnvelope> ITextConverter.GetBetweenMatches(string startRange, string endRange, IEnumerable<DataEnvelope> compareValues)
         {
             var startLookup = serializer.Deserialize<Dictionary<string, object>>(startRange);
             var endLookup = serializer.Deserialize<Dictionary<string, object>>(endRange);
 
-            return compareValues
-               .Select(txt => new
+            //return compareValues
+            //   .Select(txt => new
+            //   {
+            //       text = txt,
+            //       graph = serializer.Deserialize<Dictionary<string, object>>(txt)
+            //   })
+            //   .Where(comparison => IsBetweenMatch(startLookup, endLookup, comparison.graph))
+            //   .Select(c => TextFormatter.JsonPrettyPrint(c.text));
+
+            var matches = compareValues
+               .Select(envelope => new
                {
-                   text = txt,
-                   graph = serializer.Deserialize<Dictionary<string, object>>(txt)
+                   envelope = envelope,
+                   graph = serializer.Deserialize<Dictionary<string, object>>(envelope.Text)
                })
                .Where(comparison => IsBetweenMatch(startLookup, endLookup, comparison.graph))
-               .Select(c => TextFormatter.JsonPrettyPrint(c.text));
+               .Select(e => e.envelope);
 
-            throw new NotImplementedException();
+            return matches;
         }
 
+        // TODO simplify this method ! Consider F# lib if it would greatly reduce code
         private bool IsBetweenMatch(object startLookup, object endLookup, object compareValue)
         {
             var sL = startLookup as Dictionary<string, object>;
@@ -119,8 +131,47 @@ namespace Embark.Conversion
             else
             {
                 // compare types, cast to numeric or string
+                return IsBetweenSerializedObjects(startLookup, endLookup, compareValue);
             }
             throw new NotImplementedException();
+        }
+
+        private bool IsBetweenSerializedObjects(object a, object b, object between)
+        {
+            if (a.GetType() == between.GetType() && between.GetType() == b.GetType())
+            {
+                var ca = a as IComparable;
+                if (ca != null)
+                {
+                    var cb = (IComparable)b;
+                    var cBetween = (IComparable)between;
+
+                    if (ca.CompareTo(between) == 0 || cb.CompareTo(between) == 0)
+                        return true;
+                    else return ca.CompareTo(between) != cb.CompareTo(between);
+                }
+                else // Compare if array is between two other arrays ? Edge case, rethink what it means and what is an expected IsBetween comparison.
+                {
+                    var ea = a as IEnumerable;
+                    if (ea == null)
+                        throw new Exception("Unknown conditon, TODO check at serialisation input @ TextFileRepo and/or Collection insert for valid comparable types.");
+                    var eb = b as IEnumerable;
+                    var ebetween = between as IEnumerable;
+
+                    var la = ea.Cast<object>().ToArray();
+                    var lb = eb.Cast<object>().ToArray();
+                    var lbetween = ebetween.Cast<object>().ToArray();
+
+                    var minLength = (int)Math.Min(Math.Min(la.Length, lb.Length), lbetween.Length);
+                    for (int i = 0; i < minLength; i++)
+                    {
+                        if (!IsBetweenSerializedObjects(la[i], lb[i], lbetween[i]))
+                            return false;
+                    }
+                    return true;
+                }
+            }
+            else return false; // Consider throwing invalid input(Type mismatch on same property name) error, not in Converter but in Collection prior to calling local/web API. 
         }
     }
 }

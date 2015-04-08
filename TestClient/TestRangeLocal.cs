@@ -51,6 +51,50 @@ namespace TestClient
         }
 
         [TestMethod]
+        public void SelectBetween_ReturnsBetweenItems()
+        {
+            //Arrange
+            var allTestCollection = Cache.localCache["SelectBetween"];
+            var testHerd = new List<Sheep>();
+
+            var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
+            var oldDusty = new Sheep { Name = "Dusty", Age = 50, FavouriteIceCream = IceCream.Chocolate };
+            var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum };
+
+            testHerd.Add(oldWooly);
+            testHerd.Add(oldDusty);
+            testHerd.Add(youngLassy);
+
+            var wrappedHerd = new List<WrappedSheep>();
+            foreach (var sheep in testHerd)
+            {
+                var id = allTestCollection.Insert(sheep);
+                wrappedHerd.Add(new WrappedSheep { ID = id, Sheep = sheep });
+            }
+
+            //Act
+            var betweenSheep = allTestCollection.SelectBetween<Sheep>(new { Age = 75 }, new { Age = 25 }).ToList();
+
+            var unwrappedHerd = betweenSheep.Unwrap().ToArray();
+
+            //Assert
+            Assert.AreEqual(testHerd.Count, betweenSheep.Count());
+
+            foreach (var documentWrapper in betweenSheep)
+            {
+                var wrappedSheep = wrappedHerd.Where(ws => ws.ID == documentWrapper.ID).Single();
+
+                Assert.IsTrue(documentWrapper.Value.Equals(wrappedSheep.Sheep));
+            }
+
+            // Assumption that insert order = fetch order. If this changes, change the unit test and allow unordered insert & query.
+            for (int i = 0; i < testHerd.Count; i++)
+            {
+                Assert.IsTrue(testHerd[i].Equals(unwrappedHerd[i]));
+            }
+        }
+
+        [TestMethod]
         public void GetSelectLike()
         {
             // arrange

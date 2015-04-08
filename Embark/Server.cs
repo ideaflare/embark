@@ -16,7 +16,7 @@ namespace Embark
     public sealed class Server : IDisposable
     {   
         /// <summary>
-        /// Start a new web server
+        /// Host a new network server
         /// </summary>
         /// <param name="directory">directory server will save data to. If null default set to C:\MyTemp\Embark\Server\</param>
         /// <param name="port">port to use, default set to 8080</param>

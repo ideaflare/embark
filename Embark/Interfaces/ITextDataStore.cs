@@ -65,6 +65,6 @@ namespace Embark.Interfaces
         [OperationContract,
         WebGet(UriTemplate = "{tag}/Between/{startRange}/{endRange}",
             ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<string> SelectBetween(string tag, string startRange, string endRange);
+        IEnumerable<DataEnvelope> SelectBetween(string tag, string startRange, string endRange);
     }
 }

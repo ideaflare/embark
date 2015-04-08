@@ -132,7 +132,7 @@ namespace Embark.Storage
             }
         }
 
-        IEnumerable<string> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
+        IEnumerable<DataEnvelope> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
         {
             lock (syncRoot)
             {
@@ -140,7 +140,11 @@ namespace Embark.Storage
 
                 var allFiles = Directory
                     .EnumerateFiles(tagDir)
-                    .Select(f => File.ReadAllText(f));
+                    .Select(filePath => new DataEnvelope
+                    {
+                        ID = Int64.Parse(Path.GetFileNameWithoutExtension(filePath)),
+                        Text = File.ReadAllText(filePath)
+                    });
 
                 return textComparer.GetBetweenMatches(startRange, endRange, allFiles);
             }

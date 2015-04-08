@@ -39,7 +39,7 @@ namespace Embark.Conversion
         public DateTime Timestamp { get { return new DateTime(ID); } }
 
         /// <summary>
-        /// Update the wrapped document to the database
+        /// Commit document value to the database
         /// </summary>
         public void Update()
         {

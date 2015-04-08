@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Embark.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Embark.Interfaces
         /// <summary>
         /// Convert text to object
         /// </summary>
-        /// <typeparam name="T">Type op object</typeparam>
+        /// <typeparam name="T">Type of object</typeparam>
         /// <param name="text">String containing POCO data</param>
         /// <returns>Object of type T</returns>
         T ToObject<T>(string text);
@@ -41,6 +42,6 @@ namespace Embark.Interfaces
         /// <param name="endRange">A second object to comare values agianst to check if search is between example values</param>
         /// <param name="compareValues">Compare values collected for the <see cref="ITextDataStore"/></param>
         /// <returns>Objects from the collection that match the search criterea</returns>
-        IEnumerable<string> GetBetweenMatches(string startRange, string endRange, IEnumerable<string> compareValues);
+        IEnumerable<DataEnvelope> GetBetweenMatches(string startRange, string endRange, IEnumerable<DataEnvelope> compareValues);
     }
 }

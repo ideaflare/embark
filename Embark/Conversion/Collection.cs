@@ -114,9 +114,17 @@ namespace Embark.Conversion
         /// <param name="endRange">A second object to comare values agianst to check if search is between example values</param>
         /// <typeparam name="T">The POCO class represented by all documents</typeparam>        /// 
         /// <returns>Objects from the collection that match the search criterea</returns>
-        public IEnumerable<T> SelectBetween<T>(object startRange, object endRange) where T : class
+        public IEnumerable<DocumentWrapper<T>> SelectBetween<T>(object startRange, object endRange) where T : class
         {
-            throw new NotImplementedException();
+            string startSearch = textConverter.ToText(startRange);
+            string endSearch = textConverter.ToText(endRange);
+
+            var searchResults = textDataStore.SelectBetween(tag, startSearch, endSearch);
+
+            foreach (var result in searchResults)
+            {
+                yield return new DocumentWrapper<T>(result, this);
+            }
         }
 
     }

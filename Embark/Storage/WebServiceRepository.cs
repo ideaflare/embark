@@ -62,9 +62,9 @@ namespace Embark.Storage
             return CallRemoteDatastore<IEnumerable<string>>((store) => store.SelectLike(tag, searchObject));
         }
 
-        IEnumerable<string> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
+        IEnumerable<DataEnvelope> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
         {
-            return CallRemoteDatastore<IEnumerable<string>>((store) => store.SelectBetween(tag, startRange, endRange));
+            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.SelectBetween(tag, startRange, endRange));
         }
         
         //private HttpClient GetClient()
