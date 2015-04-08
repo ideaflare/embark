@@ -73,25 +73,12 @@ namespace TestClient
             }
 
             //Act
-            var betweenSheep = allTestCollection.SelectBetween<Sheep>(new { Age = 75 }, new { Age = 25 }).ToList();
-
-            var unwrappedHerd = betweenSheep.Unwrap().ToArray();
+            var betweenSheep = allTestCollection
+                .SelectBetween<Sheep>(new { Age = 75 }, new { Age = 25 })
+                .Single();
 
             //Assert
-            Assert.AreEqual(testHerd.Count, betweenSheep.Count());
-
-            foreach (var documentWrapper in betweenSheep)
-            {
-                var wrappedSheep = wrappedHerd.Where(ws => ws.ID == documentWrapper.ID).Single();
-
-                Assert.IsTrue(documentWrapper.Value.Equals(wrappedSheep.Sheep));
-            }
-
-            // Assumption that insert order = fetch order. If this changes, change the unit test and allow unordered insert & query.
-            for (int i = 0; i < testHerd.Count; i++)
-            {
-                Assert.IsTrue(testHerd[i].Equals(unwrappedHerd[i]));
-            }
+            Assert.IsTrue(betweenSheep.Value.Equals(oldDusty));
         }
 
         [TestMethod]
