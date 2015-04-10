@@ -57,9 +57,9 @@ namespace Embark.Storage
             return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.SelectAll(tag));
         }
 
-        IEnumerable<string> ITextDataStore.SelectLike(string tag, string searchObject)
+        IEnumerable<DataEnvelope> ITextDataStore.SelectLike(string tag, string searchObject)
         {
-            return CallRemoteDatastore<IEnumerable<string>>((store) => store.SelectLike(tag, searchObject));
+            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.SelectLike(tag, searchObject));
         }
 
         IEnumerable<DataEnvelope> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)

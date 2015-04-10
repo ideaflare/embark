@@ -30,18 +30,18 @@ namespace Embark.Conversion
             return TextFormatter.JsonPrettyPrint(text);
         }
 
-        IEnumerable<string> ITextConverter.GetLikeMatches(string searchObject, IEnumerable<string> compareValues)
+        IEnumerable<DataEnvelope> ITextConverter.GetLikeMatches(string searchObject, IEnumerable<DataEnvelope> compareValues)
         {
             var propertyLookup = serializer.Deserialize<Dictionary<string, object>>(searchObject);
 
             return compareValues
-                .Select(txt => new
+                .Select(envelope => new
                 {
-                    text = txt,
-                    graph = serializer.Deserialize<Dictionary<string, object>>(txt)
+                    envelope = envelope,
+                    graph = serializer.Deserialize<Dictionary<string, object>>(envelope.Text)
                 })
                 .Where(comparison => IsMatch(propertyLookup, comparison.graph))
-                .Select(c => TextFormatter.JsonPrettyPrint(c.text));
+                .Select(e => e.envelope);
         }
 
         private bool IsMatch(object a, object b)
@@ -75,15 +75,6 @@ namespace Embark.Conversion
         {
             var startLookup = serializer.Deserialize<Dictionary<string, object>>(startRange);
             var endLookup = serializer.Deserialize<Dictionary<string, object>>(endRange);
-
-            //return compareValues
-            //   .Select(txt => new
-            //   {
-            //       text = txt,
-            //       graph = serializer.Deserialize<Dictionary<string, object>>(txt)
-            //   })
-            //   .Where(comparison => IsBetweenMatch(startLookup, endLookup, comparison.graph))
-            //   .Select(c => TextFormatter.JsonPrettyPrint(c.text));
 
             var matches = compareValues
                .Select(envelope => new

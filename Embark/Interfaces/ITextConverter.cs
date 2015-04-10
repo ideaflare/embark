@@ -33,7 +33,7 @@ namespace Embark.Interfaces
         /// <param name="searchObject">Object to compare against</param>
         /// <param name="compareValues">Compare values collected for the <see cref="ITextDataStore"/></param>
         /// <returns>Objects from the collection that match the search criterea</returns>
-        IEnumerable<string> GetLikeMatches(string searchObject, IEnumerable<string> compareValues);
+        IEnumerable<DataEnvelope> GetLikeMatches(string searchObject, IEnumerable<DataEnvelope> compareValues);
 
         /// <summary>
         /// Get matches whose property values are between values of a start and end example object

@@ -59,7 +59,7 @@ namespace Embark.Interfaces
         [OperationContract,
         WebGet(UriTemplate = "{tag}/Like/{searchObject}",
             ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<string> SelectLike(string tag, string searchObject);
+        IEnumerable<DataEnvelope> SelectLike(string tag, string searchObject);
 
         // Between
         [OperationContract,

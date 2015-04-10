@@ -95,7 +95,7 @@ namespace TestClient
 
             // act            
 
-            IEnumerable<Sheep> matchQuery = Cache.localSheep.SelectLike<Sheep>(new { Age = 100 });
+            IEnumerable<Sheep> matchQuery = Cache.localSheep.SelectLike<Sheep>(new { Age = 100 }).Unwrap();
 
             var ancients = matchQuery.ToList();
 

@@ -94,7 +94,7 @@ namespace Embark.Conversion
         /// <param name="searchObject">Object to compare against</param>
         /// <typeparam name="T">The POCO class represented by all documents</typeparam>
         /// <returns>Objects from the collection that match the search criterea</returns>
-        public IEnumerable<T> SelectLike<T>(object searchObject)
+        public IEnumerable<DocumentWrapper<T>> SelectLike<T>(object searchObject)
             where T : class
         {
             string searchText = textConverter.ToText(searchObject);
@@ -103,7 +103,7 @@ namespace Embark.Conversion
 
             foreach (var result in searchResults)
             {
-                yield return textConverter.ToObject<T>(result);
+                yield return new DocumentWrapper<T>(result, this);
             }
         }
 

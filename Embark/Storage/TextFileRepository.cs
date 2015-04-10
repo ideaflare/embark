@@ -104,50 +104,52 @@ namespace Embark.Storage
         {
             lock(syncRoot)
             {
-                var tagDir = tagPaths.GetCollectionDirectory(tag);
+                var allFiles = GetAllTagFiles(tag);
 
-                var allData = Directory
-                    .EnumerateFiles(tagDir)
-                    .Select(f => new DataEnvelope
-                    {
-                        ID = long.Parse(Path.GetFileNameWithoutExtension(f)),
-                        Text = File.ReadAllText(f)
-                    });
-
-                return allData;
+                return allFiles;
             }
         }
 
-        IEnumerable<string> ITextDataStore.SelectLike(string tag, string searchObject)
+        IEnumerable<DataEnvelope> ITextDataStore.SelectLike(string tag, string searchObject)
         {
             lock(syncRoot)
             {
-                var tagDir = tagPaths.GetCollectionDirectory(tag);
-
-                var allFiles = Directory
-                    .EnumerateFiles(tagDir)
-                    .Select(f => File.ReadAllText(f));
+                var allFiles = GetAllTagFiles(tag);
 
                 return textComparer.GetLikeMatches(searchObject, allFiles);
             }
         }
 
+
         IEnumerable<DataEnvelope> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
         {
             lock (syncRoot)
             {
-                var tagDir = tagPaths.GetCollectionDirectory(tag);
-
-                var allFiles = Directory
-                    .EnumerateFiles(tagDir)
-                    .Select(filePath => new DataEnvelope
-                    {
-                        ID = Int64.Parse(Path.GetFileNameWithoutExtension(filePath)),
-                        Text = File.ReadAllText(filePath)
-                    });
+                var allFiles = GetAllTagFiles(tag);
 
                 return textComparer.GetBetweenMatches(startRange, endRange, allFiles);
             }
+        }
+
+        private IEnumerable<DataEnvelope> GetAllTagFiles(string tag)
+        {
+            var tagDir = tagPaths.GetCollectionDirectory(tag);
+
+            var allFiles = Directory
+                .EnumerateFiles(tagDir)
+                .Select(filePath => GetDataEnvelope(filePath));
+
+            return allFiles;
+        }
+
+        // TODO Try/Catch return error envelope.
+        private DataEnvelope GetDataEnvelope(string filePath)
+        {
+            return new DataEnvelope
+            {
+                ID = Int64.Parse(Path.GetFileNameWithoutExtension(filePath)),
+                Text = File.ReadAllText(filePath)
+            };
         }
     }
 }
