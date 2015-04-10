@@ -13,8 +13,7 @@ namespace Embark
     public class Client
     {
         /// <summary>
-        /// Starts a new embark db on a local directory,
-        /// or connects to local current process db if one is already running
+        /// Get a connection to a local database
         /// </summary>
         /// <param name="directory">A folder path in which to save data</param>
         /// <returns>Client with db commands</returns>
@@ -24,22 +23,33 @@ namespace Embark
         }
 
         /// <summary>
-        /// New client connection to a server
+        /// Get a connection to a network accesible database
         /// </summary>
-        /// <param name="address">IP Address of server</param>
-        /// <param name="port">Port data is sent/received</param>
+        /// <param name="address">IP Address / DNS Name of server. Example: "220.114.0.12" or "srv-embark-live"</param>
+        /// <param name="port">Port used by server</param>
         /// <returns>Client with db commands</returns>
-        public static Client GetNetworkDB(string address = null, int port = 8080)
+        public static Client GetNetworkDB(string address, int port = 8080)
         {
             return new Client(address, port);
         }
 
-        private Client(string directory)
+        /// <summary>
+        /// Get a connection to a local database
+        /// </summary>
+        /// <param name="directory">A folder path in which to save data</param>
+        /// <returns>Client with db commands</returns>>
+        public Client(string directory = @"C:\MyTemp\Embark\Local\")
         {      
             this.dataStore = knownConnections.GetOrAdd(directory, (dir) => new TextFileRepository(dir, textConverter));
         }
 
-        private Client(string address, int port)
+        /// <summary>
+        /// Get a connection to a network accesible database
+        /// </summary>
+        /// <param name="address">IP Address / DNS Name of server. Example: "220.114.0.12" or "srv-embark-live"</param>
+        /// <param name="port">Port used by server</param>
+        /// <returns>Client with db commands</returns>>
+        public Client(string address, int port)
         {
             // TODO Test connection
 
@@ -52,7 +62,6 @@ namespace Embark
 
         private ITextDataStore dataStore;
 
-        //private ITextConverter textConverter = new JsonNetConverter();
         private ITextConverter textConverter = new JavascriptSerializerConverter();
 
         /// <summary>
