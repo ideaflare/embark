@@ -63,7 +63,7 @@ Extra features like database replication, backup, user rights, security, etc.. a
 
 You can add the [Embark NuGet package](https://www.nuget.org/packages/Embark/), copy paste the sample code and then simply continue developing right away.
 
-If you want to save data over a network then download and run the server from [here](http://example.todo/). If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
+If you want to save data over a network then download and run the server from [here](https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/76ba6dfc8f2dfa4b9e9ca6a7968d96ae/BasicServer.zip). If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
 NOTE either run the server in admin mode or [allow your server app to use the your-machine:port/embark/ uri ](http://stackoverflow.com/a/17242260/4650900)
 
 ##Development
