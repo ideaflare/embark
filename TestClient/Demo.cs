@@ -23,7 +23,9 @@ namespace TestClient
             if (Directory.Exists(defaultDir))
                 Directory.Delete(defaultDir, recursive: true);
 
-            SimpleDemo();
+            SimpleTDemo();
+
+            //SimpleDemo();
 
             Embark.Conversion.Collection db = Embark.Client.GetLocalDB().Basic;
                        
@@ -56,6 +58,35 @@ namespace TestClient
 
             // get
             Sheep fluffy = io.Select<Sheep>(id);
+
+            // update
+            fluffy.FavouriteIceCream = IceCream.Strawberry;
+            bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
+
+            // delete
+            bool hasSheepVanished = io.Delete(id);
+        }
+
+        static void SimpleTDemo()
+        {
+            // arrange some guinea pig
+            var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
+
+            // save data locally
+            var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\");
+
+            // or over a network (via REST API)
+            //var db = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
+
+            // collections created on-the-fly if needed
+            //var io = db["sheep"].GetGenericCollection<Sheep>();
+            var io = db.GetCollection<Sheep>("sheep");
+
+            // insert
+            long id = io.Insert(pet);
+
+            // get
+            Sheep fluffy = io.Select(id);
 
             // update
             fluffy.FavouriteIceCream = IceCream.Strawberry;

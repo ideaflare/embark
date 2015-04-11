@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conversion\CollectionT.cs" />
     <Compile Include="Conversion\ExtensionMethods.cs" />
     <Compile Include="Conversion\TextFormatter.cs" />
     <Compile Include="Conversion\JavascriptSerializerConverter.cs" />
@@ -59,7 +60,6 @@
     <Compile Include="Client.cs" />
     <Compile Include="Storage\TextFileRepository.cs" />
     <Compile Include="Conversion\Collection.cs" />
-    <Compile Include="Interfaces\ICollection.cs" />
     <Compile Include="Interfaces\ITextDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

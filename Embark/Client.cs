@@ -91,12 +91,18 @@ namespace Embark
             return new Collection(collectionName, dataStore, textConverter);
         }
 
-        //public CollectionT<T> GetCollection<T>(string collectionName)
-        //{
-        //    ValidateCollectionName(collectionName);
+        /// <summary>
+        /// Get a type specific collection associated with the Client datastore and text converter.
+        /// </summary>
+        /// <typeparam name="T">The POCO class represented by the documents</typeparam>
+        /// <param name="collectionName">Name of the collection</param>
+        /// <returns>CollectionT class with commands to perform against the collection</returns>
+        public CollectionT<T> GetCollection<T>(string collectionName) where T : class
+        {
+            var basic = GetCollection(collectionName);
 
-        //    return new CollectionT<T>(collectionName, dataStore, textConverter);
-        //}
+            return new CollectionT<T>(basic);
+        }
 
         private static void ValidateCollectionName(string collectionName)
         {

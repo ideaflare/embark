@@ -15,7 +15,7 @@ namespace Embark.Conversion
         internal DocumentWrapper(DataEnvelope dataEnvelope, Collection collection)
         {
             this.ID = dataEnvelope.ID;
-            this.Value = collection.textConverter.ToObject<T>(dataEnvelope.Text);
+            this.Value = collection.TextConverter.ToObject<T>(dataEnvelope.Text);
             this.collection = collection;
         }
 
