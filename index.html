@@ -36,26 +36,29 @@
 <span class="pl-k">var</span> pet = <span class="pl-k">new</span> Sheep { Name = <span class="pl-s"><span class="pl-pds">"</span>Fluffy<span class="pl-pds">"</span></span>, FavouriteIceCream = IceCream.Vanilla };
 
 <span class="pl-c">// save data locally</span>
-<span class="pl-k">var</span> db = Embark.Client.GetLocalDB(<span class="pl-s"><span class="pl-pds">@"C:\AnimalsDB\"</span></span>); <span class="pl-c">/* Client.GetLocalDB() defaults to: Directory.GetCurrentDirectory() */</span>
+<span class="pl-k">var</span> db = Embark.Client.GetLocalDB(<span class="pl-s"><span class="pl-pds">@"C:\AnimalsDB\"</span></span>);
 
 <span class="pl-c">// or over a network via REST API to WCF server *see usage section below*</span>
 <span class="pl-k">var</span> io = Embark.Client.GetNetworkDB(<span class="pl-s"><span class="pl-pds">"</span>192.168.1.24<span class="pl-pds">"</span></span>, <span class="pl-c1">8080</span>);
 
 <span class="pl-c">// collections created on-the-fly if needed</span>
-<span class="pl-k">var</span> io = db[<span class="pl-s"><span class="pl-pds">"</span>sheep<span class="pl-pds">"</span></span>];
+<span class="pl-k">var</span> io = db.GetCollection&lt;Sheep&gt;(<span class="pl-s"><span class="pl-pds">"</span>sheep<span class="pl-pds">"</span></span>);
 
 <span class="pl-c">// insert</span>
 <span class="pl-k">long</span> id = io.Insert(pet);
 
 <span class="pl-c">// get</span>
-Sheep fluffy = io.Select&lt;Sheep&gt;(id);
+Sheep fluffy = io.Select(id);
 
 <span class="pl-c">// update</span>
 fluffy.FavouriteIceCream = IceCream.Strawberry;
 <span class="pl-k">bool</span> fluffyNowLikesStrawberry = io.Update(id, fluffy);
 
 <span class="pl-c">// delete</span>
-<span class="pl-k">bool</span> hasSheepVanished = io.Delete(id);</pre></div>
+<span class="pl-k">bool</span> hasSheepVanished = io.Delete(id);
+
+<span class="pl-c">// non-type specific collection if you want to save Apples &amp; Oranges in the same fruit collection</span>
+<span class="pl-k">var</span> io = db[<span class="pl-s"><span class="pl-pds">"</span>fruit<span class="pl-pds">"</span></span>];</pre></div>
 
 <h3>
 <a id="all-the-commands-are" class="anchor" href="#all-the-commands-are" aria-hidden="true"><span class="octicon octicon-link"></span></a>All the commands are</h3>
@@ -76,7 +79,7 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <ul>
 <li>SelectLike(new { Name = "Rocket"})</li>
 <li>SelectBetween(new { Score = 15}, new { Score = 39.21})</li>
-<li>SelectAll()</li>
+<li>SelectAll() returns Document Wrapper with ID &amp; timestamp</li>
 </ul>
 
 <h4>
@@ -91,9 +94,9 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <a href="https://trello.com/b/rtqlPmrM/development">in development</a>:</h4>
 
 <ul>
-<li>GetCollection&lt; T &gt;("name")</li>
-<li>CountAll()</li>
-<li>Refine code and create more unit tests</li>
+<li>Aggregate functions (Count/Average/Min/Max..)</li>
+<li>More/better feedback from server</li>
+<li>Review &amp; Simplify code</li>
 </ul>
 
 <p><strong>That's it!</strong></p>
@@ -107,13 +110,24 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 
 <p>You can add the <a href="https://www.nuget.org/packages/Embark/">Embark NuGet package</a>, copy paste the sample code and then simply continue developing right away.</p>
 
-<p>If you want to save data over a network then download and run the server from <a href="https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/76ba6dfc8f2dfa4b9e9ca6a7968d96ae/BasicServer.zip">here</a>. If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
+<p>If you want to save data over a network: </p>
+
+<div class="highlight highlight-csharp"><pre><span class="pl-c">// start a new server</span>
+<span class="pl-k">var</span> server = <span class="pl-k">new</span> Embark.Server();
+server.Start();</pre></div>
+
+<p>or you can download and a simple server from <a href="https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/c3e0c011826d1fe4519a46f07e46b97e/BasicServer.zip">here</a>. 
 NOTE either run the server in admin mode or <a href="http://stackoverflow.com/a/17242260/4650900">allow your server app to use the your-machine:port/embark/ uri </a></p>
 
-<p>To check out current developments go to <a href="https://trello.com/b/rtqlPmrM/development">embarkdb on trello</a> &amp; please feel free to contact me @ <a href="mailto:embarkdb@gmail.com">embarkDB@gmail.com</a> with any feedback, suggestions or to get involved!</p>
+<h2>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h2>
+
+<p>To check out current developments go to <a href="https://trello.com/b/rtqlPmrM/development">embarkdb on trello</a> &amp; please feel free to contact me @ <a href="mailto:embarkDB@gmail.com">embarkDB@gmail.com</a> with any feedback, suggestions or to get involved!</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/ubrgw/embark">Embark</a> is maintained by <a href="https://github.com/ubrgw">ubrgw</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
 
     </section>
