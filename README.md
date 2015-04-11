@@ -12,7 +12,7 @@ Documents are saved in .txt files in folders for each collection so you can easi
 var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
 
 // save data locally
-var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: Directory.GetCurrentDirectory() */
+var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\");
 
 // or over a network via REST API to WCF server *see usage section below*
 var io = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
