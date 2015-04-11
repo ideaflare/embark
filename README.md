@@ -18,13 +18,13 @@ var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defa
 var io = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
 
 // collections created on-the-fly if needed
-var io = db["sheep"];
+var io = db.GetCollection<Sheep>("sheep");
 
 // insert
 long id = io.Insert(pet);
 
 // get
-Sheep fluffy = io.Select<Sheep>(id);
+Sheep fluffy = io.Select(id);
 
 // update
 fluffy.FavouriteIceCream = IceCream.Strawberry;
@@ -32,6 +32,9 @@ bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
 
 // delete
 bool hasSheepVanished = io.Delete(id);
+
+// non-type specific collection if you want to save Apples & Oranges in the same fruit collection
+var io = db["fruit"];
 ```
 ###All the commands are
 
@@ -50,8 +53,9 @@ bool hasSheepVanished = io.Delete(id);
 - byte[] GetByteArray(object blob) to help with blob deserialization
 
 ####[in development](https://trello.com/b/rtqlPmrM/development):
-- GetCollection< T >("name")
-- CountAll()
+- Aggregate functions (Count/Average/Min/Max..)
+- More/better feedback from server
+- Review & Simplify code
 
 **That's it!**
 
@@ -63,7 +67,13 @@ Extra features like database replication, backup, user rights, security, etc.. a
 
 You can add the [Embark NuGet package](https://www.nuget.org/packages/Embark/), copy paste the sample code and then simply continue developing right away.
 
-If you want to save data over a network then download and run the server from [here](https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/76ba6dfc8f2dfa4b9e9ca6a7968d96ae/BasicServer.zip). If you prefer to know the running code, feel free to download and compile - it will only take a minute. 
+If you want to save data over a network: 
+```csharp
+// start a new server
+var server = new Embark.Server();
+server.Start();
+```
+or you can download and a simple server from [here](https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/c3e0c011826d1fe4519a46f07e46b97e/BasicServer.zip). 
 NOTE either run the server in admin mode or [allow your server app to use the your-machine:port/embark/ uri ](http://stackoverflow.com/a/17242260/4650900)
 
 ##Development
