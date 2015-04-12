@@ -1,9 +1,12 @@
 # embark
-Easy to use document database with a focus on visibility and simplicity. You don't have to learn a whole new framework to save data. Embark allows you to defer the plumbing or commitment of choosing a specific database technology. Ideal for prototyping or projects with an agile code-first approach.
+Easy to use document database with a focus on visibility and simplicity.
+
+Made for prototyping or projects with an agile code-first approach.
+Embark allows you to [defer the plumbing or commitment of choosing a specific database technology](https://www.youtube.com/watch?v=asLUTiJJqdE).
 
 ##Visibility
 
-Documents are saved in .txt files in folders for each collection so you can easily view/edit data while developing. The default serialization is JSON, and you can also plug in some other format like [YAML](http://www.yaml.org/start.html) or even [DSON](http://dogeon.org/).
+Documents are saved in .txt files in folders for each collection so you can easily view/edit data while developing. The default serialization is [JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example), and you can also plug in some other format like [YAML](http://www.yaml.org/start.html) or even [DSON](http://dogeon.org/).
 
 ##Simplicity
 
@@ -33,7 +36,7 @@ bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
 // delete
 bool hasSheepVanished = io.Delete(id);
 
-// non-type specific collection if you want to save Apples & Oranges in the same fruit collection
+// non-type specific if you want to mix Apples & Oranges objects in the same collection
 var io = db["fruit"];
 ```
 ###All the commands are
