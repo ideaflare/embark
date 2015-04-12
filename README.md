@@ -79,10 +79,10 @@ var server = new Embark.Server();
 server.Start();
 ```
 or you can download a simple server from [here](https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/c3e0c011826d1fe4519a46f07e46b97e/BasicServer.zip). 
-*NOTE: For the WCF server to work, either run it in admin mode or give access rights to the [your-machine:port/embark/](http://stackoverflow.com/a/17242260/4650900) uri  namespace.*
+> *NOTE: For the WCF server to work, either run it in admin mode or give access rights to the [your-machine:port/embark/](http://stackoverflow.com/a/17242260/4650900) namespace.*
 
 ##Development
 
-To check out current developments go to [embarkDB on trello](https://trello.com/b/rtqlPmrM/development).
+Check out current developments @ [embarkDB on trello](https://trello.com/b/rtqlPmrM/development).
 
 Feel free to contact embarkDB@gmail.com with any feedback, suggestions or to get involved!
