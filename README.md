@@ -1,8 +1,5 @@
 # embark
-Easy to use document database with a focus on visibility and simplicity.
-
-Made for prototyping or projects with an agile code-first approach.
-Embark allows you to [defer the plumbing or commitment of choosing a specific database technology](https://www.youtube.com/watch?v=asLUTiJJqdE).
+Easy to use document database with a focus on visibility and simplicity. Made for prototyping or projects with an agile code-first approach, Embark allows you to [defer the plumbing or commitment of choosing a specific database technology](https://www.youtube.com/watch?v=asLUTiJJqdE).
 
 ##Visibility
 
