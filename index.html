@@ -22,12 +22,12 @@
       <h1>
 <a id="embark" class="anchor" href="#embark" aria-hidden="true"><span class="octicon octicon-link"></span></a>embark</h1>
 
-<p>Easy to use document database with only a few commands, so that you don't have to learn a whole new framework to get going. Embark allows you to defer the plumbing or commitment of choosing a specific database technology before getting things done. Ideal for prototyping or projects with an agile code-first approach.</p>
+<p>Easy to use document database with a focus on visibility and simplicity. Made for prototyping or projects with an agile code-first approach, Embark allows you to <a href="https://www.youtube.com/watch?v=asLUTiJJqdE">defer the plumbing or commitment of choosing a specific database technology</a>.</p>
 
 <h2>
 <a id="visibility" class="anchor" href="#visibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visibility</h2>
 
-<p>Documents are saved in .txt files in folders for each collection so you can easily view/edit data while developing. The default serialization is Json, but you can also plug in some other format like YAML or DSON if you like.</p>
+<p>Documents are saved in .txt files in folders for each collection so you can easily view/edit data while developing. The default serialization is <a href="http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example">JSON</a>, and you can also plug in some other format like <a href="http://www.yaml.org/start.html">YAML</a> or even <a href="http://dogeon.org/">DSON</a>.</p>
 
 <h2>
 <a id="simplicity" class="anchor" href="#simplicity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simplicity</h2>
@@ -57,7 +57,7 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <span class="pl-c">// delete</span>
 <span class="pl-k">bool</span> hasSheepVanished = io.Delete(id);
 
-<span class="pl-c">// non-type specific collection if you want to save Apples &amp; Oranges in the same fruit collection</span>
+<span class="pl-c">// non-type specific if you want to mix Apples &amp; Oranges objects in the same collection</span>
 <span class="pl-k">var</span> io = db[<span class="pl-s"><span class="pl-pds">"</span>fruit<span class="pl-pds">"</span></span>];</pre></div>
 
 <h3>
@@ -99,33 +99,43 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <li>Review &amp; Simplify code</li>
 </ul>
 
-<p><strong>That's it!</strong></p>
+<h3>
+<a id="thats-it" class="anchor" href="#thats-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>That's it!</h3>
 
-<p>The intent of embark is to stay clean, simple and minimal.. with a complete source code download of under 50 kilobytes, and no external dependencies other than the .NET framework.</p>
+<p>The intent of embark is to stay simple to use and minimal.
+Just one .dll under 50 kilobytes and no external dependencies other than the .NET framework. </p>
 
-<p>Extra features like database replication, backup, user rights, security, etc.. and to be a general end-all solution, is not the aim of this project. By dodging increasing complexity from scope-creep, the core embark itself will remain crisp and friendly :)</p>
+<p>The aim of the project is to provide a DB while you are building new ideas and not to weigh features that do not contribute to prototyping like database replication, query optimizations, optimal disk usage, etc...
+By avoiding increasing complexity from scope-creep, Embark will remain crisp and friendly :)</p>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>You can add the <a href="https://www.nuget.org/packages/Embark/">Embark NuGet package</a>, copy paste the sample code and then simply continue developing right away.</p>
+<p>You can add the <a href="https://www.nuget.org/packages/Embark/">Embark NuGet package</a>, copy paste the sample code and then happily just continue developing.</p>
 
-<p>If you want to save data over a network: </p>
+<p>If you want to save data over a network:</p>
 
 <div class="highlight highlight-csharp"><pre><span class="pl-c">// start a new server</span>
 <span class="pl-k">var</span> server = <span class="pl-k">new</span> Embark.Server();
 server.Start();</pre></div>
 
-<p>or you can download a simple server from <a href="https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/c3e0c011826d1fe4519a46f07e46b97e/BasicServer.zip">here</a>. 
-NOTE either run the server in admin mode or <a href="http://stackoverflow.com/a/17242260/4650900">allow your server app to use the your-machine:port/embark/ uri </a></p>
+<p>or you can download a simple server from <a href="https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/c3e0c011826d1fe4519a46f07e46b97e/BasicServer.zip">here</a>. </p>
+
+<blockquote>
+<p><em>NOTE: For the WCF server to work, either run it in admin mode or give access rights to the <a href="http://stackoverflow.com/a/17242260/4650900">your-machine:port/embark/</a> namespace.</em></p>
+</blockquote>
 
 <h2>
 <a id="development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h2>
 
-<p>To check out current developments go to <a href="https://trello.com/b/rtqlPmrM/development">embarkdb on trello</a> &amp; please feel free to contact <a href="mailto:embarkDB@gmail.com">embarkDB@gmail.com</a> with any feedback, suggestions or to get involved!</p>
+<p>Check out current developments @ <a href="https://trello.com/b/rtqlPmrM/development">embarkDB on trello</a>.</p>
+
+<p>Feel free to contact <a href="mailto:embarkDB@gmail.com">embarkDB@gmail.com</a> with any feedback, suggestions or to get involved!</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/ubrgw/embark">Embark</a> is maintained by <a href="https://github.com/ubrgw">ubrgw</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
 
     </section>
