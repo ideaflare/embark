@@ -15,7 +15,7 @@ var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
 var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\");
 
 // or over a network via REST API to WCF server *see usage section below*
-var io = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
+var db = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
 
 // collections created on-the-fly if needed
 var io = db.GetCollection<Sheep>("sheep");
@@ -78,4 +78,4 @@ NOTE either run the server in admin mode or [allow your server app to use the yo
 
 ##Development
 
-To check out current developments go to [embarkdb on trello](https://trello.com/b/rtqlPmrM/development) & please feel free to contact me @ embarkDB@gmail.com with any feedback, suggestions or to get involved!
+To check out current developments go to [embarkdb on trello](https://trello.com/b/rtqlPmrM/development) & please feel free to contact embarkDB@gmail.com with any feedback, suggestions or to get involved!
