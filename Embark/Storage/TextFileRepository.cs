@@ -112,22 +112,44 @@ namespace Embark.Storage
 
         IEnumerable<DataEnvelope> ITextDataStore.SelectLike(string tag, string searchObject)
         {
-            lock(syncRoot)
+            lock (syncRoot)
             {
                 var allFiles = GetAllTagFiles(tag);
 
-                return textComparer.GetLikeMatches(searchObject, allFiles);
+                var propertyLookup = textComparer.ToComparisonObject(searchObject);
+
+                var matches = allFiles
+                    .Select(envelope => new
+                    {
+                        envelope = envelope,
+                        graph = textComparer.ToComparisonObject(envelope.Text)
+                    })
+                    .Where(comparison => textComparer.IsMatch(propertyLookup, comparison.graph))
+                    .Select(e => e.envelope);
+
+                return matches;
             }
         }
-
-
+        
         IEnumerable<DataEnvelope> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
         {
             lock (syncRoot)
             {
                 var allFiles = GetAllTagFiles(tag);
 
-                return textComparer.GetBetweenMatches(startRange, endRange, allFiles);
+                var startLookup = textComparer.ToComparisonObject(startRange);
+                var endLookup = textComparer.ToComparisonObject(endRange);
+
+                var matches = allFiles
+                   .Select(envelope => new
+                   {
+                       envelope = envelope,
+                       graph = textComparer.ToComparisonObject(envelope.Text)
+                   })
+                   .Where(comparison => textComparer.IsBetweenMatch(startLookup, endLookup, comparison.graph))
+                   .Select(e => e.envelope);
+
+                return matches;
             }
         }
 

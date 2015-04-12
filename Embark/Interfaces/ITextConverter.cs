@@ -13,6 +13,13 @@ namespace Embark.Interfaces
     public interface ITextConverter
     {
         /// <summary>
+        /// Convert a POCO object to text
+        /// </summary>
+        /// <param name="obj">POCO object to convert</param>
+        /// <returns>Text representing the object</returns>
+        string ToText(object obj);
+
+        /// <summary>
         /// Convert text to object
         /// </summary>
         /// <typeparam name="T">Type of object</typeparam>
@@ -21,27 +28,27 @@ namespace Embark.Interfaces
         T ToObject<T>(string text);
 
         /// <summary>
-        /// Convert a POCO object to text
+        /// Convert text to an object used in GetLike and GetBetween matches methods
         /// </summary>
-        /// <param name="obj">POCO object to convert</param>
-        /// <returns>Text representing the object</returns>
-        string ToText(object obj);
-
+        /// <param name="text">Object text serialized with ToText method</param>
+        /// <returns>Object used for comparison in search queries</returns>
+        object ToComparisonObject(string text);
+        
         /// <summary>
         /// Get matches that have similar property values to an example object.
         /// </summary>
         /// <param name="searchObject">Object to compare against</param>
-        /// <param name="compareValues">Compare values collected for the <see cref="ITextDataStore"/></param>
-        /// <returns>Objects from the collection that match the search criterea</returns>
-        IEnumerable<DataEnvelope> GetLikeMatches(string searchObject, IEnumerable<DataEnvelope> compareValues);
+        /// <param name="comparisonObject">Candidate match agianst search object</param>
+        /// <returns>True if comparisonObject matches the search criterea</returns>
+        bool IsMatch(object searchObject, object comparisonObject);
 
         /// <summary>
         /// Get matches whose property values are between values of a start and end example object
         /// </summary>
         /// <param name="startRange">The first object to compare against</param>
         /// <param name="endRange">A second object to comare values agianst to check if search is between example values</param>
-        /// <param name="compareValues">Compare values collected for the <see cref="ITextDataStore"/></param>
-        /// <returns>Objects from the collection that match the search criterea</returns>
-        IEnumerable<DataEnvelope> GetBetweenMatches(string startRange, string endRange, IEnumerable<DataEnvelope> compareValues);
+        /// <param name="compareValue">Compare value to match between startRange and endRange</param>
+        /// <returns>True if compareValue matches the search criterea</returns>
+        bool IsBetweenMatch(object startRange, object endRange, object compareValue);
     }
 }

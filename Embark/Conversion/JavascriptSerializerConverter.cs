@@ -19,32 +19,23 @@ namespace Embark.Conversion
 
         private JavaScriptSerializer serializer;
 
-        T ITextConverter.ToObject<T>(string text)
-        {
-            return serializer.Deserialize<T>(text);
-        }
-
         string ITextConverter.ToText(object obj)
         {
             var text = serializer.Serialize(obj);
             return TextFormatter.JsonPrettyPrint(text);
         }
 
-        IEnumerable<DataEnvelope> ITextConverter.GetLikeMatches(string searchObject, IEnumerable<DataEnvelope> compareValues)
+        T ITextConverter.ToObject<T>(string text)
         {
-            var propertyLookup = serializer.Deserialize<Dictionary<string, object>>(searchObject);
-
-            return compareValues
-                .Select(envelope => new
-                {
-                    envelope = envelope,
-                    graph = serializer.Deserialize<Dictionary<string, object>>(envelope.Text)
-                })
-                .Where(comparison => IsMatch(propertyLookup, comparison.graph))
-                .Select(e => e.envelope);
+            return serializer.Deserialize<T>(text);
         }
 
-        private bool IsMatch(object a, object b)
+        object ITextConverter.ToComparisonObject(string text)
+        {
+            return serializer.Deserialize<Dictionary<string, object>>(text);
+        }
+
+        public bool IsMatch(object a, object b)
         {
             var dA = a as Dictionary<string, object>;
 
@@ -70,26 +61,9 @@ namespace Embark.Conversion
             }
             else return a.Equals(b);
         }
-        
-        IEnumerable<DataEnvelope> ITextConverter.GetBetweenMatches(string startRange, string endRange, IEnumerable<DataEnvelope> compareValues)
-        {
-            var startLookup = serializer.Deserialize<Dictionary<string, object>>(startRange);
-            var endLookup = serializer.Deserialize<Dictionary<string, object>>(endRange);
-
-            var matches = compareValues
-               .Select(envelope => new
-               {
-                   envelope = envelope,
-                   graph = serializer.Deserialize<Dictionary<string, object>>(envelope.Text)
-               })
-               .Where(comparison => IsBetweenMatch(startLookup, endLookup, comparison.graph))
-               .Select(e => e.envelope);
-
-            return matches;
-        }
 
         // TODO simplify this method ! Consider F# lib if it would greatly reduce code
-        private bool IsBetweenMatch(object startLookup, object endLookup, object compareValue)
+        public bool IsBetweenMatch(object startLookup, object endLookup, object compareValue)
         {
             var sL = startLookup as Dictionary<string, object>;
             if (sL != null)
