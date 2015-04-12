@@ -54,6 +54,15 @@ namespace Embark.Conversion
 
         // ?
         //public T Unwrap() { return Value; }
+
+        /// <summary>
+        /// ToString() of the object within the wrapper
+        /// </summary>
+        /// <returns>DocumentWrapper.Value.ToString()</returns>
+        public override string ToString()
+        {
+            return this.Value.ToString();
+        }
     }
 
 }

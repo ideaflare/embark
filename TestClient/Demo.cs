@@ -75,11 +75,10 @@ namespace TestClient
             // save data locally
             var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\");
 
-            // or over a network (via REST API)
-            //var db = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
+            // or over a network via REST API to WCF server *see usage section below*
+            //var db = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
 
             // collections created on-the-fly if needed
-            //var io = db["sheep"].GetGenericCollection<Sheep>();
             var io = db.GetCollection<Sheep>("sheep");
 
             // insert
@@ -94,6 +93,9 @@ namespace TestClient
 
             // delete
             bool hasSheepVanished = io.Delete(id);
+
+            // non-type specific collection if you want to save Apples & Oranges in the same fruit collection
+            //var io = db["fruit"];
         }
 
         static void SearchDemo()

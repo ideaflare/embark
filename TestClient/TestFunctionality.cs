@@ -62,6 +62,22 @@ namespace TestClient
             Assert.AreEqual(cat.HasMeme, (new Cat()).HasMeme);
         }
 
+        [TestMethod]
+        public void WrapperToString_EqualsUnwrappedToString()
+        {
+            // arrange
+            var sheep = Animals.GetTestSheep();
+            var io = Cache.localCache.GetCollection<Sheep>("WrapperToString");
+
+            // act
+            var id = io.Insert(sheep);
+            var wrappedSheep = io.SelectAll().Single();
+
+            // assert
+            Assert.AreEqual(sheep.ToString(), wrappedSheep.ToString());
+            Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Value.ToString());
+        }
+
         //[TestMethod]
         public void TestObject_IsRevarsableSerializable()
         {

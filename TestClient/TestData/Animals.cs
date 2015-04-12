@@ -45,6 +45,11 @@ namespace TestClient.IO.TestData
                 this.Age == other.Age &&
                 this.FavouriteIceCream == other.FavouriteIceCream;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Name[{0}] Age[{1}] FavouriteIceCream[{2}]", Name, Age, FavouriteIceCream.ToString());
+        }
     }
 
     public class Cat
