@@ -49,6 +49,7 @@
     <Compile Include="Conversion\ExtensionMethods.cs" />
     <Compile Include="Conversion\TextFormatter.cs" />
     <Compile Include="Conversion\JavascriptSerializerConverter.cs" />
+    <Compile Include="Conversion\Validation.cs" />
     <Compile Include="Storage\DataEnvelope.cs" />
     <Compile Include="Storage\WebServiceRepository.cs" />
     <Content Include="Conversion\JsonNetConverter.cs.txt" />

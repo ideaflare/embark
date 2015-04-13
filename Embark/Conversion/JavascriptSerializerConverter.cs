@@ -32,9 +32,10 @@ namespace Embark.Conversion
 
         object ITextConverter.ToComparisonObject(string text)
         {
-            return serializer.Deserialize<Dictionary<string, object>>(text);
+            return serializer.DeserializeObject(text);
         }
 
+        // TODO Cleanup & simplify 
         public bool IsMatch(object a, object b)
         {
             var dA = a as Dictionary<string, object>;
@@ -62,7 +63,7 @@ namespace Embark.Conversion
             else return a.Equals(b);
         }
 
-        // TODO simplify this method ! Consider F# lib if it would greatly reduce code
+        // TODO simplify 
         public bool IsBetweenMatch(object startLookup, object endLookup, object compareValue)
         {
             var sL = startLookup as Dictionary<string, object>;
@@ -101,6 +102,7 @@ namespace Embark.Conversion
             throw new NotImplementedException();
         }
 
+        // TODO simplify 
         private bool IsBetweenSerializedObjects(object a, object b, object between)
         {
             if (a.GetType() == between.GetType() && between.GetType() == b.GetType())

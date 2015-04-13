@@ -26,17 +26,6 @@ namespace TestClient
             SimpleTDemo();
 
             //SimpleDemo();
-
-            Embark.Conversion.Collection db = Embark.Client.GetLocalDB().Basic;
-                       
-            object box = 235;
-
-            long id = db.Insert(box);
-
-            var n = db.Select<object>(id);
-
-            var search = db.SelectLike<object>("235").ToList();
-
         }
 
         static void SimpleDemo()
