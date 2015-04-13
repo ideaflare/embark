@@ -47,18 +47,24 @@ namespace Embark.Conversion
         {   
             string text = TextConverter.ToText(objectToInsert);
 
+            TextConverter.ValidateUpload<T>(objectToInsert, text);
+
             return textDataStore.Insert(tag, text);
         }
 
         /// <summary>
         /// Update a entry in the collection
         /// </summary>
+        /// <typeparam name="T">Any POCO class</typeparam> 
         /// <param name="id">The ID of the document</param>
         /// <param name="objectToUpdate">New value for the whole document. Increment/Differential updating is not supported (yet).</param>
         /// <returns>True if the document was updated</returns>
-        public bool Update(long id, object objectToUpdate)
+        public bool Update<T>(long id, T objectToUpdate)
         {
             string text = TextConverter.ToText(objectToUpdate);
+
+            TextConverter.ValidateUpload<T>(objectToUpdate, text);
+
             return textDataStore.Update(tag, id.ToString(), text);
         }
 
