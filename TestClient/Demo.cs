@@ -25,35 +25,7 @@ namespace TestClient
 
             SimpleTDemo();
 
-            //SimpleDemo();
-        }
-
-        static void SimpleDemo()
-        {
-            // arrange some guinea pig
-            var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
-
-            // save data locally
-            var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: C:\MyTemp\Embark\Local\ */
-
-            // or over a network (via REST API)
-            //var db = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
-
-            // collections created on-the-fly if needed
-            var io = db["sheep"];
-
-            // insert
-            long id = io.Insert(pet);
-
-            // get
-            Sheep fluffy = io.Select<Sheep>(id);
-
-            // update
-            fluffy.FavouriteIceCream = IceCream.Strawberry;
-            bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
-
-            // delete
-            bool hasSheepVanished = io.Delete(id);
+            MixedTypeDemo();
         }
 
         static void SimpleTDemo()
@@ -85,6 +57,38 @@ namespace TestClient
 
             // non-type specific collection if you want to save Apples & Oranges in the same fruit collection
             //var io = db["fruit"];
+        }
+
+        static void MixedTypeDemo()
+        {
+            // arrange some guinea pigs
+            var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
+            var mittens = new Cat { Name = "Mittens", FurDensity = 0.1 };
+
+            // save data locally
+            var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: C:\MyTemp\Embark\Local\ */
+
+            // or over a network (via REST API)
+            //var db = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
+
+            // collections created on-the-fly if needed
+            var io = db["sheep"];
+
+            // insert
+            long id = io.Insert(pet);
+            long d2 = io.Insert((object)500);
+            long d3 = io.Insert("a string!");
+            long d4 = io.Insert<Cat>(mittens);
+
+            // get
+            Sheep fluffy = io.Select<Sheep>(id);
+
+            // update
+            fluffy.FavouriteIceCream = IceCream.Strawberry;
+            bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
+
+            // delete
+            bool hasSheepVanished = io.Delete(id);
         }
 
         static void SearchDemo()
