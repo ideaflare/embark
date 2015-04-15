@@ -17,7 +17,7 @@ namespace TestClient
         public void SelectAll_ReturnsAllItems()
         {
             //Arrange
-            var allTestCollection = Cache.localCache["SelectAll"];
+            var allTestCollection = Cache.localClient["SelectAll"];
             var testHerd = Animals.GetTestHerd(5);
 
             var wrappedHerd = new List<WrappedSheep>();
@@ -54,7 +54,7 @@ namespace TestClient
         public void SelectBetween_ReturnsBetweenItems()
         {
             //Arrange
-            var allTestCollection = Cache.localCache["SelectBetween"];
+            var allTestCollection = Cache.localClient["SelectBetween"];
             var testHerd = new List<Sheep>();
 
             var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };

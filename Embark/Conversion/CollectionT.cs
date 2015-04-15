@@ -28,7 +28,7 @@ namespace Embark.Conversion
         /// Get the basic collection used internally
         /// </summary>
         /// <returns><see cref="Collection"/> basic CRUD and other data methods interface</returns>
-        public Collection GetBaseCollection() { return this.collection; }
+        public Collection AsBaseCollection() { return this.collection; }
         
         /// <summary>
         /// Text converter used by collection to serialize/deserialize to/from the <see cref="ITextDataStore"/>
@@ -80,6 +80,16 @@ namespace Embark.Conversion
         public T Select(long id)
         {
             return collection.Select<T>(id);
+        }
+
+        /// <summary>
+        /// Select an existing entry in the collection, and return it in a <see cref="DocumentWrapper{T}"/>
+        /// </summary>
+        /// <param name="id">The Int64 ID of the document</param>
+        /// <returns>The document wrapper that contains the entity</returns>
+        public DocumentWrapper<T> SelectWrapper(long id)
+        {
+            return collection.SelectWrapper<T>(id);
         }
         
         /// <summary>

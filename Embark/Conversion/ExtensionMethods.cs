@@ -15,7 +15,7 @@ namespace Embark.Conversion
         /// <summary>
         /// Deserialize a serialized byte[] 
         /// </summary>
-        public static byte[] GetByteArray(this object blob)
+        public static byte[] ToByteArray(this object blob)
         {
             var list = ((ArrayList)blob);
 

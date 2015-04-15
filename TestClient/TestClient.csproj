@@ -58,11 +58,11 @@
     <Compile Include="TestBasicLocal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\Animals.cs" />
-    <Compile Include="TestBasicServer.cs" />
     <Compile Include="TestData\WrappedSheep.cs" />
     <Compile Include="TestEdgeLocal.cs" />
     <Compile Include="TestFunctionality.cs" />
     <Compile Include="TestRangeLocal.cs" />
+    <Compile Include="TestWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">

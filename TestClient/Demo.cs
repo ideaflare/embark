@@ -83,6 +83,8 @@ namespace TestClient
             // get
             Sheep fluffy = io.Select<Sheep>(id);
 
+            Embark.Conversion.DocumentWrapper<Sheep> fluffbox = io.SelectWrapper<Sheep>(id);
+
             // update
             fluffy.FavouriteIceCream = IceCream.Strawberry;
             bool fluffyNowLikesStrawberry = io.Update(id, fluffy);

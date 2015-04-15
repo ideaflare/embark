@@ -8,16 +8,10 @@ namespace Embark.Conversion
 {
     internal static class TextFormatter
     {
-        //static string Indent = "   ";
+        static string Indent = "   ";
 
         static void AppendIndent(StringBuilder sb, int count)
         {
-            //for (; count > 0; --count) 
-            //    sb.Append(Indent);
-
-            // Trusting the compiler here to be clever.
-            string Indent = "   ";
-
             while (count-- > 0)
                 sb.Append(Indent);
         }

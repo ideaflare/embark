@@ -28,7 +28,7 @@ namespace TestClient
 
             // test that they are unique
             Assert.AreEqual(newIDs.Count, newIDs.Distinct().Count());
-            // and completed under a second
+            // and completed within average timePerInsert time
             Assert.IsTrue(sw.ElapsedMilliseconds < timePerInsert * totalInserts);
         }
 
@@ -67,7 +67,7 @@ namespace TestClient
         {
             // arrange
             var sheep = Animals.GetTestSheep();
-            var io = Cache.localCache.GetCollection<Sheep>("WrapperToString");
+            var io = Cache.localClient.GetCollection<Sheep>("WrapperToString");
 
             // act
             var id = io.Insert(sheep);

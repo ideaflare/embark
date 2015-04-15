@@ -15,7 +15,7 @@ namespace TestClient.TestData
     [TestClass]
     public class Cache
     {
-        internal static Client localCache;
+        internal static Client localClient;
         internal static Client serverCache = null;
         internal static Collection localSheep;
 
@@ -30,9 +30,9 @@ namespace TestClient.TestData
             Directory.CreateDirectory(testDir);
 
             //localCache = new Client(testDir);
-            localCache = Client.GetLocalDB(testDir);
+            localClient = Client.GetLocalDB(testDir);
 
-            localSheep = localCache["sheep"];
+            localSheep = localClient["sheep"];
             //serverCache = new Client("127.0.0.1", 80);
         }
 

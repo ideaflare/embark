@@ -45,12 +45,12 @@ namespace TestClient
 
             var saved = new { blob = savedData };
 
-            long id = Cache.localCache.Basic.Insert(saved);
+            long id = Cache.localClient.Basic.Insert(saved);
 
             // act
-            var loaded = Cache.localCache.Basic.Select<Dictionary<string, object>>(id);
+            var loaded = Cache.localClient.Basic.Select<Dictionary<string, object>>(id);
             var blob = loaded["blob"];
-            byte[] loadedData = ExtensionMethods.GetByteArray(blob);
+            byte[] loadedData = ExtensionMethods.ToByteArray(blob);
 
             // assert
             Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedData));
@@ -60,7 +60,7 @@ namespace TestClient
         public void SaveNonPoco_HandlesComparison()
         {
             // arrange
-            var io = Cache.localCache.GetCollection<string>("nonPOCO");
+            var io = Cache.localClient.GetCollection<string>("nonPOCO");
             string input = "string";
             string inserted;
 
@@ -70,10 +70,10 @@ namespace TestClient
         }
 
         [TestMethod]
-        public void MixedTypes_CanSaveInSameDB()
+        public void MixedTypeCollection_CanSave()
         {
             // arrange
-            var io = Cache.localCache.GetCollection<object>("MixedDataObjects");
+            var io = Cache.localClient.GetCollection<object>("MixedDataObjects");
             Sheep inputSheep = new Sheep { Name = "Mittens" };
             object outputObject;
                         

@@ -12,10 +12,15 @@ namespace Embark.Conversion
     /// </summary>
     public class DocumentWrapper<T>
     {
-        internal DocumentWrapper(DataEnvelope dataEnvelope, Collection collection)
+        internal DocumentWrapper(DataEnvelope dataEnvelope, Collection collection) 
+            : this(dataEnvelope.ID,dataEnvelope.Text, collection)
         {
-            this.ID = dataEnvelope.ID;
-            this.Value = collection.TextConverter.ToObject<T>(dataEnvelope.Text);
+        }
+
+        internal DocumentWrapper(long id, string text, Collection collection)
+        {
+            this.ID = id;            
+            this.Value = collection.TextConverter.ToObject<T>(text);
             this.collection = collection;
         }
 

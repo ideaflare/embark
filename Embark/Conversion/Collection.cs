@@ -32,7 +32,7 @@ namespace Embark.Conversion
         /// </summary>
         /// <typeparam name="T">The POCO class of the documents</typeparam>
         /// <returns><see cref="CollectionT{T}"/> interface to CRUD and other commands</returns>
-        public CollectionT<T> GetGenericCollection<T>() where T : class
+        public CollectionT<T> AsGenericCollection<T>() where T : class
         {
             return new CollectionT<T>(this);
         }
@@ -90,6 +90,19 @@ namespace Embark.Conversion
 
             return text == null ? null :
                 TextConverter.ToObject<T>(text);
+        }
+
+        /// <summary>
+        /// Select an existing entry in the collection, and return it in a <see cref="DocumentWrapper{T}"/>
+        /// </summary>
+        /// <typeparam name="T">The type of the object in the document</typeparam>
+        /// <param name="id">The Int64 ID of the document</param>
+        /// <returns>The document wrapper that contains the entity</returns>
+        public DocumentWrapper<T> SelectWrapper<T>(long id) where T : class
+        {
+            var text = textDataStore.Select(tag, id.ToString());
+
+            return new DocumentWrapper<T>(id, text, this);
         }
 
         /// <summary>
