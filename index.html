@@ -44,11 +44,11 @@
 <span class="pl-c">// collections created on-the-fly if needed</span>
 <span class="pl-k">var</span> io = db.GetCollection&lt;Sheep&gt;(<span class="pl-s"><span class="pl-pds">"</span>sheep<span class="pl-pds">"</span></span>);
 
-<span class="pl-c">// insert</span>
+<span class="pl-c">// create</span>
 <span class="pl-k">long</span> id = io.Insert(pet);
 
-<span class="pl-c">// get</span>
-Sheep fluffy = io.Select(id);
+<span class="pl-c">// read</span>
+Sheep fluffy = io.Get(id);
 
 <span class="pl-c">// update</span>
 fluffy.FavouriteIceCream = IceCream.Strawberry;
