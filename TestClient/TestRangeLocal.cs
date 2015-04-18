@@ -14,7 +14,7 @@ namespace TestClient
     {
 
         [TestMethod]
-        public void SelectAll_ReturnsAllItems()
+        public void GetAll_ReturnsAllItems()
         {
             //Arrange
             var allTestCollection = Cache.localClient["SelectAll"];
@@ -29,7 +29,7 @@ namespace TestClient
             }
 
             //Act
-            var querySheep = allTestCollection.SelectAll<Sheep>();
+            var querySheep = allTestCollection.GetAll<Sheep>();
 
             var unwrappedHerd = querySheep.Unwrap().ToArray();
 
@@ -51,7 +51,7 @@ namespace TestClient
         }
 
         [TestMethod]
-        public void SelectBetween_ReturnsBetweenItems()
+        public void GetBetween_ReturnsBetweenItems()
         {
             //Arrange
             var allTestCollection = Cache.localClient["SelectBetween"];
@@ -74,7 +74,7 @@ namespace TestClient
 
             //Act
             var betweenSheep = allTestCollection
-                .SelectBetween<Sheep>(new { Age = 75 }, new { Age = 25 })
+                .GetBetween<Sheep>(new { Age = 75 }, new { Age = 25 })
                 .Single();
 
             //Assert
@@ -95,7 +95,7 @@ namespace TestClient
 
             // act            
 
-            IEnumerable<Sheep> matchQuery = Cache.localSheep.SelectLike<Sheep>(new { Age = 100 }).Unwrap();
+            IEnumerable<Sheep> matchQuery = Cache.localSheep.GetWhere<Sheep>(new { Age = 100 }).Unwrap();
 
             var ancients = matchQuery.ToList();
 

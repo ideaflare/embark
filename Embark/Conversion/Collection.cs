@@ -26,7 +26,7 @@ namespace Embark.Conversion
 
         private string tag;
         private ITextDataStore textDataStore;
-
+        
         /// <summary>
         /// Get a type specific collection
         /// </summary>
@@ -84,9 +84,9 @@ namespace Embark.Conversion
         /// <typeparam name="T">The type of the object in the document</typeparam>
         /// <param name="id">The Int64 ID of the document</param>
         /// <returns>The object entry saved in the document</returns>
-        public T Select<T>(long id) where T : class
+        public T Get<T>(long id) where T : class
         {
-            var text = textDataStore.Select(tag, id.ToString());
+            var text = textDataStore.Get(tag, id.ToString());
 
             return text == null ? null :
                 TextConverter.ToObject<T>(text);
@@ -98,9 +98,9 @@ namespace Embark.Conversion
         /// <typeparam name="T">The type of the object in the document</typeparam>
         /// <param name="id">The Int64 ID of the document</param>
         /// <returns>The document wrapper that contains the entity</returns>
-        public DocumentWrapper<T> SelectWrapper<T>(long id) where T : class
+        public DocumentWrapper<T> GetWrapper<T>(long id) where T : class
         {
-            var text = textDataStore.Select(tag, id.ToString());
+            var text = textDataStore.Get(tag, id.ToString());
 
             return new DocumentWrapper<T>(id, text, this);
         }
@@ -110,9 +110,9 @@ namespace Embark.Conversion
         /// </summary>
         /// <typeparam name="T">The POCO class represented by all documents</typeparam>
         /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="ExtensionMethods.Unwrap"/></returns>
-        public IEnumerable<DocumentWrapper<T>> SelectAll<T>() where T : class
+        public IEnumerable<DocumentWrapper<T>> GetAll<T>() where T : class
         {
-            return textDataStore.SelectAll(tag)
+            return textDataStore.GetAll(tag)
                 .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
         }
 
@@ -122,12 +122,12 @@ namespace Embark.Conversion
         /// <param name="searchObject">Example object to compare against</param>
         /// <typeparam name="T">The POCO class represented by all documents</typeparam>
         /// <returns><see cref="DocumentWrapper{T}"/> objects from the collection that match the search criterea. </returns>
-        public IEnumerable<DocumentWrapper<T>> SelectLike<T>(object searchObject)
+        public IEnumerable<DocumentWrapper<T>> GetWhere<T>(object searchObject)
             where T : class
         {
             string searchText = TextConverter.ToText(searchObject);
 
-            var searchResults = textDataStore.SelectLike(tag, searchText);
+            var searchResults = textDataStore.GetWhere(tag, searchText);
 
             foreach (var result in searchResults)
             {
@@ -142,12 +142,12 @@ namespace Embark.Conversion
         /// <param name="endRange">A second object to comare values agianst to check if search is between example values</param>
         /// <typeparam name="T">The POCO class represented by all documents</typeparam>
         /// <returns><see cref="DocumentWrapper{T}"/> objects from the collection that are within the bounds of the search criterea.</returns>
-        public IEnumerable<DocumentWrapper<T>> SelectBetween<T>(object startRange, object endRange) where T : class
+        public IEnumerable<DocumentWrapper<T>> GetBetween<T>(object startRange, object endRange) where T : class
         {
             string startSearch = TextConverter.ToText(startRange);
             string endSearch = TextConverter.ToText(endRange);
 
-            var searchResults = textDataStore.SelectBetween(tag, startSearch, endSearch);
+            var searchResults = textDataStore.GetBetween(tag, startSearch, endSearch);
 
             foreach (var result in searchResults)
             {

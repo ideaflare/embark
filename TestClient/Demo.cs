@@ -46,7 +46,7 @@ namespace TestClient
             long id = io.Insert(pet);
 
             // get
-            Sheep fluffy = io.Select(id);
+            Sheep fluffy = io.Get(id);
 
             // update
             fluffy.FavouriteIceCream = IceCream.Strawberry;
@@ -81,9 +81,9 @@ namespace TestClient
             long d4 = io.Insert<Cat>(mittens);
 
             // get
-            Sheep fluffy = io.Select<Sheep>(id);
+            Sheep fluffy = io.Get<Sheep>(id);
 
-            Embark.Conversion.DocumentWrapper<Sheep> fluffbox = io.SelectWrapper<Sheep>(id);
+            Embark.Conversion.DocumentWrapper<Sheep> fluffbox = io.GetWrapper<Sheep>(id);
 
             // update
             fluffy.FavouriteIceCream = IceCream.Strawberry;
@@ -111,7 +111,7 @@ namespace TestClient
             long id = io.Insert(pet);
 
             // get
-            Sheep fluffy = io.Select<Sheep>(id);
+            Sheep fluffy = io.Get<Sheep>(id);
 
             // update
             fluffy.FavouriteIceCream = IceCream.Strawberry;

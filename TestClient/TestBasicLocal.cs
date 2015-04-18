@@ -34,7 +34,7 @@ namespace TestClient
             long id = Cache.localSheep.Insert(saved);
 
             // act
-            Sheep loaded = Cache.localSheep.Select<Sheep>(id);
+            Sheep loaded = Cache.localSheep.Get<Sheep>(id);
 
             // assert
             Assert.AreEqual(saved.Name, loaded.Name);
@@ -51,14 +51,14 @@ namespace TestClient
 
             long id = Cache.localSheep.Insert(saved);
 
-            Sheep source = Cache.localSheep.Select<Sheep>(id);
+            Sheep source = Cache.localSheep.Get<Sheep>(id);
 
             Sheep updated = new Sheep { Name = source.Name, FavouriteIceCream = source.FavouriteIceCream };
             updated.Age = source.Age + 1;
             
             // act            
             bool hasSheepUpdated = Cache.localSheep.Update(id, updated);
-            Sheep loaded = Cache.localSheep.Select<Sheep>(id);
+            Sheep loaded = Cache.localSheep.Get<Sheep>(id);
 
             // assert
             Assert.IsTrue(hasSheepUpdated);
@@ -76,11 +76,11 @@ namespace TestClient
 
             long id = Cache.localSheep.Insert(saved);
 
-            Sheep source = Cache.localSheep.Select<Sheep>(id);
+            Sheep source = Cache.localSheep.Get<Sheep>(id);
 
             // act            
             bool hasSheepVanished = Cache.localSheep.Delete(id);
-            Sheep loaded = Cache.localSheep.Select<Sheep>(id);
+            Sheep loaded = Cache.localSheep.Get<Sheep>(id);
 
             // assert
             Assert.IsTrue(hasSheepVanished);

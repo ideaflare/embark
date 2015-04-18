@@ -84,7 +84,7 @@ namespace Embark.Storage
             }
         }
 
-        string ITextDataStore.Select(string tag, string id)
+        string ITextDataStore.Get(string tag, string id)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 
@@ -100,7 +100,7 @@ namespace Embark.Storage
             return jsonText;
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.SelectAll(string tag)
+        IEnumerable<DataEnvelope> ITextDataStore.GetAll(string tag)
         {
             lock(syncRoot)
             {
@@ -110,7 +110,7 @@ namespace Embark.Storage
             }
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.SelectLike(string tag, string searchObject)
+        IEnumerable<DataEnvelope> ITextDataStore.GetWhere(string tag, string searchObject)
         {
             lock (syncRoot)
             {
@@ -131,7 +131,7 @@ namespace Embark.Storage
             }
         }
         
-        IEnumerable<DataEnvelope> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
+        IEnumerable<DataEnvelope> ITextDataStore.GetBetween(string tag, string startRange, string endRange)
         {
             lock (syncRoot)
             {

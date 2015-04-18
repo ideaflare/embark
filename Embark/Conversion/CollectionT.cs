@@ -77,9 +77,9 @@ namespace Embark.Conversion
         /// </summary>
         /// <param name="id">The Int64 ID of the document</param>
         /// <returns>The object entry saved in the document</returns>
-        public T Select(long id)
+        public T Get(long id)
         {
-            return collection.Select<T>(id);
+            return collection.Get<T>(id);
         }
 
         /// <summary>
@@ -87,18 +87,18 @@ namespace Embark.Conversion
         /// </summary>
         /// <param name="id">The Int64 ID of the document</param>
         /// <returns>The document wrapper that contains the entity</returns>
-        public DocumentWrapper<T> SelectWrapper(long id)
+        public DocumentWrapper<T> GetWrapper(long id)
         {
-            return collection.SelectWrapper<T>(id);
+            return collection.GetWrapper<T>(id);
         }
         
         /// <summary>
         /// Select all documents in the collection
         /// </summary>
         /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="ExtensionMethods.Unwrap"/></returns>
-        public IEnumerable<DocumentWrapper<T>> SelectAll()
+        public IEnumerable<DocumentWrapper<T>> GetAll()
         {
-            return collection.SelectAll<T>();
+            return collection.GetAll<T>();
         }
         
         /// <summary>
@@ -106,9 +106,9 @@ namespace Embark.Conversion
         /// </summary>
         /// <param name="searchObject">Example object to compare against</param>        
         /// <returns><see cref="DocumentWrapper{T}"/> objects from the collection that match the search criterea. </returns>
-        public IEnumerable<DocumentWrapper<T>> SelectLike(object searchObject)
+        public IEnumerable<DocumentWrapper<T>> GetWhere(object searchObject)
         {
-            return collection.SelectLike<T>(searchObject);
+            return collection.GetWhere<T>(searchObject);
         }
         
         /// <summary>
@@ -117,9 +117,9 @@ namespace Embark.Conversion
         /// <param name="startRange">The first object to compare against</param>
         /// <param name="endRange">A second object to comare values agianst to check if search is between example values</param>
         /// <returns><see cref="DocumentWrapper{T}"/> objects from the collection that are within the bounds of the search criterea.</returns>
-        public IEnumerable<DocumentWrapper<T>> SelectBetween(object startRange, object endRange)
+        public IEnumerable<DocumentWrapper<T>> GetBetween(object startRange, object endRange)
         {
-            return collection.SelectBetween<T>(startRange, endRange);
+            return collection.GetBetween<T>(startRange, endRange);
         }
     }
 }

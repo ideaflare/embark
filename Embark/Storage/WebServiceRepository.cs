@@ -47,24 +47,24 @@ namespace Embark.Storage
             return CallRemoteDatastore<bool>((store) => store.Delete(tag, id));
         }
 
-        string ITextDataStore.Select(string tag, string id)
+        string ITextDataStore.Get(string tag, string id)
         {
-            return CallRemoteDatastore<string>((store) => store.Select(tag, id));
+            return CallRemoteDatastore<string>((store) => store.Get(tag, id));
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.SelectAll(string tag)
+        IEnumerable<DataEnvelope> ITextDataStore.GetAll(string tag)
         {
-            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.SelectAll(tag));
+            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.GetAll(tag));
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.SelectLike(string tag, string searchObject)
+        IEnumerable<DataEnvelope> ITextDataStore.GetWhere(string tag, string searchObject)
         {
-            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.SelectLike(tag, searchObject));
+            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.GetWhere(tag, searchObject));
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.SelectBetween(string tag, string startRange, string endRange)
+        IEnumerable<DataEnvelope> ITextDataStore.GetBetween(string tag, string startRange, string endRange)
         {
-            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.SelectBetween(tag, startRange, endRange));
+            return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.GetBetween(tag, startRange, endRange));
         }
         
         //private HttpClient GetClient()

@@ -48,7 +48,7 @@ namespace TestClient
             long id = Cache.localClient.Basic.Insert(saved);
 
             // act
-            var loaded = Cache.localClient.Basic.Select<Dictionary<string, object>>(id);
+            var loaded = Cache.localClient.Basic.Get<Dictionary<string, object>>(id);
             var blob = loaded["blob"];
             byte[] loadedData = ExtensionMethods.ToByteArray(blob);
 
@@ -95,13 +95,13 @@ namespace TestClient
             // act & assert
             var id = io.Insert(input);
 
-            var all = io.SelectAll().ToArray();
+            var all = io.GetAll().ToArray();
 
-            var like = io.SelectLike("string").ToArray();
+            var like = io.GetWhere("string").ToArray();
 
-            var between = io.SelectBetween("str", "qqqqing").ToArray();
+            var between = io.GetBetween("str", "qqqqing").ToArray();
 
-            inserted = io.Select(id);
+            inserted = io.Get(id);
         }
 
         //[TestMethod]

@@ -46,25 +46,25 @@ namespace Embark.Interfaces
         [OperationContract, 
         WebGet(UriTemplate = "{tag}/{id}",
             ResponseFormat = WebMessageFormat.Json)]
-        string Select(string tag, string id);
+        string Get(string tag, string id);
 
         // TODO 5 OPT Instead of returning IEnumerable object, return Iterator with ID list that calls select(id) internally.
 
         [OperationContract,
         WebGet(UriTemplate = "{tag}/All/",
             ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<DataEnvelope> SelectAll(string tag);
+        IEnumerable<DataEnvelope> GetAll(string tag);
 
         // Like
         [OperationContract,
         WebGet(UriTemplate = "{tag}/Like/{searchObject}",
             ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<DataEnvelope> SelectLike(string tag, string searchObject);
+        IEnumerable<DataEnvelope> GetWhere(string tag, string searchObject);
 
         // Between
         [OperationContract,
         WebGet(UriTemplate = "{tag}/Between/{startRange}/{endRange}",
             ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<DataEnvelope> SelectBetween(string tag, string startRange, string endRange);
+        IEnumerable<DataEnvelope> GetBetween(string tag, string startRange, string endRange);
     }
 }

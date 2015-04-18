@@ -19,7 +19,7 @@ namespace DemoWebClient
 
             var id = db.Basic.Insert(new { Name = "Yana" });
 
-            var allDocs = db.Basic.SelectAll<Object>();
+            var allDocs = db.Basic.GetAll<Object>();
 
             Console.Write("server running, press any key to stop");
             Console.Read();

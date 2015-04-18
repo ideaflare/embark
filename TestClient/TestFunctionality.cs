@@ -54,7 +54,7 @@ namespace TestClient
 
             long id = Cache.localSheep.Insert(sheep);
 
-            Cat cat = Cache.localSheep.Select<Cat>(id);
+            Cat cat = Cache.localSheep.Get<Cat>(id);
 
             Assert.AreEqual(cat.Name, sheep.Name);
             Assert.AreEqual(cat.Age, sheep.Age);
@@ -71,7 +71,7 @@ namespace TestClient
 
             // act
             var id = io.Insert(sheep);
-            var wrappedSheep = io.SelectAll().Single();
+            var wrappedSheep = io.GetAll().Single();
 
             // assert
             Assert.AreEqual(sheep.ToString(), wrappedSheep.ToString());
