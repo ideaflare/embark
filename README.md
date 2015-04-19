@@ -20,11 +20,11 @@ var db = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
 // collections created on-the-fly if needed
 var io = db.GetCollection<Sheep>("sheep");
 
-// insert
+// create
 long id = io.Insert(pet);
 
-// get
-Sheep fluffy = io.Select(id);
+// read
+Sheep fluffy = io.Get(id);
 
 // update
 fluffy.FavouriteIceCream = IceCream.Strawberry;
@@ -36,28 +36,20 @@ bool hasSheepVanished = io.Delete(id);
 // non-type specific if you want to mix Apples & Oranges objects in the same collection
 var io = db["fruit"];
 ```
-###All the commands are
+###Some other commands are
 
-####basic:
-- Insert(object) returns Int64 ID
-- Select(id) returns document
-- Update(id, object) returns bool successful
-- Delete(id) returns bool successful
-
-####range:
-- SelectLike(new { Name = "Rocket"})
-- SelectBetween(new { Score = 15}, new { Score = 39.21})
-- SelectAll() returns Document Wrapper with ID & timestamp
-
-####other:
+- GetWhere(new { Name = "Rocket"})
+- GetBetween(new { Score = 15}, new { Score = 39.21})
+- GetAll() returns Document Wrapper with ID & timestamp
 - byte[] GetByteArray(object blob) to help with blob deserialization
+- See the [wiki for details](https://github.com/ubrgw/embark/wiki)
 
 ####[in development](https://trello.com/b/rtqlPmrM/development):
 - Aggregate functions (Count/Average/Min/Max..)
 - More/better feedback from server
 - Review & Simplify code
 
-###That's it!###
+###That's it!
 
 The intent of embark is to stay simple to use and minimal.
 Just one .dll under 50 kilobytes and no external dependencies other than the .NET framework. 
