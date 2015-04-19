@@ -57,5 +57,25 @@ namespace TestClient
 
             Assert.AreEqual(olderAge, agedSheep.Age);
         }
+
+        [TestMethod]
+        public void WrapperDelete_RemovesDocument()
+        {
+            // arrange
+            var saved = Animals.GetTestSheep();
+            var io = Cache.localClient.GetCollection<Sheep>("wrapDelete");
+            long id = io.Insert(saved);
+            DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
+
+            // act
+            wrapper.Delete();
+
+            var missingSheep = io.Get(id);
+
+            // assert
+            Assert.IsNull(missingSheep);
+        }
+
+        // TODO 1 Test update after delete
     }
 }

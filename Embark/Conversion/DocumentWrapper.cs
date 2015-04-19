@@ -68,7 +68,6 @@ namespace Embark.Conversion
         /// </summary>
         public void Delete()
         {
-            // TODO 1 Test delete & test update after delete
             this.collection.Delete(this.ID);
             this.Value = default(T);
         }
