@@ -58,9 +58,9 @@ namespace Embark.Conversion
         /// <summary>
         /// Commit document value to the database
         /// </summary>
-        public void Update()
+        public bool Update()
         {
-            this.collection.Update(this.ID, this.Value);
+            return this.collection.Update(this.ID, this.Value);
         }
 
         /// <summary>

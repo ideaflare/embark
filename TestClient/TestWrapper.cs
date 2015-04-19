@@ -70,12 +70,14 @@ namespace TestClient
             // act
             wrapper.Delete();
 
+            bool postDeleteUpdate = wrapper.Update();
+
             var missingSheep = io.Get(id);
 
             // assert
             Assert.IsNull(missingSheep);
+            Assert.IsFalse(postDeleteUpdate);
         }
 
-        // TODO 1 Test update after delete
     }
 }
