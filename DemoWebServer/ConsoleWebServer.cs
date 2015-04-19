@@ -6,7 +6,7 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmbarkWebHost
+namespace DemoWebServer
 {
     class ConsoleWebServer
     {

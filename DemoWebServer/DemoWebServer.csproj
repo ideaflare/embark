@@ -7,8 +7,8 @@
     <ProjectGuid>{56605B0B-C273-4EA7-9D1D-347A85F25E87}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EmbarkWebHost</RootNamespace>
-    <AssemblyName>EmbarkWebHost</AssemblyName>
+    <RootNamespace>DemoWebServer</RootNamespace>
+    <AssemblyName>DemoWebServer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
