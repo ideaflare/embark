@@ -90,7 +90,7 @@ namespace TestClient
             Assert.AreEqual(inputSheep, outputSheep);
         }
 
-        private static void RunAllCommands<T>(CollectionT<T> io, T input, out T inserted) where T : class
+        private static void RunAllCommands<T>(Collection<T> io, T input, out T inserted) where T : class
         {
             // act & assert
             var id = io.Insert(input);

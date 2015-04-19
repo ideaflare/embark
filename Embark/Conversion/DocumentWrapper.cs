@@ -24,6 +24,9 @@ namespace Embark.Conversion
             this.collection = collection;
         }
 
+        //TODO 2 Create other Wrapped document requests/commands.
+        private Embark.Conversion.Collection collection;
+
         /// <summary>
         /// Int64 ID Unique to the document
         /// </summary>
@@ -44,29 +47,30 @@ namespace Embark.Conversion
         public DateTime Timestamp { get { return new DateTime(ID); } }
 
         /// <summary>
-        /// Commit document value to the database
-        /// </summary>
-        public void Update()
-        {
-            //TODO 1 Test
-
-            this.collection.Update(this.ID, this.Value);
-        }
-
-        //TODO 2 Create delete & other Wrapped document requests/commands.
-
-        private Embark.Conversion.Collection collection;
-
-        // ?
-        //public T Unwrap() { return Value; }
-
-        /// <summary>
         /// ToString() of the object within the wrapper
         /// </summary>
         /// <returns>DocumentWrapper.Value.ToString()</returns>
         public override string ToString()
         {
             return this.Value.ToString();
+        }
+
+        /// <summary>
+        /// Commit document value to the database
+        /// </summary>
+        public void Update()
+        {
+            this.collection.Update(this.ID, this.Value);
+        }
+
+        /// <summary>
+        /// Delete the document from the database
+        /// </summary>
+        public void Delete()
+        {
+            // TODO 1 Test delete & test update after delete
+            this.collection.Delete(this.ID);
+            this.Value = default(T);
         }
     }
 

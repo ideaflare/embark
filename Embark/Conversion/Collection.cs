@@ -31,10 +31,10 @@ namespace Embark.Conversion
         /// Get a type specific collection
         /// </summary>
         /// <typeparam name="T">The POCO class of the documents</typeparam>
-        /// <returns><see cref="CollectionT{T}"/> interface to CRUD and other commands</returns>
-        public CollectionT<T> AsGenericCollection<T>() where T : class
+        /// <returns><see cref="Collection{T}"/> interface to CRUD and other commands</returns>
+        public Collection<T> AsGenericCollection<T>() where T : class
         {
-            return new CollectionT<T>(this);
+            return new Collection<T>(this);
         }
 
         /// <summary>

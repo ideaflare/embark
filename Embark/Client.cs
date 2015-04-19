@@ -97,11 +97,11 @@ namespace Embark
         /// <typeparam name="T">The POCO class represented by the documents</typeparam>
         /// <param name="collectionName">Name of the collection</param>
         /// <returns>CollectionT class with commands to perform against the collection</returns>
-        public CollectionT<T> GetCollection<T>(string collectionName) where T : class
+        public Collection<T> GetCollection<T>(string collectionName) where T : class
         {
             var basic = GetCollection(collectionName);
 
-            return new CollectionT<T>(basic);
+            return new Collection<T>(basic);
         }
 
         private static void ValidateCollectionName(string collectionName)

@@ -11,13 +11,13 @@ namespace Embark.Conversion
     /// Type specific interface to CRUD and other data commands to <see cref="ITextDataStore"/> and <seealso cref="ITextConverter"/>
     /// <typeparam name="T">The POCO class of the documents</typeparam>
     /// </summary>
-    public class CollectionT<T> where T : class
+    public class Collection<T> where T : class
     {
         /// <summary>
         /// Create a new instance of a type specific collection
         /// </summary>
         /// <param name="collection">Basic underlying collection called with type T</param>
-        public CollectionT(Collection collection)
+        public Collection(Collection collection)
         {
             this.collection = collection;
         }

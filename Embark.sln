@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbarkWebHost", "EmbarkWebH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebClient", "DemoWebClient\DemoWebClient.csproj", "{15E8894C-0ED7-479B-9A95-5ED6ADB51F6F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo Applications", "Demo Applications", "{17644943-4455-4406-910F-0EB51354AE90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDrafts", "TweetDrafts\TweetDrafts.csproj", "{44532C72-4953-4FB7-AC6D-0DAC90B87434}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,8 +38,15 @@ Global
 		{15E8894C-0ED7-479B-9A95-5ED6ADB51F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E8894C-0ED7-479B-9A95-5ED6ADB51F6F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15E8894C-0ED7-479B-9A95-5ED6ADB51F6F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{44532C72-4953-4FB7-AC6D-0DAC90B87434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44532C72-4953-4FB7-AC6D-0DAC90B87434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44532C72-4953-4FB7-AC6D-0DAC90B87434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44532C72-4953-4FB7-AC6D-0DAC90B87434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{44532C72-4953-4FB7-AC6D-0DAC90B87434} = {17644943-4455-4406-910F-0EB51354AE90}
 	EndGlobalSection
 EndGlobal
