@@ -14,9 +14,14 @@ namespace DemoWPFServer
     {
         public MainViewModel()
         {
-            try { TextFeedback = "This PC: " + System.Net.Dns.GetHostName(); }
-            finally { } //meh
-            server = new Server();
+            try
+            {
+                TextFeedback = "This PC: " + System.Net.Dns.GetHostName();
+            }
+            catch (Exception e)
+            {
+                TextFeedback = "Couldn't guess server name: " + e.ToString();
+            } 
         }
 
         Embark.Server server;
@@ -56,6 +61,38 @@ namespace DemoWPFServer
                 }
             }
         }
+        
+        private string directory = @"C:\MyTemp\Embark\Server\";
+        public string Directory
+        {
+            get { return this.directory; }
+            set
+            {
+                if (this.directory != value)
+                {
+                    this.directory = value;
+                    OnPropertyChangedEvent();
+                }
+            }
+        }
+
+        private int portNumber = 8080;
+        public string PortNumber
+        {
+            get { return this.portNumber.ToString(); }
+            set
+            {
+                if (this.portNumber.ToString() != value)
+                {
+                    int newNumber;
+                    if (int.TryParse(value, out newNumber) && newNumber > 0)
+                    {
+                        portNumber = newNumber;
+                    }
+                    OnPropertyChangedEvent();
+                }
+            }
+        }
 
         void StartStop()
         {
@@ -63,7 +100,9 @@ namespace DemoWPFServer
             {
                 try
                 {
+                    server = new Server(this.directory, this.portNumber);
                     server.Start();
+                    TextFeedback = "Server started.";
                     ButtonAction = "Stop";
                 }
                 catch (Exception e)
@@ -74,6 +113,7 @@ namespace DemoWPFServer
             else if(ButtonAction == "Stop")
             {
                 server.Stop();
+                TextFeedback = "Server stopped";
                 ButtonAction = "Start";
             }
         }
