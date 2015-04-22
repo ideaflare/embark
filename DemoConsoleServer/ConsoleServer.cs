@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DemoWebServer
 {
-    class ConsoleWebServer
+    class ConsoleServer
     {
         static void Main(string[] args)
         {

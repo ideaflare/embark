@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DemoWebClient
 {
-    class DemoWebClient
+    class DemoConsoleClient
     {
         static void Main(string[] args)
         {
