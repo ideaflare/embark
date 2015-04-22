@@ -20,14 +20,12 @@ namespace Embark
         /// </summary>
         /// <param name="directory">directory server will save data to. If null default set to C:\MyTemp\Embark\Server\</param>
         /// <param name="port">port to use, default set to 8080</param>
-        /// <param name="textConverter">Custom ITextconverter to use on Clients and Server should be the same, default uses .NET JSON JasaScriptSerializer</param>
-        public Server(string directory = null, int port = 8080, ITextConverter textConverter = null)
+        public Server(string directory = null, int port = 8080)
         {
             if (directory == null)
                 directory = @"C:\MyTemp\Embark\Server\";
-
-            if (textConverter == null)
-                textConverter = new JavascriptSerializerConverter();
+            
+            ITextConverter textConverter = new JavascriptSerializerConverter();
 
             var textRepository = new TextFileRepository(directory, textConverter);
 
