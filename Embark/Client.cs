@@ -8,14 +8,14 @@ using System.Text.RegularExpressions;
 namespace Embark
 {
     /// <summary>
-    /// Provider of a connection to a local or server database
+    /// Connection to use/consume a local or server database
     /// </summary>
     public class Client
     {
         /// <summary>
         /// Get a connection to a local database
         /// </summary>
-        /// <param name="directory">A folder path in which to save data</param>
+        /// <param name="directory">The path of where to save data</param>
         /// <returns>Client with db commands</returns>
         public static Client GetLocalDB(string directory = @"C:\MyTemp\Embark\Local\")
         {
@@ -23,7 +23,7 @@ namespace Embark
         }
 
         /// <summary>
-        /// Get a connection to a network accesible database
+        /// Get a connection to a server database
         /// </summary>
         /// <param name="address">IP Address / DNS Name of server. Example: "220.114.0.12" or "srv-embark-live"</param>
         /// <param name="port">Port used by server</param>
@@ -36,7 +36,7 @@ namespace Embark
         /// <summary>
         /// Get a connection to a local database
         /// </summary>
-        /// <param name="directory">A folder path in which to save data</param>
+        /// <param name="directory">The path of where to save data</param>
         /// <returns>Client with db commands</returns>>
         public Client(string directory = @"C:\MyTemp\Embark\Local\")
         {      
@@ -44,7 +44,7 @@ namespace Embark
         }
 
         /// <summary>
-        /// Get a connection to a network accesible database
+        /// Get a connection to a server database
         /// </summary>
         /// <param name="address">IP Address / DNS Name of server. Example: "220.114.0.12" or "srv-embark-live"</param>
         /// <param name="port">Port used by server</param>
@@ -70,7 +70,7 @@ namespace Embark
         public Collection Basic { get { return this["Basic"]; } }
 
         /// <summary>
-        /// Indexer to return collection with name of index
+        /// Indexer to return collection with same Name as lookup
         /// </summary>
         /// <param name="index">Name of the collection</param>
         /// <returns>Calls <see cref="Client.GetCollection"/> to return a collection with possible DB commands.</returns>
@@ -80,7 +80,7 @@ namespace Embark
         }
 
         /// <summary>
-        /// Get a collection associated with the Client datastore and text converter.
+        /// Get a collection to read/write documents to/from
         /// </summary>
         /// <param name="collectionName">Name of the collection</param>
         /// <returns>Collection class with commands to perform against the collection</returns>
@@ -92,9 +92,9 @@ namespace Embark
         }
 
         /// <summary>
-        /// Get a type specific collection associated with the Client datastore and text converter.
+        /// Get a type-specific collection to read/write documents to/from
         /// </summary>
-        /// <typeparam name="T">The POCO class represented by the documents</typeparam>
+        /// <typeparam name="T">The POCO or DTO class represented by the documents</typeparam>
         /// <param name="collectionName">Name of the collection</param>
         /// <returns>CollectionT class with commands to perform against the collection</returns>
         public Collection<T> GetCollection<T>(string collectionName) where T : class

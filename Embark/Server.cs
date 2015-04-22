@@ -11,20 +11,17 @@ using Embark.Interfaces;
 namespace Embark
 {
     /// <summary>
-    /// Server that has a TextFileRepository who's commands get invoked by remote Clients
+    /// Server that shares a local database shared over WCF HTTP
     /// </summary>
     public sealed class Server : IDisposable
     {   
         /// <summary>
         /// Host a new network server
         /// </summary>
-        /// <param name="directory">directory server will save data to. If null default set to C:\MyTemp\Embark\Server\</param>
+        /// <param name="directory">Path server will save data to. Default set to C:\MyTemp\Embark\Server\</param>
         /// <param name="port">port to use, default set to 8080</param>
-        public Server(string directory = null, int port = 8080)
+        public Server(string directory = @"C:\MyTemp\Embark\Server\", int port = 8080)
         {
-            if (directory == null)
-                directory = @"C:\MyTemp\Embark\Server\";
-            
             ITextConverter textConverter = new JavascriptSerializerConverter();
 
             var textRepository = new TextFileRepository(directory, textConverter);
@@ -36,7 +33,7 @@ namespace Embark
         private WebServiceHost webHost;
 
         /// <summary>
-        /// Open the web host of the server
+        /// Open the server web host
         /// </summary>
         public void Start()
         {
