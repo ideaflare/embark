@@ -1,5 +1,5 @@
-# embark
-Easy to use document database with a focus on visibility and simplicity. Made for prototyping or projects with an agile code-first approach, Embark allows you to [defer the plumbing or commitment of choosing a specific database technology](https://www.youtube.com/watch?v=asLUTiJJqdE).
+# idea
+Easy to use document database with a focus on visibility and simplicity. Made for prototyping or projects with an agile code-first approach. Embark allows you to [defer the plumbing or commitment of choosing a specific database technology](https://www.youtube.com/watch?v=asLUTiJJqdE).
 
 ##Visibility
 
@@ -51,7 +51,7 @@ var io = db["fruit"];
 
 ###That's it!
 
-The intent of embark is to stay simple to use and minimal.
+The intent of Embark is to stay simple to use and minimal.
 Just one .dll under 50 kilobytes and no external dependencies other than the .NET framework. 
 
 The aim of the project is to provide a DB while you are building new ideas and not to weigh features that do not contribute to prototyping like database replication, query optimizations, optimal disk usage, etc...
@@ -72,6 +72,6 @@ or you can download a simple server from [here](https://trello-attachments.s3.am
 
 ##Development
 
-Check out current developments @ [embarkDB on trello](https://trello.com/b/rtqlPmrM/development).
+Check out [current developments on trello](https://trello.com/b/rtqlPmrM/development).
 
-Feel free to contact embarkDB@gmail.com with any feedback, suggestions or to get involved!
+Feel free to contact EmbarkDB@gmail.com with any feedback, suggestions or to get involved!
