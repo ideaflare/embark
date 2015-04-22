@@ -57,7 +57,7 @@ namespace Embark.Interfaces
 
         // Like
         [OperationContract,
-        WebGet(UriTemplate = "{tag}/Like/{searchObject}",
+        WebGet(UriTemplate = "{tag}/Where/{searchObject}",
             ResponseFormat = WebMessageFormat.Json)]
         IEnumerable<DataEnvelope> GetWhere(string tag, string searchObject);
 
