@@ -30,7 +30,6 @@ namespace Embark.Storage
         }
 
         private string serviceAbsoluteUri;
-        private JavaScriptSerializer serializer = new JavaScriptSerializer();
 
         long ITextDataStore.Insert(string tag, string objectToInsert)
         { 
