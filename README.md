@@ -3,7 +3,7 @@ Easy to use document database with a focus on visibility and simplicity. Made fo
 
 ##Visibility
 
-Documents are saved in .txt files in folders for each collection so you can easily view/edit data while developing. The default serialization is [JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example), and you can also plug in some other format like [YAML](http://www.yaml.org/start.html) or even [DSON](http://dogeon.org/).
+Documents are saved as [JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example) text files in folders for each collection, so you can easily view/edit data while developing.
 
 ##Simplicity
 
@@ -46,20 +46,20 @@ var io = db["fruit"];
 
 ####[in development](https://trello.com/b/rtqlPmrM/development):
 - Aggregate functions (Count/Average/Min/Max..)
-- More/better feedback from server
+- Custom text-to-object mapping, like [YAML](http://www.yaml.org/start.html) or even [DSON](http://dogeon.org/)
 - Review & Simplify code
 
 ###That's it!
 
 The intent of Embark is to stay simple to use and minimal.
-Just one .dll under 50 kilobytes and no external dependencies other than the .NET framework. 
+A single .dll under 50 kilobytes and no external dependencies other than the .NET framework. 
 
 The aim of the project is to provide a DB while you are building new ideas and not to weigh features that do not contribute to prototyping like database replication, query optimizations, optimal disk usage, etc...
 By avoiding increasing complexity from scope-creep, Embark will remain crisp and friendly :)
 
 ##Usage
 
-You can add the [Embark NuGet package](https://www.nuget.org/packages/Embark/), copy paste the sample code and then happily just continue developing.
+You can add the [Embark NuGet package](https://www.nuget.org/packages/Embark/), copy paste the sample code, and just continue developing.
 
 If you want to save data over a network:
 ```csharp
