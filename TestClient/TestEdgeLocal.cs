@@ -90,6 +90,41 @@ namespace TestClient
             Assert.AreEqual(inputSheep, outputSheep);
         }
 
+        [TestMethod]
+        public void GetWhere_MatchesSubProperties()
+        {
+            // arrange
+            var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
+            var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate, OnTable = new Table { Legs = 2 } };
+            var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum, OnTable = new Table { IsSquare = true } };
+            var youngBilly = new Sheep { Name = "Billy", Age = 3, OnTable = new Table { Legs = 2 } };
+
+            var io = Cache.localClient.GetCollection<Sheep>("subMatch");
+
+            long id = io.Insert(oldWooly);
+            long id2 = io.Insert(oldDusty);
+            long id3 = io.Insert(youngLassy);
+
+            // act            
+
+            var anonymousTable = new { Legs = 2 };
+            IEnumerable<Sheep> matchQuery = io.GetWhere(new { Age = 100, OnTable = anonymousTable }).Unwrap();
+
+            var oldSheepOnTables = matchQuery.ToList();
+
+            // assert
+            Assert.AreEqual(1, oldSheepOnTables.Count);
+
+            Assert.IsFalse(oldSheepOnTables.Any(s => s.Age != 100));
+            Assert.IsFalse(oldSheepOnTables.Any(s => s.OnTable.Legs != 2));
+
+            Assert.IsFalse(oldSheepOnTables.Any(s => s.Name == "Lassy"));
+            Assert.IsFalse(oldSheepOnTables.Any(s => s.Name == "Wooly"));
+            Assert.IsFalse(oldSheepOnTables.Any(s => s.Name == "Wooly"));
+            
+            Assert.IsTrue(oldSheepOnTables.Any(s => s.Name == "Dusty"));
+        }
+
         private static void RunAllCommands<T>(Collection<T> io, T input, out T inserted) where T : class
         {
             // act & assert

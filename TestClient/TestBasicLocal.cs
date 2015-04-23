@@ -16,7 +16,7 @@ namespace TestClient
         public void Insert_ReturnsID()
         {
             // arrange
-            var sheep = Animals.GetTestSheep();
+            var sheep = TestEntities.GetTestSheep();
 
             // act
             object id = Cache.localSheep.Insert(sheep);
@@ -29,7 +29,7 @@ namespace TestClient
         public void Get_RetrievesSheep()
         {
             // arrange
-            var saved = Animals.GetTestSheep();
+            var saved = TestEntities.GetTestSheep();
                        
             long id = Cache.localSheep.Insert(saved);
 
@@ -47,7 +47,7 @@ namespace TestClient
         public void Update_ModifiesSheep()
         {
             // arrange
-            var saved = Animals.GetTestSheep();
+            var saved = TestEntities.GetTestSheep();
 
             long id = Cache.localSheep.Insert(saved);
 
@@ -72,7 +72,7 @@ namespace TestClient
         public void Delete_MakesSheepVanish()
         {
             // arrange
-            var saved = Animals.GetTestSheep();
+            var saved = TestEntities.GetTestSheep();
 
             long id = Cache.localSheep.Insert(saved);
 

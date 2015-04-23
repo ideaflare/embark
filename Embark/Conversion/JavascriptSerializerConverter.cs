@@ -35,32 +35,26 @@ namespace Embark.Conversion
             return serializer.DeserializeObject(text);
         }
 
-        // TODO Cleanup & simplify 
         public bool IsMatch(object a, object b)
         {
             var dA = a as Dictionary<string, object>;
+            var dB = b as Dictionary<string, object>;
 
-            if (dA != null)
+            if (dA == null | dB == null)
             {
-                var dB = b as Dictionary<string, object>;
-
-                if (dB != null)
-                {
-                    foreach (var keyValue in dA)
-                    {
-                        object bValue;
-                        if (dB.TryGetValue(keyValue.Key, out bValue))
-                        {
-                            if (!IsMatch(keyValue.Value, bValue))
-                                return false;
-                        }
-                        else return false;
-                    }
-                    return true;
-                }
-                else return false;
+                return a.Equals(b);
             }
-            else return a.Equals(b);
+            else return dA.All((ka) => HasEqualProperty(dB, ka.Key, ka.Value));
+        }
+
+        private bool HasEqualProperty(Dictionary<string,object> lookup, string propertyName, object objectValue)
+        {
+            object BValue;
+            if (lookup.TryGetValue(propertyName, out BValue))
+            {
+                return IsMatch(objectValue, BValue);
+            }
+            else return false;
         }
 
         // TODO simplify 

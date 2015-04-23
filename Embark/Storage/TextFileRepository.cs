@@ -100,7 +100,8 @@ namespace Embark.Storage
             return jsonText;
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.GetAll(string tag)
+        IEnumerable<DataEnvelope> ITextDataStore.GetAll(string tag) { return this.GetAll(tag); }
+        private IEnumerable<DataEnvelope> GetAll(string tag)
         {
             lock(syncRoot)
             {
@@ -114,7 +115,7 @@ namespace Embark.Storage
         {
             lock (syncRoot)
             {
-                var allFiles = GetAllTagFiles(tag);
+                var allFiles = this.GetAll(tag);// GetAllTagFiles(tag);
 
                 var propertyLookup = textComparer.ToComparisonObject(searchObject);
 
@@ -135,7 +136,7 @@ namespace Embark.Storage
         {
             lock (syncRoot)
             {
-                var allFiles = GetAllTagFiles(tag);
+                var allFiles = this.GetAll(tag);// GetAllTagFiles(tag);
 
                 var startLookup = textComparer.ToComparisonObject(startRange);
                 var endLookup = textComparer.ToComparisonObject(endRange);

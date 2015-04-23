@@ -50,7 +50,7 @@ namespace TestClient
         [TestMethod]
         public void Sheep_CanTurnIntoACat()
         {
-            var sheep = Animals.GetTestSheep();
+            var sheep = TestEntities.GetTestSheep();
 
             long id = Cache.localSheep.Insert(sheep);
 
@@ -66,7 +66,7 @@ namespace TestClient
         public void WrapperToString_EqualsUnwrappedToString()
         {
             // arrange
-            var sheep = Animals.GetTestSheep();
+            var sheep = TestEntities.GetTestSheep();
             var io = Cache.localClient.GetCollection<Sheep>("WrapperToString");
 
             // act

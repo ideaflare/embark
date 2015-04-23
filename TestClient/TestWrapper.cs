@@ -17,7 +17,7 @@ namespace TestClient
         public void GetWrapper_ReturnsDocument()
         {
             // arrange
-            var saved = Animals.GetTestSheep();
+            var saved = TestEntities.GetTestSheep();
 
             var io = Cache.localClient.GetCollection<Sheep>("wrapSelect");
 
@@ -40,7 +40,7 @@ namespace TestClient
         public void WrapperUpdate_CommitsChanges()
         {
             // arrange
-            var saved = Animals.GetTestSheep();
+            var saved = TestEntities.GetTestSheep();
             var io = Cache.localClient.GetCollection<Sheep>("wrapUpdate");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
@@ -62,7 +62,7 @@ namespace TestClient
         public void WrapperDelete_RemovesDocument()
         {
             // arrange
-            var saved = Animals.GetTestSheep();
+            var saved = TestEntities.GetTestSheep();
             var io = Cache.localClient.GetCollection<Sheep>("wrapDelete");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);

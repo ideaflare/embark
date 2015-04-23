@@ -18,7 +18,7 @@ namespace TestClient
         {
             //Arrange
             var allTestCollection = Cache.localClient["SelectAll"];
-            var testHerd = Animals.GetTestHerd(5);
+            var testHerd = TestEntities.GetTestHerd(5);
 
             var wrappedHerd = new List<WrappedSheep>();
 
@@ -82,7 +82,7 @@ namespace TestClient
         }
 
         [TestMethod]
-        public void GetSelectLike()
+        public void GetWhere_ReturnsMatchingDocument()
         {
             // arrange
             var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };

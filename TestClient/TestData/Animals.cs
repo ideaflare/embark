@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TestClient.IO.TestData
 {
-    internal class Animals
+    internal class TestEntities
     {
         internal static Sheep GetTestSheep()
         {
@@ -38,7 +38,8 @@ namespace TestClient.IO.TestData
         public string Name { get; set; }
         public int Age { get; set; }
         public IceCream FavouriteIceCream { get; set; }
-        
+
+        public Table OnTable { get; set; }
 
         public override string ToString()
         {
@@ -65,6 +66,12 @@ namespace TestClient.IO.TestData
             string name = Name ?? "";
             return name.GetHashCode() * Age.GetHashCode() * FavouriteIceCream.GetHashCode();
         }
+    }
+
+    public class Table
+    {
+        public int Legs { get; set; }
+        public bool IsSquare { get; set; }
     }
 
     public class Cat
