@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conversion\CollectionT.cs" />
-    <Compile Include="Conversion\ExtensionMethods.cs" />
+    <Compile Include="TypeConversion.cs" />
     <Compile Include="Conversion\TextFormatter.cs" />
     <Compile Include="Conversion\JavascriptSerializerConverter.cs" />
     <Compile Include="Conversion\Validation.cs" />

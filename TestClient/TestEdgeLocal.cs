@@ -50,7 +50,7 @@ namespace TestClient
             // act
             var loaded = Cache.localClient.Basic.Get<Dictionary<string, object>>(id);
             var blob = loaded["blob"];
-            byte[] loadedData = ExtensionMethods.ToByteArray(blob);
+            byte[] loadedData = TypeConversion.ToByteArray(blob);
 
             // assert
             Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedData));

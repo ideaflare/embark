@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Embark.Conversion;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark.Conversion
+namespace Embark
 {
     /// <summary>
     /// Helper methods dealing with serialized byte[] and query IO
     /// </summary>
-    public static class ExtensionMethods
+    public static class TypeConversion
     {
         /// <summary>
         /// Deserialize a serialized byte[] 

@@ -95,7 +95,7 @@ namespace Embark.Conversion
         /// <summary>
         /// Select all documents in the collection
         /// </summary>
-        /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="ExtensionMethods.Unwrap"/></returns>
+        /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="TypeConversion.Unwrap"/></returns>
         public IEnumerable<DocumentWrapper<T>> GetAll()
         {
             return collection.GetAll<T>();
