@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace Embark.Interaction
 {
     /// <summary>
-    /// Interface to CRUD and other data commands to <see cref="ITextDataStore"/> and <seealso cref="ITextConverter"/>
+    /// Interface to CRUD and other data commands to <see cref="ITextRepository"/> and <seealso cref="ITextConverter"/>
     /// </summary>
     public class Collection  
     {
-        internal Collection(string tag, ITextDataStore textDataStore, ITextConverter textConverter)
+        internal Collection(string tag, ITextRepository textDataStore, ITextConverter textConverter)
         {
             this.tag = tag;
             this.textDataStore = textDataStore;
@@ -20,12 +20,12 @@ namespace Embark.Interaction
         }
 
         /// <summary>
-        /// Text converter used by collection to serialize/deserialize to/from the <see cref="ITextDataStore"/>
+        /// Text converter used by collection to serialize/deserialize to/from the <see cref="ITextRepository"/>
         /// </summary>
         public ITextConverter TextConverter { get; private set; }
 
         private string tag;
-        private ITextDataStore textDataStore;
+        private ITextRepository textDataStore;
         
         /// <summary>
         /// Get a type specific collection

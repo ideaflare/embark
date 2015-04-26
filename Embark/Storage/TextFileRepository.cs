@@ -11,7 +11,7 @@ using System.ServiceModel;
 namespace Embark.Storage
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    internal class TextFileRepository : ITextDataStore
+    internal class TextFileRepository : ITextRepository
     {
         public TextFileRepository(string directory, ITextConverter textComparer)
         {
@@ -34,7 +34,7 @@ namespace Embark.Storage
         private ITextConverter textComparer;
 
         // Basic
-        long ITextDataStore.Insert(string tag, string objectToInsert)
+        long ITextRepository.Insert(string tag, string objectToInsert)
         {
             // Get ID from IDGen
             var key = keyProvider.GetNewKey();
@@ -53,7 +53,7 @@ namespace Embark.Storage
             }
         }
         
-        bool ITextDataStore.Update(string tag, string id, string objectToUpdate)
+        bool ITextRepository.Update(string tag, string id, string objectToUpdate)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
             
@@ -69,7 +69,7 @@ namespace Embark.Storage
             }
         }
 
-        bool ITextDataStore.Delete(string tag, string id)
+        bool ITextRepository.Delete(string tag, string id)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 
@@ -84,7 +84,7 @@ namespace Embark.Storage
             }
         }
 
-        string ITextDataStore.Get(string tag, string id)
+        string ITextRepository.Get(string tag, string id)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 
@@ -100,7 +100,7 @@ namespace Embark.Storage
             return jsonText;
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.GetAll(string tag) { return this.GetAll(tag); }
+        IEnumerable<DataEnvelope> ITextRepository.GetAll(string tag) { return this.GetAll(tag); }
         private IEnumerable<DataEnvelope> GetAll(string tag)
         {
             lock(syncRoot)
@@ -111,7 +111,7 @@ namespace Embark.Storage
             }
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.GetWhere(string tag, string searchObject)
+        IEnumerable<DataEnvelope> ITextRepository.GetWhere(string tag, string searchObject)
         {
             lock (syncRoot)
             {
@@ -132,7 +132,7 @@ namespace Embark.Storage
             }
         }
         
-        IEnumerable<DataEnvelope> ITextDataStore.GetBetween(string tag, string startRange, string endRange)
+        IEnumerable<DataEnvelope> ITextRepository.GetBetween(string tag, string startRange, string endRange)
         {
             lock (syncRoot)
             {

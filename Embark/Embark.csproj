@@ -61,7 +61,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="Storage\TextFileRepository.cs" />
     <Compile Include="Interaction\Collection.cs" />
-    <Compile Include="Interfaces\ITextDataStore.cs" />
+    <Compile Include="Interfaces\ITextRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

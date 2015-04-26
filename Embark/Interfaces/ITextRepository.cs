@@ -13,7 +13,7 @@ namespace Embark.Interfaces
     /// All commands to insert/get/update/delete documents
     /// </summary>
     [ServiceContract()]
-    internal interface ITextDataStore
+    internal interface ITextRepository
     {
         // Basic
 

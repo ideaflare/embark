@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Embark.Interaction
 {
     /// <summary>
-    /// Type specific interface to CRUD and other data commands to <see cref="ITextDataStore"/> and <seealso cref="ITextConverter"/>
+    /// Type specific interface to CRUD and other data commands to <see cref="ITextRepository"/> and <seealso cref="ITextConverter"/>
     /// <typeparam name="T">The POCO class of the documents</typeparam>
     /// </summary>
     public class Collection<T> where T : class
@@ -31,7 +31,7 @@ namespace Embark.Interaction
         public Collection AsBaseCollection() { return this.collection; }
         
         /// <summary>
-        /// Text converter used by collection to serialize/deserialize to/from the <see cref="ITextDataStore"/>
+        /// Text converter used by collection to serialize/deserialize to/from the <see cref="ITextRepository"/>
         /// </summary>
         public ITextConverter TextConverter
         {

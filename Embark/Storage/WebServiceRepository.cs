@@ -12,16 +12,16 @@ using System.Web.Script.Serialization;
 
 namespace Embark.Storage
 {
-    internal class WebServiceRepository : ITextDataStore
+    internal class WebServiceRepository : ITextRepository
     {
         public WebServiceRepository(string serviceAbsoluteUri)
         {
             this.serviceAbsoluteUri = serviceAbsoluteUri;
         }
 
-        private T CallRemoteDatastore<T>(Func<ITextDataStore,T> func)
+        private T CallRemoteDatastore<T>(Func<ITextRepository,T> func)
         {
-            using (ChannelFactory<ITextDataStore> cf = new ChannelFactory<ITextDataStore>(new WebHttpBinding(), this.serviceAbsoluteUri))
+            using (ChannelFactory<ITextRepository> cf = new ChannelFactory<ITextRepository>(new WebHttpBinding(), this.serviceAbsoluteUri))
             {
                 cf.Endpoint.Behaviors.Add(new WebHttpBehavior());
                 var webChannel = cf.CreateChannel();
@@ -31,37 +31,37 @@ namespace Embark.Storage
 
         private string serviceAbsoluteUri;
 
-        long ITextDataStore.Insert(string tag, string objectToInsert)
+        long ITextRepository.Insert(string tag, string objectToInsert)
         { 
             return CallRemoteDatastore<long>((store) => store.Insert(tag, objectToInsert));
         }
 
-        bool ITextDataStore.Update(string tag, string id, string objectToUpdate)
+        bool ITextRepository.Update(string tag, string id, string objectToUpdate)
         {
             return CallRemoteDatastore<bool>((store) => store.Update(tag, id, objectToUpdate));
         }
 
-        bool ITextDataStore.Delete(string tag, string id)
+        bool ITextRepository.Delete(string tag, string id)
         {
             return CallRemoteDatastore<bool>((store) => store.Delete(tag, id));
         }
 
-        string ITextDataStore.Get(string tag, string id)
+        string ITextRepository.Get(string tag, string id)
         {
             return CallRemoteDatastore<string>((store) => store.Get(tag, id));
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.GetAll(string tag)
+        IEnumerable<DataEnvelope> ITextRepository.GetAll(string tag)
         {
             return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.GetAll(tag));
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.GetWhere(string tag, string searchObject)
+        IEnumerable<DataEnvelope> ITextRepository.GetWhere(string tag, string searchObject)
         {
             return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.GetWhere(tag, searchObject));
         }
 
-        IEnumerable<DataEnvelope> ITextDataStore.GetBetween(string tag, string startRange, string endRange)
+        IEnumerable<DataEnvelope> ITextRepository.GetBetween(string tag, string startRange, string endRange)
         {
             return CallRemoteDatastore<IEnumerable<DataEnvelope>>((store) => store.GetBetween(tag, startRange, endRange));
         }        

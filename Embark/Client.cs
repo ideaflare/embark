@@ -59,9 +59,9 @@ namespace Embark
             this.dataStore = knownConnections.GetOrAdd(uri.AbsoluteUri, (server) => new WebServiceRepository(server));
         }
 
-        private static ConcurrentDictionary<string, ITextDataStore> knownConnections = new ConcurrentDictionary<string, ITextDataStore>();
+        private static ConcurrentDictionary<string, ITextRepository> knownConnections = new ConcurrentDictionary<string, ITextRepository>();
 
-        private ITextDataStore dataStore;
+        private ITextRepository dataStore;
 
         private ITextConverter textConverter = new JavascriptSerializerConverter();
 
