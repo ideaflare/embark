@@ -10,7 +10,9 @@ using System.ServiceModel;
 
 namespace Embark.Storage
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(
+        InstanceContextMode = InstanceContextMode.Single,
+        ConcurrencyMode = ConcurrencyMode.Multiple)]
     internal class LocalRepository : ITextRepository
     {
         public LocalRepository(FileDataStore dataStore, ITextConverter textComparer)
