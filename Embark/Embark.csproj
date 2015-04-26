@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conversion\CollectionT.cs" />
+    <Compile Include="Interaction\CollectionT.cs" />
     <Compile Include="TypeConversion.cs" />
     <Compile Include="Conversion\TextFormatter.cs" />
     <Compile Include="Conversion\JavascriptSerializerConverter.cs" />
@@ -56,11 +56,11 @@
     <Compile Include="Interfaces\ITextConverter.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Storage\CollectionPaths.cs" />
-    <Compile Include="Conversion\DocumentWrapper.cs" />
+    <Compile Include="Interaction\DocumentWrapper.cs" />
     <Compile Include="Storage\KeyProvider.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Storage\TextFileRepository.cs" />
-    <Compile Include="Conversion\Collection.cs" />
+    <Compile Include="Interaction\Collection.cs" />
     <Compile Include="Interfaces\ITextDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

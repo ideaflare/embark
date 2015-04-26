@@ -89,9 +89,9 @@ namespace TestClient
             var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum };
                         
-            long id = Cache.localSheep.Insert(oldWooly);
-            long id2 = Cache.localSheep.Insert(oldDusty);
-            long id3 = Cache.localSheep.Insert(youngLassy);
+            Cache.localSheep.Insert(oldWooly);
+            Cache.localSheep.Insert(oldDusty);
+            Cache.localSheep.Insert(youngLassy);
 
             // act            
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Embark.Interaction;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -83,7 +84,7 @@ namespace TestClient
             // get
             Sheep fluffy = io.Get<Sheep>(id);
 
-            Embark.Conversion.DocumentWrapper<Sheep> fluffbox = io.GetWrapper<Sheep>(id);
+            DocumentWrapper<Sheep> fluffbox = io.GetWrapper<Sheep>(id);
 
             // update
             fluffy.FavouriteIceCream = IceCream.Strawberry;

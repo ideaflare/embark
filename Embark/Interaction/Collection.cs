@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark.Conversion
+namespace Embark.Interaction
 {
     /// <summary>
     /// Interface to CRUD and other data commands to <see cref="ITextDataStore"/> and <seealso cref="ITextConverter"/>
@@ -47,7 +47,7 @@ namespace Embark.Conversion
         {   
             string text = TextConverter.ToText(objectToInsert);
 
-            TextConverter.ValidateUpload<T>(objectToInsert, text);
+            Embark.Conversion.Validation.ValidateUpload<T>(this.TextConverter, objectToInsert, text);
 
             return textDataStore.Insert(tag, text);
         }
@@ -63,7 +63,7 @@ namespace Embark.Conversion
         {
             string text = TextConverter.ToText(objectToUpdate);
 
-            TextConverter.ValidateUpload<T>(objectToUpdate, text);
+            Embark.Conversion.Validation.ValidateUpload<T>(this.TextConverter, objectToUpdate, text);
 
             return textDataStore.Update(tag, id.ToString(), text);
         }

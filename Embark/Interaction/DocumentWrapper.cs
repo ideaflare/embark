@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark.Conversion
+namespace Embark.Interaction
 {
     /// <summary>
     /// Type wrapper with timestamp and ID that might be required for subsequent queries.
@@ -25,7 +25,7 @@ namespace Embark.Conversion
         }
 
         //TODO 2 Create other Wrapped document requests/commands.
-        private Embark.Conversion.Collection collection;
+        private Collection collection;
 
         /// <summary>
         /// Int64 ID Unique to the document
