@@ -61,32 +61,25 @@ namespace Embark.Conversion
         public bool IsBetweenMatch(object startLookup, object endLookup, object compareValue)
         {
             var sL = startLookup as Dictionary<string, object>;
-            if (sL != null)
+            var eL = endLookup as Dictionary<string, object>;
+            var cL = compareValue as Dictionary<string, object>;
+
+            if (sL != null && eL != null && cL != null)
             {
-                var eL = endLookup as Dictionary<string, object>;
-                if (eL != null)
+                foreach (var sLookup in sL)
                 {
-                    var cL = compareValue as Dictionary<string, object>;
-                    if (cL != null)
+                    object eValue;
+                    object cValue;
+
+                    if (eL.TryGetValue(sLookup.Key, out eValue) &&
+                        cL.TryGetValue(sLookup.Key, out cValue))
                     {
-                        foreach (var sValue in sL)
-                        {
-                            object eValue;
-                            if (eL.TryGetValue(sValue.Key, out eValue))
-                            {
-                                object cValue;
-                                if (cL.TryGetValue(sValue.Key, out cValue))
-                                {
-                                    if (!IsBetweenMatch(sValue.Value, eValue, cValue))
-                                        return false;
-                                }
-                            }
-                            else return false;
-                        }
+                        if (!IsBetweenMatch(sLookup.Value, eValue, cValue))
+                            return false;
                     }
-                    return true;
+                    else return false;
                 }
-                else return false;
+                return true;
             }
             else
             {
@@ -99,40 +92,41 @@ namespace Embark.Conversion
         // TODO simplify 
         private bool IsBetweenSerializedObjects(object a, object b, object between)
         {
-            if (a.GetType() == between.GetType() && between.GetType() == b.GetType())
+            // Consider throwing invalid input(Type mismatch on same property name) error, not in Converter but in Collection prior to calling local/web API. 
+            if (a.GetType() != between.GetType() || between.GetType() != b.GetType())
+                return false;
+
+            var ca = a as IComparable;
+            if (ca != null)
             {
-                var ca = a as IComparable;
-                if (ca != null)
-                {
-                    var cb = (IComparable)b;
-                    var cBetween = (IComparable)between;
+                var cb = (IComparable)b;
+                var cBetween = (IComparable)between;
 
-                    if (ca.CompareTo(between) == 0 || cb.CompareTo(between) == 0)
-                        return true;
-                    else return ca.CompareTo(between) != cb.CompareTo(between);
-                }
-                else // Compare if array is between two other arrays ? Edge case, rethink what it means and what is an expected IsBetween comparison.
-                {
-                    var ea = a as IEnumerable;
-                    if (ea == null)
-                        throw new Exception("Unknown conditon, TODO check at serialisation input @ TextFileRepo and/or Collection insert for valid comparable types.");
-                    var eb = b as IEnumerable;
-                    var ebetween = between as IEnumerable;
-
-                    var la = ea.Cast<object>().ToArray();
-                    var lb = eb.Cast<object>().ToArray();
-                    var lbetween = ebetween.Cast<object>().ToArray();
-
-                    var minLength = (int)Math.Min(Math.Min(la.Length, lb.Length), lbetween.Length);
-                    for (int i = 0; i < minLength; i++)
-                    {
-                        if (!IsBetweenSerializedObjects(la[i], lb[i], lbetween[i]))
-                            return false;
-                    }
+                if (ca.CompareTo(between) == 0 || cb.CompareTo(between) == 0)
                     return true;
-                }
+                else return ca.CompareTo(between) != cb.CompareTo(between);
             }
-            else return false; // Consider throwing invalid input(Type mismatch on same property name) error, not in Converter but in Collection prior to calling local/web API. 
+            else // Compare if array is between two other arrays ? Edge case, rethink what it means and what is an expected IsBetween comparison.
+            {
+                var ea = a as IEnumerable;
+                var eb = b as IEnumerable;
+                var ebetween = between as IEnumerable;
+
+                if (ebetween == null)
+                    throw new Exception("Unknown conditon, TODO check at serialisation input @ TextFileRepo and/or Collection insert for valid comparable types.");
+
+                var la = ea.Cast<object>().ToArray();
+                var lb = eb.Cast<object>().ToArray();
+                var lbetween = ebetween.Cast<object>().ToArray();
+
+                var minLength = (int)Math.Min(Math.Min(la.Length, lb.Length), lbetween.Length);
+                for (int i = 0; i < minLength; i++)
+                {
+                    if (!IsBetweenSerializedObjects(la[i], lb[i], lbetween[i]))
+                        return false;
+                }
+                return true;
+            }
         }
     }
 }
