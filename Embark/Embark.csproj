@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interaction\CollectionT.cs" />
+    <Compile Include="Storage\FileDataStore.cs" />
     <Compile Include="TypeConversion.cs" />
     <Compile Include="Conversion\TextFormatter.cs" />
     <Compile Include="Conversion\JavascriptSerializerConverter.cs" />
@@ -59,7 +60,7 @@
     <Compile Include="Interaction\DocumentWrapper.cs" />
     <Compile Include="Storage\KeyProvider.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="Storage\TextFileRepository.cs" />
+    <Compile Include="Storage\LocalRepository.cs" />
     <Compile Include="Interaction\Collection.cs" />
     <Compile Include="Interfaces\ITextRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

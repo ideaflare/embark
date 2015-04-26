@@ -40,8 +40,12 @@ namespace Embark
         /// <param name="directory">The path of where to save data</param>
         /// <returns>Client with db commands</returns>>
         public Client(string directory = @"C:\MyTemp\Embark\Local\")
-        {      
-            this.dataStore = knownConnections.GetOrAdd(directory, (dir) => new TextFileRepository(dir, textConverter));
+        {
+            this.dataStore = knownConnections.GetOrAdd(directory, (dir) =>
+                {
+                    var store = new FileDataStore(dir);
+                    return new LocalRepository(store, textConverter);
+                });
         }
 
         /// <summary>
