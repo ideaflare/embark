@@ -16,6 +16,7 @@ namespace Embark.Storage
 
             var collectionsFolder = directory + @"Collections\";
             var keysFolder = directory + @"Map\";
+            //var logfolder = directory + @"Pending\";
             
             this.keyProvider = new KeyProvider(keysFolder);
             this.tagPaths = new CollectionPaths(collectionsFolder);

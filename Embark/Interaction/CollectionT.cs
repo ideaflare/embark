@@ -29,18 +29,7 @@ namespace Embark.Interaction
         /// </summary>
         /// <returns><see cref="Collection"/> basic CRUD and other data methods interface</returns>
         public Collection AsBaseCollection() { return this.collection; }
-        
-        /// <summary>
-        /// Text converter used by collection to serialize/deserialize to/from the <see cref="ITextRepository"/>
-        /// </summary>
-        public ITextConverter TextConverter
-        {
-            get
-            {
-                return collection.TextConverter;
-            }
-        }
-        
+          
         /// <summary>
         /// Insert a new POCO object into the collection
         /// </summary>

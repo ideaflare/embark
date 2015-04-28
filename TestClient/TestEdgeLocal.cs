@@ -82,11 +82,15 @@ namespace TestClient
             io.Insert("non-sheep");
             io.Insert(123);
 
+            var idInput = io.Insert(inputSheep);
+            var outputSheep = io.AsBaseCollection().Get<Sheep>(idInput);
+
             // act & assert
             RunAllCommands(io, inputSheep, out outputObject);
 
-            var outSheepText = io.TextConverter.ToText(outputObject);
-            Sheep outputSheep = io.TextConverter.ToObject<Sheep>(outSheepText);
+            // TODO move to seperate test
+            //var outSheepText = io.TextConverter.ToText(outputObject);
+            //Sheep outputSheep = io.TextConverter.ToObject<Sheep>(outSheepText);
 
             Assert.AreEqual(inputSheep, outputSheep);
         }

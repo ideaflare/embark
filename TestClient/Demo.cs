@@ -53,6 +53,7 @@ namespace TestClient
             fluffy.FavouriteIceCream = IceCream.Strawberry;
             bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
 
+
             // delete
             bool hasSheepVanished = io.Delete(id);
 

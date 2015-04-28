@@ -12,20 +12,20 @@ namespace Embark.Interaction
     /// </summary>
     public class Collection  
     {
-        internal Collection(string tag, ITextRepository textDataStore, ITextConverter textConverter)
+        internal Collection(string tag, ITextRepository textRepository, ITextConverter textConverter)
         {
             this.tag = tag;
-            this.textDataStore = textDataStore;
+            this.textRepository = textRepository;
             this.TextConverter = textConverter;
         }
 
         /// <summary>
         /// Text converter used by collection to serialize/deserialize to/from the <see cref="ITextRepository"/>
         /// </summary>
-        public ITextConverter TextConverter { get; private set; }
+        internal ITextConverter TextConverter { get; private set; }
 
         private string tag;
-        private ITextRepository textDataStore;
+        private ITextRepository textRepository;
         
         /// <summary>
         /// Get a type specific collection
@@ -49,7 +49,7 @@ namespace Embark.Interaction
 
             Embark.Conversion.Validation.ValidateUpload<T>(this.TextConverter, objectToInsert, text);
 
-            return textDataStore.Insert(tag, text);
+            return textRepository.Insert(tag, text);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Embark.Interaction
 
             Embark.Conversion.Validation.ValidateUpload<T>(this.TextConverter, objectToUpdate, text);
 
-            return textDataStore.Update(tag, id.ToString(), text);
+            return textRepository.Update(tag, id.ToString(), text);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Embark.Interaction
         /// <returns>True if the document was successfully removed.</returns>
         public bool Delete(long id)
         {
-            return textDataStore.Delete(tag, id.ToString());
+            return textRepository.Delete(tag, id.ToString());
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Embark.Interaction
         /// <returns>The object entry saved in the document</returns>
         public T Get<T>(long id) where T : class
         {
-            var text = textDataStore.Get(tag, id.ToString());
+            var text = textRepository.Get(tag, id.ToString());
 
             return text == null ? null :
                 TextConverter.ToObject<T>(text);
@@ -100,7 +100,7 @@ namespace Embark.Interaction
         /// <returns>The document wrapper that contains the entity</returns>
         public DocumentWrapper<T> GetWrapper<T>(long id) where T : class
         {
-            var text = textDataStore.Get(tag, id.ToString());
+            var text = textRepository.Get(tag, id.ToString());
 
             return new DocumentWrapper<T>(id, text, this);
         }
@@ -112,7 +112,7 @@ namespace Embark.Interaction
         /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="TypeConversion.Unwrap"/></returns>
         public IEnumerable<DocumentWrapper<T>> GetAll<T>() where T : class
         {
-            return textDataStore.GetAll(tag)
+            return textRepository.GetAll(tag)
                 .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
         }
 
@@ -127,7 +127,7 @@ namespace Embark.Interaction
         {
             string searchText = TextConverter.ToText(searchObject);
 
-            var searchResults = textDataStore.GetWhere(tag, searchText);
+            var searchResults = textRepository.GetWhere(tag, searchText);
 
             foreach (var result in searchResults)
             {
@@ -147,7 +147,7 @@ namespace Embark.Interaction
             string startSearch = TextConverter.ToText(startRange);
             string endSearch = TextConverter.ToText(endRange);
 
-            var searchResults = textDataStore.GetBetween(tag, startSearch, endSearch);
+            var searchResults = textRepository.GetBetween(tag, startSearch, endSearch);
 
             foreach (var result in searchResults)
             {
