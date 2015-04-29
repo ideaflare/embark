@@ -54,15 +54,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="TestData\TestData.cs" />
-    <Compile Include="Demo.cs" />
-    <Compile Include="TestBasicLocal.cs" />
+    <Compile Include="BasicCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\Animals.cs" />
     <Compile Include="TestData\WrappedSheep.cs" />
-    <Compile Include="TestEdgeLocal.cs" />
-    <Compile Include="TestFunctionality.cs" />
-    <Compile Include="TestRangeLocal.cs" />
-    <Compile Include="TestWrapper.cs" />
+    <Compile Include="EdgeCases.cs" />
+    <Compile Include="Functionality.cs" />
+    <Compile Include="RangeCommands.cs" />
+    <Compile Include="DocumentWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">

@@ -10,7 +10,7 @@ using TestClient.TestData;
 namespace TestClient
 {
     [TestClass]
-    public class TestBasicLocal
+    public class BasicCommands
     {        
         [TestMethod]
         public void Insert_ReturnsID()

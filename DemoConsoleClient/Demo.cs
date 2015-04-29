@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TestClient.IO;
 using TestClient.IO.TestData;
 
-namespace TestClient
+namespace DemoConsoleClient
 {
     /// <summary>
     /// Simple code example to demonstrate how to use embark
@@ -27,6 +27,8 @@ namespace TestClient
             SimpleTDemo();
 
             MixedTypeDemo();
+
+            WebServerDemo();
         }
 
         static void SimpleTDemo()
@@ -52,7 +54,6 @@ namespace TestClient
             // update
             fluffy.FavouriteIceCream = IceCream.Strawberry;
             bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
-
 
             // delete
             bool hasSheepVanished = io.Delete(id);
@@ -101,8 +102,8 @@ namespace TestClient
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
 
             // save data locally
-            var db = Embark.Client.GetLocalDB(/* Client() defaults to: C:\MyTemp\Embark\Local\ */);
-
+            var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: C:\MyTemp\Embark\Local\ */
+            
             // or over a network
             // var io = Embark.Client.GetNetworkDB("127.0.0.1", 8765);// Not implemented, yet..
 
@@ -125,6 +126,24 @@ namespace TestClient
             //io.UpdateBetween(new { FurDensity = 0.7, Name = "A" },
             //    new { FurDensity = 0.6, Name = "B" },
             //    new { Name = "Mass" });
+        }
+
+        static void WebServerDemo()
+        {
+            var server = new Embark.Server(@"C:\AnimalsDB\");
+            server.Start();
+
+            var thisPc = System.Net.Dns.GetHostName();
+            var db = Embark.Client.GetNetworkDB(thisPc);
+
+            var id = db.Basic.Insert(new { Name = "Yana" });
+
+            var allDocs = db.Basic.GetAll<Object>();
+
+            Console.Write("server running, press any key to stop");
+            Console.Read();
+
+            server.Stop();
         }
     }
 }

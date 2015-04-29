@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DemoConsoleClient.cs" />
+    <Compile Include="Demo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +51,10 @@
     <ProjectReference Include="..\Embark\Embark.csproj">
       <Project>{2359c522-3f62-4ef5-901b-ff05b869c67d}</Project>
       <Name>Embark</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestClient\TestClient.csproj">
+      <Project>{1a6e26d7-df23-439e-a07b-8b2ac0864b67}</Project>
+      <Name>TestClient</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

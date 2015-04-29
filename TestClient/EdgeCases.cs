@@ -14,7 +14,7 @@ using TestClient.TestData;
 namespace TestClient
 {
     [TestClass]
-    public class TestEdgeLocal
+    public class EdgeCases
     {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException), "Only alphanumerical & underscore characters supported in collection names.")]

@@ -12,7 +12,7 @@ using TestClient.TestData;
 namespace TestClient
 {
     [TestClass]
-    public class TestWrapper
+    public class DocumentWrapper
     {
         [TestMethod]
         public void GetWrapper_ReturnsDocument()

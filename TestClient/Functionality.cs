@@ -9,7 +9,7 @@ using TestClient.IO.TestData;
 namespace TestClient
 {
     [TestClass]
-    public class TestFunctionality
+    public class Functionality
     {
         //operational
         [TestMethod]
