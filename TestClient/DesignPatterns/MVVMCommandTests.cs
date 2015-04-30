@@ -10,7 +10,7 @@ using System.Windows.Input;
 namespace TestClient.DesignPatterns
 {
     [TestClass]
-    public class MVVMCommandTests
+    public partial class MVVM
     {
         [TestMethod]
         public void ActionCommands_FireAsExpected()

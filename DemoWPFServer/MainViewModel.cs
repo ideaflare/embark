@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace DemoWPFServer
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     {
         public MainViewModel()
         {
@@ -125,5 +125,11 @@ namespace DemoWPFServer
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Dispose()
+        {
+            if(this.server != null)
+                this.server.Dispose();
+        }
     }
 }
