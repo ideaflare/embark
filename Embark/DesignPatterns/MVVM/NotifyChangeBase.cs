@@ -24,7 +24,7 @@ namespace Embark.DesignPatterns.MVVM
         public event PropertyChangingEventHandler PropertyChanging;
 
         /// <summary>
-        /// Set the property and raise PropertyChanged & PropertyChanging events
+        /// Set the property and raise PropertyChanged and PropertyChanging events
         /// </summary>
         /// <typeparam name="T">Type of backing field</typeparam>
         /// <param name="backingField">Backing field of the property</param>

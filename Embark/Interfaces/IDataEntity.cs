@@ -10,7 +10,7 @@ namespace Embark.Interfaces
     /// <summary>
     /// Used by <see cref="EntityCollection{T}"/> to ensure class has expected Int64 ID
     /// </summary>
-    public interface IDataEntity
+    interface IDataEntity
     {
         /// <summary>
         /// Unique ID used by EmbarkDB 

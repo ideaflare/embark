@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DesignPatterns\MVVM\ActionCommandTests.cs" />
     <Compile Include="TestData\Animals\Cat.cs" />
     <Compile Include="TestData\Animals\IceCream.cs" />
     <Compile Include="TestData\Animals\Sheep.cs" />

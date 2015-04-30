@@ -10,14 +10,18 @@ using Embark.DesignPatterns.MVVM;
 
 namespace TestClient.IO.TestData
 {
-    class Dog : DataEntity, IDataEntity
+    //class Dog : IDataEntity
+    class Dog : NotifyChangeBase
     {
         public Dog()
         {
             this.Bark = new ActionCommand(() => { },() => true);
+
+            //Embark.I
         }
 
-
         public ICommand Bark { get; private set; }
+
+
     }
 }

@@ -11,7 +11,7 @@ namespace Embark.Interaction
     /// Type specific interface to CRUD and other data commands to <see cref="ITextRepository"/> and <seealso cref="ITextConverter"/>
     /// <typeparam name="T">The POCO class that implements <see cref="IDataEntity"/> or inherits from <see cref="DataEntity"/></typeparam>
     /// </summary>
-    public class EntityCollection<T> where T : class, IDataEntity
+    class EntityCollection<T> where T : class, IDataEntity
     {
         /// <summary>
         /// Create a new instance of a type specific collection

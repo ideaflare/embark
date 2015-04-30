@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Embark.DesignPatterns.MVVM
 {
+    /// <summary>
+    /// Lambda expressions to get NotifyChangeBase property strings and raise properties.
+    /// <para>Intended to avoid using magic strings that are not easily refactor-safe</para>
+    /// </summary>
     public static class NotifyChangeBaseReflection
-    {         
+    {
         /// <summary>
         /// Raise the PropertyChangedEvent of a property passed in via lambda
         /// <para>example:</para>
@@ -38,6 +42,7 @@ namespace Embark.DesignPatterns.MVVM
         /// <typeparam name="TSource">Implementation type of NotifyChangeBase class</typeparam>
         /// <typeparam name="TProperty">Property type to raise event for</typeparam>
         /// <param name="obj">Instance of NotifyChangeBase object</param>       
+        /// <param name="property">Property to raise event for</param> 
         /// <returns>String of property lambda</returns>
         public static string GetPropertyString<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : NotifyChangeBase
         {
