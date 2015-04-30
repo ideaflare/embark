@@ -45,7 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesignPatterns\MVVM\ActionCommandT.cs" />
     <Compile Include="Interaction\CollectionT.cs" />
+    <Compile Include="Interaction\DataEntity.cs" />
+    <Compile Include="Interaction\EntityCollection.cs" />
+    <Compile Include="Interfaces\IDataEntity.cs" />
+    <Compile Include="DesignPatterns\MVVM\ActionCommand.cs" />
     <Compile Include="Storage\FileDataStore.cs" />
     <Compile Include="TypeConversion.cs" />
     <Compile Include="Conversion\TextFormatter.cs" />

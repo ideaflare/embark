@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1A6E26D7-DF23-439E-A07B-8B2AC0864B67}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestClient</RootNamespace>
     <AssemblyName>TestClient</AssemblyName>
@@ -35,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>TestClient.Demo</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,15 +54,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestData\Animals\Cat.cs" />
+    <Compile Include="TestData\Animals\IceCream.cs" />
+    <Compile Include="TestData\Animals\Sheep.cs" />
+    <Compile Include="TestData\Animals\Table.cs" />
+    <Compile Include="TestData\Animals\Dog.cs" />
     <Compile Include="TestData\TestData.cs" />
     <Compile Include="BasicCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestData\Animals.cs" />
+    <Compile Include="TestData\TestEntities.cs" />
     <Compile Include="TestData\WrappedSheep.cs" />
     <Compile Include="EdgeCases.cs" />
     <Compile Include="Functionality.cs" />
     <Compile Include="RangeCommands.cs" />
     <Compile Include="DocumentWrapper.cs" />
+    <Compile Include="EmbarkCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">
@@ -69,6 +76,7 @@
       <Name>Embark</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

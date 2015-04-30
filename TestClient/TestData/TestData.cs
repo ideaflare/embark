@@ -17,7 +17,6 @@ namespace TestClient.TestData
     public class Cache
     {
         internal static Client localClient;
-        internal static Client serverCache = null;
         internal static Collection localSheep;
 
         private static string testDir = @"C:\MyTemp\Embark\TestData\";

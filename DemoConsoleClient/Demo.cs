@@ -24,11 +24,46 @@ namespace DemoConsoleClient
             if (Directory.Exists(defaultDir))
                 Directory.Delete(defaultDir, recursive: true);
 
+            ConventionDemo();
+
             SimpleTDemo();
 
             MixedTypeDemo();
 
             WebServerDemo();
+
+            //ConventionDemo();
+        }
+
+        private static void ConventionDemo()
+        {
+            // arrange some guinea pig
+            var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
+
+            // save data locally
+            var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\");
+
+            // or over a network via REST API to WCF server *see usage section below*
+            //var db = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
+
+            // collections created on-the-fly if needed
+            var io = db.GetCollection<Sheep>("sheep");
+
+            // insert
+            long id = io.Insert(pet);
+
+            // get
+            Sheep fluffy = io.Get(id);
+
+            // update
+            fluffy.FavouriteIceCream = IceCream.Strawberry;
+            bool fluffyNowLikesStrawberry = io.Update(id, fluffy);
+
+            // delete
+            bool hasSheepVanished = io.Delete(id);
+
+            // non-type specific collection if you want to save Apples & Oranges in the same fruit collection
+            //var io = db["fruit"];
         }
 
         static void SimpleTDemo()
