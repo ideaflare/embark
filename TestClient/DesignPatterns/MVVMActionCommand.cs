@@ -37,8 +37,6 @@ namespace TestClient.DesignPatterns
             Assert.AreEqual(2, fireParameter.ObjectsPassedIn.Count);
             Assert.AreEqual(3, fireParameter.ObjectsPassedIn.Sum());
         }
-
-
     }
 
     public class TestFire
