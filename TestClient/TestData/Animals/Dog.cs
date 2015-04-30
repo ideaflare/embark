@@ -11,7 +11,7 @@ using Embark.DesignPatterns.MVVM;
 namespace TestClient.IO.TestData
 {
     //class Dog : IDataEntity
-    class Dog : NotifyChangeBase
+    class Dog : PropertyChangeBase
     {
         public Dog()
         {

@@ -11,7 +11,7 @@ namespace Embark.DesignPatterns.MVVM
     /// Lambda expressions to get NotifyChangeBase property strings and raise properties.
     /// <para>Intended to avoid using magic strings that are not easily refactor-safe</para>
     /// </summary>
-    public static class NotifyChangeBaseReflection
+    public static class PropertyChangeBaseReflection
     {
         /// <summary>
         /// Raise the PropertyChangedEvent of a property passed in via lambda
@@ -25,9 +25,9 @@ namespace Embark.DesignPatterns.MVVM
         /// <typeparam name="TProperty">Property type to raise event for</typeparam>
         /// <param name="obj">Instance of NotifyChangeBase object</param>
         /// <param name="property">Property to raise event for</param>
-        public static void RaisePropertyChangedEvent<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : NotifyChangeBase
+        public static void RaisePropertyChangedEvent<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : PropertyChangeBase
         {
-            var propertyName = NotifyChangeBaseReflection.GetPropertyString(obj, property);
+            var propertyName = PropertyChangeBaseReflection.GetPropertyString(obj, property);
             obj.RaisePropertyChangedEvent(propertyName);
         }
 
@@ -44,7 +44,7 @@ namespace Embark.DesignPatterns.MVVM
         /// <param name="obj">Instance of NotifyChangeBase object</param>       
         /// <param name="property">Property to raise event for</param> 
         /// <returns>String of property lambda</returns>
-        public static string GetPropertyString<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : NotifyChangeBase
+        public static string GetPropertyString<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : PropertyChangeBase
         {
             var lambda = (LambdaExpression)property;
             MemberExpression memberExpression;

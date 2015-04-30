@@ -11,7 +11,7 @@ namespace Embark.DesignPatterns.MVVM
     /// <summary>
     /// Basic implementation of INotifyPropertyChanged that Notifies clients that a property value has changed.
     /// </summary>
-    public abstract class NotifyChangeBase : INotifyPropertyChanged, INotifyPropertyChanging
+    public abstract class PropertyChangeBase : INotifyPropertyChanged, INotifyPropertyChanging
     {
         /// <summary>
         /// Occurs when a property value changes.

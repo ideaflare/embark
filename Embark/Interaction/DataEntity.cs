@@ -11,7 +11,7 @@ namespace Embark.Interaction
     /// <summary>
     /// Basic implementation of <see cref="IDataEntity"/> used for <see cref="EntityCollection{T}"/>
     /// </summary>
-    abstract class DataEntity : NotifyChangeBase, IDataEntity
+    abstract class DataEntity : PropertyChangeBase, IDataEntity
     {
         /// <summary>
         /// Unique Document identifier used by Embark

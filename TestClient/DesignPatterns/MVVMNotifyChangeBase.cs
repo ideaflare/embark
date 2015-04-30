@@ -7,7 +7,6 @@ namespace TestClient.DesignPatterns
     //[TestClass]
     public partial class MVVM
     {
-
         [TestMethod]
         public void SetProperty_RaisesEventsAsExpected()
         {
@@ -61,7 +60,7 @@ namespace TestClient.DesignPatterns
         }
     }
 
-    public class WeightLifter : NotifyChangeBase
+    public class WeightLifter : PropertyChangeBase
     {
         public int Dumbbells { get; set; }
 

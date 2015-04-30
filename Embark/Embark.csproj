@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesignPatterns\MVVM\ActionCommandT.cs" />
-    <Compile Include="DesignPatterns\MVVM\NotifyChangeBaseReflection.cs" />
-    <Compile Include="DesignPatterns\MVVM\NotifyChangeBase.cs" />
+    <Compile Include="DesignPatterns\MVVM\PropertyChangeBaseReflection.cs" />
+    <Compile Include="DesignPatterns\MVVM\PropertyChangeBase.cs" />
     <Compile Include="Interaction\CollectionT.cs" />
     <Compile Include="Interaction\DataEntity.cs" />
     <Compile Include="Interaction\EntityCollection.cs" />
