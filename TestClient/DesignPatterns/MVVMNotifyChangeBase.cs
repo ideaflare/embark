@@ -8,7 +8,7 @@ namespace TestClient.DesignPatterns
     public partial class MVVM
     {
         [TestMethod]
-        public void SetProperty_RaisesEventsAsExpected()
+        public void PropertyChangeBase_RaisesEventsAsExpected()
         {
             //Arrange
             var lifter = new WeightLifter
@@ -57,6 +57,13 @@ namespace TestClient.DesignPatterns
 
             Assert.IsTrue(dumbbellsraised);
             Assert.AreEqual(2, lifter.Dumbbells);
+        }
+
+        [TestMethod]
+        public void GetPropertyString_ReturnsSameName()
+        {
+            var result = (new WeightLifter()).GetPropertyString((vm) => vm.Dumbbells);
+            Assert.AreEqual("Dumbbells", result);
         }
     }
 
