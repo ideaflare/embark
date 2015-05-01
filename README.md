@@ -1,4 +1,4 @@
-# idea
+# Idea
 Easy to use document database with a focus on visibility and simplicity. Made for prototyping or projects with an agile code-first approach. Embark allows you to [defer the plumbing or commitment of choosing a specific database technology](https://www.youtube.com/watch?v=asLUTiJJqdE).
 
 ##Visibility
@@ -45,17 +45,21 @@ var io = db["fruit"];
 - See the [wiki for details](https://github.com/ubrgw/embark/wiki)
 
 ####[in development](https://trello.com/b/rtqlPmrM/development):
-- Aggregate functions (Count/Average/Min/Max..)
 - Custom text-to-object mapping, like [YAML](http://www.yaml.org/start.html) or even [DSON](http://dogeon.org/)
+- Optional convention based collection
+- Optional caching & async data persistency
 - Review & Simplify code
 
-###That's it!
+##That's it!
 
 The intent of Embark is to stay simple to use and minimal.
 A single .dll under 50 kilobytes and no external dependencies other than the .NET framework. 
-
-The aim of the project is to provide a DB while you are building new ideas and not to weigh features that do not contribute to prototyping like database replication, query optimizations, optimal disk usage, etc...
 By avoiding increasing complexity from scope-creep, Embark will remain crisp and friendly :)
+
+The aim of the project is to provide a DB [while you are building new ideas](https://github.com/ubrgw/embark/wiki) and not to weigh features that do not contribute to prototyping like database replication, query optimizations, optimal disk usage, etc..
+
+![alt text](https://trello-attachments.s3.amazonaws.com/54f89e2e643f7e862d27cf6b/675x592/ed7a589d1d7470a4eaaa8ded3dfa699c/iterativeB.png "Stepping stone development")
+*Stepping stone development*
 
 ##Usage
 
