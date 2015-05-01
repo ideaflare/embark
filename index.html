@@ -20,14 +20,16 @@
 
     <section class="main-content">
       <h1>
-<a id="idea" class="anchor" href="#embark" aria-hidden="true"><span class="octicon octicon-link"></span></a>idea</h1>
+<a id="idea" class="anchor" href="#idea" aria-hidden="true"><span class="octicon octicon-link"></span></a>Idea</h1>
 
 <p>Easy to use document database with a focus on visibility and simplicity. Made for prototyping or projects with an agile code-first approach. Embark allows you to <a href="https://www.youtube.com/watch?v=asLUTiJJqdE">defer the plumbing or commitment of choosing a specific database technology</a>.</p>
 
 <h2>
 <a id="visibility" class="anchor" href="#visibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visibility</h2>
 
-<p>Documents are saved as <a href="http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example">JSON</a> text files in folders for each collection so you can easily view/edit data while developing.</p>
+<p>Documents are saved as <a href="http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example">JSON</a> text files in folders for each collection, so you can easily view/edit data while developing.</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/54f89e2e643f7e862d27cf6b/551x192/386d7e8b7a80eb55380f4b733d0e8ca6/explore.png" alt="Documents saved as text files" title="Documents saved as text files"></p>
 
 <h2>
 <a id="simplicity" class="anchor" href="#simplicity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simplicity</h2>
@@ -61,41 +63,32 @@ fluffy.FavouriteIceCream = IceCream.Strawberry;
 <span class="pl-k">var</span> io = db[<span class="pl-s"><span class="pl-pds">"</span>fruit<span class="pl-pds">"</span></span>];</pre></div>
 
 <h3>
-<a id="Other commands:" class="anchor" href="#The-other-commands-are" aria-hidden="true"><span class="octicon octicon-link"></span>
-</a>Some other commands include</h3>
+<a id="some-other-commands-are" class="anchor" href="#some-other-commands-are" aria-hidden="true"><span class="octicon octicon-link"></span></a>Some other commands are</h3>
 
 <ul>
 <li>GetWhere(new { Name = "Rocket"})</li>
 <li>GetBetween(new { Score = 15}, new { Score = 39.21})</li>
-<li>GetAll() returns Document Wrappers with ID &amp; timestamp</li>
+<li>GetAll() returns Document Wrapper with ID &amp; timestamp</li>
 <li>byte[] GetByteArray(object blob) to help with blob deserialization</li>
-<li>See the <a href="https://github.com/ubrgw/embark/wiki">wiki for details</a></li>
+<li>See the <a href="https://github.com/ubrgw/embark/wiki/SQL-Equivalents">wiki for details</a>
+</li>
 </ul>
 
-<h3>
-<a id="in-development" class="anchor" href="#in-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>
-<a href="https://trello.com/b/rtqlPmrM/development">In development</a></h3>
-
-<ul>
-<li>Aggregate functions (Count/Average/Min/Max..)</li>
-<li>Custom text-to-object mapping, like <a href="http://www.yaml.org/start.html">YAML</a> or even <a href="http://dogeon.org/">DSON</a></li>
-<li>Review &amp; Simplify code</li>
-</ul>
-
-<h3>
-<a id="thats-it" class="anchor" href="#thats-it" aria-hidden="true"><span class="octicon octicon-link"></span>
-</a>That's it!</h3>
+<h2>
+<a id="thats-it" class="anchor" href="#thats-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>That's it!</h2>
 
 <p>The intent of Embark is to stay simple to use and minimal.
-A single .dll under 50 kilobytes and no external dependencies other than the .NET framework. </p>
-
-<p>The aim of the project is to provide a DB while you are building new ideas and not to weigh features that do not contribute to prototyping like database replication, query optimizations, optimal disk usage, etc...
+A single .dll under 50 kilobytes and no external dependencies other than the .NET framework. 
 By avoiding increasing complexity from scope-creep, Embark will remain crisp and friendly :)</p>
+
+<p>The aim of the project is to provide a DB <a href="https://github.com/ubrgw/embark/wiki">while you are building new ideas</a> and not to weigh features that do not contribute to prototyping like database replication, query optimizations, optimal disk usage, etc..</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/54f89e2e643f7e862d27cf6b/675x592/ed7a589d1d7470a4eaaa8ded3dfa699c/iterativeB.png" alt="alt text" title="Stepping stone development"></p>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>You can add the <a href="https://www.nuget.org/packages/Embark/">Embark NuGet package</a>, copy paste the sample code and then just continue developing.</p>
+<p>You can add the <a href="https://www.nuget.org/packages/Embark/">Embark NuGet package</a>, copy paste the sample code, and just continue developing.</p>
 
 <p>If you want to save data over a network:</p>
 
@@ -103,44 +96,32 @@ By avoiding increasing complexity from scope-creep, Embark will remain crisp and
 <span class="pl-k">var</span> server = <span class="pl-k">new</span> Embark.Server();
 server.Start();</pre></div>
 
-<p>or you can download a simple server from <a href="https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/c3e0c011826d1fe4519a46f07e46b97e/BasicServer.zip">here</a>. </p>
+<p>or you can download a simple server from <a href="https://trello-attachments.s3.amazonaws.com/54f89f538ec1e186a911c534/5527fc8a8a55d94cbed0ab17/a329633e001aae8b8b8deac9fcc2f98b/EmbarkDemo.zip">here</a>. </p>
 
 <blockquote>
 <p><em>NOTE: For the WCF server to work, either run it in admin mode or give access rights to the <a href="http://stackoverflow.com/a/17242260/4650900">your-machine:port/embark/</a> namespace.</em></p>
 </blockquote>
 
 <h2>
-<a id="development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h2>
+<a id="in-development" class="anchor" href="#in-development" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://trello.com/b/rtqlPmrM/development">In development:</a>
+</h2>
 
-<p>Check out current developments @ <a href="https://trello.com/b/rtqlPmrM/development">embarkDB on trello</a>.</p>
+<ul>
+<li>Custom text-to-object mapping, like <a href="http://www.yaml.org/start.html">YAML</a> or even <a href="http://dogeon.org/">DSON</a>
+</li>
+<li>Optional convention based collection</li>
+<li>Optional caching &amp; async data persistency</li>
+<li>Review &amp; Simplify code</li>
+</ul>
 
-<p>Get involved in the discussion below with any feedback, ideas or suggestions! Feel free to contact 
-<a href="mailto:embarkDB@gmail.com">embarkDB@gmail.com</a> to contribute thoughts/code/design.
-</p>
+<p>Check out <a href="https://trello.com/b/rtqlPmrM/development">Embark kanban on trello</a>.</p>
 
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'embarkdb';
-    
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+<p>Feel free to contact <a href="mailto:EmbarkDB@gmail.com">EmbarkDB@gmail.com</a> with any feedback, suggestions or to get involved!</p>
 
       <footer class="site-footer">
-        <span class="site-footer-owner">
-          <a href="https://github.com/ubrgw/embark">Embark</a>
-          is maintained by <a href="https://github.com/ubrgw">ubrgw</a>.
-          <p>
-          <a href="https://twitter.com/intent/tweet?screen_name=ubrgw" class="twitter-mention-button" data-size="large" data-related="ubrgw">Tweet to @ubrgw</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-          </p>
-          </span>
+        <span class="site-footer-owner"><a href="https://github.com/ubrgw/embark">Embark</a> is maintained by <a href="https://github.com/ubrgw">ubrgw</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
 
     </section>
