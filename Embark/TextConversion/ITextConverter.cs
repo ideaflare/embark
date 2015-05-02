@@ -1,11 +1,4 @@
-﻿using Embark.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Embark.Interfaces
+﻿namespace Embark.TextConversion
 {
     /// <summary>
     /// Convert between POCO objects and text.

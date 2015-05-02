@@ -1,7 +1,6 @@
 ﻿using Embark;
 using Embark.TextConversion;
 using Embark.Interaction;
-using Embark.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

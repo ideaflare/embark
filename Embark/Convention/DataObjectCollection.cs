@@ -1,15 +1,11 @@
-﻿using Embark.Interaction;
-using Embark.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Embark.Interaction;
 
 namespace Embark.Convention
 {
     /// <summary>
-    /// Type specific interface to CRUD and other data commands to <see cref="ITextRepository"/> and <seealso cref="ITextConverter"/>
+    /// Type specific interface to CRUD and other data commands to <see cref="Embark.DataChannel.ITextRepository"/> and <seealso cref="Embark.TextConversion.ITextConverter"/>
     /// <typeparam name="T">The POCO class that implements <see cref="IDataObject"/> or inherits from <see cref="DataObjectBase"/></typeparam>
     /// </summary>
     public class DocumentCollection<T> where T : class, IDataObject

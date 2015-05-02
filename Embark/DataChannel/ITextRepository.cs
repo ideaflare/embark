@@ -1,13 +1,8 @@
-﻿using Embark.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Embark.Interfaces
+namespace Embark.DataChannel
 {
     /// <summary>
     /// All commands to insert/get/update/delete documents

@@ -1,14 +1,10 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Embark.Interfaces;
-using Embark.TextConversion;
 using System.ServiceModel;
+using Embark.Storage;
+using Embark.TextConversion;
 
-namespace Embark.Storage
+namespace Embark.DataChannel
 {
     [ServiceBehavior(
         InstanceContextMode = InstanceContextMode.Single,

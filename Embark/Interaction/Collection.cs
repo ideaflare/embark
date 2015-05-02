@@ -1,9 +1,7 @@
-﻿using Embark.Interfaces;
-using System;
+﻿using System.Linq;
+using Embark.DataChannel;
+using Embark.TextConversion;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Embark.Interaction
 {

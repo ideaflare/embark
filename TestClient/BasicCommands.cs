@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.IO;
 using System.IO;
 using Embark;
-using Embark.Interfaces;
 using TestClient.IO.TestData;
 using TestClient.TestData;
 

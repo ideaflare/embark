@@ -1,16 +1,9 @@
-﻿using Embark.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Description;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 
-namespace Embark.Storage
+namespace Embark.DataChannel
 {
     internal class WebServiceRepository : ITextRepository
     {

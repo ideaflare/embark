@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Embark.Storage
+﻿namespace Embark.DataChannel
 {
     /// <summary>
     /// Data Transfer Object used to send ID and Object Serialized as text
