@@ -4,9 +4,9 @@ using Embark.Convention.MVVM;
 namespace Embark.Convention
 {
     /// <summary>
-    /// Basic implementation of <see cref="IDataObject"/> used for <see cref="DocumentCollection{T}"/>
+    /// Basic implementation of <see cref="IDataEntry"/> used for <see cref="DataEntryCollection{T}"/>
     /// </summary>
-    public abstract class DataObjectBase : PropertyChangeBase, IDataObject
+    public abstract class DataEntryBase : PropertyChangeBase, IDataEntry
     {
         /// <summary>
         /// Unique Document identifier used by Embark

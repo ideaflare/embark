@@ -1,6 +1,7 @@
 ﻿using Embark;
-using Embark.TextConversion;
 using Embark.Interaction;
+using Embark.TextConversion;
+using Embark.Convention;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TestClient.IO.TestData;
 
 namespace TestClient.TestData
 {
@@ -16,7 +18,9 @@ namespace TestClient.TestData
     public class Cache
     {
         internal static Client localClient;
-        internal static Collection localSheep;
+
+        internal static Collection BasicCollection;
+        internal static DataEntryCollection<Shoe> ConventionCollection;
 
         private static string testDir = @"C:\MyTemp\Embark\TestData\";
 
@@ -31,7 +35,8 @@ namespace TestClient.TestData
             //localCache = new Client(testDir);
             localClient = Client.GetLocalDB(testDir);
 
-            localSheep = localClient["sheep"];
+            BasicCollection = localClient.Basic;
+            ConventionCollection = new DataEntryCollection<Shoe>(localClient["conventionTests"]);
             //serverCache = new Client("127.0.0.1", 80);
         }
 

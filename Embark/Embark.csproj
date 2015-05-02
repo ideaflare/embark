@@ -49,9 +49,9 @@
     <Compile Include="Convention\MVVM\PropertyChangeBaseReflection.cs" />
     <Compile Include="Convention\MVVM\PropertyChangeBase.cs" />
     <Compile Include="Interaction\CollectionT.cs" />
-    <Compile Include="Convention\DataObjectBase.cs" />
-    <Compile Include="Convention\DataObjectCollection.cs" />
-    <Compile Include="Convention\IDataObject.cs" />
+    <Compile Include="Convention\DataEntryBase.cs" />
+    <Compile Include="Convention\DataEntryCollection.cs" />
+    <Compile Include="Convention\IDataEntry.cs" />
     <Compile Include="Convention\MVVM\ActionCommand.cs" />
     <Compile Include="Storage\FileDataStore.cs" />
     <Compile Include="TypeConversion.cs" />

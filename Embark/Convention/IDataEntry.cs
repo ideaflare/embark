@@ -1,9 +1,9 @@
 ﻿namespace Embark.Convention
 {
     /// <summary>
-    /// Used by <see cref="DocumentCollection{T}"/> to ensure class has expected Int64 ID
+    /// Used by <see cref="DataEntryCollection{T}"/> to ensure class has expected Int64 ID
     /// </summary>
-    public interface IDataObject
+    public interface IDataEntry
     {
         /// <summary>
         /// Unique ID used by EmbarkDB 

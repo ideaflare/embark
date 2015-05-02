@@ -56,11 +56,11 @@
   <ItemGroup>
     <Compile Include="MVVM\MVVMActionCommand.cs" />
     <Compile Include="MVVM\MVVMNotifyChangeBase.cs" />
-    <Compile Include="TestData\Animals\Cat.cs" />
-    <Compile Include="TestData\Animals\IceCream.cs" />
-    <Compile Include="TestData\Animals\Sheep.cs" />
-    <Compile Include="TestData\Animals\Table.cs" />
-    <Compile Include="TestData\Animals\Dog.cs" />
+    <Compile Include="TestData\Entities\Cat.cs" />
+    <Compile Include="TestData\Entities\IceCream.cs" />
+    <Compile Include="TestData\Entities\Sheep.cs" />
+    <Compile Include="TestData\Entities\Table.cs" />
+    <Compile Include="TestData\Entities\Dog.cs" />
     <Compile Include="TestData\TestData.cs" />
     <Compile Include="BasicCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Functionality.cs" />
     <Compile Include="RangeCommands.cs" />
     <Compile Include="DocumentWrapper.cs" />
-    <Compile Include="EmbarkCollection.cs" />
+    <Compile Include="DataEntryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">

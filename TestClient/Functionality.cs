@@ -22,7 +22,7 @@ namespace TestClient
             var sw = Stopwatch.StartNew();
             var newIDs = Enumerable.Range(0, totalInserts)
                 .AsParallel()
-                .Select(i => Cache.localSheep.Insert(new { Number = i, Text = "Hi" }))
+                .Select(i => Cache.BasicCollection.Insert(new { Number = i, Text = "Hi" }))
                 .ToList();
             sw.Stop();
 
@@ -37,7 +37,7 @@ namespace TestClient
         {
             // arrange
             var now = DateTime.Now;
-            long id = Cache.localSheep.Insert(new { Numero = "Uno" });
+            long id = Cache.BasicCollection.Insert(new { Numero = "Uno" });
 
             // act
             var timestamp = new DateTime(id);
@@ -52,9 +52,9 @@ namespace TestClient
         {
             var sheep = TestEntities.GetTestSheep();
 
-            long id = Cache.localSheep.Insert(sheep);
+            long id = Cache.BasicCollection.Insert(sheep);
 
-            Cat cat = Cache.localSheep.Get<Cat>(id);
+            Cat cat = Cache.BasicCollection.Get<Cat>(id);
 
             Assert.AreEqual(cat.Name, sheep.Name);
             Assert.AreEqual(cat.Age, sheep.Age);

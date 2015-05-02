@@ -11,6 +11,15 @@ namespace TestClient.IO.TestData
 {
     internal class TestEntities
     {
+        internal static Shoe GetTestShoe()
+        {
+            return new Shoe
+            {
+                Name = Path.GetRandomFileName().Replace(".", ""),
+                Cost = rnd.Value.Next(100, 1000)
+            };                
+        }
+
         internal static Sheep GetTestSheep()
         {
             var r = rnd.Value;

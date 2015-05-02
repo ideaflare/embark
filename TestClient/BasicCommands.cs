@@ -18,7 +18,7 @@ namespace TestClient
             var sheep = TestEntities.GetTestSheep();
 
             // act
-            object id = Cache.localSheep.Insert(sheep);
+            object id = Cache.BasicCollection.Insert(sheep);
 
             // assert
             Assert.AreEqual(typeof(long), id.GetType());
@@ -30,10 +30,10 @@ namespace TestClient
             // arrange
             var saved = TestEntities.GetTestSheep();
                        
-            long id = Cache.localSheep.Insert(saved);
+            long id = Cache.BasicCollection.Insert(saved);
 
             // act
-            Sheep loaded = Cache.localSheep.Get<Sheep>(id);
+            Sheep loaded = Cache.BasicCollection.Get<Sheep>(id);
 
             // assert
             Assert.AreEqual(saved.Name, loaded.Name);
@@ -48,16 +48,16 @@ namespace TestClient
             // arrange
             var saved = TestEntities.GetTestSheep();
 
-            long id = Cache.localSheep.Insert(saved);
+            long id = Cache.BasicCollection.Insert(saved);
 
-            Sheep source = Cache.localSheep.Get<Sheep>(id);
+            Sheep source = Cache.BasicCollection.Get<Sheep>(id);
 
             Sheep updated = new Sheep { Name = source.Name, FavouriteIceCream = source.FavouriteIceCream };
             updated.Age = source.Age + 1;
             
             // act            
-            bool hasSheepUpdated = Cache.localSheep.Update(id, updated);
-            Sheep loaded = Cache.localSheep.Get<Sheep>(id);
+            bool hasSheepUpdated = Cache.BasicCollection.Update(id, updated);
+            Sheep loaded = Cache.BasicCollection.Get<Sheep>(id);
 
             // assert
             Assert.IsTrue(hasSheepUpdated);
@@ -73,13 +73,13 @@ namespace TestClient
             // arrange
             var saved = TestEntities.GetTestSheep();
 
-            long id = Cache.localSheep.Insert(saved);
+            long id = Cache.BasicCollection.Insert(saved);
 
-            Sheep source = Cache.localSheep.Get<Sheep>(id);
+            Sheep source = Cache.BasicCollection.Get<Sheep>(id);
 
             // act            
-            bool hasSheepVanished = Cache.localSheep.Delete(id);
-            Sheep loaded = Cache.localSheep.Get<Sheep>(id);
+            bool hasSheepVanished = Cache.BasicCollection.Delete(id);
+            Sheep loaded = Cache.BasicCollection.Get<Sheep>(id);
 
             // assert
             Assert.IsTrue(hasSheepVanished);

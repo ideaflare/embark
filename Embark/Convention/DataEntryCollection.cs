@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Embark.Interaction;
 
@@ -6,15 +7,15 @@ namespace Embark.Convention
 {
     /// <summary>
     /// Type specific interface to CRUD and other data commands to <see cref="Embark.DataChannel.ITextRepository"/> and <seealso cref="Embark.TextConversion.ITextConverter"/>
-    /// <typeparam name="T">The POCO class that implements <see cref="IDataObject"/> or inherits from <see cref="DataObjectBase"/></typeparam>
+    /// <typeparam name="T">The POCO class that implements <see cref="IDataEntry"/> or inherits from <see cref="DataEntryBase"/></typeparam>
     /// </summary>
-    public class DocumentCollection<T> where T : class, IDataObject
+    public class DataEntryCollection<T> where T : class, IDataEntry
     {
         /// <summary>
         /// Create a new instance of a type specific collection
         /// </summary>
         /// <param name="collection">Basic underlying collection called with type T</param>
-        public DocumentCollection(Collection collection)
+        public DataEntryCollection(Collection collection)
         {
             this.collection = collection;
         }
@@ -32,11 +33,11 @@ namespace Embark.Convention
         /// </summary>
         /// <param name="objectToInsert">The object to insert</param>
         /// <returns>The ID of the new document</returns>
-        public long Insert(T objectToInsert)
+        public T Insert(T objectToInsert)
         {
             var id = collection.Insert(objectToInsert);
             objectToInsert.ID = id;
-            return id;
+            return objectToInsert;
         }
 
         /// <summary>
@@ -45,9 +46,9 @@ namespace Embark.Convention
         /// <param name="id">The ID of the document</param>
         /// <param name="objectToUpdate">New value for the whole document. Increment/Differential updating is not supported (yet).</param>
         /// <returns>True if the document was updated</returns>
-        public bool Update(long id, T objectToUpdate)
+        public bool Update(T objectToUpdate)
         {
-            return collection.Update(id, objectToUpdate);
+            return collection.Update(objectToUpdate.ID, objectToUpdate);
         }
 
         /// <summary>
@@ -61,13 +62,30 @@ namespace Embark.Convention
         }
 
         /// <summary>
+        /// Remove an entry from the collection and sets the object to null
+        /// </summary>
+        /// <param name="objectToDelete">The object to delete</param>
+        /// <returns>True if the object was deleted, otherwise returns false.</returns>
+        public bool Delete(T objectToDelete) 
+        {
+            if (collection.Delete(objectToDelete.ID))
+            {
+                objectToDelete = null;
+                return true;
+            }
+            else return false;
+        }
+
+        /// <summary>
         /// Select an existing entry in the collection
         /// </summary>
         /// <param name="id">The Int64 ID of the document</param>
         /// <returns>The object entry saved in the document</returns>
         public T Get(long id)
         {
-            return collection.Get<T>(id);
+            var item = collection.Get<T>(id);
+            item.ID = id;
+            return item;
         }
 
         /// <summary>
@@ -77,26 +95,32 @@ namespace Embark.Convention
         /// <returns>The document wrapper that contains the entity</returns>
         public DocumentWrapper<T> GetWrapper(long id)
         {
-            return collection.GetWrapper<T>(id);
+            var wrapper = collection.GetWrapper<T>(id);
+            wrapper.Content.ID = id;
+            return wrapper;
         }
 
         /// <summary>
         /// Select all documents in the collection
         /// </summary>
-        /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="TypeConversion.Unwrap"/></returns>
-        public IEnumerable<DocumentWrapper<T>> GetAll()
+        /// <returns>A collection of <see cref="IDataEntry"/> objects. <seealso cref="TypeConversion.Unwrap"/></returns>
+        public IEnumerable<T> GetAll()
         {
-            return collection.GetAll<T>();
+            return collection
+                .GetAll<T>()
+                .UnwrapWithIDs();
         }
 
         /// <summary>
         /// Get similar documents that have matching property values to an example object.
         /// </summary>
         /// <param name="searchObject">Example object to compare against</param>        
-        /// <returns><see cref="DocumentWrapper{T}"/> objects from the collection that match the search criterea. </returns>
-        public IEnumerable<DocumentWrapper<T>> GetWhere(object searchObject)
+        /// <returns><see cref="IDataEntry"/> objects from the collection that match the search criterea. </returns>
+        public IEnumerable<T> GetWhere(object searchObject)
         {
-            return collection.GetWhere<T>(searchObject);
+            return collection
+                .GetWhere<T>(searchObject)
+                .UnwrapWithIDs();
         }
 
         /// <summary>
@@ -104,10 +128,12 @@ namespace Embark.Convention
         /// </summary>
         /// <param name="startRange">The first object to compare against</param>
         /// <param name="endRange">A second object to comare values agianst to check if search is between example values</param>
-        /// <returns><see cref="DocumentWrapper{T}"/> objects from the collection that are within the bounds of the search criterea.</returns>
-        public IEnumerable<DocumentWrapper<T>> GetBetween(object startRange, object endRange)
+        /// <returns><see cref="IDataEntry"/> objects from the collection that are within the bounds of the search criterea.</returns>
+        public IEnumerable<T> GetBetween(object startRange, object endRange)
         {
-            return collection.GetBetween<T>(startRange, endRange);
+            return collection
+                .GetBetween<T>(startRange, endRange)
+                .UnwrapWithIDs();
         }
     }
 }

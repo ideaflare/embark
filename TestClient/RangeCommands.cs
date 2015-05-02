@@ -89,13 +89,13 @@ namespace TestClient
             var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum };
                         
-            Cache.localSheep.Insert(oldWooly);
-            Cache.localSheep.Insert(oldDusty);
-            Cache.localSheep.Insert(youngLassy);
+            Cache.BasicCollection.Insert(oldWooly);
+            Cache.BasicCollection.Insert(oldDusty);
+            Cache.BasicCollection.Insert(youngLassy);
 
             // act            
 
-            IEnumerable<Sheep> matchQuery = Cache.localSheep.GetWhere<Sheep>(new { Age = 100 }).Unwrap();
+            IEnumerable<Sheep> matchQuery = Cache.BasicCollection.GetWhere<Sheep>(new { Age = 100 }).Unwrap();
 
             var ancients = matchQuery.ToList();
 

@@ -5,6 +5,7 @@ using Embark.Storage;
 using Embark.DataChannel;
 using Embark.Interaction;
 using Embark.TextConversion;
+using Embark.Convention;
 
 namespace Embark
 {
@@ -107,6 +108,11 @@ namespace Embark
             var basic = GetCollection(collectionName);
 
             return new Collection<T>(basic);
+        }
+
+        public DataEntryCollection<T> GetDataEntryCollection<T>(string collectionName) where T : class, IDataEntry
+        {
+            return null;
         }
 
         private static void ValidateCollectionName(string collectionName)

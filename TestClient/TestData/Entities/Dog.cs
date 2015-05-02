@@ -9,13 +9,14 @@ using Embark.Convention.MVVM;
 
 namespace TestClient.IO.TestData
 {
-    class Dog : DataObjectBase, IDataObject
+    class Shoe : DataEntryBase, IDataEntry
     {
-        public Dog()
+        public Shoe()
         {
         }
 
         public string Name { get; set; }
+        public int Cost { get; set; }
 
     }
 }

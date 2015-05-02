@@ -30,10 +30,20 @@ namespace Embark
         /// </summary>
         /// <typeparam name="T">The type of wrapped documents</typeparam>
         /// <param name="documents">Documents with ID/Timestamp info</param>
-        /// <returns>The .Value Properties of the DocumentWrappers</returns>
+        /// <returns>The Object Contents of the DocumentWrappers</returns>
         public static IEnumerable<T> Unwrap<T>(this IEnumerable<DocumentWrapper<T>> documents)
         {
             return documents.Select(doc => doc.Content);
+        }
+
+        internal static IEnumerable<T> UnwrapWithIDs<T>(this IEnumerable<DocumentWrapper<T>> documents)
+            where T : class, Embark.Convention.IDataEntry
+        {
+            return documents.Select(doc =>
+                {
+                    doc.Content.ID = doc.ID;
+                    return doc.Content;
+                });
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Embark.Interaction
     /// </summary>
     public class DocumentWrapper<T>
     {
-        internal DocumentWrapper(DataEnvelope dataEnvelope, Collection collection) 
-            : this(dataEnvelope.ID,dataEnvelope.Text, collection)
+        internal DocumentWrapper(DataEnvelope dataEnvelope, Collection collection)
+            : this(dataEnvelope.ID, dataEnvelope.Text, collection)
         {
         }
 
