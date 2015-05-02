@@ -27,7 +27,7 @@ namespace TestClient
             // act
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
 
-            var loaded = wrapper.Value;
+            var loaded = wrapper.Content;
 
             // assert
             Assert.AreEqual(wrapper.ID, id);
@@ -48,7 +48,7 @@ namespace TestClient
 
             // act
             var olderAge = saved.Age + 1;
-            wrapper.Value.Age = olderAge;
+            wrapper.Content.Age = olderAge;
             wrapper.Update();
 
             var agedSheep = io.Get(id);

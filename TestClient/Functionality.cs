@@ -75,7 +75,7 @@ namespace TestClient
 
             // assert
             Assert.AreEqual(sheep.ToString(), wrappedSheep.ToString());
-            Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Value.ToString());
+            Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Content.ToString());
         }
 
         //[TestMethod]

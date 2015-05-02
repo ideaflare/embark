@@ -36,7 +36,7 @@ namespace Embark
         /// <returns>The .Value Properties of the DocumentWrappers</returns>
         public static IEnumerable<T> Unwrap<T>(this IEnumerable<DocumentWrapper<T>> documents)
         {
-            return documents.Select(doc => doc.Value);
+            return documents.Select(doc => doc.Content);
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Embark.Interaction
 {
     /// <summary>
-    /// Type wrapper with timestamp and ID that might be required for subsequent queries.
+    /// Query result wrapper with Content object, meta properties, and update and delete methods.
     /// </summary>
     public class DocumentWrapper<T>
     {
@@ -20,7 +20,7 @@ namespace Embark.Interaction
         internal DocumentWrapper(long id, string text, Collection collection)
         {
             this.ID = id;            
-            this.Value = collection.TextConverter.ToObject<T>(text);
+            this.Content = collection.TextConverter.ToObject<T>(text);
             this.collection = collection;
         }
 
@@ -35,7 +35,18 @@ namespace Embark.Interaction
         /// <summary>
         /// Deserialized Object contained in the wrapper
         /// </summary>
-        public T Value { get; set; }
+        public T Content { get; set; }
+
+        /// <summary>
+        /// Deserialized Object contained in the wrapper
+        /// <para>Synonym for <see cref="Content"/></para>
+        /// </summary>
+        [Obsolete("Use DocumentWrapper.Content instead")]
+        public T Value
+        {
+            get { return this.Content; }
+            set { this.Content = value; }
+        }
 
         /// <summary>
         /// The creation time of the document
@@ -52,7 +63,7 @@ namespace Embark.Interaction
         /// <returns>DocumentWrapper.Value.ToString()</returns>
         public override string ToString()
         {
-            return this.Value.ToString();
+            return this.Content.ToString();
         }
 
         /// <summary>
@@ -60,7 +71,7 @@ namespace Embark.Interaction
         /// </summary>
         public bool Update()
         {
-            return this.collection.Update(this.ID, this.Value);
+            return this.collection.Update(this.ID, this.Content);
         }
 
         /// <summary>
@@ -69,7 +80,7 @@ namespace Embark.Interaction
         public void Delete()
         {
             this.collection.Delete(this.ID);
-            this.Value = default(T);
+            this.Content = default(T);
         }
     }
 

@@ -40,7 +40,7 @@ namespace TestClient
             {
                 var wrappedSheep = wrappedHerd.Where(ws => ws.ID == documentWrapper.ID).Single();
 
-                Assert.IsTrue(documentWrapper.Value.Equals( wrappedSheep.Sheep));
+                Assert.IsTrue(documentWrapper.Content.Equals( wrappedSheep.Sheep));
             }
 
             // Assumption that insert order = fetch order. If this changes, change the unit test and allow unordered insert & query.
@@ -78,7 +78,7 @@ namespace TestClient
                 .Single();
 
             //Assert
-            Assert.IsTrue(betweenSheep.Value.Equals(oldDusty));
+            Assert.IsTrue(betweenSheep.Content.Equals(oldDusty));
         }
 
         [TestMethod]
