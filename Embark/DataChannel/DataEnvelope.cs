@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Embark.Storage
 {
     /// <summary>
-    /// Used to send public get and set properties of ID and Text.
+    /// Data Transfer Object used to send ID and Object Serialized as text
     /// </summary>
     /// <remarks> Used instead of Tuple or KeyValuePair,
     /// because their key/item properties are get only,
@@ -20,7 +20,7 @@ namespace Embark.Storage
         public long ID { get; set; }
 
         /// <summary>
-        /// JSON (XML, YAML or other) Text repesenting the serialized POCO
+        /// JSON (XML, YAML or other) Text repesenting the serialized POCO/DTO/(or primitive data)
         /// </summary>
         public string Text { get; set; }
     }

@@ -5,13 +5,13 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 using Embark.Storage;
-using Embark.Conversion;
+using Embark.TextConversion;
 using Embark.Interfaces;
 
 namespace Embark
 {
     /// <summary>
-    /// Server that shares a local database shared over WCF HTTP
+    /// Server that shares a local database hosted over WCF HTTP
     /// </summary>
     public sealed class Server : IDisposable
     {   
@@ -22,7 +22,7 @@ namespace Embark
         /// <param name="port">port to use, default set to 8080</param>
         public Server(string directory = @"C:\MyTemp\Embark\Server\", int port = 8080)
         {
-            ITextConverter textConverter = new JavascriptSerializerConverter();
+            ITextConverter textConverter = new JavascriptSerializerTextConverter();
 
             var store = new FileDataStore(directory);
             var textRepository = new LocalRepository(store, textConverter);

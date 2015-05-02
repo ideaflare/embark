@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark.DesignPatterns.MVVM
+namespace Embark.Convention.MVVM
 {
     /// <summary>
     /// Lambda expressions to get NotifyChangeBase property strings and raise properties.

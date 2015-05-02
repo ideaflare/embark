@@ -1,4 +1,4 @@
-﻿using Embark.Conversion;
+﻿using Embark.TextConversion;
 using Embark.Interaction;
 using Embark.Interfaces;
 using Embark.Storage;
@@ -67,7 +67,7 @@ namespace Embark
 
         private ITextRepository dataStore;
 
-        private ITextConverter textConverter = new JavascriptSerializerConverter();
+        private ITextConverter textConverter = new JavascriptSerializerTextConverter();
 
         /// <summary>
         /// Basic collection named "Basic"

@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace TestClient
 {
     [TestClass]
-    public class EmbarkCollection
+    public class EntityCollection
     {
         [TestMethod]
         public void TestMethod1()

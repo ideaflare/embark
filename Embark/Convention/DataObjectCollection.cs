@@ -1,23 +1,24 @@
-﻿using Embark.Interfaces;
+﻿using Embark.Interaction;
+using Embark.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark.Interaction
+namespace Embark.Convention
 {
     /// <summary>
     /// Type specific interface to CRUD and other data commands to <see cref="ITextRepository"/> and <seealso cref="ITextConverter"/>
-    /// <typeparam name="T">The POCO class that implements <see cref="IDataEntity"/> or inherits from <see cref="DataEntity"/></typeparam>
+    /// <typeparam name="T">The POCO class that implements <see cref="IDataObject"/> or inherits from <see cref="DataObjectBase"/></typeparam>
     /// </summary>
-    class EntityCollection<T> where T : class, IDataEntity
+    public class DocumentCollection<T> where T : class, IDataObject
     {
         /// <summary>
         /// Create a new instance of a type specific collection
         /// </summary>
         /// <param name="collection">Basic underlying collection called with type T</param>
-        public EntityCollection(Collection collection)
+        public DocumentCollection(Collection collection)
         {
             this.collection = collection;
         }

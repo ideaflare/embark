@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Embark.Convention.MVVM;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Embark.DesignPatterns.MVVM;
 
-namespace TestClient.DesignPatterns
+namespace TestClient.MVVM
 {
     //[TestClass]
     public partial class MVVM

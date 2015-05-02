@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Embark.Interaction;
 
-namespace Embark.Interfaces
+namespace Embark.Convention
 {
     /// <summary>
-    /// Used by <see cref="EntityCollection{T}"/> to ensure class has expected Int64 ID
+    /// Used by <see cref="DocumentCollection{T}"/> to ensure class has expected Int64 ID
     /// </summary>
-    interface IDataEntity
+    public interface IDataObject
     {
         /// <summary>
         /// Unique ID used by EmbarkDB 

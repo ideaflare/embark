@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Embark.Interfaces;
-using Embark.Interaction;
 using System.Windows.Input;
-using Embark.DesignPatterns.MVVM;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Embark.Interfaces;
+using Embark.Convention;
+using Embark.Convention.MVVM;
 
 namespace TestClient.IO.TestData
 {
-    //class Dog : IDataEntity
-    class Dog : PropertyChangeBase
+    class Dog : DataObjectBase, IDataObject
     {
         public Dog()
         {
-            this.Bark = new ActionCommand(() => { },() => true);
-
-            //Embark.I
         }
 
-        public ICommand Bark { get; private set; }
-
+        public string Name { get; set; }
 
     }
 }

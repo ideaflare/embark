@@ -1,4 +1,4 @@
-﻿using Embark.DesignPatterns.MVVM;
+﻿using Embark.Convention.MVVM;
 using Embark.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark.Interaction
+namespace Embark.Convention
 {
     /// <summary>
-    /// Basic implementation of <see cref="IDataEntity"/> used for <see cref="EntityCollection{T}"/>
+    /// Basic implementation of <see cref="IDataObject"/> used for <see cref="DocumentCollection{T}"/>
     /// </summary>
-    abstract class DataEntity : PropertyChangeBase, IDataEntity
+    public abstract class DataObjectBase : PropertyChangeBase, IDataObject
     {
         /// <summary>
         /// Unique Document identifier used by Embark

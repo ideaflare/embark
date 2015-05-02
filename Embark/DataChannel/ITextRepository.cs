@@ -15,8 +15,6 @@ namespace Embark.Interfaces
     [ServiceContract()]
     internal interface ITextRepository
     {
-        // Basic
-
         /// <summary>
         /// Insert a json serializable object to save to a collection
         /// </summary>
@@ -48,7 +46,9 @@ namespace Embark.Interfaces
             ResponseFormat = WebMessageFormat.Json)]
         string Get(string tag, string id);
 
-        // TODO 5 OPT Instead of returning IEnumerable object, return Iterator with ID list that calls select(id) internally.
+        // TODO 5 Test - what happens if concurrent modify and delete operations occur while iterating
+        //        Test - maximum size of insert / read queries ? 
+        // OPT Instead of returning IEnumerable object, return Iterator with ID list that calls select(id) internally.
 
         [OperationContract,
         WebGet(UriTemplate = "{tag}/All/",

@@ -1,13 +1,10 @@
-﻿using Embark.DesignPatterns.MVVM;
+﻿using Embark.Convention.MVVM;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Linq;
 
-namespace TestClient.DesignPatterns
+namespace TestClient.MVVM
 {
     [TestClass]
     public partial class MVVM

@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace Embark.DesignPatterns.MVVM
+namespace Embark.Convention.MVVM
 {
     /// <summary>
     /// Basic ICommand implementation that ignores command paramater values
@@ -20,7 +14,5 @@ namespace Embark.DesignPatterns.MVVM
         /// <param name="canExecute">Method to determine whether command can execute in its current state</param>
         public ActionCommand(Action action, Func<bool> canExecute = null)
             : base((o) => action(), (o) => canExecute == null || canExecute()) { }
-    }
-
-    
+    }    
 }

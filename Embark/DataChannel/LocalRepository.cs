@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Embark.Interfaces;
-using Embark.Conversion;
+using Embark.TextConversion;
 using System.ServiceModel;
 
 namespace Embark.Storage

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Embark.Conversion
+namespace Embark.TextConversion
 {
     internal static class Validation
     {

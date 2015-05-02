@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Embark.DesignPatterns.MVVM
+namespace Embark.Convention.MVVM
 {
     /// <summary>
     /// Generic ICommand Implementation

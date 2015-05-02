@@ -54,8 +54,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DesignPatterns\MVVMActionCommand.cs" />
-    <Compile Include="DesignPatterns\MVVMNotifyChangeBase.cs" />
+    <Compile Include="MVVM\MVVMActionCommand.cs" />
+    <Compile Include="MVVM\MVVMNotifyChangeBase.cs" />
     <Compile Include="TestData\Animals\Cat.cs" />
     <Compile Include="TestData\Animals\IceCream.cs" />
     <Compile Include="TestData\Animals\Sheep.cs" />

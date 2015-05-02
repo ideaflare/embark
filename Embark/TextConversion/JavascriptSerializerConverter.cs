@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
-namespace Embark.Conversion
+namespace Embark.TextConversion
 {
-    internal class JavascriptSerializerConverter : ITextConverter
+    internal class JavascriptSerializerTextConverter : ITextConverter
     {
-        public JavascriptSerializerConverter()
+        public JavascriptSerializerTextConverter()
         {
             this.serializer = new JavaScriptSerializer();
         }
@@ -22,7 +22,7 @@ namespace Embark.Conversion
         string ITextConverter.ToText(object obj)
         {
             var text = serializer.Serialize(obj);
-            return TextFormatter.JsonPrettyPrint(text);
+            return JsonTextFormatter.JsonPrettyPrint(text);
         }
 
         T ITextConverter.ToObject<T>(string text)

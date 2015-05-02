@@ -47,7 +47,7 @@ namespace Embark.Interaction
         {   
             string text = TextConverter.ToText(objectToInsert);
 
-            Embark.Conversion.Validation.ValidateUpload<T>(this.TextConverter, objectToInsert, text);
+            Embark.TextConversion.Validation.ValidateUpload<T>(this.TextConverter, objectToInsert, text);
 
             return textRepository.Insert(tag, text);
         }
@@ -63,7 +63,7 @@ namespace Embark.Interaction
         {
             string text = TextConverter.ToText(objectToUpdate);
 
-            Embark.Conversion.Validation.ValidateUpload<T>(this.TextConverter, objectToUpdate, text);
+            Embark.TextConversion.Validation.ValidateUpload<T>(this.TextConverter, objectToUpdate, text);
 
             return textRepository.Update(tag, id.ToString(), text);
         }
