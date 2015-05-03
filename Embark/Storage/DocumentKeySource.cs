@@ -26,10 +26,6 @@ namespace Embark.Storage
 
                 return lastKey;
             }
-
-            // 2 liner, less readable
-            //lock (syncRoot)
-            //    return (lastKey = newKey > lastKey ? newKey : ++lastKey);
         }
     }
 }

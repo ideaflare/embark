@@ -16,18 +16,19 @@ namespace TestClient
         public void NewIDs_AreUnique()
         {
             int totalInserts = 16;
-            double timePerInsert = 7;// milliseconds per insert. Test written on laptop with Samsung 840 SSD. Increase insert time if machine uses a spinning magnetic relic.
+            double timePerInsert = 7;// milliseconds per insert. 
+            // Test written on laptop with Samsung 840 SSD. Increase insert time if machine uses a spinning magnetic relic.
 
             // insert IDs in parallel
             var sw = Stopwatch.StartNew();
             var newIDs = Enumerable.Range(0, totalInserts)
                 .AsParallel()
-                .Select(i => Cache.BasicCollection.Insert(new { Number = i, Text = "Hi" }))
+                .Select(i => Cache.BasicCollection.Insert(new { n = 0 }))
                 .ToList();
             sw.Stop();
 
             // test that they are unique
-            Assert.AreEqual(newIDs.Count, newIDs.Distinct().Count());
+            Assert.AreEqual(totalInserts, newIDs.Distinct().Count());
             // and completed within average timePerInsert time
             Assert.IsTrue(sw.ElapsedMilliseconds < timePerInsert * totalInserts);
         }
