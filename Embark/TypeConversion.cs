@@ -37,7 +37,7 @@ namespace Embark
         }
 
         internal static IEnumerable<T> UnwrapWithIDs<T>(this IEnumerable<DocumentWrapper<T>> documents)
-            where T : class, Embark.Convention.IDataEntry
+            where T : class, IDataEntry
         {
             return documents.Select(doc =>
                 {

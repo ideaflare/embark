@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Embark.Convention.MVVM
+namespace Embark.Interaction.MVVM
 {
     /// <summary>
     /// Basic implementation of INotifyPropertyChanged that Notifies clients that a property value has changed.

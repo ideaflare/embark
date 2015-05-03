@@ -4,8 +4,7 @@ using System.Text;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Embark.Convention;
-using Embark.Convention.MVVM;
+using Embark.Interaction;
 
 namespace TestClient.IO.TestData
 {

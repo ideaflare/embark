@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Embark.Convention.MVVM
+namespace Embark.Interaction.MVVM
 {
     /// <summary>
     /// Generic ICommand Implementation

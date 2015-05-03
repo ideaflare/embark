@@ -1,4 +1,4 @@
-﻿namespace Embark.Convention
+﻿namespace Embark.Interaction
 {
     /// <summary>
     /// Used by <see cref="DataEntryCollection{T}"/> to ensure class has expected Int64 ID

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Embark.Convention.MVVM
+namespace Embark.Interaction.MVVM
 {
     /// <summary>
     /// Basic ICommand implementation that ignores command paramater values

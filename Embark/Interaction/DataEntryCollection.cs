@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Embark.Interaction;
 
-namespace Embark.Convention
+namespace Embark.Interaction
 {
     /// <summary>
     /// Type specific interface to CRUD and other data commands to <see cref="Embark.DataChannel.ITextRepository"/> and <seealso cref="Embark.TextConversion.ITextConverter"/>
@@ -43,7 +42,6 @@ namespace Embark.Convention
         /// <summary>
         /// Update a entry in the collection
         /// </summary>
-        /// <param name="id">The ID of the document</param>
         /// <param name="objectToUpdate">New value for the whole document. Increment/Differential updating is not supported (yet).</param>
         /// <returns>True if the document was updated</returns>
         public bool Update(T objectToUpdate)

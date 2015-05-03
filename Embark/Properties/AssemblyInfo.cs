@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DataStore")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Embark")]
+[assembly: AssemblyDescription("Micro NoSQL document database with a focus on visibility.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DataStore")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("Embark")]
+[assembly: AssemblyCopyright("Copyright ©  2015 ubrgw MIT license")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

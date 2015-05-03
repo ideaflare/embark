@@ -1,7 +1,7 @@
 ﻿using System;
-using Embark.Convention.MVVM;
+using Embark.Interaction.MVVM;
 
-namespace Embark.Convention
+namespace Embark.Interaction
 {
     /// <summary>
     /// Basic implementation of <see cref="IDataEntry"/> used for <see cref="DataEntryCollection{T}"/>
@@ -21,5 +21,7 @@ namespace Embark.Convention
         /// </remarks>
         /// </summary>
         public DateTime Timestamp { get { return new DateTime(ID); } }
+
+        //private DataEntryCollection<T> 
     }
 }

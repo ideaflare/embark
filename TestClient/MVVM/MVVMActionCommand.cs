@@ -1,4 +1,4 @@
-﻿using Embark.Convention.MVVM;
+﻿using Embark.Interaction.MVVM;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Windows.Input;

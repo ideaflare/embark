@@ -45,14 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convention\MVVM\ActionCommandT.cs" />
-    <Compile Include="Convention\MVVM\PropertyChangeBaseReflection.cs" />
-    <Compile Include="Convention\MVVM\PropertyChangeBase.cs" />
+    <Compile Include="Interaction\MVVM\ActionCommandT.cs" />
+    <Compile Include="Interaction\MVVM\PropertyChangeBaseReflection.cs" />
+    <Compile Include="Interaction\MVVM\PropertyChangeBase.cs" />
     <Compile Include="Interaction\CollectionT.cs" />
-    <Compile Include="Convention\DataEntryBase.cs" />
-    <Compile Include="Convention\DataEntryCollection.cs" />
-    <Compile Include="Convention\IDataEntry.cs" />
-    <Compile Include="Convention\MVVM\ActionCommand.cs" />
+    <Compile Include="Interaction\DataEntryBase.cs" />
+    <Compile Include="Interaction\DataEntryCollection.cs" />
+    <Compile Include="Interaction\IDataEntry.cs" />
+    <Compile Include="Interaction\MVVM\ActionCommand.cs" />
     <Compile Include="Storage\FileDataStore.cs" />
     <Compile Include="TypeConversion.cs" />
     <Compile Include="TextConversion\JsonTextFormatter.cs" />

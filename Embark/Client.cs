@@ -5,7 +5,6 @@ using Embark.Storage;
 using Embark.DataChannel;
 using Embark.Interaction;
 using Embark.TextConversion;
-using Embark.Convention;
 
 namespace Embark
 {
@@ -110,6 +109,12 @@ namespace Embark
             return new Collection<T>(basic);
         }
 
+        /// <summary>
+        /// Get a <see cref="IDataEntry"/> based Collection 
+        /// </summary>
+        /// <typeparam name="T">The POCO or DTO class represented by the documents</typeparam>
+        /// <param name="collectionName">Name of the collection</param>
+        /// <returns>DataEntryCollection class with commands to perform against the <see cref="IDataEntry"/> based collection</returns>
         public DataEntryCollection<T> GetDataEntryCollection<T>(string collectionName) where T : class, IDataEntry
         {
             return null;
