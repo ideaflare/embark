@@ -45,5 +45,17 @@ namespace Embark
                     return doc.Content;
                 });
         }
+
+        //internal static IEnumerable<T> WithAutoSaveEnabled<T>(this IEnumerable<T> dataEntries, DataEntryCollection<T> dataEntryCollection)
+        //    where T : class, IDataEntry
+        //{
+        //    return dataEntries.Select(entry =>
+        //    {
+        //        if(entry.dataEntryCollection == null)
+        //            entry.dataEntryCollection = dataEntryCollection
+        //        entry.Autosave = true;
+        //        return entry;
+        //    });
+        //}
     }
 }

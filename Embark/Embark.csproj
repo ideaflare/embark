@@ -65,7 +65,7 @@
     <Compile Include="Server.cs" />
     <Compile Include="Storage\CollectionPaths.cs" />
     <Compile Include="Interaction\DocumentWrapper.cs" />
-    <Compile Include="Storage\KeyProvider.cs" />
+    <Compile Include="Storage\DocumentKeySource.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="DataChannel\LocalRepository.cs" />
     <Compile Include="Interaction\Collection.cs" />

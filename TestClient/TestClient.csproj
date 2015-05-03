@@ -71,6 +71,7 @@
     <Compile Include="RangeCommands.cs" />
     <Compile Include="DocumentWrapper.cs" />
     <Compile Include="DataEntryTest.cs" />
+    <Compile Include="DeserializationFlexibility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">

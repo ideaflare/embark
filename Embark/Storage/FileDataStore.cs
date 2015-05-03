@@ -15,14 +15,43 @@ namespace Embark.Storage
             var collectionsFolder = directory + @"Collections\";
             var keysFolder = directory + @"Map\";
             //var logfolder = directory + @"Pending\";
-            
-            this.keyProvider = new KeyProvider(keysFolder);
+
+            long lastKey = InitializeKeyPath(keysFolder);
+                        
+            this.keyProvider = new DocumentKeySource(lastKey);
             this.tagPaths = new CollectionPaths(collectionsFolder);
         }
         
-        private KeyProvider keyProvider;
+        private DocumentKeySource keyProvider;
         private CollectionPaths tagPaths;
+
+        private string keysFile;
+
         private object syncRoot = new object();
+
+        private long InitializeKeyPath(string keysDirectory)
+        {
+            if (!Directory.Exists(keysDirectory))
+                Directory.CreateDirectory(keysDirectory);
+
+            keysFile = keysDirectory + "LatestKey.txt";
+
+            if (!File.Exists(keysFile))
+            {
+                File.WriteAllText(keysFile, "0");
+                return 0;
+            }
+            else
+            {
+                var keyTxt = File.ReadAllText(keysFile);
+                return Int64.Parse(keyTxt);
+            }
+            
+            // TODO 1 Append to logfile to return faster
+            // 2nd task runs that empties log(s) to text file.
+            // Write generically so that log writer/comitter(s)
+            // can be re-used for collection insert/update/delete commands also
+        }
 
         public long Insert(string tag, string objectToInsert)
         {
@@ -35,6 +64,9 @@ namespace Embark.Storage
             // TODO 1 NB get a document only lock, instead of all repositories lock
             lock (syncRoot)
             {
+                // Save newest key
+                File.WriteAllText(keysFile, key.ToString());
+
                 // Save object to tag dir
                 File.WriteAllText(savePath, objectToInsert);
 
