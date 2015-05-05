@@ -70,7 +70,7 @@
     <Compile Include="Functionality.cs" />
     <Compile Include="CollectionRange.cs" />
     <Compile Include="DocumentWrapper.cs" />
-    <Compile Include="DataEntryTest.cs" />
+    <Compile Include="DataEntryBasic.cs" />
     <Compile Include="DeserializationFlexibility.cs" />
   </ItemGroup>
   <ItemGroup>

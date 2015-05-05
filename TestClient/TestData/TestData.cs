@@ -19,7 +19,7 @@ namespace TestClient.TestData
         internal static Client localClient;
 
         internal static Collection BasicCollection;
-        internal static DataEntryCollection<Shoe> ShoeDataEntryCollection;
+        internal static DataEntryCollection<Shoe> DataEntryCollection;
 
         private static string testDir = @"C:\MyTemp\Embark\TestData\";
 
@@ -35,7 +35,7 @@ namespace TestClient.TestData
             localClient = Client.GetLocalDB(testDir);
 
             BasicCollection = localClient.Basic;
-            ShoeDataEntryCollection = new DataEntryCollection<Shoe>(localClient["conventionTests"]);
+            DataEntryCollection = new DataEntryCollection<Shoe>(localClient["conventionTests"]);
             //serverCache = new Client("127.0.0.1", 80);
         }
 

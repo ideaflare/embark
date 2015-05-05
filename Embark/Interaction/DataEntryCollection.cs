@@ -31,7 +31,7 @@ namespace Embark.Interaction
         /// Insert a new POCO object into the collection
         /// </summary>
         /// <param name="objectToInsert">The object to insert</param>
-        /// <returns>The ID of the new document</returns>
+        /// <returns>A referenc of the inserted document with updated ID</returns>
         public T Insert(T objectToInsert)
         {
             var id = collection.Insert(objectToInsert);
@@ -50,6 +50,16 @@ namespace Embark.Interaction
         }
 
         /// <summary>
+        /// Remove an entry from the collection and sets the object to null
+        /// </summary>
+        /// <param name="objectToDelete">The object to delete</param>
+        /// <returns>True if the object was deleted, otherwise returns false.</returns>
+        public bool Delete(T objectToDelete) 
+        {
+            return collection.Delete(objectToDelete.ID);
+        }
+
+        /// <summary>
         /// Remove an entry from the collection
         /// </summary>
         /// <param name="id">The ID of the document</param>
@@ -60,21 +70,6 @@ namespace Embark.Interaction
         }
 
         /// <summary>
-        /// Remove an entry from the collection and sets the object to null
-        /// </summary>
-        /// <param name="objectToDelete">The object to delete</param>
-        /// <returns>True if the object was deleted, otherwise returns false.</returns>
-        public bool Delete(T objectToDelete) 
-        {
-            if (collection.Delete(objectToDelete.ID))
-            {
-                objectToDelete = null;
-                return true;
-            }
-            else return false;
-        }
-
-        /// <summary>
         /// Select an existing entry in the collection
         /// </summary>
         /// <param name="id">The Int64 ID of the document</param>
@@ -82,7 +77,8 @@ namespace Embark.Interaction
         public T Get(long id)
         {
             var item = collection.Get<T>(id);
-            item.ID = id;
+            if(item != null)
+                item.ID = id;
             return item;
         }
 
