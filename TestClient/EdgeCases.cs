@@ -8,34 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestClient.IO.TestData;
 using TestClient.TestData;
+using TestClient.TestData.Basic;
 
 namespace TestClient
 {
     [TestClass]
     public class EdgeCases
     {
-        [TestMethod]
-        [ExpectedException(typeof(NotSupportedException), "Only alphanumerical & underscore characters supported in collection names.")]
-        public void CollectionName_OnlyAlphanumericAndUnderScoreSupported()
-        {
-            var na = Client.GetLocalDB()["!?$@\filesystem.*"];
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Collection name should be at least one alphanumerical or underscore character.")]
-        public void CollectionName_CannotBeEmpty()
-        {
-            var na = Client.GetLocalDB()[""];
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Collection name should be at least one alphanumerical or underscore character.")]
-        public void CollectionName_CannotBeNull()
-        {
-            var na = Client.GetLocalDB()[null];
-        }
+        
 
         [TestMethod]
         public void SaveBlob_CanDeserializeToByteArray()
@@ -112,10 +93,14 @@ namespace TestClient
 
             // act            
 
-            var anonymousTable = new { Legs = 2 };
-            IEnumerable<Sheep> matchQuery = io.GetWhere(new { Age = 100, OnTable = anonymousTable }).Unwrap();
+            IEnumerable<Sheep> matchQueryInline = io.GetWhere(new { Age = 100, OnTable = new { Legs = 2 } }).Unwrap();
 
-            var oldSheepOnTables = matchQuery.ToList();
+            var anonymousTable = new { Legs = 2 };
+            IEnumerable<Sheep> matchQueryAnonymous = io.GetWhere(new { Age = 100, OnTable = anonymousTable }).Unwrap();
+
+            var inlineSheep = matchQueryInline.ToList();
+
+            var oldSheepOnTables = matchQueryAnonymous.ToList();
 
             // assert
             Assert.AreEqual(1, oldSheepOnTables.Count);
@@ -128,6 +113,8 @@ namespace TestClient
             Assert.IsFalse(oldSheepOnTables.Any(s => s.Name == "Wooly"));
             
             Assert.IsTrue(oldSheepOnTables.Any(s => s.Name == "Dusty"));
+
+            Assert.IsTrue(Enumerable.SequenceEqual(inlineSheep, oldSheepOnTables));
         }
 
         private static void RunAllCommands<T>(Collection<T> io, T input, out T inserted) where T : class

@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestClient.IO.TestData;
 using TestClient.TestData;
+using TestClient.TestData.Basic;
 
 namespace TestClient
 {

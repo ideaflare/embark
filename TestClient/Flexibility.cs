@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.TestData;
-using TestClient.IO.TestData;
+using TestClient.TestData.Basic;
 
 namespace TestClient
 {

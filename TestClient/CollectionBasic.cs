@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestClient.IO;
 using System.IO;
 using Embark;
-using TestClient.IO.TestData;
 using TestClient.TestData;
+using TestClient.TestData.Basic;
 
 namespace TestClient
 {

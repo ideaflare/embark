@@ -9,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using TestClient.IO.TestData;
+using TestClient.TestData.DataEntry;
 
 namespace TestClient.TestData
 {
@@ -19,9 +19,14 @@ namespace TestClient.TestData
         internal static Client localClient;
 
         internal static Collection BasicCollection;
-        internal static DataEntryCollection<Echo> DataEntryCollection;
+        internal static DataEntryCollection<Sound> DataEntryCollection;
 
         private const string testDir = @"C:\MyTemp\EmbarkTests\";
+
+        internal static DataEntryCollection<Sound> GetSoundCollection(string collectionName)
+        {
+            return localClient.GetDataEntryCollection<Sound>(collectionName);
+        }
 
         [AssemblyInitialize()]
         public static void MyTestInitialize(TestContext testContext)
@@ -34,7 +39,7 @@ namespace TestClient.TestData
             localClient = Client.GetLocalDB(testDir);
 
             BasicCollection = localClient.Basic;
-            DataEntryCollection = localClient.GetDataEntryCollection<Echo>("ConventionTests");
+            DataEntryCollection = localClient.GetDataEntryCollection<Sound>("ConventionTests");
 
             Assert.IsNotNull(BasicCollection);
             Assert.IsNotNull(DataEntryCollection);

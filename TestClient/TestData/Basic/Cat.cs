@@ -7,11 +7,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestClient.IO.TestData
-{ 
-    public class Table
+namespace TestClient.TestData.Basic
+{
+    public class Cat
     {
-        public int Legs { get; set; }
-        public bool IsSquare { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public double FurDensity { get; set; }
+        public bool HasMeme { get; set; }
     }
 }

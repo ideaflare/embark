@@ -1,10 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestClient.IO;
 using System.Linq;
 using System.Diagnostics;
 using TestClient.TestData;
-using TestClient.IO.TestData;
 
 namespace TestClient
 {
@@ -47,9 +45,7 @@ namespace TestClient
             var timeDiff = timestamp.Subtract(now);
             Assert.IsTrue(timeDiff.TotalSeconds < 1);
         }
-               
-
-        
+                       
 
         //[TestMethod]
         public void TestObject_IsRevarsableSerializable()

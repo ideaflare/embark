@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestClient.IO.TestData
+namespace TestClient.TestData.Basic
 {
     public class Sheep : IEquatable<Sheep>
     {

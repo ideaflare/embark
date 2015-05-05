@@ -6,16 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TestClient.TestData.Basic;
+using TestClient.TestData.DataEntry;
 
-namespace TestClient.IO.TestData
+namespace TestClient.TestData
 {
     internal class TestEntities
     {
-        internal static Echo GetTestShoe()
+        internal static Sound GetTestSound()
         {
-            return new Echo
+            return new Sound
             {
-                Sound = GetRandomString(),
+                Description = GetRandomString(),
                 Quality = rnd.Value.Next(100, 1000)
             };                
         }

@@ -54,24 +54,27 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ExpectedErrors.cs" />
     <Compile Include="MVVM\MVVMActionCommand.cs" />
     <Compile Include="MVVM\MVVMNotifyChangeBase.cs" />
-    <Compile Include="TestData\Entities\Cat.cs" />
-    <Compile Include="TestData\Entities\IceCream.cs" />
-    <Compile Include="TestData\Entities\Sheep.cs" />
-    <Compile Include="TestData\Entities\Table.cs" />
-    <Compile Include="TestData\Entities\Echo.cs" />
+    <Compile Include="TestData\Basic\Cat.cs" />
+    <Compile Include="TestData\Basic\Echo.cs" />
+    <Compile Include="TestData\Basic\IceCream.cs" />
+    <Compile Include="TestData\Basic\Sheep.cs" />
+    <Compile Include="TestData\Basic\Table.cs" />
+    <Compile Include="TestData\DataEntry\Sound.cs" />
     <Compile Include="TestData\Cache.cs" />
     <Compile Include="CollectionBasic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\TestEntities.cs" />
-    <Compile Include="TestData\Entities\WrappedSheep.cs" />
+    <Compile Include="TestData\Basic\WrappedSheep.cs" />
     <Compile Include="EdgeCases.cs" />
     <Compile Include="TimeBasedKey.cs" />
     <Compile Include="CollectionRange.cs" />
     <Compile Include="DocumentWrapper.cs" />
     <Compile Include="DataEntryBasic.cs" />
     <Compile Include="Flexibility.cs" />
+    <Compile Include="DataEntryRange.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">

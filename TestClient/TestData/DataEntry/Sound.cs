@@ -5,17 +5,19 @@ using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Embark.Interaction;
+using TestClient.TestData.Basic;
 
-namespace TestClient.IO.TestData
+namespace TestClient.TestData.DataEntry
 {
-    class Echo : DataEntryBase, IDataEntry
+    class Sound : DataEntryBase, IDataEntry
     {
-        public Echo()
+        public Sound()
         {
         }
 
-        public string Sound { get; set; }
+        public string Description { get; set; }
         public int Quality { get; set; }
 
+        public Echo Echo { get; set; }
     }
 }

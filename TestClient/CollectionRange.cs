@@ -2,18 +2,15 @@
 using Embark;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestClient.IO;
 using System.Collections.Generic;
-using TestClient.IO.TestData;
 using TestClient.TestData;
-using TestClient.TestData.Entities;
+using TestClient.TestData.Basic;
 
 namespace TestClient
 {
     [TestClass]
     public class CollectionRange
     {
-
         [TestMethod]
         public void GetAll_ReturnsAllItems()
         {

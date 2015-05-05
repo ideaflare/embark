@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestClient.IO.TestData
+namespace TestClient.TestData.Basic
 {
-    public class Cat
+    public enum IceCream
     {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public double FurDensity { get; set; }
-        public bool HasMeme { get; set; }
+        Bubblegum,
+        Chocolate,
+        Strawberry,
+        Vanilla
     }
 }

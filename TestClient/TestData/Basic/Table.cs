@@ -7,13 +7,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestClient.IO.TestData
-{
-    public enum IceCream
+namespace TestClient.TestData.Basic
+{ 
+    public class Table
     {
-        Bubblegum,
-        Chocolate,
-        Strawberry,
-        Vanilla
+        public int Legs { get; set; }
+        public bool IsSquare { get; set; }
     }
 }

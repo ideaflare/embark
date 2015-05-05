@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient;
-using TestClient.IO.TestData;
 using TestClient.TestData;
 
 namespace TestClient
@@ -13,7 +12,7 @@ namespace TestClient
         public void Insert_SetsID()
         {
             // arrange
-            var created = TestEntities.GetTestShoe();
+            var created = TestEntities.GetTestSound();
 
             // act
             var saved = Cache.DataEntryCollection.Insert(created);
@@ -27,7 +26,7 @@ namespace TestClient
         public void Get_HasInsertedValues()
         {
             // arrange
-            var created = TestEntities.GetTestShoe();
+            var created = TestEntities.GetTestSound();
             Cache.DataEntryCollection.Insert(created);
 
             // act
@@ -36,7 +35,7 @@ namespace TestClient
             // assert
             Assert.AreEqual(created.ID, loaded.ID);;
             Assert.AreEqual(created.Timestamp, loaded.Timestamp);
-            Assert.AreEqual(created.Sound, loaded.Sound);
+            Assert.AreEqual(created.Description, loaded.Description);
             Assert.AreEqual(created.Quality, loaded.Quality);
         }
         
@@ -44,7 +43,7 @@ namespace TestClient
         public void Update_ChangesValues()
         {
             // arrange
-            var created = TestEntities.GetTestShoe();
+            var created = TestEntities.GetTestSound();
             Cache.DataEntryCollection.Insert(created);
             var saved = Cache.DataEntryCollection.Get(created.ID);
 
@@ -62,7 +61,7 @@ namespace TestClient
         public void Delete_RemovesEntry()
         {
             // arrange
-            var created = TestEntities.GetTestShoe();
+            var created = TestEntities.GetTestSound();
             long initialID = created.ID;
             var inserted = Cache.DataEntryCollection.Insert(created);
             long insertedID = inserted.ID;
