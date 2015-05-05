@@ -79,11 +79,13 @@ namespace TestClient
             // act            
             bool hasSheepVanished = Cache.BasicCollection.Delete(id);
             Sheep loaded = Cache.BasicCollection.Get<Sheep>(id);
+            var updateDeletedSheep = Cache.BasicCollection.Update<Sheep>(id, null);
 
             // assert
             Assert.IsTrue(hasSheepVanished);
             Assert.IsNotNull(source);
             Assert.IsNull(loaded);
+            Assert.IsFalse(updateDeletedSheep);
         }
 
         
