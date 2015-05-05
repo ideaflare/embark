@@ -19,7 +19,7 @@ namespace TestClient.TestData
         internal static Client localClient;
 
         internal static Collection BasicCollection;
-        internal static DataEntryCollection<Shoe> DataEntryCollection;
+        internal static DataEntryCollection<Echo> DataEntryCollection;
 
         private const string testDir = @"C:\MyTemp\EmbarkTests\";
 
@@ -34,7 +34,7 @@ namespace TestClient.TestData
             localClient = Client.GetLocalDB(testDir);
 
             BasicCollection = localClient.Basic;
-            DataEntryCollection = localClient.GetDataEntryCollection<Shoe>("ConventionTests");
+            DataEntryCollection = localClient.GetDataEntryCollection<Echo>("ConventionTests");
 
             Assert.IsNotNull(BasicCollection);
             Assert.IsNotNull(DataEntryCollection);

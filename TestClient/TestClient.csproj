@@ -60,18 +60,18 @@
     <Compile Include="TestData\Entities\IceCream.cs" />
     <Compile Include="TestData\Entities\Sheep.cs" />
     <Compile Include="TestData\Entities\Table.cs" />
-    <Compile Include="TestData\Entities\Dog.cs" />
+    <Compile Include="TestData\Entities\Echo.cs" />
     <Compile Include="TestData\Cache.cs" />
     <Compile Include="CollectionBasic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\TestEntities.cs" />
-    <Compile Include="TestData\WrappedSheep.cs" />
+    <Compile Include="TestData\Entities\WrappedSheep.cs" />
     <Compile Include="EdgeCases.cs" />
-    <Compile Include="Functionality.cs" />
+    <Compile Include="TimeBasedKey.cs" />
     <Compile Include="CollectionRange.cs" />
     <Compile Include="DocumentWrapper.cs" />
     <Compile Include="DataEntryBasic.cs" />
-    <Compile Include="DeserializationFlexibility.cs" />
+    <Compile Include="Flexibility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">

@@ -80,5 +80,21 @@ namespace TestClient
             Assert.IsFalse(postDeleteUpdate);
         }
 
+        [TestMethod]
+        public void WrapperToString_EqualsUnwrappedToString()
+        {
+            // arrange
+            var sheep = TestEntities.GetTestSheep();
+            var io = Cache.localClient.GetCollection<Sheep>("WrapperToString");
+
+            // act
+            var id = io.Insert(sheep);
+            var wrappedSheep = io.GetAll().Single();
+
+            // assert
+            Assert.AreEqual(sheep.ToString(), wrappedSheep.ToString());
+            Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Content.ToString());
+        }
+
     }
 }

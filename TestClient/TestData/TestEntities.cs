@@ -11,12 +11,12 @@ namespace TestClient.IO.TestData
 {
     internal class TestEntities
     {
-        internal static Shoe GetTestShoe()
+        internal static Echo GetTestShoe()
         {
-            return new Shoe
+            return new Echo
             {
-                Name = Path.GetRandomFileName().Replace(".", ""),
-                Cost = rnd.Value.Next(100, 1000)
+                Sound = GetRandomString(),
+                Quality = rnd.Value.Next(100, 1000)
             };                
         }
 
@@ -25,7 +25,7 @@ namespace TestClient.IO.TestData
             var r = rnd.Value;
             return new Sheep
             {
-                Name = petNames[r.Next(0, petNames.Length)],
+                Name = GetRandomString(),
                 Age = r.Next(1, 15),
                 FavouriteIceCream = (IceCream)r.Next(0, 4)
             };
@@ -38,7 +38,11 @@ namespace TestClient.IO.TestData
                 .ToList();
         }
 
+        internal static string GetRandomString()
+        {
+            return Path.GetRandomFileName().Replace(".", "");
+        }
+
         static ThreadLocal<Random> rnd = new ThreadLocal<Random>(() => new Random());
-        static string[] petNames = new string[] { "Candyfloss", "Dimples", " Fluffy", " Jingles", " Monkey", " Rambo", " Snowball", " Tumble", " Zebra" };
     }
 }

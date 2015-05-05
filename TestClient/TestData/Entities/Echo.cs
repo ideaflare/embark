@@ -8,14 +8,14 @@ using Embark.Interaction;
 
 namespace TestClient.IO.TestData
 {
-    class Shoe : DataEntryBase, IDataEntry
+    class Echo : DataEntryBase, IDataEntry
     {
-        public Shoe()
+        public Echo()
         {
         }
 
-        public string Name { get; set; }
-        public int Cost { get; set; }
+        public string Sound { get; set; }
+        public int Quality { get; set; }
 
     }
 }

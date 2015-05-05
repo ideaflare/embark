@@ -9,7 +9,7 @@ using TestClient.IO.TestData;
 namespace TestClient
 {
     [TestClass]
-    public class Functionality
+    public class TimeBasedKey
     {
         //operational
         [TestMethod]
@@ -47,37 +47,9 @@ namespace TestClient
             var timeDiff = timestamp.Subtract(now);
             Assert.IsTrue(timeDiff.TotalSeconds < 1);
         }
+               
 
-        [TestMethod]
-        public void Sheep_CanTurnIntoACat()
-        {
-            var sheep = TestEntities.GetTestSheep();
-
-            long id = Cache.BasicCollection.Insert(sheep);
-
-            Cat cat = Cache.BasicCollection.Get<Cat>(id);
-
-            Assert.AreEqual(cat.Name, sheep.Name);
-            Assert.AreEqual(cat.Age, sheep.Age);
-            Assert.AreEqual(cat.FurDensity, (new Cat()).FurDensity);
-            Assert.AreEqual(cat.HasMeme, (new Cat()).HasMeme);
-        }
-
-        [TestMethod]
-        public void WrapperToString_EqualsUnwrappedToString()
-        {
-            // arrange
-            var sheep = TestEntities.GetTestSheep();
-            var io = Cache.localClient.GetCollection<Sheep>("WrapperToString");
-
-            // act
-            var id = io.Insert(sheep);
-            var wrappedSheep = io.GetAll().Single();
-
-            // assert
-            Assert.AreEqual(sheep.ToString(), wrappedSheep.ToString());
-            Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Content.ToString());
-        }
+        
 
         //[TestMethod]
         public void TestObject_IsRevarsableSerializable()

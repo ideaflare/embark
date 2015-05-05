@@ -36,8 +36,8 @@ namespace TestClient
             // assert
             Assert.AreEqual(created.ID, loaded.ID);;
             Assert.AreEqual(created.Timestamp, loaded.Timestamp);
-            Assert.AreEqual(created.Name, loaded.Name);
-            Assert.AreEqual(created.Cost, loaded.Cost);
+            Assert.AreEqual(created.Sound, loaded.Sound);
+            Assert.AreEqual(created.Quality, loaded.Quality);
         }
         
         [TestMethod]
@@ -49,13 +49,13 @@ namespace TestClient
             var saved = Cache.DataEntryCollection.Get(created.ID);
 
             // act
-            saved.Cost = created.Cost + 10;
+            saved.Quality = created.Quality + 10;
             Cache.DataEntryCollection.Update(saved);
             var loaded = Cache.DataEntryCollection.Get(created.ID);
 
             // assert
-            Assert.AreEqual(loaded.Cost, saved.Cost);
-            Assert.AreNotEqual(created.Cost, saved.Cost);
+            Assert.AreEqual(loaded.Quality, saved.Quality);
+            Assert.AreNotEqual(created.Quality, saved.Quality);
         }
 
         [TestMethod]
