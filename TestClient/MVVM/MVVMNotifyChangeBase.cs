@@ -23,6 +23,8 @@ namespace TestClient.MVVM
             bool heightChanged = false;
             bool heightChanging = false;
 
+            bool dumbellsWasObserved = false;
+
             lifter.PropertyChanged += (s, e) =>
                 {
                     if (e.PropertyName == "NickName")
@@ -43,7 +45,7 @@ namespace TestClient.MVVM
             //Act
             lifter.NickName = "Alex";
             lifter.Height = 6.2;
-            lifter.RaisePropertyChangedEvent((raiseThe) => raiseThe.Dumbbells);
+            dumbellsWasObserved = lifter.RaisePropertyChangedEvent((raiseThe) => raiseThe.Dumbbells);
 
             //Assert
             Assert.IsTrue(nameChanged);
@@ -56,6 +58,8 @@ namespace TestClient.MVVM
 
             Assert.IsTrue(dumbbellsraised);
             Assert.AreEqual(2, lifter.Dumbbells);
+
+            Assert.IsTrue(dumbellsWasObserved);
         }
 
         [TestMethod]

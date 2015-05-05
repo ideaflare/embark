@@ -21,10 +21,10 @@ namespace Embark.Interaction.MVVM
         /// <typeparam name="TProperty">Property type to raise event for</typeparam>
         /// <param name="obj">Instance of NotifyChangeBase object</param>
         /// <param name="property">Property to raise event for</param>
-        public static void RaisePropertyChangedEvent<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : PropertyChangeBase
+        public static bool RaisePropertyChangedEvent<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : PropertyChangeBase
         {
             var propertyName = PropertyChangeBaseReflection.GetPropertyString(obj, property);
-            obj.RaisePropertyChangedEvent(propertyName);
+            return obj.RaisePropertyChangedEvent(propertyName);
         }
 
         /// <summary>
