@@ -16,8 +16,12 @@ namespace Embark.Interaction
         /// <summary>
         /// The creation time of the document
         /// <remarks>
+        /// <para>
         /// Timestamp depends on the resolution time of the machine the document is created on.
+        /// </para>
+        /// <para>
         /// Usually accurate to within 15 milliseconds of actual created date.
+        /// </para>
         /// </remarks>
         /// </summary>
         public DateTime Timestamp { get { return new DateTime(ID); } }

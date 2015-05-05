@@ -10,7 +10,7 @@ using TestClient.TestData;
 namespace TestClient
 {
     [TestClass]
-    public class RangeCommands
+    public class CollectionRange
     {
 
         [TestMethod]

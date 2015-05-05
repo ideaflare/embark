@@ -9,7 +9,7 @@ using TestClient.TestData;
 namespace TestClient
 {
     [TestClass]
-    public class BasicCommands
+    public class CollectionBasic
     {        
         [TestMethod]
         public void Insert_ReturnsID()

@@ -62,13 +62,13 @@
     <Compile Include="TestData\Entities\Table.cs" />
     <Compile Include="TestData\Entities\Dog.cs" />
     <Compile Include="TestData\TestData.cs" />
-    <Compile Include="BasicCommands.cs" />
+    <Compile Include="CollectionBasic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\TestEntities.cs" />
     <Compile Include="TestData\WrappedSheep.cs" />
     <Compile Include="EdgeCases.cs" />
     <Compile Include="Functionality.cs" />
-    <Compile Include="RangeCommands.cs" />
+    <Compile Include="CollectionRange.cs" />
     <Compile Include="DocumentWrapper.cs" />
     <Compile Include="DataEntryTest.cs" />
     <Compile Include="DeserializationFlexibility.cs" />
