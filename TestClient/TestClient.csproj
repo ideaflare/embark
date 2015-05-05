@@ -61,7 +61,7 @@
     <Compile Include="TestData\Entities\Sheep.cs" />
     <Compile Include="TestData\Entities\Table.cs" />
     <Compile Include="TestData\Entities\Dog.cs" />
-    <Compile Include="TestData\TestData.cs" />
+    <Compile Include="TestData\Cache.cs" />
     <Compile Include="CollectionBasic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\TestEntities.cs" />

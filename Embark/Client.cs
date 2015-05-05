@@ -117,7 +117,9 @@ namespace Embark
         /// <returns>DataEntryCollection class with commands to perform against the <see cref="IDataEntry"/> based collection</returns>
         public DataEntryCollection<T> GetDataEntryCollection<T>(string collectionName) where T : class, IDataEntry
         {
-            return null;
+            var basic = GetCollection(collectionName);
+
+            return new DataEntryCollection<T>(basic);
         }
 
         private static void ValidateCollectionName(string collectionName)

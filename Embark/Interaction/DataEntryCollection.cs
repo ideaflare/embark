@@ -14,7 +14,7 @@ namespace Embark.Interaction
         /// Create a new instance of a type specific collection
         /// </summary>
         /// <param name="collection">Basic underlying collection called with type T</param>
-        public DataEntryCollection(Collection collection)
+        internal DataEntryCollection(Collection collection)
         {
             this.collection = collection;
         }

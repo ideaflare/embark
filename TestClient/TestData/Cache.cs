@@ -21,7 +21,7 @@ namespace TestClient.TestData
         internal static Collection BasicCollection;
         internal static DataEntryCollection<Shoe> DataEntryCollection;
 
-        private static string testDir = @"C:\MyTemp\Embark\TestData\";
+        private const string testDir = @"C:\MyTemp\EmbarkTests\";
 
         [AssemblyInitialize()]
         public static void MyTestInitialize(TestContext testContext)
@@ -31,12 +31,13 @@ namespace TestClient.TestData
 
             Directory.CreateDirectory(testDir);
 
-            //localCache = new Client(testDir);
             localClient = Client.GetLocalDB(testDir);
 
             BasicCollection = localClient.Basic;
-            DataEntryCollection = new DataEntryCollection<Shoe>(localClient["conventionTests"]);
-            //serverCache = new Client("127.0.0.1", 80);
+            DataEntryCollection = localClient.GetDataEntryCollection<Shoe>("ConventionTests");
+
+            Assert.IsNotNull(BasicCollection);
+            Assert.IsNotNull(DataEntryCollection);
         }
 
         [AssemblyCleanup()]

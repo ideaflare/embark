@@ -15,8 +15,8 @@ namespace TestClient
         [TestMethod]
         public void NewIDs_AreUnique()
         {
-            int totalInserts = 16;
-            double timePerInsert = 7;// milliseconds per insert. 
+            int totalInserts = 10;
+            double timePerInsert = 10;// milliseconds per insert. 
             // Test written on laptop with Samsung 840 SSD. Increase insert time if machine uses a spinning magnetic relic.
 
             // insert IDs in parallel
