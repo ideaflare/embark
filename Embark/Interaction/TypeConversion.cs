@@ -2,9 +2,8 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using Embark.Interaction;
 
-namespace Embark
+namespace Embark.Interaction
 {
     /// <summary>
     /// Helper methods dealing with serialized byte[] and query IO

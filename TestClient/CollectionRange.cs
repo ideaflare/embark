@@ -1,10 +1,10 @@
 ﻿using System;
-using Embark;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using TestClient.TestData;
 using TestClient.TestData.Basic;
+using Embark.Interaction;
 
 namespace TestClient
 {

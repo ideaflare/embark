@@ -9,7 +9,7 @@ namespace TestClient
     [TestClass]
     public class TimeBasedKey
     {
-        //operational
+        // TODO test in RAM only, don't hit disk, increase parallel totalInserts to 100.
         [TestMethod]
         public void NewIDs_AreUnique()
         {
