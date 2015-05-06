@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
+using System;
 
 namespace TestClient.MVVM
 {
@@ -12,27 +13,62 @@ namespace TestClient.MVVM
         [TestMethod]
         public void ActionCommands_FireAsExpected()
         {
-            //Arrange
+            // arrange
             var fireBasic = new TestFire();
             var fireParameter = new TestFire();
 
             ICommand basicCommand = new ActionCommand(fireBasic.ExecuteNone, fireBasic.CanExecute);
-            ICommand paramaterCommand = new ActionCommand<int>(fireParameter.ExecuteParam, fireParameter.CanExecuteParam);
+            ICommand valueTypeCommand = new ActionCommand<int>(fireParameter.ExecuteParam, fireParameter.CanExecuteParam);
 
-            //Act
-            basicCommand.CanExecute(null);
+            // act
             basicCommand.Execute(null);
-            paramaterCommand.CanExecute(1);
-            paramaterCommand.Execute(2);
+            basicCommand.Execute("n/a input");
+            valueTypeCommand.Execute(2);
 
-            //Assert
+            Assert.IsTrue(basicCommand.CanExecute(null));
+            Assert.IsTrue(basicCommand.CanExecute("any input ignored"));
+            Assert.IsTrue(valueTypeCommand.CanExecute(1));
+
+            // assert
             Assert.IsTrue(fireBasic.ExecuteFired);
             Assert.IsTrue(fireBasic.TestFired);
 
             Assert.IsTrue(fireParameter.ExecuteFired);
             Assert.IsTrue(fireParameter.TestFired);
             Assert.AreEqual(2, fireParameter.ObjectsPassedIn.Count);
-            Assert.AreEqual(3, fireParameter.ObjectsPassedIn.Sum());
+            Assert.AreEqual(3, fireParameter.ObjectsPassedIn.Sum());        
+        }
+
+        [TestMethod]
+        public void ActionCommands_InvalidInput_RespondsAsExpected()
+        { 
+            // arrange
+            var fireBasic = new TestFire();
+            var fireParameter = new TestFire();
+
+            ICommand parameterCommandInt32 = new ActionCommand<int>(fireParameter.ExecuteParam, fireParameter.CanExecuteParam);
+            ICommand parameterCommandObject = new ActionCommand<Object>((o) => { });
+            ICommand parameterCommandObjectFunc = new ActionCommand<Object>((o) => { }, (o) => { return true; });
+            
+            // assert
+            try
+            {
+                parameterCommandInt32.CanExecute(null);
+                Assert.Fail("Expected error");
+            }
+            catch (NullReferenceException) { }
+            try
+            {
+                parameterCommandInt32.Execute(null);
+                Assert.Fail("Expected error");
+            }
+            catch (NullReferenceException) { }
+
+            parameterCommandObject.Execute(null);
+            parameterCommandObjectFunc.Execute(null);
+
+            Assert.IsTrue(parameterCommandObject.CanExecute(null));
+            Assert.IsTrue(parameterCommandObjectFunc.CanExecute(null));
         }
     }
 
