@@ -86,7 +86,7 @@ namespace Embark.Interaction
         /// Select an existing entry in the collection, and return it in a <see cref="DocumentWrapper{T}"/>
         /// </summary>
         /// <param name="id">The Int64 ID of the document</param>
-        /// <returns>The document wrapper that contains the entity</returns>
+        /// <returns>The document wrapper that contains the entity if it exists, otherwise returns NULL</returns>
         public DocumentWrapper<T> GetWrapper(long id)
         {
             var wrapper = collection.GetWrapper<T>(id);

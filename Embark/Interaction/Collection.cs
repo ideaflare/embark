@@ -95,7 +95,7 @@ namespace Embark.Interaction
         /// </summary>
         /// <typeparam name="T">The type of the object in the document</typeparam>
         /// <param name="id">The Int64 ID of the document</param>
-        /// <returns>The document wrapper that contains the entity</returns>
+        /// <returns>The document wrapper that contains the entity if it exists, otherwise returns NULL</returns>
         public DocumentWrapper<T> GetWrapper<T>(long id) where T : class
         {
             var text = textRepository.Get(tag, id.ToString());
