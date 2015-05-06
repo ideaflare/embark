@@ -90,7 +90,8 @@ namespace Embark.Interaction
         public DocumentWrapper<T> GetWrapper(long id)
         {
             var wrapper = collection.GetWrapper<T>(id);
-            wrapper.Content.ID = id;
+            if(wrapper != null)
+                wrapper.Content.ID = id;
             return wrapper;
         }
 

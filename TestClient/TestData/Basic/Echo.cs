@@ -8,7 +8,7 @@ namespace TestClient.TestData.Basic
 {
     class Echo
     {
-        public double VolumeDiminishFactor { get; set; }
         public int Repetitions { get; set; }
+        public float VolumeDiminishFactor { get; set; }
     }
 }

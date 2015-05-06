@@ -96,5 +96,13 @@ namespace TestClient
             Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Content.ToString());
         }
 
+
+
+        [TestMethod]
+        public void GetNonExistingWrapper_ReturnsNull()
+        {
+            Assert.IsNull(Cache.BasicCollection.GetWrapper<Sheep>(-1));
+        }
+
     }
 }

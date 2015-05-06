@@ -70,11 +70,13 @@ namespace TestClient
             // act
             bool isDeleted = Cache.DataEntryCollection.Delete(loaded);
             var notFound = Cache.DataEntryCollection.Get(insertedID);
+            var nullWrapper = Cache.DataEntryCollection.GetWrapper(insertedID);
             var updateDeleted = Cache.DataEntryCollection.Update(created);
             
             // assert
             Assert.IsTrue(isDeleted);
             Assert.IsNull(notFound);
+            Assert.IsNull(nullWrapper);
             Assert.AreNotEqual(initialID, insertedID);
             Assert.AreEqual(created.ID, inserted.ID);
             Assert.IsFalse(updateDeleted);

@@ -100,7 +100,8 @@ namespace Embark.Interaction
         {
             var text = textRepository.Get(tag, id.ToString());
 
-            return new DocumentWrapper<T>(id, text, this);
+            return text == null ? null :
+                new DocumentWrapper<T>(id, text, this);
         }
 
         /// <summary>

@@ -13,12 +13,16 @@ namespace TestClient.TestData
 {
     internal class TestEntities
     {
-        internal static Sound GetTestSound()
+        internal static Sound GetTestSound(int echo = 2)
         {
             return new Sound
             {
                 Description = GetRandomString(),
-                Quality = rnd.Value.Next(100, 1000)
+                Quality = rnd.Value.Next(100, 1000),
+                Echo = new Echo
+                {
+                    Repetitions = echo
+                }
             };                
         }
 
