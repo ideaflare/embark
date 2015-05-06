@@ -36,7 +36,7 @@ namespace TestClient
 
             var comparison = created[0];
 
-            var matchesFirst = created.Count(s =>
+            var linqLikeCount = created.Count(s =>
                 s.Description == comparison.Description &&
                 s.Echo.Repetitions == comparison.Echo.Repetitions);
 
@@ -54,16 +54,52 @@ namespace TestClient
 
             // assert
             Assert.IsTrue(matches.Count > 0);
-            Assert.AreEqual(matchesFirst, matches.Count);
+            Assert.AreEqual(linqLikeCount, matches.Count);
             Assert.IsTrue(matches.All(m =>
                 m.Description == comparison.Description &&
                 m.Echo.Repetitions == comparison.Echo.Repetitions));
         }
         
-        //[TestMethod]
+        [TestMethod]
         public void GetBetween_ReturnsMatchesRangeQuery()
         {
-            throw new NotImplementedException();
+            // arrange
+            var io = Cache.GetSoundCollection("GetBetweenTest");
+            var created = GenerateTestSounds();
+            created.Add(new Sound
+            {
+                Quality = 120,
+                Echo = new TestData.Basic.Echo { Repetitions = 5}
+            });
+
+            var linqBetweenCount = created.Count(s =>
+                100 <= s.Quality && s.Quality <= 150 &&
+                3 <= s.Echo.Repetitions && s.Echo.Repetitions <= 7);
+
+            foreach (var entry in created)
+                io.Insert(entry);
+
+            var queryStart = new
+            {
+                Quality = 100,
+                Echo = new { Repetitions = 3 }
+            };
+
+            var queryEnd = new
+            {
+                Quality = 150,
+                Echo = new { Repetitions = 7 }
+            };
+
+            // act
+            var matches = io.GetBetween(queryStart, queryEnd).ToList();
+            
+            // assert
+            Assert.IsTrue(matches.Count > 0);
+            Assert.AreEqual(linqBetweenCount, matches.Count);
+            Assert.IsTrue(matches.All(m =>
+                100 <= m.Quality && m.Quality <= 150 &&
+                3 <= m.Echo.Repetitions && m.Echo.Repetitions <= 7));
         }
 
         private static List<Sound> GenerateTestSounds(int size = 5)
