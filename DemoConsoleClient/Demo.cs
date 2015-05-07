@@ -23,9 +23,9 @@ namespace DemoConsoleClient
             if (Directory.Exists(defaultDir))
                 Directory.Delete(defaultDir, recursive: true);
 
-            ConventionDemo();
+            GenericDemo();
 
-            SimpleTDemo();
+            BasicDemo();
 
             MixedTypeDemo();
 
@@ -34,7 +34,7 @@ namespace DemoConsoleClient
             //ConventionDemo();
         }
 
-        private static void ConventionDemo()
+        private static void GenericDemo()
         {
             // arrange some guinea pig
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
@@ -65,7 +65,7 @@ namespace DemoConsoleClient
             //var io = db["fruit"];
         }
 
-        static void SimpleTDemo()
+        static void BasicDemo()
         {
             // arrange some guinea pig
             var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
@@ -119,6 +119,12 @@ namespace DemoConsoleClient
 
             // get
             Sheep fluffy = io.Get<Sheep>(id);
+
+            var xs = (int)io.Get<object>(d2);
+            var ss = io.Get<string>(d3);
+            //Cat indy = io.Get<Cat>(d2);
+            //var x = io.Get<Object>(d3);
+            //string empty = io.Get<string>(d4);
 
             DocumentWrapper<Sheep> fluffbox = io.GetWrapper<Sheep>(id);
 

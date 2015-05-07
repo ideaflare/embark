@@ -15,18 +15,21 @@ namespace Embark.TextConversion
 
         private JavaScriptSerializer serializer;
 
-        string ITextConverter.ToText(object obj)
+        public string ToText(object obj)
         {
             var text = serializer.Serialize(obj);
             return JsonTextFormatter.JsonPrettyPrint(text);
         }
 
-        T ITextConverter.ToObject<T>(string text)
+        public T ToObject<T>(string text)
         {
+            if (typeof(T) == typeof(String) && text.StartsWith("{"))
+                return (T)(Object)text;
+
             return serializer.Deserialize<T>(text);
         }
 
-        object ITextConverter.ToComparisonObject(string text)
+        public object ToComparisonObject(string text)
         {
             return serializer.DeserializeObject(text);
         }
@@ -124,5 +127,6 @@ namespace Embark.TextConversion
                 return true;
             }
         }
+
     }
 }
