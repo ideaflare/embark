@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.TestData;
 using TestClient.TestData.Basic;
+using TestClient.TestData.DataEntry;
+using System.Collections.Generic;
 
 namespace TestClient
 {
@@ -53,7 +55,7 @@ namespace TestClient
             long savedLong = long.MaxValue * -1;
             double savedDouble = double.MaxValue;
             bool savedBool = true;
-            char savedChar = '\x0058';   
+            char savedChar = '\x0058';
 
             long idInt = io.Insert((object)savedInt);
             long idLong = io.Insert((object)savedLong);
@@ -77,6 +79,44 @@ namespace TestClient
             var saveDoubleToString = savedDouble.ToString("R").Replace(",", ".");
             var loadedDoubleToString = loadedDouble.Replace(",", ".");
             Assert.AreEqual(saveDoubleToString, loadedDoubleToString);
+        }
+
+        [TestMethod]
+        public void ArrayObjects_CanTurnIntoText()
+        {
+            // arrange
+            var io = Cache.localClient["arraysToString"];
+
+            byte[] arr = new byte[] { 12, 200, 12, 0, 33 };
+            var byteArrString = "[\r\n   12,\r\n   200,\r\n   12,\r\n   0,\r\n   33\r\n]";
+            long idByteArr = io.Insert(arr);
+
+            var mixedList = new List<object>() 
+            {
+                "32", 'x', new int[] { 4, 4 }, 2,
+                new Sound 
+                {
+                    Description = "Multi type Test",
+                    Echo = new Echo { Repetitions = 6}
+                }
+            };
+            long idList = io.Insert(mixedList);
+            var listString = "[\r\n   \"32\",\r\n   \"x\",\r\n   [\r\n      4,\r\n      4\r\n   ],\r\n   2,\r\n   {\r\n      "
+            + "\"Description\" : \"Multi type Test\",\r\n      \"Quality\" : 0,\r\n      \"Echo\" : {\r\n         \"Repetitions\" : 6,\r\n"
+            + "         \"VolumeDiminishFactor\" : 0\r\n      },\r\n      \"Sample\" : null,\r\n      \"ID\" : 0,\r\n"
+            + "      \"Timestamp\" : \"\\/Date(-62135596800000)\\/\"\r\n   }\r\n]";
+
+            // act
+            string loadedByteArr = io.Get<string>(idByteArr);
+            string loadedList = io.Get<string>(idList);
+
+            var objectList = io.Get<List<object>>(idList);
+
+            // assert
+            Assert.AreEqual(byteArrString, loadedByteArr);
+            Assert.AreEqual(listString, loadedList);
+
+            Assert.IsNotNull(objectList);
         }
 
         [TestMethod]

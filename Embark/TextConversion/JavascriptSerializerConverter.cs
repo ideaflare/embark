@@ -23,7 +23,8 @@ namespace Embark.TextConversion
 
         public T ToObject<T>(string text)
         {
-            if (typeof(T) == typeof(String) && text.StartsWith("{"))
+            if (typeof(T) == typeof(String) && 
+                (text.StartsWith("{") || text.StartsWith("[")))
                 return (T)(Object)text;
 
             return serializer.Deserialize<T>(text);
