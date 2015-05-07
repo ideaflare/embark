@@ -45,16 +45,17 @@ namespace TestClient
             // arrange
             var created = TestEntities.GetTestSound();
             Cache.DataEntryCollection.Insert(created);
-            var saved = Cache.DataEntryCollection.Get(created.ID);
-
-            // act
-            saved.Quality = created.Quality + 10;
-            Cache.DataEntryCollection.Update(saved);
             var loaded = Cache.DataEntryCollection.Get(created.ID);
 
+            // act
+            loaded.Quality = created.Quality + 10;
+            var hasUpdated = Cache.DataEntryCollection.Update(loaded);
+            var updated = Cache.DataEntryCollection.Get(created.ID);
+
             // assert
-            Assert.AreEqual(loaded.Quality, saved.Quality);
-            Assert.AreNotEqual(created.Quality, saved.Quality);
+            Assert.IsTrue(hasUpdated);
+            Assert.AreEqual(updated.Quality, loaded.Quality);
+            Assert.AreNotEqual(created.Quality, loaded.Quality);
         }
 
         [TestMethod]

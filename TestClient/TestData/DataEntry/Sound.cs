@@ -19,5 +19,7 @@ namespace TestClient.TestData.DataEntry
         public int Quality { get; set; }
 
         public Echo Echo { get; set; }
+
+        public byte[] Sample { get; set; }
     }
 }

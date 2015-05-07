@@ -31,7 +31,6 @@ namespace DemoConsoleClient
 
             WebServerDemo();
 
-            //ConventionDemo();
         }
 
         private static void GenericDemo()

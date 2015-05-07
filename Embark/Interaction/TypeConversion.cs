@@ -15,13 +15,22 @@ namespace Embark.Interaction
         /// </summary>
         public static byte[] ToByteArray(this object blob)
         {
-            var list = ((ArrayList)blob);
+            var bx = blob as IEnumerable;
 
-            int[] deserialized = (int[])list.ToArray(typeof(int));
+            if (bx == null)
+                throw new NotImplementedException(blob.GetType().Name + " object does not implement IEnumerable");
 
-            return deserialized
+            var bytes = bx.Cast<int>()
                 .Select(i => Convert.ToByte(i))
                 .ToArray();
+
+            return bytes;
+
+            //var list = ((ArrayList)blob);
+            //int[] deserialized = (int[])list.ToArray(typeof(int));
+            //return deserialized
+            //    .Select(i => Convert.ToByte(i))
+            //    .ToArray();
         }
 
         /// <summary>

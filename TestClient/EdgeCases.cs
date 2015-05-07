@@ -10,13 +10,13 @@ using System.Text;
 using System.Threading.Tasks;
 using TestClient.TestData;
 using TestClient.TestData.Basic;
+using TestClient.TestData.DataEntry;
 
 namespace TestClient
 {
     [TestClass]
     public class EdgeCases
-    {
-        
+    {       
 
         [TestMethod]
         public void SaveBlob_CanDeserializeToByteArray()
@@ -26,16 +26,31 @@ namespace TestClient
             (new Random()).NextBytes(savedData);
 
             var saved = new { blob = savedData };
+            var sound = new Sound
+            {
+                Sample = savedData,
+                Echo = null
+            };
 
             long id = Cache.localClient.Basic.Insert(saved);
+            long idNotWrapped = Cache.localClient.Basic.Insert(savedData);
+            long idSound = Cache.localClient.Basic.Insert(sound);
 
             // act
             var loaded = Cache.localClient.Basic.Get<Dictionary<string, object>>(id);
             var blob = loaded["blob"];
             byte[] loadedData = TypeConversion.ToByteArray(blob);
 
+            var loadedSound = Cache.localClient.Basic.Get<Sound>(idSound);
+            byte[] loadedSample = loadedSound.Sample;
+
+            var loadedNotWrapped = Cache.localClient.Basic.Get<object>(idNotWrapped);
+            byte[] castNotWrapped = loadedNotWrapped.ToByteArray();
+            
             // assert
             Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedData));
+            Assert.IsTrue(Enumerable.SequenceEqual(savedData, castNotWrapped));
+            Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedSample));
         }
 
         [TestMethod]
