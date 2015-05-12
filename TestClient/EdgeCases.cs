@@ -16,7 +16,27 @@ namespace TestClient
 {
     [TestClass]
     public class EdgeCases
-    {       
+    {
+        [TestMethod]
+        public void GetNonExisting_ReturnsNull()
+        {
+            // arrange
+            var client = Cache.localClient;
+            var ioBasic = client["basicNonExist"];
+            var ioClass = client.GetCollection<Sheep>("genericClassNonExist");
+            var ioValue = client.GetCollection<string>("valueTypeNonExist");
+            //var genericValue = client.GetCollection<int>("valueTypeNonExist");//compiler error
+
+            // act
+            var basicNone = ioBasic.Get<object>(-100);
+            var classNone = ioClass.Get(-100);
+            var valueNone = ioValue.Get(-100);
+
+            // assert
+            Assert.IsNull(basicNone);
+            Assert.IsNull(classNone);
+            Assert.IsNull(valueNone);
+        }
 
         [TestMethod]
         public void SaveBlob_CanDeserializeToByteArray()
