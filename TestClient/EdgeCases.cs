@@ -131,7 +131,8 @@ namespace TestClient
             IEnumerable<Sheep> matchQueryInline = io.GetWhere(new { Age = 100, OnTable = new { Legs = 2 } }).Unwrap();
 
             var anonymousTable = new { Legs = 2 };
-            IEnumerable<Sheep> matchQueryAnonymous = io.GetWhere(new { Age = 100, OnTable = anonymousTable }).Unwrap();
+            var query = new { Age = 100, OnTable = anonymousTable };
+            IEnumerable<Sheep> matchQueryAnonymous = io.GetWhere(query).Unwrap();
 
             var inlineSheep = matchQueryInline.ToList();
 
