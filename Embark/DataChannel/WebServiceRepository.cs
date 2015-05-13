@@ -12,6 +12,8 @@ namespace Embark.DataChannel
             this.serviceAbsoluteUri = serviceAbsoluteUri;
         }
 
+        private string serviceAbsoluteUri;
+
         private T CallRemoteDatastore<T>(Func<ITextRepository,T> func)
         {
             using (ChannelFactory<ITextRepository> cf = new ChannelFactory<ITextRepository>(new WebHttpBinding(), this.serviceAbsoluteUri))
@@ -21,8 +23,6 @@ namespace Embark.DataChannel
                 return func(webChannel);
             }            
         }
-
-        private string serviceAbsoluteUri;
 
         long ITextRepository.Insert(string tag, string objectToInsert)
         { 
