@@ -73,10 +73,10 @@ namespace Embark.Interaction
         /// <summary>
         /// Delete the document from the database
         /// </summary>
-        public void Delete()
+        public bool Delete()
         {
-            this.collection.Delete(this.ID);
             this.Content = default(T);
+            return this.collection.Delete(this.ID);
         }
     }
 

@@ -35,8 +35,7 @@ namespace TestClient
             Assert.AreEqual(saved.Age, loaded.Age);
             Assert.AreEqual(saved.FavouriteIceCream, loaded.FavouriteIceCream);   
         }
-
-        
+                
         [TestMethod]
         public void WrapperUpdate_CommitsChanges()
         {
@@ -49,13 +48,13 @@ namespace TestClient
             // act
             var olderAge = saved.Age + 1;
             wrapper.Content.Age = olderAge;
-            wrapper.Update();
+            bool updatedSheep = wrapper.Update();
 
             var agedSheep = io.Get(id);
 
             // assert
+            Assert.IsTrue(updatedSheep);
             Assert.AreEqual(wrapper.ID, id);
-
             Assert.AreEqual(olderAge, agedSheep.Age);
         }
 
@@ -69,15 +68,18 @@ namespace TestClient
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
 
             // act
-            wrapper.Delete();
+            bool deletedDocument = wrapper.Delete();
 
             bool postDeleteUpdate = wrapper.Update();
+            bool postDeleteDelete = wrapper.Delete();
 
             var missingSheep = io.Get(id);
 
             // assert
             Assert.IsNull(missingSheep);
+            Assert.IsTrue(deletedDocument);
             Assert.IsFalse(postDeleteUpdate);
+            Assert.IsFalse(postDeleteDelete);
         }
 
         [TestMethod]
@@ -95,9 +97,7 @@ namespace TestClient
             Assert.AreEqual(sheep.ToString(), wrappedSheep.ToString());
             Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Content.ToString());
         }
-
-
-
+        
         [TestMethod]
         public void GetNonExistingWrapper_ReturnsNull()
         {
