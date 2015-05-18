@@ -82,6 +82,31 @@ namespace TestClient
             Assert.AreEqual(created.ID, inserted.ID);
             Assert.IsFalse(updateDeleted);
         }
+        
+        [TestMethod]
+        public void AutoUpdate_ChangesValues()
+        {
+            // arrange
+            var registered = TestEntities.GetTestSound();
+            registered.Amplitude = 100;
+            Cache.DataEntryCollection.Insert(registered);
+            registered.RegisterAutoUpdate(Cache.DataEntryCollection);
+
+            var nonregistered = Cache.DataEntryCollection.Get(registered.ID);
+
+            // act
+            registered.Amplitude = 50;
+            int regAmp50 = Cache.DataEntryCollection.Get(nonregistered.ID).Amplitude;
+            registered.Amplitude = 12;
+            int regAmp12 = Cache.DataEntryCollection.Get(nonregistered.ID).Amplitude;
+            registered.Amplitude = 99;
+
+            // assert
+            Assert.AreEqual(50, regAmp50);
+            Assert.AreEqual(12, regAmp12);
+            Assert.AreEqual(99, registered.Amplitude);
+            Assert.AreEqual(nonregistered.Amplitude, 100);
+        }
 
     }
 }

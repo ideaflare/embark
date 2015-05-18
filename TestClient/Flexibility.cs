@@ -102,7 +102,7 @@ namespace TestClient
             };
             long idList = io.Insert(mixedList);
             var listString = "[\r\n   \"32\",\r\n   \"x\",\r\n   [\r\n      4,\r\n      4\r\n   ],\r\n   2,\r\n   {\r\n      "
-            + "\"Description\" : \"Multi type Test\",\r\n      \"Quality\" : 0,\r\n      \"Echo\" : {\r\n         \"Repetitions\" : 6,\r\n"
+            + "\"Description\" : \"Multi type Test\",\r\n      \"Quality\" : 0,\r\n      \"Amplitude\" : 0,\r\n      \"Echo\" : {\r\n         \"Repetitions\" : 6,\r\n"
             + "         \"VolumeDiminishFactor\" : 0\r\n      },\r\n      \"Sample\" : null,\r\n      \"ID\" : 0,\r\n"
             + "      \"Timestamp\" : \"\\/Date(-62135596800000)\\/\"\r\n   }\r\n]";
 

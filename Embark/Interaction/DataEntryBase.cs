@@ -25,5 +25,17 @@ namespace Embark.Interaction
         /// </remarks>
         /// </summary>
         public DateTime Timestamp { get { return new DateTime(ID); } }
+
+        /// <summary>
+        /// Call Collection.Update(this) whenever this objects PropertyChanged event gets fired.
+        /// <para>Not recommended use for UI related data, users want to confirm their changes.</para>
+        /// <para>NOTE: Calling this method multiple times and/or collections subscribes multiple collection.Update(this) method calls.</para>
+        /// </summary>
+        /// <typeparam name="T">Inherited class of DataEntryBase</typeparam>
+        /// <param name="dataEntryCollection">DataEntry colletion to save changes to.</param>
+        public void RegisterAutoUpdate<T>(DataEntryCollection<T> dataEntryCollection) where T : class, IDataEntry
+        {
+            this.PropertyChanged += (s, e) => dataEntryCollection.AsBaseCollection().Update(this.ID, this);
+        }
     }
 }
