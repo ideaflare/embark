@@ -98,7 +98,7 @@ namespace Embark.Interaction
         /// <summary>
         /// Select all documents in the collection
         /// </summary>
-        /// <returns>A collection of <see cref="IDataEntry"/> objects. <seealso cref="TypeConversion.Unwrap"/></returns>
+        /// <returns>A collection of <see cref="IDataEntry"/> objects. <seealso cref="DocumentWrapperExtensions.Unwrap"/></returns>
         public IEnumerable<T> GetAll()
         {
             return collection

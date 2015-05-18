@@ -25,7 +25,5 @@ namespace Embark.Interaction
         /// </remarks>
         /// </summary>
         public DateTime Timestamp { get { return new DateTime(ID); } }
-
-        //private DataEntryCollection<T> 
     }
 }

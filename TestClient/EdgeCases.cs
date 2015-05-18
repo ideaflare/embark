@@ -42,35 +42,27 @@ namespace TestClient
         public void SaveBlob_CanDeserializeToByteArray()
         {
             // arrange
-            byte[] savedData = new byte[64];
-            (new Random()).NextBytes(savedData);
-
-            var saved = new { blob = savedData };
+            byte[] rawByteArray = new byte[64];
+            (new Random()).NextBytes(rawByteArray);
+            
             var sound = new Sound
             {
-                Sample = savedData,
+                Sample = rawByteArray,
                 Echo = null
             };
 
-            long id = Cache.localClient.Basic.Insert(saved);
-            long idNotWrapped = Cache.localClient.Basic.Insert(savedData);
+            long idRawByteArray = Cache.localClient.Basic.Insert(rawByteArray);
             long idSound = Cache.localClient.Basic.Insert(sound);
 
-            // act
-            var loaded = Cache.localClient.Basic.Get<Dictionary<string, object>>(id);
-            var blob = loaded["blob"];
-            byte[] loadedData = TypeConversion.ToByteArray(blob);
-
+            // act    
             var loadedSound = Cache.localClient.Basic.Get<Sound>(idSound);
             byte[] loadedSample = loadedSound.Sample;
 
-            var loadedNotWrapped = Cache.localClient.Basic.Get<object>(idNotWrapped);
-            byte[] castNotWrapped = loadedNotWrapped.ToByteArray();
+            byte[] loadedAsArray = Cache.localClient.Basic.Get<byte[]>(idRawByteArray);
             
             // assert
-            Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedData));
-            Assert.IsTrue(Enumerable.SequenceEqual(savedData, castNotWrapped));
-            Assert.IsTrue(Enumerable.SequenceEqual(savedData, loadedSample));
+            Assert.IsTrue(Enumerable.SequenceEqual(rawByteArray, loadedAsArray));
+            Assert.IsTrue(Enumerable.SequenceEqual(rawByteArray, loadedSample));
         }
 
         [TestMethod]

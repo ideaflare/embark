@@ -54,13 +54,12 @@
     <Compile Include="Interaction\IDataEntry.cs" />
     <Compile Include="Interaction\MVVM\ActionCommand.cs" />
     <Compile Include="Storage\FileDataStore.cs" />
-    <Compile Include="Interaction\TypeConversion.cs" />
+    <Compile Include="Interaction\DocumentWrapperExtensions.cs" />
     <Compile Include="TextConversion\JsonTextFormatter.cs" />
     <Compile Include="TextConversion\JavascriptSerializerConverter.cs" />
     <Compile Include="TextConversion\Validation.cs" />
     <Compile Include="DataChannel\DataEnvelope.cs" />
     <Compile Include="DataChannel\WebServiceRepository.cs" />
-    <Content Include="TextConversion\JsonNetConverter.cs.txt" />
     <Compile Include="TextConversion\ITextConverter.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Storage\CollectionPaths.cs" />

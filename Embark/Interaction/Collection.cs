@@ -108,7 +108,7 @@ namespace Embark.Interaction
         /// Get all documents in the collection
         /// </summary>
         /// <typeparam name="T">The POCO class represented by all documents</typeparam>
-        /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="TypeConversion.Unwrap"/></returns>
+        /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="DocumentWrapperExtensions.Unwrap"/></returns>
         public IEnumerable<DocumentWrapper<T>> GetAll<T>() where T : class
         {
             return textRepository.GetAll(tag)
