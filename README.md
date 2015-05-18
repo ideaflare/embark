@@ -43,7 +43,6 @@ var io = db["fruit"];
 - GetWhere(new { Name = "Rocket"})
 - GetBetween(new { Score = 15}, new { Score = 39.21})
 - GetAll() returns Document Wrapper with ID & timestamp
-- byte[] GetByteArray(object blob) to help with blob deserialization
 - See the [wiki for details](https://github.com/ubrgw/embark/wiki/SQL-Equivalents)
 
 ##That's it!
