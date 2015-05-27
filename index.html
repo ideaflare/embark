@@ -87,9 +87,13 @@ By avoiding increasing complexity from scope-creep, Embark will remain crisp and
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>You can add the <a href="https://www.nuget.org/packages/Embark/">Embark NuGet package</a>, copy paste the sample code, and just continue developing.</p>
+<p>Embark has a <a href="https://www.nuget.org/packages/Embark/">NuGet package</a> to keep devs up to date with new features. 
+ You are also free to download, modify, compile and use the source code as you wish (MIT License).</p>
 
-<p>If you want to save data over a network:</p>
+<p>Custom text-to-object mapping, like <a href="http://www.yaml.org/start.html">YAML</a> or even <a href="http://dogeon.org/">DSON</a> 
+ is avaliable via the ITextConverter interface passed to a local Client constructor.</p>
+
+<p>To save data over a network:</p>
 
 <div class="highlight highlight-csharp"><pre><span class="pl-c">// start a new server</span>
 <span class="pl-k">var</span> server = <span class="pl-k">new</span> Embark.Server();
@@ -106,9 +110,6 @@ server.Start();</pre></div>
 </h2>
 
 <ul>
-<li>Custom text-to-object mapping, like <a href="http://www.yaml.org/start.html">YAML</a> or even <a href="http://dogeon.org/">DSON</a>
-</li>
-<li>Optional convention based collection</li>
 <li>Optional caching &amp; async data persistency</li>
 <li>Review &amp; Simplify code</li>
 </ul>
