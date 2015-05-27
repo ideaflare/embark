@@ -68,11 +68,24 @@ namespace Embark
         /// <param name="port">Port used by server</param>
         /// <returns>Client with db commands</returns>>
         public Client(string address, int port)
+            : this(address, port, new JavascriptSerializerTextConverter())
+        { }
+        
+
+        /// <summary>
+        /// Get a connection to a server database
+        /// </summary>
+        /// <param name="address">IP Address / DNS Name of server. Example: "220.114.0.12" or "srv-embark-live"</param>
+        /// <param name="port">Port used by server</param>
+        /// <param name="textConverter">Custom converter between objects and text used on the server</param>
+        /// <returns>Client with db commands</returns>>
+        public Client(string address, int port, ITextConverter textConverter)
         {
             // TODO Test connection
 
             Uri uri = new Uri("http://" + address + ":" + port + "/embark/");
 
+            this.textConverter = textConverter;
             this.dataStore = new WebServiceRepository(uri.AbsoluteUri);
         }
 

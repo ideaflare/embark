@@ -15,7 +15,7 @@ namespace DemoWebServer
             Console.WriteLine("This is a VERY basic Embark server.");
             Console.WriteLine("No fancy logging/feedback or UI.. yet!\r\n");
 
-            var server = new Embark.Server();
+            var server = new Embark.Server(@"C:\MyTemp\Embark\Server");
             try
             {
                 server.Start();

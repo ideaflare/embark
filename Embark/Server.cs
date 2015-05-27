@@ -14,12 +14,22 @@ namespace Embark
         /// <summary>
         /// Host a new network server
         /// </summary>
-        /// <param name="directory">Path server will save data to. Default set to C:\MyTemp\Embark\Server\</param>
+        /// <param name="directory">Path server will save data to
+        /// <para>Example:  @"C:\MyTemp\Embark\Server\"</para></param>
         /// <param name="port">port to use, default set to 8080</param>
-        public Server(string directory = @"C:\MyTemp\Embark\Server\", int port = 8080)
-        {
-            ITextConverter textConverter = new JavascriptSerializerTextConverter();
+        public Server(string directory, int port = 8080)
+            : this(directory, port, new JavascriptSerializerTextConverter())
+        { }
 
+        /// <summary>
+        /// Host a new network server
+        /// </summary>
+        /// <param name="directory">Path server will save data to
+        /// <para>Example:  @"C:\MyTemp\Embark\Server\"</para></param>
+        /// <param name="port">port to use, default set to 8080</param>
+        /// <param name="textConverter">Custom converter between objects and text.</param>
+        public Server(string directory, int port, ITextConverter textConverter )
+        {
             var store = new FileDataStore(directory);
             var textRepository = new LocalRepository(store, textConverter);
 

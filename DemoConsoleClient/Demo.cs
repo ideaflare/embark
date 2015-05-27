@@ -169,7 +169,7 @@ namespace DemoConsoleClient
 
         static void WebServerDemo()
         {
-            var server = new Embark.Server(@"C:\AnimalsDB\");
+            var server = new Embark.Server(@"C:\MyTemp\EmbarkDemo\AnimalsDB\");
             server.Start();
 
             var thisPc = System.Net.Dns.GetHostName();
