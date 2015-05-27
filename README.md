@@ -57,9 +57,12 @@ The aim of the project is to provide a DB [while you are building new ideas](htt
 
 ##Usage
 
-You can add the [Embark NuGet package](https://www.nuget.org/packages/Embark/), copy paste the sample code, and just continue developing.
+Embark has a [NuGet package](https://www.nuget.org/packages/Embark/) to keep devs updated with new features.
+You are also free to download, modify, compile and use the source code as you wish (MIT License).
 
-If you want to save data over a network:
+Custom text-to-object mapping, like [YAML](http://www.yaml.org/start.html) or even [DSON](http://dogeon.org/) is avaliable via the ITextConverter interface passed to a local Client constructor.
+
+To save data over a network:
 ```csharp
 // start a new server
 var server = new Embark.Server();
@@ -69,8 +72,6 @@ or you can download a simple server from [here](https://trello-attachments.s3.am
 > *NOTE: For the WCF server to work, either run it in admin mode or give access rights to the [your-machine:port/embark/](http://stackoverflow.com/a/17242260/4650900) namespace.*
 
 ##[In development:](https://trello.com/b/rtqlPmrM/development)
-- Custom text-to-object mapping, like [YAML](http://www.yaml.org/start.html) or even [DSON](http://dogeon.org/)
-- Optional convention based collection
 - Optional caching & async data persistency
 - Review & Simplify code
 
