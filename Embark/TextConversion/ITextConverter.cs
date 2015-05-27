@@ -1,14 +1,14 @@
 ﻿namespace Embark.TextConversion
 {
     /// <summary>
-    /// Convert between POCO objects and text.
+    /// Convert between objects and text.
     /// </summary>
     public interface ITextConverter
     {
         /// <summary>
-        /// Convert a POCO object to text
+        /// Convert an object to text
         /// </summary>
-        /// <param name="obj">POCO object to convert</param>
+        /// <param name="obj">Object to convert</param>
         /// <returns>Text representing the object</returns>
         string ToText(object obj);
 
@@ -16,7 +16,7 @@
         /// Convert text to object
         /// </summary>
         /// <typeparam name="T">Type of object</typeparam>
-        /// <param name="text">String containing POCO data</param>
+        /// <param name="text">String containing object data</param>
         /// <returns>Object of type T</returns>
         T ToObject<T>(string text);
 

@@ -35,17 +35,30 @@ namespace Embark
         }
 
         /// <summary>
-        /// Get a connection to a local database
+        /// Modify a local database
         /// </summary>
-        /// <param name="directory">The path of where to save data</param>
+        /// <param name="directory">The path of where to save data
+        /// <para>Example: @"C:\MyTemp\Embark\Local\"</para>
+        /// </param>
         /// <returns>Client with db commands</returns>>
-        public Client(string directory = @"C:\MyTemp\Embark\Local\")
+        public Client(string directory)
+            : this(directory, new JavascriptSerializerTextConverter())
+        { }
+
+        /// <summary>
+        /// Modify a local database, with a custom text converter.
+        /// </summary>
+        /// <param name="directory">The path of where to save data
+        /// <para>Example: @"C:\MyTemp\Embark\Local\"</para>
+        /// </param>
+        /// <param name="textConverter">Custom converter between objects and text.</param>
+        /// <returns>Client with db commands</returns>>
+        public Client(string directory, ITextConverter textConverter)
         {
-            this.dataStore = knownConnections.GetOrAdd(directory, (dir) =>
-                {
-                    var store = new FileDataStore(dir);
-                    return new LocalRepository(store, textConverter);
-                });
+            var store = new FileDataStore(directory);
+
+            this.textConverter = textConverter;
+            this.dataStore = new LocalRepository(store, textConverter);
         }
 
         /// <summary>
@@ -60,14 +73,11 @@ namespace Embark
 
             Uri uri = new Uri("http://" + address + ":" + port + "/embark/");
 
-            this.dataStore = knownConnections.GetOrAdd(uri.AbsoluteUri, (server) => new WebServiceRepository(server));
+            this.dataStore = new WebServiceRepository(uri.AbsoluteUri);
         }
 
-        private static ConcurrentDictionary<string, ITextRepository> knownConnections = new ConcurrentDictionary<string, ITextRepository>();
-
         private ITextRepository dataStore;
-
-        private ITextConverter textConverter = new JavascriptSerializerTextConverter();
+        private ITextConverter textConverter;
 
         /// <summary>
         /// Basic collection named "Basic"
@@ -93,7 +103,7 @@ namespace Embark
         {
             ValidateCollectionName(collectionName);
 
-            return new Collection(collectionName, dataStore, textConverter);
+            return new Collection(collectionName, this.dataStore, this.textConverter);
         }
 
         /// <summary>
