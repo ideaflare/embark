@@ -10,27 +10,22 @@ namespace Embark
     /// Server that shares a local database hosted over WCF HTTP
     /// </summary>
     public sealed class Server : IDisposable
-    {   
+    {     
         /// <summary>
         /// Host a new network server
         /// </summary>
         /// <param name="directory">Path server will save data to
         /// <para>Example:  @"C:\MyTemp\Embark\Server\"</para></param>
         /// <param name="port">port to use, default set to 8080</param>
-        public Server(string directory, int port = 8080)
-            : this(directory, port, new JavascriptSerializerTextConverter())
-        { }
-
-        /// <summary>
-        /// Host a new network server
-        /// </summary>
-        /// <param name="directory">Path server will save data to
-        /// <para>Example:  @"C:\MyTemp\Embark\Server\"</para></param>
-        /// <param name="port">port to use, default set to 8080</param>
-        /// <param name="textConverter">Custom converter between objects and text.</param>
-        public Server(string directory, int port, ITextConverter textConverter )
+        /// <param name="textConverter">Custom converter between objects and text.
+        /// <para>If parameter is NULL, the textConverter is set to default json converter.</para>
+        /// </param>
+        public Server(string directory, int port = 8080, ITextConverter textConverter = null)
         {
-            var store = new FileDataStore(directory);
+            if(textConverter == null)
+                textConverter = new JavascriptSerializerTextConverter();
+
+            var store = new FileDataStore(directory);     
             var textRepository = new LocalRepository(store, textConverter);
 
             Uri url = new Uri("http://localhost:" + port + "/embark/");
