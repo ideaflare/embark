@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interaction\Concurrency\HashLock.cs" />
     <Compile Include="Interaction\MVVM\ActionCommandT.cs" />
     <Compile Include="Interaction\MVVM\PropertyChangeBaseReflection.cs" />
     <Compile Include="Interaction\MVVM\PropertyChangeBase.cs" />

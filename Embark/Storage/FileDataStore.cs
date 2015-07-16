@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Embark.DataChannel;
+using Embark.Interaction.Concurrency;
 
 namespace Embark.Storage
 {
@@ -16,7 +17,7 @@ namespace Embark.Storage
             var keysFolder = directory + @"Map\";
             //var logfolder = directory + @"Pending\";
 
-            long lastKey = InitializeKeyPath(keysFolder);
+            this.lastKey = InitializeKeyPath(keysFolder);
                         
             this.keyProvider = new DocumentKeySource(lastKey);
             this.tagPaths = new CollectionPaths(collectionsFolder);
@@ -24,8 +25,10 @@ namespace Embark.Storage
         
         private DocumentKeySource keyProvider;
         private CollectionPaths tagPaths;
+        private HashLock hashLock = new HashLock(100);
 
         private string keysFile;
+        private long lastKey;
 
         private object syncRoot = new object();
 
@@ -57,16 +60,23 @@ namespace Embark.Storage
         {
             // Get ID from IDGen
             var key = keyProvider.GetNewKey();
-                
+
+            // Save newest key
+            lock (syncRoot)
+            {
+                if (key > this.lastKey)
+                {
+                    this.lastKey = key;
+                    File.WriteAllText(keysFile, key.ToString());
+                }
+            }
+
             // TODO 3 offload to queue that gets processed by task
             var savePath = tagPaths.GetDocumentPath(tag, key.ToString());
 
             // TODO 1 NB get a document only lock, instead of all repositories lock
-            lock (syncRoot)
+            lock (hashLock.GetLock(savePath))
             {
-                // Save newest key
-                File.WriteAllText(keysFile, key.ToString());
-
                 // Save object to tag dir
                 File.WriteAllText(savePath, objectToInsert);
 
@@ -78,8 +88,8 @@ namespace Embark.Storage
         public bool Update(string tag, string id, string objectToUpdate)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
-            
-            lock(syncRoot)
+
+            lock (hashLock.GetLock(savePath))
             {
                 if (!File.Exists(savePath))
                     return false;
@@ -95,7 +105,7 @@ namespace Embark.Storage
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 
-            lock (syncRoot)
+            lock(hashLock.GetLock(savePath))
             {
                 if (File.Exists(savePath))
                 {
@@ -113,7 +123,7 @@ namespace Embark.Storage
             string jsonText;
 
             // TODO lock row only
-            lock (syncRoot)
+            lock(hashLock.GetLock(savePath))
             {
                 if (!File.Exists(savePath))
                     return null;
@@ -125,28 +135,33 @@ namespace Embark.Storage
 
         public DataEnvelope[] GetAll(string tag)
         {
-            lock (syncRoot)
-            {
-                var tagDir = tagPaths.GetCollectionDirectory(tag);
+            var tagDir = tagPaths.GetCollectionDirectory(tag);
 
-                var allFiles = Directory
-                    .GetFiles(tagDir)
-                    //.EnumerateFiles(tagDir)
-                    .Select(filePath => GetDataEnvelope(filePath))
-                    .ToArray();
+            var allFiles = Directory
+                .GetFiles(tagDir);
 
-                return allFiles;
-            }
+            var envelopes = allFiles
+                .Select(filePath => GetDataEnvelope(filePath))
+                .Where(envelope => envelope.ID > 0)
+                .ToArray();
+
+            return envelopes;
         }
 
         // TODO Try/Catch return error envelope.
         private DataEnvelope GetDataEnvelope(string filePath)
         {
-            return new DataEnvelope
+            lock (hashLock.GetLock(filePath))
             {
-                ID = Int64.Parse(Path.GetFileNameWithoutExtension(filePath)),
-                Text = File.ReadAllText(filePath)
-            };
+                if (!File.Exists(filePath))
+                    return new DataEnvelope { ID = -1 };
+
+                return new DataEnvelope
+                {
+                    ID = Int64.Parse(Path.GetFileNameWithoutExtension(filePath)),
+                    Text = File.ReadAllText(filePath)
+                };
+            }
         }
     }
 }
