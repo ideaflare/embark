@@ -21,34 +21,23 @@ namespace Embark.DataChannel
         private ITextConverter textComparer;
 
         // Basic
-        long ITextRepository.Insert(string tag, string objectToInsert)
-        {
-            return dataStore.Insert(tag, objectToInsert);
-        }
+        long ITextRepository.Insert(string tag, string objectToInsert) 
+            => dataStore.Insert(tag, objectToInsert);
 
         bool ITextRepository.Update(string tag, string id, string objectToUpdate)
-        {
-            return dataStore.Update(tag, id, objectToUpdate);
-        }
+            => dataStore.Update(tag, id, objectToUpdate);
 
         bool ITextRepository.Delete(string tag, string id)
-        {
-            return dataStore.Delete(tag, id);
-        }
+            => dataStore.Delete(tag, id);
 
         string ITextRepository.Get(string tag, string id)
-        {
-            return dataStore.Get(tag, id);
-        }
+            => dataStore.Get(tag, id);
 
         IEnumerable<DataEnvelope> ITextRepository.GetAll(string tag)
-        {
-            return GetAll(tag);
-        }
+            => GetAll(tag);
+
         private IEnumerable<DataEnvelope> GetAll(string tag)
-        {
-            return dataStore.GetAll(tag);
-        }
+            => dataStore.GetAll(tag);
 
         IEnumerable<DataEnvelope> ITextRepository.GetWhere(string tag, string searchObject)
         {

@@ -17,15 +17,13 @@ namespace Embark.Storage
         private static ConcurrentDictionary<string, string> tagPathLookup = new ConcurrentDictionary<string, string>();
 
         public string GetCollectionDirectory(string tag)
-        {
-            return tagPathLookup.GetOrAdd(tag, newSeenTag =>
-                {
-                    string tagDir = collectionDirectory + newSeenTag + "\\";
-                    if (!Directory.Exists(tagDir))
-                        Directory.CreateDirectory(tagDir);
-                    return tagDir;
-                });
-        }
+            => tagPathLookup.GetOrAdd(tag, newSeenTag =>
+            {
+                string tagDir = collectionDirectory + newSeenTag + "\\";
+                if (!Directory.Exists(tagDir))
+                    Directory.CreateDirectory(tagDir);
+                return tagDir;
+            });
 
         public string GetDocumentPath(string tag, string key)
         {
