@@ -46,6 +46,22 @@ namespace TestClient.Interaction.Concurrency
             Assert.AreSame(firstLock, nullLock);
             Assert.AreEqual(0, 0.GetHashCode());
         }
+
+        [TestMethod]
+        public void LockObject_CannotBeModified()
+        {
+            var hl = new HashLock(1);
+
+            var lock1 = hl.GetLock("");
+            var lock2 = hl.GetLock("");
+
+            Assert.AreSame(lock1, lock2);
+
+            lock1 = 5;
+            Assert.AreNotSame(lock1, lock2);
+
+            Assert.AreSame(lock2, hl.GetLock(""));
+        }
         
     }
 }

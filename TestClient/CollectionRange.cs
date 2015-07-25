@@ -3,8 +3,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using TestClient.TestData;
-using TestClient.TestData.Basic;
 using Embark.Interaction;
+using TestClient.TestData.Basic;
 
 namespace TestClient
 {

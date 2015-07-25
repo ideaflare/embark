@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Embark.Interaction.Concurrency
 {
     /// <summary>
-    /// List of objects to lock on hashcodes
+    /// List of objects to use for locking
     /// <para>
     /// for example: lock(hashlock.GetLock("cat")) instead of unsafe lock("cat")
     /// </para>
@@ -30,9 +30,6 @@ namespace Embark.Interaction.Concurrency
 
         /// <summary>
         /// Get an object to lock on based on the hash of another object
-        /// <para>
-        /// NOTE: NB do not modify the object returned.
-        /// </para>
         /// </summary>
         /// <param name="obj">Object to call .GetHashCode() on to get a lock</param>
         /// <returns>Object to use for locking</returns>
