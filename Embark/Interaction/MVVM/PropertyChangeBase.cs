@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Embark.Interaction.MVVM
@@ -29,11 +28,11 @@ namespace Embark.Interaction.MVVM
         /// <returns>Returns true if the property has changed, otherwise returns false.</returns>
         public bool SetProperty<T>(ref T backingField, T newValue, [CallerMemberName]string propertyName = "")
         {
-            if (!object.Equals(backingField, newValue))
+            if (!Equals(backingField, newValue))
             {
-                this.OnPropertyChanging(propertyName);
+                OnPropertyChanging(propertyName);
                 backingField = newValue;
-                this.OnPropertyChanged(propertyName);
+                OnPropertyChanged(propertyName);
                 return true;
             }
             else return false;
@@ -44,26 +43,20 @@ namespace Embark.Interaction.MVVM
         /// </summary>
         /// <param name="propertyName">Name of the public property</param>
         /// <returns>true if any observers listened to changes, otherwise false. </returns>
-        public bool RaisePropertyChangedEvent([CallerMemberName]string propertyName = "")
-        {
-            return this.OnPropertyChanged(propertyName);
-        }
+        public bool RaisePropertyChangedEvent([CallerMemberName]string propertyName = "") => OnPropertyChanged(propertyName);
 
         /// <summary>
         /// Raise the PropertyChangingEvent of a property
         /// </summary>
         /// <param name="propertyName">Name of the public property</param>
         /// <returns>true if any observers listened to changes, otherwise false. </returns>
-        public bool RaisePropertyChangingEvent([CallerMemberName]string propertyName = "")
-        {
-            return this.OnPropertyChanging(propertyName);
-        }
+        public bool RaisePropertyChangingEvent([CallerMemberName]string propertyName = "") => OnPropertyChanging(propertyName);
           
         private bool OnPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
+            if (PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
                 return true;
             }
             else return false;
@@ -71,9 +64,9 @@ namespace Embark.Interaction.MVVM
 
         private bool OnPropertyChanging(string propertyName)
         {
-            if (this.PropertyChanging != null)
+            if (PropertyChanging != null)
             {
-                this.PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
                 return true;
             }
             else return false;

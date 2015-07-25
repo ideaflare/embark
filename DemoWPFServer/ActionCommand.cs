@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace DemoWPFServer
@@ -14,8 +10,8 @@ namespace DemoWPFServer
             this.action = action;
             this.canExecute = canExecute != null ? canExecute : (o) => true;
 
-            if (this.CanExecuteChanged != null)
-                this.CanExecuteChanged(this, new EventArgs());
+            if (CanExecuteChanged != null)
+                CanExecuteChanged(this, new EventArgs());
         }
 
         public ActionCommand(Action action) : this((o) => action(), (o) => true) { }

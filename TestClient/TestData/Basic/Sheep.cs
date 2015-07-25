@@ -1,11 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace TestClient.TestData.Basic
 {
@@ -24,9 +17,9 @@ namespace TestClient.TestData.Basic
 
         public bool Equals(Sheep other)
         {
-            return this.Name == other.Name &&
-                this.Age == other.Age &&
-                this.FavouriteIceCream == other.FavouriteIceCream;
+            return Name == other.Name &&
+                Age == other.Age &&
+                FavouriteIceCream == other.FavouriteIceCream;
         }
 
         public override bool Equals(object obj)

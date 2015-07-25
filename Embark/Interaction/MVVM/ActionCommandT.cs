@@ -16,11 +16,11 @@ namespace Embark.Interaction.MVVM
         /// <param name="canExecute">Method to determine whether command can execute in its current state</param>
         public ActionCommand(Action<T> action, Func<T, bool> canExecute = null)
         {
-            this.objectAction = action;
+            objectAction = action;
             this.canExecute = canExecute != null ? canExecute : (o) => true;
 
-            if (this.CanExecuteChanged != null)
-                this.CanExecuteChanged(this, new EventArgs());
+            if (CanExecuteChanged != null)
+                CanExecuteChanged(this, new EventArgs());
         }
 
         /// <summary>
@@ -36,18 +36,13 @@ namespace Embark.Interaction.MVVM
         /// </summary>
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
-        public bool CanExecute(object parameter)
-        {
-            return canExecute((T)parameter);
-        }
+        public bool CanExecute(object parameter) => canExecute((T)parameter);
+
 
         /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
         /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-        public void Execute(object parameter)
-        {
-            objectAction((T)parameter);
-        }
+        public void Execute(object parameter) => objectAction((T)parameter);
     }
 }

@@ -14,7 +14,7 @@ namespace Embark.Interaction
         {
             this.tag = tag;
             this.textRepository = textRepository;
-            this.TextConverter = textConverter;
+            TextConverter = textConverter;
         }
 
         /// <summary>
@@ -24,16 +24,14 @@ namespace Embark.Interaction
 
         private string tag;
         private ITextRepository textRepository;
-        
+
         /// <summary>
         /// Get a type specific collection
         /// </summary>
         /// <typeparam name="T">The POCO class of the documents</typeparam>
         /// <returns><see cref="Collection{T}"/> interface to CRUD and other commands</returns>
         public Collection<T> AsGenericCollection<T>() where T : class
-        {
-            return new Collection<T>(this);
-        }
+            => new Collection<T>(this);
 
         /// <summary>
         /// Insert a new POCO object into the collection
@@ -45,7 +43,7 @@ namespace Embark.Interaction
         {   
             string text = TextConverter.ToText(objectToInsert);
 
-            Embark.TextConversion.Validation.ValidateUpload<T>(this.TextConverter, objectToInsert, text);
+            Validation.ValidateUpload<T>(TextConverter, objectToInsert, text);
 
             return textRepository.Insert(tag, text);
         }
@@ -61,7 +59,7 @@ namespace Embark.Interaction
         {
             string text = TextConverter.ToText(objectToUpdate);
 
-            Embark.TextConversion.Validation.ValidateUpload<T>(this.TextConverter, objectToUpdate, text);
+            Validation.ValidateUpload<T>(TextConverter, objectToUpdate, text);
 
             return textRepository.Update(tag, id.ToString(), text);
         }
@@ -71,10 +69,7 @@ namespace Embark.Interaction
         /// </summary>
         /// <param name="id">The ID of the document</param>
         /// <returns>True if the document was successfully removed.</returns>
-        public bool Delete(long id)
-        {
-            return textRepository.Delete(tag, id.ToString());
-        }
+        public bool Delete(long id) => textRepository.Delete(tag, id.ToString());
 
         /// <summary>
         /// Select an existing entry in the collection
@@ -110,10 +105,9 @@ namespace Embark.Interaction
         /// <typeparam name="T">The POCO class represented by all documents</typeparam>
         /// <returns>A collection of <see cref="DocumentWrapper{T}"/> objects. <seealso cref="DocumentWrapperExtensions.Unwrap"/></returns>
         public IEnumerable<DocumentWrapper<T>> GetAll<T>() where T : class
-        {
-            return textRepository.GetAll(tag)
-                .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
-        }
+            => textRepository
+            .GetAll(tag)
+            .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
 
         /// <summary>
         /// Get similar documents that have matching property values to an example object.

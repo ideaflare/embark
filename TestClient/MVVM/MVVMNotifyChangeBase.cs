@@ -77,15 +77,15 @@ namespace TestClient.MVVM
         private string nickName = "";
         public string NickName
         {
-            get { return this.nickName; }
-            set { SetProperty(ref this.nickName, value); }
+            get { return nickName; }
+            set { SetProperty(ref nickName, value); }
         }
 
         private double height;
         public double Height
         {
-            get { return this.height; }
-            set { SetProperty(ref this.height, value); }
+            get { return height; }
+            set { SetProperty(ref height, value); }
         }
     }
 }

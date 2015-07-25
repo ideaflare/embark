@@ -17,10 +17,10 @@ namespace Embark.Storage
             var keysFolder = directory + @"Map\";
             //var logfolder = directory + @"Pending\";
 
-            this.lastKey = InitializeKeyPath(keysFolder);
-                        
-            this.keyProvider = new DocumentKeySource(lastKey);
-            this.tagPaths = new CollectionPaths(collectionsFolder);
+            lastKey = InitializeKeyPath(keysFolder);
+
+            keyProvider = new DocumentKeySource(lastKey);
+            tagPaths = new CollectionPaths(collectionsFolder);
         }
         
         private DocumentKeySource keyProvider;
@@ -64,9 +64,9 @@ namespace Embark.Storage
             // Save newest key
             lock (syncRoot)
             {
-                if (key > this.lastKey)
+                if (key > lastKey)
                 {
-                    this.lastKey = key;
+                    lastKey = key;
                     File.WriteAllText(keysFile, key.ToString());
                 }
             }

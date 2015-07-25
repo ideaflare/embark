@@ -10,7 +10,7 @@ namespace Embark.TextConversion
     {
         public JavascriptSerializerTextConverter()
         {
-            this.serializer = new JavaScriptSerializer();
+            serializer = new JavaScriptSerializer();
         }
 
         private JavaScriptSerializer serializer;
@@ -23,9 +23,9 @@ namespace Embark.TextConversion
 
         public T ToObject<T>(string text)
         {
-            if (typeof(T) == typeof(String) && 
+            if (typeof(T) == typeof(string) && 
                 (text.StartsWith("{") || text.StartsWith("[")))
-                return (T)(Object)text;
+                return (T)(object)text;
 
             return serializer.Deserialize<T>(text);
         }

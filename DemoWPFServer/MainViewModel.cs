@@ -1,11 +1,7 @@
 ﻿using System;
 using Embark;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace DemoWPFServer
@@ -37,12 +33,12 @@ namespace DemoWPFServer
         private string buttonAction = "Start";
         public string ButtonAction
         {
-            get { return this.buttonAction; }
+            get { return buttonAction; }
             set
             {
-                if(this.buttonAction != value)
+                if(buttonAction != value)
                 {
-                    this.buttonAction = value;
+                    buttonAction = value;
                     OnPropertyChangedEvent();
                 }
             }
@@ -51,12 +47,12 @@ namespace DemoWPFServer
         private string textFeedback = "";
         public string TextFeedback
         {
-            get { return this.textFeedback; }
+            get { return textFeedback; }
             set
             {
-                if (this.textFeedback != value)
+                if (textFeedback != value)
                 {
-                    this.textFeedback = value;
+                    textFeedback = value;
                     OnPropertyChangedEvent();
                 }
             }
@@ -65,12 +61,12 @@ namespace DemoWPFServer
         private string directory = @"C:\MyTemp\Embark\Server\";
         public string Directory
         {
-            get { return this.directory; }
+            get { return directory; }
             set
             {
-                if (this.directory != value)
+                if (directory != value)
                 {
-                    this.directory = value;
+                    directory = value;
                     OnPropertyChangedEvent();
                 }
             }
@@ -79,10 +75,10 @@ namespace DemoWPFServer
         private int portNumber = 8080;
         public string PortNumber
         {
-            get { return this.portNumber.ToString(); }
+            get { return portNumber.ToString(); }
             set
             {
-                if (this.portNumber.ToString() != value)
+                if (portNumber.ToString() != value)
                 {
                     int newNumber;
                     if (int.TryParse(value, out newNumber) && newNumber > 0)
@@ -100,7 +96,7 @@ namespace DemoWPFServer
             {
                 try
                 {
-                    server = new Server(this.directory, this.portNumber);
+                    server = new Server(directory, portNumber);
                     server.Start();
                     TextFeedback = "Server started.";
                     ButtonAction = "Stop";
@@ -120,16 +116,16 @@ namespace DemoWPFServer
 
         private void OnPropertyChangedEvent([CallerMemberName] string propertyName = "")
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Dispose()
         {
-            if(this.server != null)
-                this.server.Dispose();
+            if(server != null)
+                server.Dispose();
         }
     }
 }

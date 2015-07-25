@@ -43,7 +43,7 @@ namespace Embark.DataChannel
 
         IEnumerable<DataEnvelope> ITextRepository.GetAll(string tag)
         {
-            return this.GetAll(tag);
+            return GetAll(tag);
         }
         private IEnumerable<DataEnvelope> GetAll(string tag)
         {
@@ -52,7 +52,7 @@ namespace Embark.DataChannel
 
         IEnumerable<DataEnvelope> ITextRepository.GetWhere(string tag, string searchObject)
         {
-            var allFiles = this.GetAll(tag);
+            var allFiles = GetAll(tag);
 
             var propertyLookup = textComparer.ToComparisonObject(searchObject);
 
@@ -70,7 +70,7 @@ namespace Embark.DataChannel
 
         IEnumerable<DataEnvelope> ITextRepository.GetBetween(string tag, string startRange, string endRange)
         {
-            var allFiles = this.GetAll(tag);
+            var allFiles = GetAll(tag);
 
             var startLookup = textComparer.ToComparisonObject(startRange);
             var endLookup = textComparer.ToComparisonObject(endRange);

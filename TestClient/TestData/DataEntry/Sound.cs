@@ -1,10 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Embark.Interaction;
+﻿using Embark.Interaction;
 using TestClient.TestData.Basic;
 
 namespace TestClient.TestData.DataEntry
@@ -21,8 +15,8 @@ namespace TestClient.TestData.DataEntry
         private int amplitude;
         public int Amplitude
         {
-            get { return this.amplitude; }
-            set { SetProperty(ref this.amplitude, value); }
+            get { return amplitude; }
+            set { SetProperty(ref amplitude, value); }
         }
 
         public Echo Echo { get; set; }

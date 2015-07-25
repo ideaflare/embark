@@ -15,8 +15,8 @@ namespace Embark.Interaction
 
         internal DocumentWrapper(long id, string text, Collection collection)
         {
-            this.ID = id;            
-            this.Content = collection.TextConverter.ToObject<T>(text);
+            ID = id;
+            Content = collection.TextConverter.ToObject<T>(text);
             this.collection = collection;
         }
 
@@ -40,8 +40,8 @@ namespace Embark.Interaction
         //[Obsolete("Use DocumentWrapper.Content instead")]
         public T Value
         {
-            get { return this.Content; }
-            set { this.Content = value; }
+            get { return Content; }
+            set { Content = value; }
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Embark.Interaction
         /// <returns>DocumentWrapper.Value.ToString()</returns>
         public override string ToString()
         {
-            return this.Content.ToString();
+            return Content.ToString();
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Embark.Interaction
         /// </summary>
         public bool Update()
         {
-            return this.collection.Update(this.ID, this.Content);
+            return collection.Update(ID, Content);
         }
 
         /// <summary>
@@ -75,8 +75,8 @@ namespace Embark.Interaction
         /// </summary>
         public bool Delete()
         {
-            this.Content = default(T);
-            return this.collection.Delete(this.ID);
+            Content = default(T);
+            return collection.Delete(ID);
         }
     }
 

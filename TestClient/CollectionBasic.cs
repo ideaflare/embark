@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using Embark;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestClient.TestData;
 using TestClient.TestData.Basic;
 

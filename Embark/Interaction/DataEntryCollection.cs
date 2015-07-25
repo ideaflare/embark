@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Embark.Interaction
 {
     /// <summary>
-    /// Type specific interface to CRUD and other data commands to <see cref="Embark.DataChannel.ITextRepository"/> and <seealso cref="Embark.TextConversion.ITextConverter"/>
+    /// Type specific interface to CRUD and other data commands to <see cref="DataChannel.ITextRepository"/> and <seealso cref="TextConversion.ITextConverter"/>
     /// <typeparam name="T">The POCO class that implements <see cref="IDataEntry"/> or inherits from <see cref="DataEntryBase"/></typeparam>
     /// </summary>
     public class DataEntryCollection<T> where T : class, IDataEntry
@@ -25,7 +23,7 @@ namespace Embark.Interaction
         /// Get the basic collection used internally
         /// </summary>
         /// <returns><see cref="Collection"/> basic CRUD and other data methods interface</returns>
-        public Collection AsBaseCollection() { return this.collection; }
+        public Collection AsBaseCollection() { return collection; }
 
         /// <summary>
         /// Insert a new POCO object into the collection

@@ -16,7 +16,7 @@ namespace Embark.DataChannel
 
         private T CallRemoteDatastore<T>(Func<ITextRepository,T> func)
         {
-            using (ChannelFactory<ITextRepository> cf = new ChannelFactory<ITextRepository>(new WebHttpBinding(), this.serviceAbsoluteUri))
+            using (ChannelFactory<ITextRepository> cf = new ChannelFactory<ITextRepository>(new WebHttpBinding(), serviceAbsoluteUri))
             {
                 cf.Endpoint.Behaviors.Add(new WebHttpBehavior());
                 var webChannel = cf.CreateChannel();

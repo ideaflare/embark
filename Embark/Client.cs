@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using Embark.Storage;
 using Embark.DataChannel;
@@ -52,7 +51,7 @@ namespace Embark
             var store = new FileDataStore(directory);
 
             this.textConverter = textConverter;
-            this.dataStore = new LocalRepository(store, textConverter);
+            dataStore = new LocalRepository(store, textConverter);
         }
        
         /// <summary>
@@ -74,7 +73,7 @@ namespace Embark
             Uri uri = new Uri("http://" + address + ":" + port + "/embark/");
 
             this.textConverter = textConverter;
-            this.dataStore = new WebServiceRepository(uri.AbsoluteUri);
+            dataStore = new WebServiceRepository(uri.AbsoluteUri);
         }
 
         private ITextRepository dataStore;
@@ -89,7 +88,7 @@ namespace Embark
         /// Indexer to return collection with same Name as lookup
         /// </summary>
         /// <param name="index">Name of the collection</param>
-        /// <returns>Calls <see cref="Client.GetCollection"/> to return a collection with possible DB commands.</returns>
+        /// <returns>Calls <see cref="GetCollection"/> to return a collection with possible DB commands.</returns>
         public Collection this[string index]
         {
             get { return GetCollection(index); }
@@ -104,7 +103,7 @@ namespace Embark
         {
             ValidateCollectionName(collectionName);
 
-            return new Collection(collectionName, this.dataStore, this.textConverter);
+            return new Collection(collectionName, dataStore, textConverter);
         }
 
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
 
 namespace Embark.Interaction
@@ -23,12 +21,11 @@ namespace Embark.Interaction
 
         internal static IEnumerable<T> UnwrapWithIDs<T>(this IEnumerable<DocumentWrapper<T>> documents)
             where T : class, IDataEntry
-        {
-            return documents.Select(doc =>
-                {
-                    doc.Content.ID = doc.ID;
-                    return doc.Content;
-                });
-        }
+            =>
+            documents.Select(doc =>
+            {
+                doc.Content.ID = doc.ID;
+                return doc.Content;
+            });
     }
 }

@@ -1,14 +1,7 @@
 ﻿using Embark;
 using Embark.Interaction;
-using Embark.TextConversion;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using TestClient.TestData.DataEntry;
 
 namespace TestClient.TestData
