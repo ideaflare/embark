@@ -18,7 +18,7 @@ namespace Embark
         /// </summary>
         /// <param name="directory">The path of where to save data</param>
         /// <returns>Client with db commands</returns>
-        public static Client GetLocalDB(string directory = @"C:\MyTemp\Embark\Local\")
+        public static Client GetLocalDB(string directory)
         {
             return new Client(directory);
         }
