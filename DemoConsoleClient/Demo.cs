@@ -173,7 +173,7 @@ namespace DemoConsoleClient
 
             var id = db.Basic.Insert(new { Name = "Yana" });
 
-            var allDocs = db.Basic.GetAll<Object>();
+            var allDocs = db.Basic.GetAll<object>();
 
             Console.Write("server running, press any key to stop");
             Console.Read();

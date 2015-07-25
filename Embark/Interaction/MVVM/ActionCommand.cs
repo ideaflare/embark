@@ -5,7 +5,7 @@ namespace Embark.Interaction.MVVM
     /// <summary>
     /// Basic ICommand implementation that ignores command paramater values
     /// </summary>
-    public class ActionCommand : ActionCommand<Object>
+    public class ActionCommand : ActionCommand<object>
     {
         /// <summary>
         /// Create a new instance of a Generic ICommand implementation

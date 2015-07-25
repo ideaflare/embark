@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using System.Collections.Generic;
 using TestClient.TestData;
 using Embark.Interaction;

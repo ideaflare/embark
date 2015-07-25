@@ -1,5 +1,5 @@
-﻿using Embark.Interaction.MVVM;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Embark.Interaction.MVVM;
 
 namespace TestClient.MVVM
 {

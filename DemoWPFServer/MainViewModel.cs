@@ -1,12 +1,12 @@
 ﻿using System;
 using Embark;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Embark.Interaction.MVVM;
 
 namespace DemoWPFServer
 {
-    public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
+    public sealed class MainViewModel : PropertyChangeBase, INotifyPropertyChanged, IDisposable
     {
         public MainViewModel()
         {
@@ -20,15 +20,9 @@ namespace DemoWPFServer
             } 
         }
 
-        Embark.Server server;
+        Server server;
 
-        public ICommand StartStopCommand
-        {
-            get
-            {
-                return new ActionCommand(StartStop);
-            }
-        }
+        public ICommand StartStopCommand => new ActionCommand(StartStop);
 
         private string buttonAction = "Start";
         public string ButtonAction
@@ -39,7 +33,7 @@ namespace DemoWPFServer
                 if(buttonAction != value)
                 {
                     buttonAction = value;
-                    OnPropertyChangedEvent();
+                    RaisePropertyChangedEvent();
                 }
             }
         }
@@ -53,7 +47,7 @@ namespace DemoWPFServer
                 if (textFeedback != value)
                 {
                     textFeedback = value;
-                    OnPropertyChangedEvent();
+                    RaisePropertyChangedEvent();
                 }
             }
         }
@@ -67,7 +61,7 @@ namespace DemoWPFServer
                 if (directory != value)
                 {
                     directory = value;
-                    OnPropertyChangedEvent();
+                    RaisePropertyChangedEvent();
                 }
             }
         }
@@ -85,7 +79,7 @@ namespace DemoWPFServer
                     {
                         portNumber = newNumber;
                     }
-                    OnPropertyChangedEvent();
+                    RaisePropertyChangedEvent();
                 }
             }
         }
@@ -113,14 +107,6 @@ namespace DemoWPFServer
                 ButtonAction = "Start";
             }
         }
-
-        private void OnPropertyChangedEvent([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void Dispose()
         {

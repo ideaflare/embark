@@ -1,5 +1,5 @@
-﻿using Embark.Interaction.Concurrency;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Embark.Interaction.Concurrency;
 using System.Linq;
 
 namespace TestClient.Interaction.Concurrency

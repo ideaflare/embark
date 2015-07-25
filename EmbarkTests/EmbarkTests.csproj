@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1A6E26D7-DF23-439E-A07B-8B2AC0864B67}</ProjectGuid>
+    <ProjectGuid>{17637470-A415-47D0-BA7B-A387EBDD2045}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestClient</RootNamespace>
-    <AssemblyName>TestClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>EmbarkTests</RootNamespace>
+    <AssemblyName>EmbarkTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -34,12 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -48,39 +43,25 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise />
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ExpectedErrors.cs" />
-    <Compile Include="Interaction\Concurrency\HashLockTests.cs" />
-    <Compile Include="MVVM\MVVMActionCommand.cs" />
-    <Compile Include="MVVM\MVVMNotifyChangeBase.cs" />
-    <Compile Include="TestData\Basic\Cat.cs" />
-    <Compile Include="TestData\Basic\Echo.cs" />
-    <Compile Include="TestData\Basic\IceCream.cs" />
-    <Compile Include="TestData\Basic\Sheep.cs" />
-    <Compile Include="TestData\Basic\Table.cs" />
-    <Compile Include="TestData\DataEntry\Sound.cs" />
-    <Compile Include="TestData\Cache.cs" />
-    <Compile Include="CollectionBasic.cs" />
+    <Compile Include="ClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestData\TestEntities.cs" />
-    <Compile Include="TestData\Basic\WrappedSheep.cs" />
-    <Compile Include="EdgeCases.cs" />
-    <Compile Include="TimeBasedKey.cs" />
-    <Compile Include="CollectionRange.cs" />
-    <Compile Include="DocumentWrapper.cs" />
-    <Compile Include="DataEntryBasic.cs" />
-    <Compile Include="Flexibility.cs" />
-    <Compile Include="DataEntryRange.cs" />
+    <Compile Include="ServerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Embark\Embark.csproj">
-      <Project>{2359c522-3f62-4ef5-901b-ff05b869c67d}</Project>
-      <Name>Embark</Name>
-    </ProjectReference>
+    <Folder Include="DataChannelTests\" />
+    <Folder Include="InteractionTests\" />
+    <Folder Include="StorageTests\" />
+    <Folder Include="TextConversionTests\" />
   </ItemGroup>
-  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

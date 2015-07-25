@@ -1,5 +1,5 @@
-﻿using Embark;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Embark;
 using System;
 
 namespace TestClient

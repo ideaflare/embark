@@ -1,5 +1,5 @@
-﻿using Embark.Interaction.MVVM;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Embark.Interaction.MVVM;
 using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
@@ -47,8 +47,8 @@ namespace TestClient.MVVM
             var fireParameter = new TestFire();
 
             ICommand parameterCommandInt32 = new ActionCommand<int>(fireParameter.ExecuteParam, fireParameter.CanExecuteParam);
-            ICommand parameterCommandObject = new ActionCommand<Object>((o) => { });
-            ICommand parameterCommandObjectFunc = new ActionCommand<Object>((o) => { }, (o) => { return true; });
+            ICommand parameterCommandObject = new ActionCommand<object>((o) => { });
+            ICommand parameterCommandObjectFunc = new ActionCommand<object>((o) => { }, (o) => { return true; });
             
             // assert
             try

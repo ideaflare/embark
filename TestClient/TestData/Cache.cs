@@ -1,6 +1,6 @@
-﻿using Embark;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Embark;
 using Embark.Interaction;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using TestClient.TestData.DataEntry;
 
