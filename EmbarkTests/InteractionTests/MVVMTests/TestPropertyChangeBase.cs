@@ -66,8 +66,9 @@ namespace TestClient.MVVM
         [TestMethod]
         public void GetPropertyString_ReturnsSameName()
         {
-            var result = (new MockPropertyChangeBase()).GetPropertyString((vm) => vm.Dumbbells);
-            Assert.AreEqual("Dumbbells", result);
+            var mock = new MockPropertyChangeBase();
+            var result = mock.GetPropertyString((vm) => vm.Dumbbells);
+            Assert.AreEqual(nameof(mock.Dumbbells), result);
         }
     }
 
