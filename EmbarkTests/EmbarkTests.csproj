@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ClientTests.cs" />
+    <Compile Include="InteractionTests\ConcurrencyTests\TestHashLock.cs" />
     <Compile Include="InteractionTests\MVVMTests\MockActionCommand.cs" />
     <Compile Include="InteractionTests\MVVMTests\MockPropertyChangeBase.cs" />
     <Compile Include="InteractionTests\MVVMTests\TestActionCommand.cs" />

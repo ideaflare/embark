@@ -2,24 +2,24 @@
 using Embark.Interaction.Concurrency;
 using System.Linq;
 
-namespace TestClient.Interaction.Concurrency
+namespace EmbarkTests.InteractionTests.ConcurrencyTests
 {
     [TestClass]
-    public class HashLockTests
+    public class TestHashLock
     {
         [TestMethod]
         public void CreatedLocks_AreShared()
         {
-            //Arrange
+            // arrange
             var hl = new HashLock(2);
 
-            //Act
+            // act
             var lock1 = hl.GetLock(1);
             var lock2 = hl.GetLock(2);
             var lock3 = hl.GetLock(3);
             var lock4 = hl.GetLock(4);
 
-            //Assert
+            // assert
             Assert.AreSame(lock1, lock3);
             Assert.AreSame(lock2, lock4);
 
