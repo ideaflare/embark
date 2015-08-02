@@ -6,9 +6,5 @@ namespace EmbarkTests
     [TestClass]
     public class ServerTests
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-        }
     }
 }

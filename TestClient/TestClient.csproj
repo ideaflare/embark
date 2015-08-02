@@ -53,8 +53,6 @@
   <ItemGroup>
     <Compile Include="ExpectedErrors.cs" />
     <Compile Include="Interaction\Concurrency\HashLockTests.cs" />
-    <Compile Include="MVVM\MVVMActionCommand.cs" />
-    <Compile Include="MVVM\MVVMNotifyChangeBase.cs" />
     <Compile Include="TestData\Basic\Cat.cs" />
     <Compile Include="TestData\Basic\Echo.cs" />
     <Compile Include="TestData\Basic\IceCream.cs" />

@@ -1,16 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Embark.Interaction.MVVM;
+using EmbarkTests.InteractionTests.MVVMTests;
 
 namespace TestClient.MVVM
 {
-    //[TestClass]
-    public partial class MVVM
+    [TestClass]
+    public class TestPropertyChangeBase
     {
         [TestMethod]
         public void PropertyChangeBase_RaisesEventsAsExpected()
         {
-            //Arrange
-            var lifter = new WeightLifter
+            // arrange
+            var lifter = new MockPropertyChangeBase
             {
                 NickName = "Andre",
                 Dumbbells = 2,
@@ -42,12 +43,12 @@ namespace TestClient.MVVM
                     heightChanging = true;
             };
 
-            //Act
+            // act
             lifter.NickName = "Alex";
             lifter.Height = 6.2;
             dumbellsWasObserved = lifter.RaisePropertyChangedEvent((raiseThe) => raiseThe.Dumbbells);
 
-            //Assert
+            // assert
             Assert.IsTrue(nameChanged);
             Assert.IsTrue(nameChanging);
             Assert.AreEqual("Alex", lifter.NickName);
@@ -65,27 +66,10 @@ namespace TestClient.MVVM
         [TestMethod]
         public void GetPropertyString_ReturnsSameName()
         {
-            var result = (new WeightLifter()).GetPropertyString((vm) => vm.Dumbbells);
+            var result = (new MockPropertyChangeBase()).GetPropertyString((vm) => vm.Dumbbells);
             Assert.AreEqual("Dumbbells", result);
         }
     }
 
-    public class WeightLifter : PropertyChangeBase
-    {
-        public int Dumbbells { get; set; }
-
-        private string nickName = "";
-        public string NickName
-        {
-            get { return nickName; }
-            set { SetProperty(ref nickName, value); }
-        }
-
-        private double height;
-        public double Height
-        {
-            get { return height; }
-            set { SetProperty(ref height, value); }
-        }
-    }
+    
 }

@@ -1,21 +1,21 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Embark.Interaction.MVVM;
-using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
 using System;
+using EmbarkTests.InteractionTests.MVVMTests;
 
 namespace TestClient.MVVM
 {
     [TestClass]
-    public partial class MVVM
+    public class TestActionCommand
     {
         [TestMethod]
         public void ActionCommands_FireAsExpected()
         {
             // arrange
-            var fireBasic = new TestFire();
-            var fireParameter = new TestFire();
+            var fireBasic = new MockActionCommand();
+            var fireParameter = new MockActionCommand();
 
             ICommand basicCommand = new ActionCommand(fireBasic.ExecuteNone, fireBasic.CanExecute);
             ICommand valueTypeCommand = new ActionCommand<int>(fireParameter.ExecuteParam, fireParameter.CanExecuteParam);
@@ -43,8 +43,8 @@ namespace TestClient.MVVM
         public void ActionCommands_InvalidInput_RespondsAsExpected()
         { 
             // arrange
-            var fireBasic = new TestFire();
-            var fireParameter = new TestFire();
+            var fireBasic = new MockActionCommand();
+            var fireParameter = new MockActionCommand();
 
             ICommand parameterCommandInt32 = new ActionCommand<int>(fireParameter.ExecuteParam, fireParameter.CanExecuteParam);
             ICommand parameterCommandObject = new ActionCommand<object>((o) => { });
@@ -72,40 +72,5 @@ namespace TestClient.MVVM
         }
     }
 
-    public class TestFire
-    {
-        public TestFire()
-        {
-            ExecuteFired = false;
-            TestFired = false;
-        }
-
-        public bool ExecuteFired { get; private set; }
-        public bool TestFired { get; set; }
-
-        public List<int> ObjectsPassedIn = new List<int>();
-
-        public void ExecuteNone()
-        {
-            ExecuteFired = true;
-        }
-
-        public bool CanExecute()
-        {
-            TestFired = true;
-            return true;
-        }
-
-        public void ExecuteParam(int param)
-        {
-            ObjectsPassedIn.Add(param);
-            ExecuteNone();
-        }
-
-        public bool CanExecuteParam(int param)
-        {
-            ObjectsPassedIn.Add(param);
-            return CanExecute();
-        }
-    }
+    
 }
