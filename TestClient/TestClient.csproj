@@ -64,7 +64,6 @@
     <Compile Include="TestData\TestEntities.cs" />
     <Compile Include="TestData\Basic\WrappedSheep.cs" />
     <Compile Include="EdgeCases.cs" />
-    <Compile Include="TimeBasedKey.cs" />
     <Compile Include="CollectionRange.cs" />
     <Compile Include="DocumentWrapper.cs" />
     <Compile Include="DataEntryBasic.cs" />

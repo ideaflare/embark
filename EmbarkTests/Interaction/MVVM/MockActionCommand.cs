@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EmbarkTests.InteractionTests.MVVMTests
+namespace EmbarkTests.Interaction.MVVM
 {
     public class MockActionCommand
     {

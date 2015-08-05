@@ -52,19 +52,28 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ClientTests.cs" />
-    <Compile Include="InteractionTests\ConcurrencyTests\TestHashLock.cs" />
-    <Compile Include="InteractionTests\MVVMTests\MockActionCommand.cs" />
-    <Compile Include="InteractionTests\MVVMTests\MockPropertyChangeBase.cs" />
-    <Compile Include="InteractionTests\MVVMTests\TestActionCommand.cs" />
-    <Compile Include="InteractionTests\MVVMTests\TestPropertyChangeBase.cs" />
+    <Compile Include="TestClient.cs" />
+    <Compile Include="Interaction\Concurrency\TestHashLock.cs" />
+    <Compile Include="Interaction\MVVM\MockActionCommand.cs" />
+    <Compile Include="Interaction\MVVM\MockPropertyChangeBase.cs" />
+    <Compile Include="Interaction\MVVM\TestActionCommand.cs" />
+    <Compile Include="Interaction\MVVM\TestPropertyChangeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerTests.cs" />
+    <Compile Include="TestServer.cs" />
+    <Compile Include="Storage\TestDocumentKeySource.cs" />
+    <Compile Include="MockDB.cs" />
+    <Compile Include="_Mocks\Cat.cs" />
+    <Compile Include="_Mocks\Echo.cs" />
+    <Compile Include="_Mocks\IceCream.cs" />
+    <Compile Include="_Mocks\Sheep.cs" />
+    <Compile Include="_Mocks\Table.cs" />
+    <Compile Include="_Mocks\WrappedSheep.cs" />
+    <Content Include="_Mocks\Sound.cs.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataChannelTests\" />
-    <Folder Include="StorageTests\" />
-    <Folder Include="TextConversionTests\" />
+    <Folder Include="DataChannel\" />
+    <Folder Include="Mocks\" />
+    <Folder Include="TextConversion\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">

@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace EmbarkTests
 {
     [TestClass]
-    public class ServerTests
+    public class TestServer
     {
     }
 }

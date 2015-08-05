@@ -3,9 +3,8 @@ using Embark.Interaction.MVVM;
 using System.Windows.Input;
 using System.Linq;
 using System;
-using EmbarkTests.InteractionTests.MVVMTests;
 
-namespace TestClient.MVVM
+namespace EmbarkTests.Interaction.MVVM
 {
     [TestClass]
     public class TestActionCommand

@@ -1,6 +1,6 @@
 ﻿using Embark.Interaction.MVVM;
 
-namespace EmbarkTests.InteractionTests.MVVMTests
+namespace EmbarkTests.Interaction.MVVM
 {
     public class MockPropertyChangeBase : PropertyChangeBase
     {

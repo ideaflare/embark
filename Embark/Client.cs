@@ -17,10 +17,7 @@ namespace Embark
         /// </summary>
         /// <param name="directory">The path of where to save data</param>
         /// <returns>Client with db commands</returns>
-        public static Client GetLocalDB(string directory)
-        {
-            return new Client(directory);
-        }
+        public static Client GetLocalDB(string directory) => new Client(directory);
 
         /// <summary>
         /// Get a connection to a server database
@@ -28,10 +25,7 @@ namespace Embark
         /// <param name="address">IP Address / DNS Name of server. Example: "220.114.0.12" or "srv-embark-live"</param>
         /// <param name="port">Port used by server</param>
         /// <returns>Client with db commands</returns>
-        public static Client GetNetworkDB(string address, int port = 8080)
-        {
-            return new Client(address, port);
-        }
+        public static Client GetNetworkDB(string address, int port = 8080) => new Client(address, port);
 
         /// <summary>
         /// Modify a local databas,
@@ -45,13 +39,11 @@ namespace Embark
         /// <returns>Client with db commands</returns>>
         public Client(string directory, ITextConverter textConverter = null)
         {
-            if (textConverter == null)
-                textConverter = new JavascriptSerializerTextConverter();
-
             var store = new FileDataStore(directory);
 
-            this.textConverter = textConverter;
-            dataStore = new LocalRepository(store, textConverter);
+            this.textConverter = textConverter ?? new JavascriptSerializerTextConverter();
+
+            dataStore = new LocalRepository(store, this.textConverter);
         }
        
         /// <summary>
@@ -67,12 +59,10 @@ namespace Embark
         {
             // TODO Test connection
 
-            if (textConverter == null)
-                textConverter = new JavascriptSerializerTextConverter();
-
             Uri uri = new Uri("http://" + address + ":" + port + "/embark/");
 
-            this.textConverter = textConverter;
+            this.textConverter = textConverter ?? new JavascriptSerializerTextConverter();
+
             dataStore = new WebServiceRepository(uri.AbsoluteUri);
         }
 
@@ -82,17 +72,14 @@ namespace Embark
         /// <summary>
         /// Basic collection named "Basic"
         /// </summary>
-        public Collection Basic { get { return this["Basic"]; } }
+        public Collection Basic => this["Basic"];
 
         /// <summary>
         /// Indexer to return collection with same Name as lookup
         /// </summary>
         /// <param name="index">Name of the collection</param>
         /// <returns>Calls <see cref="GetCollection"/> to return a collection with possible DB commands.</returns>
-        public Collection this[string index]
-        {
-            get { return GetCollection(index); }
-        }
+        public Collection this[string index] => GetCollection(index);
 
         /// <summary>
         /// Get a collection to read/write documents to/from

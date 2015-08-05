@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Embark.Interaction.MVVM;
-using EmbarkTests.InteractionTests.MVVMTests;
 
-namespace TestClient.MVVM
+namespace EmbarkTests.Interaction.MVVM
 {
     [TestClass]
     public class TestPropertyChangeBase

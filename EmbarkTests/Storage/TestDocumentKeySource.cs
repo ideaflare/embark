@@ -1,13 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Diagnostics;
-using TestClient.TestData;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace TestClient
+namespace EmbarkTests.StorageTests
 {
     [TestClass]
-    public class TimeBasedKey
+    public class TestDocumentKeySource
     {
         // TODO test in RAM only, don't hit disk, increase parallel totalInserts to 100.
         [TestMethod]
@@ -21,7 +23,7 @@ namespace TestClient
             var sw = Stopwatch.StartNew();
             var newIDs = Enumerable.Range(0, totalInserts)
                 .AsParallel()
-                .Select(i => Cache.BasicCollection.Insert(new { n = 0 }))
+                .Select(i => MockDB.BasicCollection.Insert(new { n = 0 }))
                 .ToList();
             sw.Stop();
 
@@ -36,7 +38,7 @@ namespace TestClient
         {
             // arrange
             var now = DateTime.Now;
-            long id = Cache.BasicCollection.Insert(new { Numero = "Uno" });
+            long id = MockDB.BasicCollection.Insert(new { Numero = "Uno" });
 
             // act
             var timestamp = new DateTime(id);
@@ -44,13 +46,6 @@ namespace TestClient
             // assert
             var timeDiff = timestamp.Subtract(now);
             Assert.IsTrue(timeDiff.TotalSeconds < 1);
-        }
-                       
-
-        //[TestMethod]
-        public void TestObject_IsRevarsableSerializable()
-        {
-            throw new NotImplementedException();
         }
     }
 }

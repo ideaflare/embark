@@ -2,7 +2,7 @@
 using Embark.Interaction.Concurrency;
 using System.Linq;
 
-namespace EmbarkTests.InteractionTests.ConcurrencyTests
+namespace EmbarkTests.Interaction.Concurrency
 {
     [TestClass]
     public class TestHashLock
