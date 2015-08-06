@@ -61,7 +61,7 @@ namespace Embark.Interaction
 
             Validation.ValidateUpload<T>(TextConverter, objectToUpdate, text);
 
-            return textRepository.Update(tag, id.ToString(), text);
+            return textRepository.Update(tag, id, text);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Embark.Interaction
         /// </summary>
         /// <param name="id">The ID of the document</param>
         /// <returns>True if the document was successfully removed.</returns>
-        public bool Delete(long id) => textRepository.Delete(tag, id.ToString());
+        public bool Delete(long id) => textRepository.Delete(tag, id);
 
         /// <summary>
         /// Select an existing entry in the collection
@@ -79,7 +79,7 @@ namespace Embark.Interaction
         /// <returns>The object entry saved in the document</returns>
         public T Get<T>(long id) where T : class
         {
-            var text = textRepository.Get(tag, id.ToString());
+            var text = textRepository.Get(tag, id);
 
             return text == null ? null :
                 TextConverter.ToObject<T>(text);
@@ -93,7 +93,7 @@ namespace Embark.Interaction
         /// <returns>The document wrapper that contains the entity if it exists, otherwise returns NULL</returns>
         public DocumentWrapper<T> GetWrapper<T>(long id) where T : class
         {
-            var text = textRepository.Get(tag, id.ToString());
+            var text = textRepository.Get(tag, id);
 
             return text == null ? null :
                 new DocumentWrapper<T>(id, text, this);

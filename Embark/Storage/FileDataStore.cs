@@ -25,7 +25,7 @@ namespace Embark.Storage
         
         private DocumentKeySource keyProvider;
         private CollectionPaths tagPaths;
-        private HashLock hashLock = new HashLock(100);
+        private HashLock hashLock = new HashLock(1000);
 
         private string keysFile;
         private long lastKey;
@@ -71,12 +71,12 @@ namespace Embark.Storage
                 }
             }
 
-            // TODO 3 offload to queue that gets processed by task
-            var savePath = tagPaths.GetDocumentPath(tag, key.ToString());
-
             // TODO 1 NB get a document only lock, instead of all repositories lock
-            lock (hashLock.GetLock(savePath))
+            lock (hashLock.GetLock(key))
             {
+                // TODO 3 offload to queue that gets processed by task
+                var savePath = tagPaths.GetDocumentPath(tag, key);
+
                 // Save object to tag dir
                 File.WriteAllText(savePath, objectToInsert);
 
@@ -85,7 +85,7 @@ namespace Embark.Storage
             }
         }
         
-        public bool Update(string tag, string id, string objectToUpdate)
+        public bool Update(string tag, long id, string objectToUpdate)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 
@@ -101,7 +101,7 @@ namespace Embark.Storage
             }
         }
 
-        public bool Delete(string tag, string id)
+        public bool Delete(string tag, long id)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 
@@ -116,7 +116,7 @@ namespace Embark.Storage
             }
         }
 
-        public string Get(string tag, string id)
+        public string Get(string tag, long id)
         {
             var savePath = tagPaths.GetDocumentPath(tag, id);
 

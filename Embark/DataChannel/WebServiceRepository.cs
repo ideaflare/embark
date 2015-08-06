@@ -27,13 +27,13 @@ namespace Embark.DataChannel
         long ITextRepository.Insert(string tag, string objectToInsert)
             => CallRemoteDatastore((store) => store.Insert(tag, objectToInsert));
 
-        bool ITextRepository.Update(string tag, string id, string objectToUpdate)
+        bool ITextRepository.Update(string tag, long id, string objectToUpdate)
             => CallRemoteDatastore((store) => store.Update(tag, id, objectToUpdate));
 
-        bool ITextRepository.Delete(string tag, string id)
+        bool ITextRepository.Delete(string tag, long id)
             => CallRemoteDatastore((store) => store.Delete(tag, id));
 
-        string ITextRepository.Get(string tag, string id)
+        string ITextRepository.Get(string tag, long id)
             => CallRemoteDatastore((store) => store.Get(tag, id));
 
         IEnumerable<DataEnvelope> ITextRepository.GetAll(string tag)

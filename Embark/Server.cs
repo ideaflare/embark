@@ -10,7 +10,7 @@ namespace Embark
     /// Server that shares a local database hosted over WCF HTTP
     /// </summary>
     public sealed class Server : IDisposable
-    {     
+    {
         /// <summary>
         /// Host a new network server
         /// </summary>
@@ -22,10 +22,10 @@ namespace Embark
         /// </param>
         public Server(string directory, int port = 8080, ITextConverter textConverter = null)
         {
-            if(textConverter == null)
+            if (textConverter == null)
                 textConverter = new JavascriptSerializerTextConverter();
 
-            var store = new FileDataStore(directory);     
+            var store = new FileDataStore(directory);
             var textRepository = new LocalRepository(store, textConverter);
 
             Uri url = new Uri("http://localhost:" + port + "/embark/");
@@ -37,25 +37,16 @@ namespace Embark
         /// <summary>
         /// Open the server web host
         /// </summary>
-        public void Start()
-        {
-            webHost.Open();
-        }
+        public void Start() => webHost.Open();
 
         /// <summary>
         /// Close the server web host
         /// </summary>
-        public void Stop()
-        {
-            webHost.Close();
-        }
+        public void Stop() => webHost.Close();
 
         /// <summary>
         /// Dispose the web host
         /// </summary>
-        public void Dispose()
-        {
-            ((IDisposable)webHost).Dispose();
-        }
+        public void Dispose() => ((IDisposable)webHost).Dispose();
     }
 }

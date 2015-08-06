@@ -24,13 +24,13 @@ namespace Embark.DataChannel
         long ITextRepository.Insert(string tag, string objectToInsert) 
             => dataStore.Insert(tag, objectToInsert);
 
-        bool ITextRepository.Update(string tag, string id, string objectToUpdate)
+        bool ITextRepository.Update(string tag, long id, string objectToUpdate)
             => dataStore.Update(tag, id, objectToUpdate);
 
-        bool ITextRepository.Delete(string tag, string id)
+        bool ITextRepository.Delete(string tag, long id)
             => dataStore.Delete(tag, id);
 
-        string ITextRepository.Get(string tag, string id)
+        string ITextRepository.Get(string tag, long id)
             => dataStore.Get(tag, id);
 
         IEnumerable<DataEnvelope> ITextRepository.GetAll(string tag)

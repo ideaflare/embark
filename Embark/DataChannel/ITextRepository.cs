@@ -26,20 +26,20 @@ namespace Embark.DataChannel
 
         [OperationContract,
         WebInvoke(Method = "PUT",
-            UriTemplate = "{tag}/{id}/{objectToUpdate}",
+            UriTemplate = "{tag}/?id={id}&objectToUpdate={objectToUpdate}",
             ResponseFormat = WebMessageFormat.Json)]
-        bool Update(string tag, string id, string objectToUpdate);
+        bool Update(string tag, long id, string objectToUpdate);
 
         [OperationContract,
         WebInvoke(Method = "DELETE",
-            UriTemplate = "{tag}/{id}",
+            UriTemplate = "{tag}/?id={id}",
             ResponseFormat = WebMessageFormat.Json)]
-        bool Delete(string tag, string id);
+        bool Delete(string tag, long id);
 
         [OperationContract, 
-        WebGet(UriTemplate = "{tag}/{id}",
+        WebGet(UriTemplate = "{tag}/?id={id}",
             ResponseFormat = WebMessageFormat.Json)]
-        string Get(string tag, string id);
+        string Get(string tag, long id);
 
         // TODO 5 Test - what happens if concurrent modify and delete operations occur while iterating
         //        Test - maximum size of insert / read queries ? 

@@ -25,7 +25,7 @@ namespace Embark.Storage
                 return tagDir;
             });
 
-        public string GetDocumentPath(string tag, string key)
+        public string GetDocumentPath(string tag, long key)
         {
             var tagDir = GetCollectionDirectory(tag);
             var savePath = tagDir + key + ".txt";
