@@ -47,6 +47,6 @@ namespace Embark
         /// <summary>
         /// Dispose the web host
         /// </summary>
-        public void Dispose() => ((IDisposable)webHost).Dispose();
+        public void Dispose() => ((IDisposable)webHost)?.Dispose();
     }
 }
