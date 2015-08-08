@@ -37,7 +37,7 @@ namespace Embark.DataChannel
         {
             var id = keyProvider.GetNewKey();
 
-            lock(hashLock.GetLock(id))
+            lock (hashLock.GetLock(id))
                 dataStore.Insert(tag, id, objectToInsert);
 
             return id;
@@ -61,47 +61,28 @@ namespace Embark.DataChannel
                 return dataStore.Get(tag, id);
         }
 
-        IEnumerable<DataEnvelope> ITextRepository.GetAll(string tag)
-            => GetAll(tag);
-
-        private IEnumerable<DataEnvelope> GetAll(string tag)
-            => dataStore.GetAll(tag);
+        IEnumerable<DataEnvelope> ITextRepository.GetAll(string tag) => dataStore.GetAll(tag);
 
         IEnumerable<DataEnvelope> ITextRepository.GetWhere(string tag, string searchObject)
         {
-            var allFiles = GetAll(tag);
-
             var propertyLookup = textComparer.ToComparisonObject(searchObject);
 
-            var matches = allFiles
-                .Select(envelope => new
-                {
-                    envelope = envelope,
-                    graph = textComparer.ToComparisonObject(envelope.Text)
-                })
-                .Where(comparison => textComparer.IsMatch(propertyLookup, comparison.graph))
-                .Select(e => e.envelope);
-
-            return matches;
+            return GetByFilter(tag, compareObject 
+                => textComparer.IsMatch(propertyLookup, compareObject));
         }
 
         IEnumerable<DataEnvelope> ITextRepository.GetBetween(string tag, string startRange, string endRange)
         {
-            var allFiles = GetAll(tag);
-
             var startLookup = textComparer.ToComparisonObject(startRange);
             var endLookup = textComparer.ToComparisonObject(endRange);
 
-            var matches = allFiles
-               .Select(envelope => new
-               {
-                   envelope = envelope,
-                   graph = textComparer.ToComparisonObject(envelope.Text)
-               })
-               .Where(comparison => textComparer.IsBetweenMatch(startLookup, endLookup, comparison.graph))
-               .Select(e => e.envelope);
-
-            return matches;
+            return GetByFilter(tag, compareObject 
+                => textComparer.IsBetweenMatch(startLookup, endLookup, compareObject));
         }
+
+        private IEnumerable<DataEnvelope> GetByFilter(string tag, System.Func<object, bool> filterEnvelopes)
+            =>
+            dataStore.GetAll(tag)
+            .Where(envelope => filterEnvelopes(textComparer.ToComparisonObject(envelope.Text)));
     }
 }
