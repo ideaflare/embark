@@ -115,17 +115,13 @@ namespace Embark.Interaction
         /// <param name="searchObject">Example object to compare against</param>
         /// <typeparam name="T">The POCO class represented by all documents</typeparam>
         /// <returns><see cref="DocumentWrapper{T}"/> objects from the collection that match the search criterea. </returns>
-        public IEnumerable<DocumentWrapper<T>> GetWhere<T>(object searchObject)
-            where T : class
+        public IEnumerable<DocumentWrapper<T>> GetWhere<T>(object searchObject) where T : class
         {
             string searchText = TextConverter.ToText(searchObject);
 
-            var searchResults = textRepository.GetWhere(tag, searchText);
-
-            foreach (var result in searchResults)
-            {
-                yield return new DocumentWrapper<T>(result, this);
-            }
+            return textRepository
+                .GetWhere(tag, searchText)
+                .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
         }
 
         /// <summary>
@@ -140,12 +136,9 @@ namespace Embark.Interaction
             string startSearch = TextConverter.ToText(startRange);
             string endSearch = TextConverter.ToText(endRange);
 
-            var searchResults = textRepository.GetBetween(tag, startSearch, endSearch);
-
-            foreach (var result in searchResults)
-            {
-                yield return new DocumentWrapper<T>(result, this);
-            }
+            return textRepository
+                 .GetBetween(tag, startSearch, endSearch)
+                 .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
         }
 
     }
