@@ -31,9 +31,10 @@ namespace EmbarkTests
             if (Directory.Exists(testDir))
                 Directory.Delete(testDir, recursive: true);
 
-            Directory.CreateDirectory(testDir);
+            //Directory.CreateDirectory(testDir);
 
-            localClient = Client.GetLocalDB(testDir);
+            //localClient = Client.GetLocalDB(testDir);
+            localClient = Client.GetRuntimeDB();
 
             BasicCollection = localClient.Basic;
             //DataEntryCollection = localClient.GetDataEntryCollection<Sound>("ConventionTests");

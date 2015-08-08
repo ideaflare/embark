@@ -16,7 +16,7 @@ namespace Embark
         /// Get a connection to a local database
         /// </summary>
         /// <param name="directory">The path of where to save data</param>
-        /// <returns>Client with db commands</returns>
+        /// <returns>Disk Client with db commands</returns>
         public static Client GetLocalDB(string directory) => new Client(directory);
 
         /// <summary>
@@ -24,8 +24,21 @@ namespace Embark
         /// </summary>
         /// <param name="address">IP Address / DNS Name of server. Example: "220.114.0.12" or "srv-embark-live"</param>
         /// <param name="port">Port used by server</param>
-        /// <returns>Client with db commands</returns>
+        /// <returns>Network Client with db commands</returns>
         public static Client GetNetworkDB(string address, int port = 8080) => new Client(address, port);
+
+        /// <summary>
+        /// Get a temporary in-memory-only database connection
+        /// </summary>
+        /// <returns>Runtime Client with db commands</returns>
+        public static Client GetRuntimeDB() => new Client(new RuntimeDataStore());
+
+        private Client(IDataStore dataStore, ITextConverter textConverter = null)
+        {
+            this.textConverter = textConverter ?? new JavascriptSerializerTextConverter();
+
+            textRepository = new LocalRepository(dataStore, this.textConverter);
+        }
 
         /// <summary>
         /// Modify a local databas,
@@ -39,11 +52,11 @@ namespace Embark
         /// <returns>Client with db commands</returns>>
         public Client(string directory, ITextConverter textConverter = null)
         {
-            var store = new FileDataStore(directory);
+            var store = new DiskDataStore(directory);
 
             this.textConverter = textConverter ?? new JavascriptSerializerTextConverter();
 
-            dataStore = new LocalRepository(store, this.textConverter);
+            textRepository = new LocalRepository(store, this.textConverter);
         }
        
         /// <summary>
@@ -63,10 +76,10 @@ namespace Embark
 
             this.textConverter = textConverter ?? new JavascriptSerializerTextConverter();
 
-            dataStore = new WebServiceRepository(uri.AbsoluteUri);
+            textRepository = new WebServiceRepository(uri.AbsoluteUri);
         }
 
-        private ITextRepository dataStore;
+        private ITextRepository textRepository;
         private ITextConverter textConverter;
 
         /// <summary>
@@ -90,7 +103,7 @@ namespace Embark
         {
             ValidateCollectionName(collectionName);
 
-            return new Collection(collectionName, dataStore, textConverter);
+            return new Collection(collectionName, textRepository, textConverter);
         }
 
         /// <summary>

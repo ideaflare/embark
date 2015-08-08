@@ -5,18 +5,18 @@ using System.Collections.Generic;
 
 namespace Embark.Storage
 {
-    internal class FileDataStore : IDataStore
+    internal class DiskDataStore : IDataStore
     {
-        public FileDataStore(string directory)
+        public DiskDataStore(string directory)
         {
             var appendBackslash = directory.EndsWith("\\") ? "" : "\\";
 
             var collectionsFolder = directory + appendBackslash + @"Collections\";
 
-            tagPaths = new CollectionPaths(collectionsFolder);
+            tagPaths = new DiskPaths(collectionsFolder);
         }
         
-        private CollectionPaths tagPaths;
+        private DiskPaths tagPaths;
 
         public void Insert(string tag, long key, string objectToInsert)
         {

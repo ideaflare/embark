@@ -3,9 +3,9 @@ using System.Collections.Concurrent;
 
 namespace Embark.Storage
 {
-    internal class CollectionPaths
+    internal class DiskPaths
     {
-        public CollectionPaths(string collectionDirectory)
+        public DiskPaths(string collectionDirectory)
         {
             if (!Directory.Exists(collectionDirectory))
                 Directory.CreateDirectory(collectionDirectory);

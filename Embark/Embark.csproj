@@ -54,9 +54,10 @@
     <Compile Include="Interaction\DataEntryCollection.cs" />
     <Compile Include="Interaction\IDataEntry.cs" />
     <Compile Include="Interaction\MVVM\ActionCommand.cs" />
-    <Compile Include="Storage\FileDataStore.cs" />
+    <Compile Include="Storage\DiskDataStore.cs" />
     <Compile Include="Interaction\DocumentWrapperExtensions.cs" />
     <Compile Include="Storage\IDataStore.cs" />
+    <Compile Include="Storage\RuntimeDataStore.cs" />
     <Compile Include="TextConversion\JsonTextFormatter.cs" />
     <Compile Include="TextConversion\JavascriptSerializerConverter.cs" />
     <Compile Include="TextConversion\Validation.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="DataChannel\WebServiceRepository.cs" />
     <Compile Include="TextConversion\ITextConverter.cs" />
     <Compile Include="Server.cs" />
-    <Compile Include="Storage\CollectionPaths.cs" />
+    <Compile Include="Storage\DiskPaths.cs" />
     <Compile Include="Interaction\DocumentWrapper.cs" />
     <Compile Include="Storage\DocumentKeySource.cs" />
     <Compile Include="Client.cs" />
