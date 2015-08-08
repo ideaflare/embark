@@ -1,10 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
 using Embark.DataChannel;
+using System.Collections.Generic;
 
 namespace Embark.Storage
 {
-    internal class FileDataStore
+    internal class FileDataStore : IDataStore
     {
         public FileDataStore(string directory)
         {
@@ -56,7 +57,9 @@ namespace Embark.Storage
                 File.ReadAllText(savePath) : null;
         }
 
-        public DataEnvelope[] GetAll() => GetEnvelopes(tagPaths.CollectionDirectory);
+        public IEnumerable<string> Collections => Directory
+            .EnumerateDirectories(tagPaths.CollectionDirectory)
+            .Select(path => new DirectoryInfo(path).Name);
 
         public DataEnvelope[] GetAll(string tag)
         {

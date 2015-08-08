@@ -51,25 +51,18 @@ namespace Embark.Interaction
         /// Usually accurate to within 15 milliseconds of actual created date.
         /// </remarks>
         /// </summary>
-        public DateTime Timestamp { get { return new DateTime(ID); } }
+        public DateTime Timestamp => new DateTime(ID);
 
         /// <summary>
         /// ToString() of the object within the wrapper
         /// </summary>
         /// <returns>DocumentWrapper.Value.ToString()</returns>
-        public override string ToString()
-        {
-            return Content.ToString();
-        }
+        public override string ToString() => Content.ToString();
 
         /// <summary>
         /// Commit document value to the database
         /// </summary>
-        public bool Update()
-        {
-            return collection.Update(ID, Content);
-        }
-
+        public bool Update() => collection.Update(ID, Content);
         /// <summary>
         /// Delete the document from the database
         /// </summary>

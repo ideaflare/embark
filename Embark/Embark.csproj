@@ -56,6 +56,7 @@
     <Compile Include="Interaction\MVVM\ActionCommand.cs" />
     <Compile Include="Storage\FileDataStore.cs" />
     <Compile Include="Interaction\DocumentWrapperExtensions.cs" />
+    <Compile Include="Storage\IDataStore.cs" />
     <Compile Include="TextConversion\JsonTextFormatter.cs" />
     <Compile Include="TextConversion\JavascriptSerializerConverter.cs" />
     <Compile Include="TextConversion\Validation.cs" />

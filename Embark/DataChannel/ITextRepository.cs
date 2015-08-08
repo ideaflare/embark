@@ -4,24 +4,14 @@ using System.ServiceModel.Web;
 
 namespace Embark.DataChannel
 {
-    /// <summary>
-    /// All commands to insert/get/update/delete documents
-    /// </summary>
     [ServiceContract()]
     internal interface ITextRepository
     {
-        /// <summary>
-        /// Insert a json serializable object to save to a collection
-        /// </summary>
-        /// <param name="tag">A name of the collection to save it in</param>
-        /// <param name="objectToInsert">Anything json serializable/deserializable object to save</param>
-        /// <returns>An Int64 ID unique to the collection the object is saved in</returns>
         [OperationContract,
         WebInvoke(Method = "POST",
             UriTemplate = "{tag}",
             RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json
-            )]
+            ResponseFormat = WebMessageFormat.Json)]
         long Insert(string tag, string objectToInsert);
 
         [OperationContract,

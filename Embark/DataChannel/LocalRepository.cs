@@ -12,22 +12,25 @@ namespace Embark.DataChannel
         ConcurrencyMode = ConcurrencyMode.Multiple)]
     internal class LocalRepository : ITextRepository
     {
-        public LocalRepository(FileDataStore dataStore, ITextConverter textComparer)
+        public LocalRepository(IDataStore dataStore, ITextConverter textComparer)
         {
             this.dataStore = dataStore;
             this.textComparer = textComparer;
 
-            var allItems = dataStore.GetAll();
+            var allItems = dataStore.Collections
+                .SelectMany(collection => dataStore.GetAll(collection))
+                .ToList();
 
-            var lastKnownKey = allItems.Any() ? allItems.Max(d => d.ID) : 0;
+            var lastKnownKey = allItems.Any() ? allItems.Max(envelope => envelope.ID) : 0;
+
             keyProvider = new DocumentKeySource(lastKnownKey);
 
-            var lockCount = 1000 + (allItems.Length / 1000);
+            var lockCount = 1000 + (allItems.Count / 1000);
 
             hashLock = new HashLock(lockCount);
         }
 
-        private FileDataStore dataStore;
+        private IDataStore dataStore;
         private ITextConverter textComparer;
         private DocumentKeySource keyProvider;
         private HashLock hashLock;
