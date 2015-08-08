@@ -57,12 +57,12 @@
     <Compile Include="TestData\Basic\IceCream.cs" />
     <Compile Include="TestData\Basic\Sheep.cs" />
     <Compile Include="TestData\Basic\Table.cs" />
+    <Compile Include="TestData\Basic\WrappedSheep.cs" />
     <Compile Include="TestData\DataEntry\Sound.cs" />
     <Compile Include="TestData\Cache.cs" />
     <Compile Include="CollectionBasic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\TestEntities.cs" />
-    <Compile Include="TestData\Basic\WrappedSheep.cs" />
     <Compile Include="EdgeCases.cs" />
     <Compile Include="CollectionRange.cs" />
     <Compile Include="DocumentWrapper.cs" />

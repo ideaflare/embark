@@ -58,6 +58,12 @@ namespace EmbarkTests.Interaction.Concurrency
 
             Assert.AreSame(lock2, hl.GetLock(""));
         }
-        
+
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentException))]
+        public void LockCount_CannotBeLessThanOne()
+        {
+            var hl = new HashLock(0);
+        }
     }
 }

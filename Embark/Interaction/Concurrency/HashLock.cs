@@ -19,6 +19,9 @@ namespace Embark.Interaction.Concurrency
         /// <param name="avaliableLocks">The maximum number of shared locks</param>
         public HashLock(int avaliableLocks)
         {
+            if (avaliableLocks < 1)
+                throw new ArgumentException("Number of locks should be greater than 0");
+
             locks = new ConcurrentDictionary<int, object>(
                 Enumerable.Range(0, avaliableLocks)
                 .Select(i => new KeyValuePair<int, object>(i, new object())));

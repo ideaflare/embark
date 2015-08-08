@@ -10,16 +10,16 @@ namespace Embark.Storage
             if (!Directory.Exists(collectionDirectory))
                 Directory.CreateDirectory(collectionDirectory);
 
-            this.collectionDirectory = collectionDirectory;
+            CollectionDirectory = collectionDirectory;
         }
 
-        private string collectionDirectory;
+        internal string CollectionDirectory { get; }
         private static ConcurrentDictionary<string, string> tagPathLookup = new ConcurrentDictionary<string, string>();
 
         public string GetCollectionDirectory(string tag)
             => tagPathLookup.GetOrAdd(tag, newSeenTag =>
             {
-                string tagDir = collectionDirectory + newSeenTag + "\\";
+                string tagDir = CollectionDirectory + newSeenTag + "\\";
                 if (!Directory.Exists(tagDir))
                     Directory.CreateDirectory(tagDir);
                 return tagDir;
