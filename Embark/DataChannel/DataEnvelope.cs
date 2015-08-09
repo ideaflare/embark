@@ -8,6 +8,18 @@
     /// and any unknown object/text serializer can be passed to Embark that might not serialize/deserialize non-POCO classes correctly</remarks>
     public class DataEnvelope
     {
+        internal DataEnvelope() { } // Required by OperationContract for deserialization
+
+        /// <summary>
+        /// Create a new DataEnvelope used for data transmission in simple format
+        /// </summary>
+        /// <param name="id">ID of the document</param>
+        /// <param name="text">Serialized text representing the object</param>
+        public DataEnvelope(long id, string text)
+        {
+            ID = id;
+            Text = text;
+        }
         /// <summary>
         /// An Int64 ID Unique to the document
         /// </summary>

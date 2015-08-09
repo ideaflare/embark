@@ -1,4 +1,4 @@
-﻿namespace TestClient.TestData.Basic
+﻿namespace EmbarkTests._Mocks
 {
     public class Cat
     {

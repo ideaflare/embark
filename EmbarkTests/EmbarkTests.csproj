@@ -52,6 +52,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Interaction\CollectionNegativeTests.cs" />
+    <Compile Include="Interaction\CollectionTests.cs" />
     <Compile Include="TestClient.cs" />
     <Compile Include="Interaction\Concurrency\TestHashLock.cs" />
     <Compile Include="Interaction\MVVM\MockActionCommand.cs" />
@@ -65,14 +67,14 @@
     <Compile Include="_Mocks\Cat.cs" />
     <Compile Include="_Mocks\Echo.cs" />
     <Compile Include="_Mocks\IceCream.cs" />
+    <Compile Include="_Mocks\RandomData.cs" />
     <Compile Include="_Mocks\Sheep.cs" />
     <Compile Include="_Mocks\Table.cs" />
     <Compile Include="_Mocks\WrappedSheep.cs" />
-    <Content Include="_Mocks\Sound.cs.txt" />
+    <Compile Include="_Mocks\Sound.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataChannel\" />
-    <Folder Include="Mocks\" />
     <Folder Include="TextConversion\" />
   </ItemGroup>
   <ItemGroup>

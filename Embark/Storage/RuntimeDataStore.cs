@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using Embark.DataChannel;
 using System.Collections.Concurrent;
+using System;
 
 namespace Embark.Storage
 {
@@ -16,33 +16,40 @@ namespace Embark.Storage
         bool IDataStore.Delete(string tag, long id)
         {
             string na;
-            return collections[tag]?.TryRemove(id, out na) ?? false;
+            return this[tag]?.TryRemove(id, out na) ?? false;
         }
 
-        string IDataStore.Get(string tag, long id) 
-            => collections[tag]?[id];
+        string IDataStore.Get(string tag, long id)
+            => GetValueOrNull(id, this[tag]);
 
         DataEnvelope[] IDataStore.GetAll(string tag)
-            => collections[tag]
-            .Select(kv => new DataEnvelope
-            {
-                ID = kv.Key,
-                Text = kv.Value
-            }).ToArray();
+            => this[tag]?.Select(kv => new DataEnvelope(kv.Key, kv.Value)).ToArray()
+            ?? new DataEnvelope[] { };
 
         void IDataStore.Insert(string tag, long key, string objectToInsert)
         {
-            collections.GetOrAdd(tag, new ConcurrentDictionary<long, string>())[key] = objectToInsert;
+            var tagCollection = collections.GetOrAdd(tag, new ConcurrentDictionary<long, string>());
+            tagCollection[key] = objectToInsert;
         }
 
         bool IDataStore.Update(string tag, long id, string objectToUpdate)
         {
-            if (collections[tag].ContainsKey(id))
+            if(this[tag]?.ContainsKey(id) ?? false)
             {
-                collections[tag][id] = objectToUpdate;
+                this[tag].AddOrUpdate(id, objectToUpdate, (k, v) => objectToUpdate);
                 return true;
             }
             else return false;
+        }
+
+        ConcurrentDictionary<long, string> this[string tag]
+            => GetValueOrNull(tag, collections);
+
+        private T GetValueOrNull<Key, T>(Key key, ConcurrentDictionary<Key, T> dictionary) where T : class
+        {
+            T tVal = null;
+            dictionary?.TryGetValue(key, out tVal);
+            return tVal;
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace TestClient.TestData.Basic
+namespace EmbarkTests._Mocks
 {
     public class Sheep : IEquatable<Sheep>
     {
@@ -13,6 +15,23 @@ namespace TestClient.TestData.Basic
         public override string ToString()
         {
             return string.Format("Name[{0}] Age[{1}] FavouriteIceCream[{2}]", Name, Age, FavouriteIceCream.ToString());
+        }
+
+        internal static Sheep GetTestSheep()
+        {
+            return new Sheep
+            {
+                Name = RandomData.GetRandomString(),
+                Age = RandomData.Random.Next(1,7),
+                FavouriteIceCream = (IceCream) RandomData.Random.Next(4)
+            };
+        }
+
+        internal static List<Sheep> GetTestHerd(int count = 10)
+        {
+            return Enumerable.Range(0, count)
+                .Select(i => GetTestSheep())
+                .ToList();
         }
 
         public bool Equals(Sheep other)
