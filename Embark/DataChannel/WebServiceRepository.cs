@@ -7,9 +7,13 @@ namespace Embark.DataChannel
 {
     internal class WebServiceRepository : ITextRepository
     {
-        public WebServiceRepository(string serviceAbsoluteUri)
+        public WebServiceRepository(string address, int port)
         {
-            this.serviceAbsoluteUri = serviceAbsoluteUri;
+            // TODO test connection
+
+            Uri uri = new Uri("http://" + address + ":" + port + "/embark/");
+
+            serviceAbsoluteUri = uri.AbsoluteUri;
         }
 
         private string serviceAbsoluteUri;

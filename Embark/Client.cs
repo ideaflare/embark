@@ -51,13 +51,8 @@ namespace Embark
         /// </param>
         /// <returns>Client with db commands</returns>>
         public Client(string directory, ITextConverter textConverter = null)
-        {
-            var store = new DiskDataStore(directory);
-
-            this.textConverter = textConverter ?? new JavascriptSerializerTextConverter();
-
-            textRepository = new LocalRepository(store, this.textConverter);
-        }
+            : this(new DiskDataStore(directory), textConverter)
+        { }
        
         /// <summary>
         /// Get a connection to a server database
@@ -70,13 +65,9 @@ namespace Embark
         /// <returns>Client with db commands</returns>>
         public Client(string address, int port, ITextConverter textConverter = null)
         {
-            // TODO Test connection
-
-            Uri uri = new Uri("http://" + address + ":" + port + "/embark/");
-
             this.textConverter = textConverter ?? new JavascriptSerializerTextConverter();
 
-            textRepository = new WebServiceRepository(uri.AbsoluteUri);
+            textRepository = new WebServiceRepository(address, port);
         }
 
         private ITextRepository textRepository;
