@@ -57,6 +57,7 @@
     <Compile Include="Interaction\CollectionTestsRange.cs" />
     <Compile Include="Interaction\DataEntryCollectionTestsBasic.cs" />
     <Compile Include="Interaction\DataEntryCollectionTestsRange.cs" />
+    <Compile Include="Interaction\DocumentWrapperTests.cs" />
     <Compile Include="TestClient.cs" />
     <Compile Include="Interaction\Concurrency\TestHashLock.cs" />
     <Compile Include="Interaction\MVVM\MockActionCommand.cs" />

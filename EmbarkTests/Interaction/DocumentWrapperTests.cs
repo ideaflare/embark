@@ -1,19 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Embark.Interaction;
+﻿using Embark.Interaction;
+using EmbarkTests._Mocks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using TestClient.TestData;
-using TestClient.TestData.Basic;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace TestClient
+namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class DocumentWrapper
+    public class DocumentWrapperTests
     {
         [TestMethod]
         public void GetWrapper_ReturnsDocument()
         {
             // arrange
-            var saved = TestEntities.GetTestSheep();
+            var saved = Sheep.GetTestSheep();
 
             var io = MockDB.SharedClient.GetCollection<Sheep>("wrapSelect");
 
@@ -28,14 +31,14 @@ namespace TestClient
             Assert.AreEqual(wrapper.ID, id);
             Assert.AreEqual(saved.Name, loaded.Name);
             Assert.AreEqual(saved.Age, loaded.Age);
-            Assert.AreEqual(saved.FavouriteIceCream, loaded.FavouriteIceCream);   
+            Assert.AreEqual(saved.FavouriteIceCream, loaded.FavouriteIceCream);
         }
-                
+
         [TestMethod]
         public void WrapperUpdate_CommitsChanges()
         {
             // arrange
-            var saved = TestEntities.GetTestSheep();
+            var saved = Sheep.GetTestSheep();
             var io = MockDB.SharedClient.GetCollection<Sheep>("wrapUpdate");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
@@ -57,7 +60,7 @@ namespace TestClient
         public void WrapperDelete_RemovesDocument()
         {
             // arrange
-            var saved = TestEntities.GetTestSheep();
+            var saved = Sheep.GetTestSheep();
             var io = MockDB.SharedClient.GetCollection<Sheep>("wrapDelete");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
@@ -81,7 +84,7 @@ namespace TestClient
         public void WrapperToString_EqualsUnwrappedToString()
         {
             // arrange
-            var sheep = TestEntities.GetTestSheep();
+            var sheep = Sheep.GetTestSheep();
             var io = MockDB.SharedClient.GetCollection<Sheep>("WrapperToString");
 
             // act
@@ -92,12 +95,11 @@ namespace TestClient
             Assert.AreEqual(sheep.ToString(), wrappedSheep.ToString());
             Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Content.ToString());
         }
-        
+
         [TestMethod]
         public void GetNonExistingWrapper_ReturnsNull()
         {
             Assert.IsNull(MockDB.BasicCollection.GetWrapper<Sheep>(-1));
         }
-
     }
 }
