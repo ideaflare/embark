@@ -15,7 +15,7 @@ namespace TestClient
             // arrange
             var saved = TestEntities.GetTestSheep();
 
-            var io = Cache.localClient.GetCollection<Sheep>("wrapSelect");
+            var io = MockDB.SharedClient.GetCollection<Sheep>("wrapSelect");
 
             long id = io.Insert(saved);
 
@@ -36,7 +36,7 @@ namespace TestClient
         {
             // arrange
             var saved = TestEntities.GetTestSheep();
-            var io = Cache.localClient.GetCollection<Sheep>("wrapUpdate");
+            var io = MockDB.SharedClient.GetCollection<Sheep>("wrapUpdate");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
 
@@ -58,7 +58,7 @@ namespace TestClient
         {
             // arrange
             var saved = TestEntities.GetTestSheep();
-            var io = Cache.localClient.GetCollection<Sheep>("wrapDelete");
+            var io = MockDB.SharedClient.GetCollection<Sheep>("wrapDelete");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
 
@@ -82,7 +82,7 @@ namespace TestClient
         {
             // arrange
             var sheep = TestEntities.GetTestSheep();
-            var io = Cache.localClient.GetCollection<Sheep>("WrapperToString");
+            var io = MockDB.SharedClient.GetCollection<Sheep>("WrapperToString");
 
             // act
             var id = io.Insert(sheep);
@@ -96,7 +96,7 @@ namespace TestClient
         [TestMethod]
         public void GetNonExistingWrapper_ReturnsNull()
         {
-            Assert.IsNull(Cache.BasicCollection.GetWrapper<Sheep>(-1));
+            Assert.IsNull(MockDB.BasicCollection.GetWrapper<Sheep>(-1));
         }
 
     }

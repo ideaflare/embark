@@ -8,7 +8,7 @@ namespace EmbarkTests
     [TestClass]
     public class MockDB
     {
-        internal static Client IOClient;
+        internal static Client SharedClient;
 
         internal static Collection BasicCollection;
         //internal static DataEntryCollection<Sound> DataEntryCollection;
@@ -23,9 +23,9 @@ namespace EmbarkTests
         [AssemblyInitialize()]
         public static void MyTestInitialize(TestContext testContext)
         {
-            IOClient = Client.GetRuntimeDB();
+            SharedClient = Client.GetRuntimeDB();
 
-            BasicCollection = IOClient.Basic;
+            BasicCollection = SharedClient.Basic;
             //DataEntryCollection = localClient.GetDataEntryCollection<Sound>("ConventionTests");
 
             Assert.IsNotNull(BasicCollection);

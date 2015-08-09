@@ -7,9 +7,9 @@ using TestClient.TestData.DataEntry;
 namespace TestClient.TestData
 {
     [TestClass]
-    public class Cache
+    public class MockDB
     {
-        internal static Client localClient;
+        internal static Client SharedClient;
 
         internal static Collection BasicCollection;
         internal static DataEntryCollection<Sound> DataEntryCollection;
@@ -18,7 +18,7 @@ namespace TestClient.TestData
 
         internal static DataEntryCollection<Sound> GetSoundCollection(string collectionName)
         {
-            return localClient.GetDataEntryCollection<Sound>(collectionName);
+            return SharedClient.GetDataEntryCollection<Sound>(collectionName);
         }
 
         [AssemblyInitialize()]
@@ -29,10 +29,10 @@ namespace TestClient.TestData
 
             Directory.CreateDirectory(testDir);
 
-            localClient = Client.GetLocalDB(testDir);
+            SharedClient = Client.GetLocalDB(testDir);
 
-            BasicCollection = localClient.Basic;
-            DataEntryCollection = localClient.GetDataEntryCollection<Sound>("ConventionTests");
+            BasicCollection = SharedClient.Basic;
+            DataEntryCollection = SharedClient.GetDataEntryCollection<Sound>("ConventionTests");
 
             Assert.IsNotNull(BasicCollection);
             Assert.IsNotNull(DataEntryCollection);

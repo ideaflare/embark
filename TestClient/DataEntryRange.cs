@@ -13,7 +13,7 @@ namespace TestClient
         public void GetAll_ReturnsAllDocuments()
         {
             // arrange
-            var io = Cache.GetSoundCollection("GetAllTest");
+            var io = MockDB.GetSoundCollection("GetAllTest");
             var created = GenerateTestSounds();
 
             foreach (var entry in created)
@@ -30,7 +30,7 @@ namespace TestClient
         public void GetLike_ReturnsSimilarMatches()
         {
             // arrange
-            var io = Cache.GetSoundCollection("GetLikeTest");
+            var io = MockDB.GetSoundCollection("GetLikeTest");
             var created = GenerateTestSounds();
 
             var comparison = created[0];
@@ -63,7 +63,7 @@ namespace TestClient
         public void GetBetween_ReturnsMatchesRangeQuery()
         {
             // arrange
-            var io = Cache.GetSoundCollection("GetBetweenTest");
+            var io = MockDB.GetSoundCollection("GetBetweenTest");
             var created = GenerateTestSounds();
             created.Add(new Sound
             {

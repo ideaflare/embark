@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class CollectionNegativeTests
+    public class CollectionTestsNegative
     {        
         [TestMethod]
         public void DeleteNothing_IsFalse()

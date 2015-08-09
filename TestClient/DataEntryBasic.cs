@@ -13,7 +13,7 @@ namespace TestClient
             var created = TestEntities.GetTestSound();
 
             // act
-            var saved = Cache.DataEntryCollection.Insert(created);
+            var saved = MockDB.DataEntryCollection.Insert(created);
 
             // assert
             Assert.AreEqual(created.ID, saved.ID);
@@ -25,10 +25,10 @@ namespace TestClient
         {
             // arrange
             var created = TestEntities.GetTestSound();
-            Cache.DataEntryCollection.Insert(created);
+            MockDB.DataEntryCollection.Insert(created);
 
             // act
-            var loaded = Cache.DataEntryCollection.Get(created.ID);
+            var loaded = MockDB.DataEntryCollection.Get(created.ID);
 
             // assert
             Assert.AreEqual(created.ID, loaded.ID);;
@@ -42,13 +42,13 @@ namespace TestClient
         {
             // arrange
             var created = TestEntities.GetTestSound();
-            Cache.DataEntryCollection.Insert(created);
-            var loaded = Cache.DataEntryCollection.Get(created.ID);
+            MockDB.DataEntryCollection.Insert(created);
+            var loaded = MockDB.DataEntryCollection.Get(created.ID);
 
             // act
             loaded.Quality = created.Quality + 10;
-            var hasUpdated = Cache.DataEntryCollection.Update(loaded);
-            var updated = Cache.DataEntryCollection.Get(created.ID);
+            var hasUpdated = MockDB.DataEntryCollection.Update(loaded);
+            var updated = MockDB.DataEntryCollection.Get(created.ID);
 
             // assert
             Assert.IsTrue(hasUpdated);
@@ -62,15 +62,15 @@ namespace TestClient
             // arrange
             var created = TestEntities.GetTestSound();
             long initialID = created.ID;
-            var inserted = Cache.DataEntryCollection.Insert(created);
+            var inserted = MockDB.DataEntryCollection.Insert(created);
             long insertedID = inserted.ID;
-            var loaded = Cache.DataEntryCollection.Get(created.ID);
+            var loaded = MockDB.DataEntryCollection.Get(created.ID);
 
             // act
-            bool isDeleted = Cache.DataEntryCollection.Delete(loaded);
-            var notFound = Cache.DataEntryCollection.Get(insertedID);
-            var nullWrapper = Cache.DataEntryCollection.GetWrapper(insertedID);
-            var updateDeleted = Cache.DataEntryCollection.Update(created);
+            bool isDeleted = MockDB.DataEntryCollection.Delete(loaded);
+            var notFound = MockDB.DataEntryCollection.Get(insertedID);
+            var nullWrapper = MockDB.DataEntryCollection.GetWrapper(insertedID);
+            var updateDeleted = MockDB.DataEntryCollection.Update(created);
             
             // assert
             Assert.IsTrue(isDeleted);
@@ -87,16 +87,16 @@ namespace TestClient
             // arrange
             var registered = TestEntities.GetTestSound();
             registered.Amplitude = 100;
-            Cache.DataEntryCollection.Insert(registered);
-            registered.RegisterAutoUpdate(Cache.DataEntryCollection);
+            MockDB.DataEntryCollection.Insert(registered);
+            registered.RegisterAutoUpdate(MockDB.DataEntryCollection);
 
-            var nonregistered = Cache.DataEntryCollection.Get(registered.ID);
+            var nonregistered = MockDB.DataEntryCollection.Get(registered.ID);
 
             // act
             registered.Amplitude = 50;
-            int regAmp50 = Cache.DataEntryCollection.Get(nonregistered.ID).Amplitude;
+            int regAmp50 = MockDB.DataEntryCollection.Get(nonregistered.ID).Amplitude;
             registered.Amplitude = 12;
-            int regAmp12 = Cache.DataEntryCollection.Get(nonregistered.ID).Amplitude;
+            int regAmp12 = MockDB.DataEntryCollection.Get(nonregistered.ID).Amplitude;
             registered.Amplitude = 99;
 
             // assert

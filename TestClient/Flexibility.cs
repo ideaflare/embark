@@ -15,10 +15,10 @@ namespace TestClient
             // arrange
             var sheep = TestEntities.GetTestSheep();
 
-            long id = Cache.BasicCollection.Insert(sheep);
+            long id = MockDB.BasicCollection.Insert(sheep);
 
             // act
-            Cat cat = Cache.BasicCollection.Get<Cat>(id);
+            Cat cat = MockDB.BasicCollection.Get<Cat>(id);
 
             // assert
             Assert.AreEqual(cat.Name, sheep.Name);
@@ -31,7 +31,7 @@ namespace TestClient
         public void TypofString_CanDeserialize()
         {
             // arrange
-            var io = Cache.localClient["stringTest"];
+            var io = MockDB.SharedClient["stringTest"];
 
             var savedText = "Save just a string to DB, not a class with public properties";
 
@@ -48,7 +48,7 @@ namespace TestClient
         public void ValueTypes_CanTurnIntoText()
         {
             // arrange
-            var io = Cache.localClient["valuetypeToString"];
+            var io = MockDB.SharedClient["valuetypeToString"];
 
             int savedInt = 561;
             long savedLong = long.MaxValue * -1;
@@ -84,7 +84,7 @@ namespace TestClient
         public void ArrayObjects_CanTurnIntoText()
         {
             // arrange
-            var io = Cache.localClient["arraysToString"];
+            var io = MockDB.SharedClient["arraysToString"];
 
             byte[] arr = new byte[] { 12, 200, 12, 0, 33 };
             var byteArrString = "[\r\n   12,\r\n   200,\r\n   12,\r\n   0,\r\n   33\r\n]";
@@ -122,7 +122,7 @@ namespace TestClient
         public void Cat_CanTurnIntoJsonText()
         {
             // arrange
-            var io = Cache.localClient["classToJsonText"];
+            var io = MockDB.SharedClient["classToJsonText"];
             var savedCat = new Cat
             {
                 Name = "Tom",

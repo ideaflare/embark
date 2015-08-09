@@ -52,8 +52,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Interaction\CollectionNegativeTests.cs" />
-    <Compile Include="Interaction\CollectionTests.cs" />
+    <Compile Include="Interaction\CollectionTestsNegative.cs" />
+    <Compile Include="Interaction\CollectionTestsBasic.cs" />
+    <Compile Include="Interaction\CollectionTestsRange.cs" />
     <Compile Include="TestClient.cs" />
     <Compile Include="Interaction\Concurrency\TestHashLock.cs" />
     <Compile Include="Interaction\MVVM\MockActionCommand.cs" />

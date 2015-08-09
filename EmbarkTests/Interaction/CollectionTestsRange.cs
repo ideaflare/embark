@@ -1,21 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 using System.Collections.Generic;
-using TestClient.TestData;
+using System.Linq;
 using Embark.Interaction;
-using TestClient.TestData.Basic;
+using EmbarkTests._Mocks;
 
-namespace TestClient
+namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class CollectionRange
+    public class CollectionTestsRange
     {
         [TestMethod]
         public void GetAll_ReturnsAllItems()
         {
-            //Arrange
-            var allTestCollection = Cache.localClient["SelectAll"];
-            var testHerd = TestEntities.GetTestHerd(5);
+            // arrange
+            var allTestCollection = MockDB.SharedClient["SelectAll"];
+            var testHerd = Sheep.GetTestHerd(5);
 
             var wrappedHerd = new List<WrappedSheep>();
 
@@ -25,19 +26,24 @@ namespace TestClient
                 wrappedHerd.Add(new WrappedSheep { ID = id, Sheep = sheep });
             }
 
-            //Act
-            var querySheep = allTestCollection.GetAll<Sheep>();
+            // act
+            var querySheep = allTestCollection
+                .GetAll<Sheep>()
+                .OrderBy(s => s.ID)
+                .ToList();
 
-            var unwrappedHerd = querySheep.Unwrap().ToArray();
+            var unwrappedHerd = querySheep
+                .Unwrap()
+                .ToArray();
 
-            //Assert
-            Assert.AreEqual(testHerd.Count, querySheep.Count());
+            // assert
+            Assert.AreEqual(testHerd.Count, querySheep.Count);
 
-            foreach(var documentWrapper in querySheep)
+            foreach (var documentWrapper in querySheep)
             {
                 var wrappedSheep = wrappedHerd.Where(ws => ws.ID == documentWrapper.ID).Single();
 
-                Assert.IsTrue(documentWrapper.Content.Equals( wrappedSheep.Sheep));
+                Assert.IsTrue(documentWrapper.Content.Equals(wrappedSheep.Sheep));
             }
 
             // Assumption that insert order = fetch order. If this changes, change the unit test and allow unordered insert & query.
@@ -50,8 +56,8 @@ namespace TestClient
         [TestMethod]
         public void GetBetween_ReturnsBetweenItems()
         {
-            //Arrange
-            var allTestCollection = Cache.localClient["SelectBetween"];
+            // arrange
+            var allTestCollection = MockDB.SharedClient["SelectBetween"];
             var testHerd = new List<Sheep>();
 
             var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
@@ -69,12 +75,12 @@ namespace TestClient
                 wrappedHerd.Add(new WrappedSheep { ID = id, Sheep = sheep });
             }
 
-            //Act
+            // act
             var betweenSheep = allTestCollection
                 .GetBetween<Sheep>(new { Age = 75 }, new { Age = 25 })
                 .Single();
 
-            //Assert
+            // assert
             Assert.IsTrue(betweenSheep.Content.Equals(oldDusty));
         }
 
@@ -85,14 +91,14 @@ namespace TestClient
             var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum };
-                        
-            Cache.BasicCollection.Insert(oldWooly);
-            Cache.BasicCollection.Insert(oldDusty);
-            Cache.BasicCollection.Insert(youngLassy);
+
+            MockDB.BasicCollection.Insert(oldWooly);
+            MockDB.BasicCollection.Insert(oldDusty);
+            MockDB.BasicCollection.Insert(youngLassy);
 
             // act            
 
-            IEnumerable<Sheep> matchQuery = Cache.BasicCollection.GetWhere<Sheep>(new { Age = 100 }).Unwrap();
+            IEnumerable<Sheep> matchQuery = MockDB.BasicCollection.GetWhere<Sheep>(new { Age = 100 }).Unwrap();
 
             var ancients = matchQuery.ToList();
 
@@ -104,6 +110,6 @@ namespace TestClient
 
             Assert.IsTrue(ancients.Any(s => s.Name == "Wooly"));
             Assert.IsTrue(ancients.Any(s => s.Name == "Dusty"));
-        }        
+        }
     }
 }

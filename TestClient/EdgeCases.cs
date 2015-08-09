@@ -17,7 +17,7 @@ namespace TestClient
         public void GetNonExisting_ReturnsNull()
         {
             // arrange
-            var client = Cache.localClient;
+            var client = MockDB.SharedClient;
             var ioBasic = client["basicNonExist"];
             var ioClass = client.GetCollection<Sheep>("genericClassNonExist");
             var ioValue = client.GetCollection<string>("valueTypeNonExist");
@@ -47,14 +47,14 @@ namespace TestClient
                 Echo = null
             };
 
-            long idRawByteArray = Cache.localClient.Basic.Insert(rawByteArray);
-            long idSound = Cache.localClient.Basic.Insert(sound);
+            long idRawByteArray = MockDB.SharedClient.Basic.Insert(rawByteArray);
+            long idSound = MockDB.SharedClient.Basic.Insert(sound);
 
             // act    
-            var loadedSound = Cache.localClient.Basic.Get<Sound>(idSound);
+            var loadedSound = MockDB.SharedClient.Basic.Get<Sound>(idSound);
             byte[] loadedSample = loadedSound.Sample;
 
-            byte[] loadedAsArray = Cache.localClient.Basic.Get<byte[]>(idRawByteArray);
+            byte[] loadedAsArray = MockDB.SharedClient.Basic.Get<byte[]>(idRawByteArray);
             
             // assert
             Assert.IsTrue(Enumerable.SequenceEqual(rawByteArray, loadedAsArray));
@@ -65,7 +65,7 @@ namespace TestClient
         public void SaveNonPoco_HandlesComparison()
         {
             // arrange
-            var io = Cache.localClient.GetCollection<string>("nonPOCO");
+            var io = MockDB.SharedClient.GetCollection<string>("nonPOCO");
             string input = "string";
             string inserted;
 
@@ -78,7 +78,7 @@ namespace TestClient
         public void MixedTypeCollection_CanSave()
         {
             // arrange
-            var io = Cache.localClient.GetCollection<object>("MixedDataObjects");
+            var io = MockDB.SharedClient.GetCollection<object>("MixedDataObjects");
             Sheep inputSheep = new Sheep { Name = "Mittens" };
             object outputObject;
                         
@@ -108,7 +108,7 @@ namespace TestClient
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum, OnTable = new Table { IsSquare = true } };
             var youngBilly = new Sheep { Name = "Billy", Age = 3, OnTable = new Table { Legs = 2 } };
 
-            var io = Cache.localClient.GetCollection<Sheep>("subMatch");
+            var io = MockDB.SharedClient.GetCollection<Sheep>("subMatch");
 
             long id = io.Insert(oldWooly);
             long id2 = io.Insert(oldDusty);
