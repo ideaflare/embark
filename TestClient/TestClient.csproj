@@ -64,9 +64,7 @@
     <Compile Include="TestData\TestEntities.cs" />
     <Compile Include="EdgeCases.cs" />
     <Compile Include="DocumentWrapper.cs" />
-    <Compile Include="DataEntryBasic.cs" />
     <Compile Include="Flexibility.cs" />
-    <Compile Include="DataEntryRange.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">

@@ -1,5 +1,6 @@
 ﻿using Embark;
 using Embark.Interaction;
+using EmbarkTests._Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
@@ -11,14 +12,12 @@ namespace EmbarkTests
         internal static Client SharedClient;
 
         internal static Collection BasicCollection;
-        //internal static DataEntryCollection<Sound> DataEntryCollection;
+        internal static DataEntryCollection<Sound> DataEntryCollection;
 
-        //private static readonly string testDir = @"C:\MyTemp\EmbarkTests\";
-
-        //internal static DataEntryCollection<Sound> GetSoundCollection(string collectionName)
-        //{
-        //    return localClient.GetDataEntryCollection<Sound>(collectionName);
-        //}
+        internal static DataEntryCollection<Sound> GetSoundCollection(string collectionName)
+        {
+            return SharedClient.GetDataEntryCollection<Sound>(collectionName);
+        }
 
         [AssemblyInitialize()]
         public static void MyTestInitialize(TestContext testContext)
@@ -26,7 +25,7 @@ namespace EmbarkTests
             SharedClient = Client.GetRuntimeDB();
 
             BasicCollection = SharedClient.Basic;
-            //DataEntryCollection = localClient.GetDataEntryCollection<Sound>("ConventionTests");
+            DataEntryCollection = SharedClient.GetDataEntryCollection<Sound>("ConventionTests");
 
             Assert.IsNotNull(BasicCollection);
         }

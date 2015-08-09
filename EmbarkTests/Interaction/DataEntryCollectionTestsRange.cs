@@ -1,13 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestClient.TestData;
-using TestClient.TestData.DataEntry;
+﻿using EmbarkTests._Mocks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace TestClient
+namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class DataEntryRange
+    public class DataEntryCollectionTestsRange
     {
         [TestMethod]
         public void GetAll_ReturnsAllDocuments()
@@ -58,7 +60,7 @@ namespace TestClient
                 m.Description == comparison.Description &&
                 m.Echo.Repetitions == comparison.Echo.Repetitions));
         }
-        
+
         [TestMethod]
         public void GetBetween_ReturnsMatchesRangeQuery()
         {
@@ -68,7 +70,7 @@ namespace TestClient
             created.Add(new Sound
             {
                 Quality = 120,
-                Echo = new TestData.Basic.Echo { Repetitions = 5}
+                Echo = new Echo { Repetitions = 5 }
             });
 
             var linqBetweenCount = created.Count(s =>
@@ -92,7 +94,7 @@ namespace TestClient
 
             // act
             var matches = io.GetBetween(queryStart, queryEnd).ToList();
-            
+
             // assert
             Assert.IsTrue(matches.Count > 0);
             Assert.AreEqual(linqBetweenCount, matches.Count);
@@ -104,7 +106,7 @@ namespace TestClient
         private static List<Sound> GenerateTestSounds(int size = 5)
         {
             return Enumerable.Range(0, size)
-                .Select(i => TestEntities.GetTestSound(i))
+                .Select(i => Sound.GetTestSound(i))
                 .ToList();
         }
     }

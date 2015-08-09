@@ -21,5 +21,18 @@ namespace EmbarkTests._Mocks
         public Echo Echo { get; set; }
 
         public byte[] Sample { get; set; }
+
+        internal static Sound GetTestSound(int echo = 2)
+        {
+            return new Sound
+            {
+                Description = RandomData.GetRandomString(),
+                Quality = RandomData.Random.Next(5,95),
+                Echo = new Echo
+                {
+                    Repetitions = echo
+                }
+            };
+        }
     }
 }

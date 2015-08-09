@@ -1,16 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestClient.TestData;
+﻿using EmbarkTests._Mocks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestClient
+namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class DataEntryBasic
+    public class DataEntryCollectionTestsBasic
     {
         [TestMethod]
         public void Insert_SetsID()
         {
             // arrange
-            var created = TestEntities.GetTestSound();
+            var created = Sound.GetTestSound();
 
             // act
             var saved = MockDB.DataEntryCollection.Insert(created);
@@ -19,29 +19,29 @@ namespace TestClient
             Assert.AreEqual(created.ID, saved.ID);
             Assert.AreEqual(created.Timestamp, saved.Timestamp);
         }
-        
+
         [TestMethod]
         public void Get_HasInsertedValues()
         {
             // arrange
-            var created = TestEntities.GetTestSound();
+            var created = Sound.GetTestSound();
             MockDB.DataEntryCollection.Insert(created);
 
             // act
             var loaded = MockDB.DataEntryCollection.Get(created.ID);
 
             // assert
-            Assert.AreEqual(created.ID, loaded.ID);;
+            Assert.AreEqual(created.ID, loaded.ID); ;
             Assert.AreEqual(created.Timestamp, loaded.Timestamp);
             Assert.AreEqual(created.Description, loaded.Description);
             Assert.AreEqual(created.Quality, loaded.Quality);
         }
-        
+
         [TestMethod]
         public void Update_ChangesValues()
         {
             // arrange
-            var created = TestEntities.GetTestSound();
+            var created = Sound.GetTestSound();
             MockDB.DataEntryCollection.Insert(created);
             var loaded = MockDB.DataEntryCollection.Get(created.ID);
 
@@ -60,7 +60,7 @@ namespace TestClient
         public void Delete_RemovesEntry()
         {
             // arrange
-            var created = TestEntities.GetTestSound();
+            var created = Sound.GetTestSound();
             long initialID = created.ID;
             var inserted = MockDB.DataEntryCollection.Insert(created);
             long insertedID = inserted.ID;
@@ -71,7 +71,7 @@ namespace TestClient
             var notFound = MockDB.DataEntryCollection.Get(insertedID);
             var nullWrapper = MockDB.DataEntryCollection.GetWrapper(insertedID);
             var updateDeleted = MockDB.DataEntryCollection.Update(created);
-            
+
             // assert
             Assert.IsTrue(isDeleted);
             Assert.IsNull(notFound);
@@ -80,12 +80,12 @@ namespace TestClient
             Assert.AreEqual(created.ID, inserted.ID);
             Assert.IsFalse(updateDeleted);
         }
-        
+
         [TestMethod]
         public void AutoUpdate_ChangesValues()
         {
             // arrange
-            var registered = TestEntities.GetTestSound();
+            var registered = Sound.GetTestSound();
             registered.Amplitude = 100;
             MockDB.DataEntryCollection.Insert(registered);
             registered.RegisterAutoUpdate(MockDB.DataEntryCollection);
@@ -105,6 +105,5 @@ namespace TestClient
             Assert.AreEqual(99, registered.Amplitude);
             Assert.AreEqual(nonregistered.Amplitude, 100);
         }
-
     }
 }
