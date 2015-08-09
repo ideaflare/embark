@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class CollectionTestsBasic
+    public class TestCollection_Basic
     {
         [TestMethod]
         public void Insert_ReturnsID()

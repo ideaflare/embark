@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class DataEntryCollectionTestsRange
+    public class TestDataEntryCollection_Range
     {
         [TestMethod]
         public void GetAll_ReturnsAllDocuments()

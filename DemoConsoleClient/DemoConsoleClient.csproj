@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DemoWebClient</RootNamespace>
     <AssemblyName>DemoWebClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,13 +49,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EmbarkTests\EmbarkTests.csproj">
+      <Project>{17637470-a415-47d0-ba7b-a387ebdd2045}</Project>
+      <Name>EmbarkTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Embark\Embark.csproj">
       <Project>{2359c522-3f62-4ef5-901b-ff05b869c67d}</Project>
       <Name>Embark</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestClient\TestClient.csproj">
-      <Project>{1a6e26d7-df23-439e-a07b-8b2ac0864b67}</Project>
-      <Name>TestClient</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

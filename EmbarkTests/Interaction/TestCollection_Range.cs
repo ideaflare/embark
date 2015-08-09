@@ -9,7 +9,7 @@ using EmbarkTests._Mocks;
 namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class CollectionTestsRange
+    public class TestCollection_Range
     {
         [TestMethod]
         public void GetAll_ReturnsAllItems()

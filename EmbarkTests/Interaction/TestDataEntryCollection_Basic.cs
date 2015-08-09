@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class DataEntryCollectionTestsBasic
+    public class TestDataEntryCollection_Basic
     {
         [TestMethod]
         public void Insert_SetsID()

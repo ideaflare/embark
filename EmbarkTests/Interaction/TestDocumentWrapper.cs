@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace EmbarkTests.Interaction
 {
     [TestClass]
-    public class DocumentWrapperTests
+    public class TestDocumentWrapper
     {
         [TestMethod]
         public void GetWrapper_ReturnsDocument()
@@ -98,8 +98,6 @@ namespace EmbarkTests.Interaction
 
         [TestMethod]
         public void GetNonExistingWrapper_ReturnsNull()
-        {
-            Assert.IsNull(MockDB.BasicCollection.GetWrapper<Sheep>(-1));
-        }
+            => Assert.IsNull(MockDB.BasicCollection.GetWrapper<Sheep>(-1));
     }
 }

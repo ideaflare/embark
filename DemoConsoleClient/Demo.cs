@@ -1,7 +1,7 @@
 ﻿using Embark.Interaction;
+using EmbarkTests._Mocks;
 using System;
 using System.IO;
-using TestClient.TestData.Basic;
 
 namespace DemoConsoleClient
 {

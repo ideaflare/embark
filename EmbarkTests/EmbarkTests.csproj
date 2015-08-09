@@ -52,12 +52,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Interaction\CollectionTestsNegative.cs" />
-    <Compile Include="Interaction\CollectionTestsBasic.cs" />
-    <Compile Include="Interaction\CollectionTestsRange.cs" />
-    <Compile Include="Interaction\DataEntryCollectionTestsBasic.cs" />
-    <Compile Include="Interaction\DataEntryCollectionTestsRange.cs" />
-    <Compile Include="Interaction\DocumentWrapperTests.cs" />
+    <Compile Include="Interaction\TestCollection_Negative.cs" />
+    <Compile Include="Interaction\TestCollection_Basic.cs" />
+    <Compile Include="Interaction\TestCollection_Range.cs" />
+    <Compile Include="Interaction\TestDataEntryCollection_Basic.cs" />
+    <Compile Include="Interaction\TestDataEntryCollection_Range.cs" />
+    <Compile Include="Interaction\TestDocumentWrapper.cs" />
     <Compile Include="TestClient.cs" />
     <Compile Include="Interaction\Concurrency\TestHashLock.cs" />
     <Compile Include="Interaction\MVVM\MockActionCommand.cs" />
@@ -76,6 +76,9 @@
     <Compile Include="_Mocks\Table.cs" />
     <Compile Include="_Mocks\WrappedSheep.cs" />
     <Compile Include="_Mocks\Sound.cs" />
+    <Compile Include="_Unsorted\TestEdgeCases.cs" />
+    <Compile Include="_Unsorted\TestExpectedErrors.cs" />
+    <Compile Include="_Unsorted\TestFlexibility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataChannel\" />
