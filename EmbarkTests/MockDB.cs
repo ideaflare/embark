@@ -2,38 +2,52 @@
 using Embark.Interaction;
 using EmbarkTests._Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
+using System.Reflection;
 
 namespace EmbarkTests
 {
     [TestClass]
     public class MockDB
     {
-        internal static Client SharedClient;
+        internal static Client SharedRuntimeClient;
+        //internal static Client SharedDiskClient;
 
-        internal static Collection BasicCollection;
-        internal static DataEntryCollection<Sound> DataEntryCollection;
+        internal static Collection RuntimeBasicCollection;
+        internal static DataEntryCollection<Sound> RuntimeDataEntryCollection;
 
-        internal static DataEntryCollection<Sound> GetSoundCollection(string collectionName)
+        internal static DataEntryCollection<Sound> GetRuntimeCollection(string collectionName)
         {
-            return SharedClient.GetDataEntryCollection<Sound>(collectionName);
+            return SharedRuntimeClient.GetDataEntryCollection<Sound>(collectionName);
         }
 
         [AssemblyInitialize()]
         public static void MyTestInitialize(TestContext testContext)
         {
-            SharedClient = Client.GetRuntimeDB();
+            SharedRuntimeClient = Client.GetRuntimeDB();
 
-            BasicCollection = SharedClient.Basic;
-            DataEntryCollection = SharedClient.GetDataEntryCollection<Sound>("ConventionTests");
+            RuntimeBasicCollection = SharedRuntimeClient.Basic;
+            RuntimeDataEntryCollection = SharedRuntimeClient.GetDataEntryCollection<Sound>("ConventionTests");
 
-            Assert.IsNotNull(BasicCollection);
+            Assert.IsNotNull(RuntimeBasicCollection);
         }
 
         [AssemblyCleanup()]
         public static void MytestCleanup()
         {
 
+        }
+
+        private static string AssemblyDirectory
+        {
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
         }
     }
 }

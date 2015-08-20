@@ -58,6 +58,8 @@
     <Compile Include="Interaction\TestDataEntryCollection_Basic.cs" />
     <Compile Include="Interaction\TestDataEntryCollection_Range.cs" />
     <Compile Include="Interaction\TestDocumentWrapper.cs" />
+    <Compile Include="Storage\TestRuntimeDataStoreNegative.cs" />
+    <Compile Include="Storage\TestDiskDataStoreNegative.cs" />
     <Compile Include="TestClient.cs" />
     <Compile Include="Interaction\Concurrency\TestHashLock.cs" />
     <Compile Include="Interaction\MVVM\MockActionCommand.cs" />

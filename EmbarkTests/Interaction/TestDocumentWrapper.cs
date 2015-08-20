@@ -18,7 +18,7 @@ namespace EmbarkTests.Interaction
             // arrange
             var saved = Sheep.GetTestSheep();
 
-            var io = MockDB.SharedClient.GetCollection<Sheep>("wrapSelect");
+            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapSelect");
 
             long id = io.Insert(saved);
 
@@ -39,7 +39,7 @@ namespace EmbarkTests.Interaction
         {
             // arrange
             var saved = Sheep.GetTestSheep();
-            var io = MockDB.SharedClient.GetCollection<Sheep>("wrapUpdate");
+            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapUpdate");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
 
@@ -61,7 +61,7 @@ namespace EmbarkTests.Interaction
         {
             // arrange
             var saved = Sheep.GetTestSheep();
-            var io = MockDB.SharedClient.GetCollection<Sheep>("wrapDelete");
+            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapDelete");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
 
@@ -85,7 +85,7 @@ namespace EmbarkTests.Interaction
         {
             // arrange
             var sheep = Sheep.GetTestSheep();
-            var io = MockDB.SharedClient.GetCollection<Sheep>("WrapperToString");
+            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("WrapperToString");
 
             // act
             var id = io.Insert(sheep);
@@ -98,6 +98,6 @@ namespace EmbarkTests.Interaction
 
         [TestMethod]
         public void GetNonExistingWrapper_ReturnsNull()
-            => Assert.IsNull(MockDB.BasicCollection.GetWrapper<Sheep>(-1));
+            => Assert.IsNull(MockDB.RuntimeBasicCollection.GetWrapper<Sheep>(-1));
     }
 }

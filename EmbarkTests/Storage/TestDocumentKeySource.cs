@@ -20,7 +20,7 @@ namespace EmbarkTests.StorageTests
             var sw = Stopwatch.StartNew();
             var newIDs = Enumerable.Range(0, totalInserts)
                 .AsParallel()
-                .Select(i => MockDB.BasicCollection.Insert(new { n = 0 }))
+                .Select(i => MockDB.RuntimeBasicCollection.Insert(new { n = 0 }))
                 .ToList();
             sw.Stop();
 
@@ -35,7 +35,7 @@ namespace EmbarkTests.StorageTests
         {
             // arrange
             var now = DateTime.Now;
-            long id = MockDB.BasicCollection.Insert(new { Numero = "Uno" });
+            long id = MockDB.RuntimeBasicCollection.Insert(new { Numero = "Uno" });
 
             // act
             var timestamp = new DateTime(id);

@@ -15,7 +15,7 @@ namespace EmbarkTests._Unsorted
         public void GetNonExisting_ReturnsNull()
         {
             // arrange
-            var client = MockDB.SharedClient;
+            var client = MockDB.SharedRuntimeClient;
             var ioBasic = client["basicNonExist"];
             var ioClass = client.GetCollection<Sheep>("genericClassNonExist");
             var ioValue = client.GetCollection<string>("valueTypeNonExist");
@@ -45,14 +45,14 @@ namespace EmbarkTests._Unsorted
                 Echo = null
             };
 
-            long idRawByteArray = MockDB.SharedClient.Basic.Insert(rawByteArray);
-            long idSound = MockDB.SharedClient.Basic.Insert(sound);
+            long idRawByteArray = MockDB.SharedRuntimeClient.Basic.Insert(rawByteArray);
+            long idSound = MockDB.SharedRuntimeClient.Basic.Insert(sound);
 
             // act    
-            var loadedSound = MockDB.SharedClient.Basic.Get<Sound>(idSound);
+            var loadedSound = MockDB.SharedRuntimeClient.Basic.Get<Sound>(idSound);
             byte[] loadedSample = loadedSound.Sample;
 
-            byte[] loadedAsArray = MockDB.SharedClient.Basic.Get<byte[]>(idRawByteArray);
+            byte[] loadedAsArray = MockDB.SharedRuntimeClient.Basic.Get<byte[]>(idRawByteArray);
             
             // assert
             Assert.IsTrue(Enumerable.SequenceEqual(rawByteArray, loadedAsArray));
@@ -63,7 +63,7 @@ namespace EmbarkTests._Unsorted
         public void SaveNonPoco_HandlesComparison()
         {
             // arrange
-            var io = MockDB.SharedClient.GetCollection<string>("nonPOCO");
+            var io = MockDB.SharedRuntimeClient.GetCollection<string>("nonPOCO");
             string input = "string";
             string inserted;
 
@@ -76,7 +76,7 @@ namespace EmbarkTests._Unsorted
         public void MixedTypeCollection_CanSave()
         {
             // arrange
-            var io = MockDB.SharedClient.GetCollection<object>("MixedDataObjects");
+            var io = MockDB.SharedRuntimeClient.GetCollection<object>("MixedDataObjects");
             Sheep inputSheep = new Sheep { Name = "Mittens" };
             object outputObject;
                         
@@ -106,7 +106,7 @@ namespace EmbarkTests._Unsorted
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum, OnTable = new Table { IsSquare = true } };
             var youngBilly = new Sheep { Name = "Billy", Age = 3, OnTable = new Table { Legs = 2 } };
 
-            var io = MockDB.SharedClient.GetCollection<Sheep>("subMatch");
+            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("subMatch");
 
             long id = io.Insert(oldWooly);
             long id2 = io.Insert(oldDusty);

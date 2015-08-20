@@ -15,7 +15,7 @@ namespace EmbarkTests.Interaction
         public void GetAll_ReturnsAllDocuments()
         {
             // arrange
-            var io = MockDB.GetSoundCollection("GetAllTest");
+            var io = MockDB.GetRuntimeCollection("GetAllTest");
             var created = GenerateTestSounds();
 
             foreach (var entry in created)
@@ -32,7 +32,7 @@ namespace EmbarkTests.Interaction
         public void GetLike_ReturnsSimilarMatches()
         {
             // arrange
-            var io = MockDB.GetSoundCollection("GetLikeTest");
+            var io = MockDB.GetRuntimeCollection("GetLikeTest");
             var created = GenerateTestSounds();
 
             var comparison = created[0];
@@ -65,7 +65,7 @@ namespace EmbarkTests.Interaction
         public void GetBetween_ReturnsMatchesRangeQuery()
         {
             // arrange
-            var io = MockDB.GetSoundCollection("GetBetweenTest");
+            var io = MockDB.GetRuntimeCollection("GetBetweenTest");
             var created = GenerateTestSounds();
             created.Add(new Sound
             {

@@ -2,6 +2,7 @@
 using EmbarkTests._Mocks;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace DemoConsoleClient
 {
@@ -19,11 +20,11 @@ namespace DemoConsoleClient
             if (Directory.Exists(defaultDir))
                 Directory.Delete(defaultDir, recursive: true);
 
-            GenericDemo();
+            //GenericDemo();
 
-            BasicDemo();
+            //BasicDemo();
 
-            MixedTypeDemo();
+            //MixedTypeDemo();
 
             WebServerDemo();
 
@@ -171,9 +172,19 @@ namespace DemoConsoleClient
             var thisPc = System.Net.Dns.GetHostName();
             var db = Embark.Client.GetNetworkDB(thisPc);
 
-            var id = db.Basic.Insert(new { Name = "Yana" });
+            for (int i = 0; i < 2; i++)
+            {
+                db["cats"].Insert(new
+                {
+                    name = "Cat number " + i,
+                    Age = (i % 20) + 1,
+                    sheep = Enumerable.Range(0, 100)
+                                      .Select(r => new Sheep { Age = i + r, Name = "uhetnohtnu", OnTable = new Table { IsSquare = true } })
+                                      .ToList()
+                });
+            }
 
-            var allDocs = db.Basic.GetAll<object>();
+            var allDocs = db["cats"].GetAll<object>().ToList();
 
             Console.Write("server running, press any key to stop");
             Console.Read();

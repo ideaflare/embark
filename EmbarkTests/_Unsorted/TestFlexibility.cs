@@ -13,10 +13,10 @@ namespace EmbarkTests._Unsorted
             // arrange
             var sheep = Sheep.GetTestSheep();
 
-            long id = MockDB.BasicCollection.Insert(sheep);
+            long id = MockDB.RuntimeBasicCollection.Insert(sheep);
 
             // act
-            Cat cat = MockDB.BasicCollection.Get<Cat>(id);
+            Cat cat = MockDB.RuntimeBasicCollection.Get<Cat>(id);
 
             // assert
             Assert.AreEqual(cat.Name, sheep.Name);
@@ -29,7 +29,7 @@ namespace EmbarkTests._Unsorted
         public void TypofString_CanDeserialize()
         {
             // arrange
-            var io = MockDB.SharedClient["stringTest"];
+            var io = MockDB.SharedRuntimeClient["stringTest"];
 
             var savedText = "Save just a string to DB, not a class with public properties";
 
@@ -46,7 +46,7 @@ namespace EmbarkTests._Unsorted
         public void ValueTypes_CanTurnIntoText()
         {
             // arrange
-            var io = MockDB.SharedClient["valuetypeToString"];
+            var io = MockDB.SharedRuntimeClient["valuetypeToString"];
 
             int savedInt = 561;
             long savedLong = long.MaxValue * -1;
@@ -82,7 +82,7 @@ namespace EmbarkTests._Unsorted
         public void ArrayObjects_CanTurnIntoText()
         {
             // arrange
-            var io = MockDB.SharedClient["arraysToString"];
+            var io = MockDB.SharedRuntimeClient["arraysToString"];
 
             byte[] arr = new byte[] { 12, 200, 12, 0, 33 };
             var byteArrString = "[\r\n   12,\r\n   200,\r\n   12,\r\n   0,\r\n   33\r\n]";
@@ -120,7 +120,7 @@ namespace EmbarkTests._Unsorted
         public void Cat_CanTurnIntoJsonText()
         {
             // arrange
-            var io = MockDB.SharedClient["classToJsonText"];
+            var io = MockDB.SharedRuntimeClient["classToJsonText"];
             var savedCat = new Cat
             {
                 Name = "Tom",
