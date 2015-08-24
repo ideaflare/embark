@@ -66,7 +66,7 @@ namespace DemoWPFServer
             }
         }
 
-        private int portNumber = 8080;
+        private int portNumber = 8030;
         public string PortNumber
         {
             get { return portNumber.ToString(); }

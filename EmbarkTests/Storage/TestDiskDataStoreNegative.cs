@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Embark;
 using System.Linq;
 
@@ -8,7 +7,6 @@ namespace EmbarkTests.Storage
     [TestClass]
     public class TestDiskDataStoreNegative
     {
-
         [TestMethod]
         public void DeleteNothing_IsFalse()
         {

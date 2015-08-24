@@ -16,11 +16,11 @@ namespace Embark
         /// </summary>
         /// <param name="directory">Path server will save data to
         /// <para>Example:  @"C:\MyTemp\Embark\Server\"</para></param>
-        /// <param name="port">port to use, default set to 8080</param>
+        /// <param name="port">port to use, default set to 8030</param>
         /// <param name="textConverter">Custom converter between objects and text.
         /// <para>If parameter is NULL, the textConverter is set to default json converter.</para>
         /// </param>
-        public Server(string directory, int port = 8080, ITextConverter textConverter = null)
+        public Server(string directory, int port = 8030, ITextConverter textConverter = null)
         {
             if (textConverter == null)
                 textConverter = new JavascriptSerializerTextConverter();

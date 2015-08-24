@@ -39,7 +39,7 @@ namespace DemoConsoleClient
             var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\");
 
             // or over a network via REST API to WCF server *see usage section below*
-            //var db = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
+            //var db = Embark.Client.GetNetworkDB("192.168.1.24", 8030);
 
             // collections created on-the-fly if needed
             var io = db.GetCollection<Sheep>("sheep");
@@ -70,7 +70,7 @@ namespace DemoConsoleClient
             var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\");
 
             // or over a network via REST API to WCF server *see usage section below*
-            //var db = Embark.Client.GetNetworkDB("192.168.1.24", 8080);
+            //var db = Embark.Client.GetNetworkDB("192.168.1.24", 8030);
 
             // collections created on-the-fly if needed
             var io = db.GetCollection<Sheep>("sheep");
@@ -102,7 +102,7 @@ namespace DemoConsoleClient
             var db = Embark.Client.GetLocalDB(@"C:\AnimalsDB\"); /* Client.GetLocalDB() defaults to: C:\MyTemp\Embark\Local\ */
 
             // or over a network (via REST API)
-            //var db = Embark.Client.GetNetworkDB("127.0.0.1", 8080);// Not implemented, yet..
+            //var db = Embark.Client.GetNetworkDB("127.0.0.1", 8030);// Not implemented, yet..
 
             // collections created on-the-fly if needed
             var io = db["sheep"];
@@ -185,6 +185,8 @@ namespace DemoConsoleClient
             }
 
             var allDocs = db["cats"].GetAll<object>().ToList();
+
+            Console.WriteLine($"Collected {allDocs.Count} items");
 
             Console.Write("server running, press any key to stop");
             Console.Read();

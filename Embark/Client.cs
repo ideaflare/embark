@@ -25,7 +25,7 @@ namespace Embark
         /// <param name="address">IP Address / DNS Name of server. Example: "220.114.0.12" or "srv-embark-live"</param>
         /// <param name="port">Port used by server</param>
         /// <returns>Network Client with db commands</returns>
-        public static Client GetNetworkDB(string address, int port = 8080) => new Client(address, port);
+        public static Client GetNetworkDB(string address, int port = 8030) => new Client(address, port);
 
         /// <summary>
         /// Get a temporary in-memory-only database connection

@@ -15,9 +15,7 @@ namespace Embark.Interaction
         /// <param name="documents">Documents with ID/Timestamp info</param>
         /// <returns>The Object Contents of the DocumentWrappers</returns>
         public static IEnumerable<T> Unwrap<T>(this IEnumerable<DocumentWrapper<T>> documents)
-        {
-            return documents.Select(doc => doc.Content);
-        }
+            => documents.Select(doc => doc.Content);
 
         internal static IEnumerable<T> UnwrapWithIDs<T>(this IEnumerable<DocumentWrapper<T>> documents)
             where T : class, IDataEntry
