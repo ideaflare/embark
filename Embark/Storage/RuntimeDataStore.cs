@@ -26,10 +26,10 @@ namespace Embark.Storage
             => this[tag]?.Select(kv => new DataEnvelope(kv.Key, kv.Value)).ToArray()
             ?? new DataEnvelope[] { };
 
-        void IDataStore.Insert(string tag, long key, string objectToInsert)
+        void IDataStore.Insert(string tag, long id, string objectToInsert)
         {
             var tagCollection = collections.GetOrAdd(tag, new ConcurrentDictionary<long, string>());
-            tagCollection[key] = objectToInsert;
+            tagCollection[id] = objectToInsert;
         }
 
         bool IDataStore.Update(string tag, long id, string objectToUpdate)

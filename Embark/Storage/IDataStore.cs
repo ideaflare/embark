@@ -7,7 +7,7 @@ namespace Embark.Storage
     {
         IEnumerable<string> Collections { get; }
 
-        void Insert(string tag, long key, string objectToInsert);
+        void Insert(string tag, long id, string objectToInsert);
         bool Update(string tag, long id, string objectToUpdate);
         bool Delete(string tag, long id);
 

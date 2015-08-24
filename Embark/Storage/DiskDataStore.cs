@@ -18,9 +18,9 @@ namespace Embark.Storage
         
         private DiskPaths tagPaths;
 
-        public void Insert(string tag, long key, string objectToInsert)
+        public void Insert(string tag, long id, string objectToInsert)
         {
-            var savePath = tagPaths.GetDocumentPath(tag, key);
+            var savePath = tagPaths.GetDocumentPath(tag, id);
 
             File.WriteAllText(savePath, objectToInsert);
         }

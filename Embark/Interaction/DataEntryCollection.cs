@@ -23,7 +23,7 @@ namespace Embark.Interaction
         /// Get the basic collection used internally
         /// </summary>
         /// <returns><see cref="Collection"/> basic CRUD and other data methods interface</returns>
-        public Collection AsBaseCollection() { return collection; }
+        public Collection AsBaseCollection() => collection;
 
         /// <summary>
         /// Insert a new POCO object into the collection
@@ -43,19 +43,15 @@ namespace Embark.Interaction
         /// <param name="objectToUpdate">New value for the whole document. Increment/Differential updating is not supported (yet).</param>
         /// <returns>True if the document was updated</returns>
         public bool Update(T objectToUpdate)
-        {
-            return collection.Update(objectToUpdate.ID, objectToUpdate);
-        }
+            => collection.Update(objectToUpdate.ID, objectToUpdate);
 
         /// <summary>
         /// Remove an entry from the collection and sets the object to null
         /// </summary>
         /// <param name="objectToDelete">The object to delete</param>
         /// <returns>True if the object was deleted, otherwise returns false.</returns>
-        public bool Delete(T objectToDelete) 
-        {
-            return collection.Delete(objectToDelete.ID);
-        }
+        public bool Delete(T objectToDelete)
+            => collection.Delete(objectToDelete.ID);
 
         /// <summary>
         /// Remove an entry from the collection
@@ -63,9 +59,7 @@ namespace Embark.Interaction
         /// <param name="id">The ID of the document</param>
         /// <returns>True if the document was successfully removed.</returns>
         public bool Delete(long id)
-        {
-            return collection.Delete(id);
-        }
+            => collection.Delete(id);
 
         /// <summary>
         /// Select an existing entry in the collection
@@ -75,7 +69,7 @@ namespace Embark.Interaction
         public T Get(long id)
         {
             var item = collection.Get<T>(id);
-            if(item != null)
+            if (item != null)
                 item.ID = id;
             return item;
         }
@@ -88,7 +82,7 @@ namespace Embark.Interaction
         public DocumentWrapper<T> GetWrapper(long id)
         {
             var wrapper = collection.GetWrapper<T>(id);
-            if(wrapper != null)
+            if (wrapper != null)
                 wrapper.Content.ID = id;
             return wrapper;
         }
@@ -98,11 +92,9 @@ namespace Embark.Interaction
         /// </summary>
         /// <returns>A collection of <see cref="IDataEntry"/> objects. <seealso cref="DocumentWrapperExtensions.Unwrap"/></returns>
         public IEnumerable<T> GetAll()
-        {
-            return collection
-                .GetAll<T>()
-                .UnwrapWithIDs();
-        }
+            => collection
+            .GetAll<T>()
+            .UnwrapWithIDs();
 
         /// <summary>
         /// Get similar documents that have matching property values to an example object.
@@ -110,11 +102,9 @@ namespace Embark.Interaction
         /// <param name="searchObject">Example object to compare against</param>        
         /// <returns><see cref="IDataEntry"/> objects from the collection that match the search criterea. </returns>
         public IEnumerable<T> GetWhere(object searchObject)
-        {
-            return collection
-                .GetWhere<T>(searchObject)
-                .UnwrapWithIDs();
-        }
+            => collection
+            .GetWhere<T>(searchObject)
+            .UnwrapWithIDs();
 
         /// <summary>
         /// Get documents where same name property values are between values of a start and end example object
@@ -123,10 +113,8 @@ namespace Embark.Interaction
         /// <param name="endRange">A second object to comare values agianst to check if search is between example values</param>
         /// <returns><see cref="IDataEntry"/> objects from the collection that are within the bounds of the search criterea.</returns>
         public IEnumerable<T> GetBetween(object startRange, object endRange)
-        {
-            return collection
-                .GetBetween<T>(startRange, endRange)
-                .UnwrapWithIDs();
-        }
+            => collection
+            .GetBetween<T>(startRange, endRange)
+            .UnwrapWithIDs();
     }
 }
