@@ -3,6 +3,7 @@ using System.ServiceModel.Web;
 using Embark.Storage;
 using Embark.DataChannel;
 using Embark.TextConversion;
+using System.Linq;
 
 namespace Embark
 {
@@ -37,7 +38,24 @@ namespace Embark
         /// <summary>
         /// Open the server web host
         /// </summary>
-        public void Start() => webHost.Open();
+        public void Start()
+        {
+            webHost.Opening += ConfigureEnpointBinding;
+
+            webHost.Open();
+        }
+
+        private void ConfigureEnpointBinding(object sender, EventArgs e)
+        {
+            var endpointBinding = (System.ServiceModel.WebHttpBinding)
+                ((WebServiceHost)sender)
+                .Description
+                .Endpoints
+                .Single(endpoint => endpoint.Contract.ContractType == typeof(ITextRepository))
+                .Binding;
+
+            endpointBinding.MaxReceivedMessageSize = int.MaxValue;
+        }
 
         /// <summary>
         /// Close the server web host

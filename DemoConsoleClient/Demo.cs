@@ -172,6 +172,30 @@ namespace DemoConsoleClient
             var thisPc = System.Net.Dns.GetHostName();
             var db = Embark.Client.GetNetworkDB(thisPc);
 
+            manyItems(db);
+
+            //largeItem(db);
+
+            Console.Write("server running, press any key to stop");
+            Console.Read();
+
+            server.Stop();
+        }
+
+        private static void largeItem(Embark.Client db)
+        {
+            var KB = 1024;
+            var MB = KB * 1024;
+            var largeArray = new byte[MB * 1];
+            (new Random()).NextBytes(largeArray);
+
+            var largeItem = new { data = largeArray };
+            db["largeTest"].Insert(largeItem);
+            var docs = db["largeTest"].GetAll<object>();
+        }
+
+        private static void manyItems(Embark.Client db)
+        {
             for (int i = 0; i < 2; i++)
             {
                 db["cats"].Insert(new
@@ -187,11 +211,6 @@ namespace DemoConsoleClient
             var allDocs = db["cats"].GetAll<object>().ToList();
 
             Console.WriteLine($"Collected {allDocs.Count} items");
-
-            Console.Write("server running, press any key to stop");
-            Console.Read();
-
-            server.Stop();
         }
     }
 }

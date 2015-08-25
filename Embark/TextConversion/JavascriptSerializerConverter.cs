@@ -10,7 +10,10 @@ namespace Embark.TextConversion
     {
         public JavascriptSerializerTextConverter()
         {
-            serializer = new JavaScriptSerializer();
+            serializer = new JavaScriptSerializer()
+            {
+                MaxJsonLength = int.MaxValue
+            };
         }
 
         private JavaScriptSerializer serializer;
@@ -37,57 +40,45 @@ namespace Embark.TextConversion
 
         public bool IsMatch(object a, object b)
         {
-            var dA = a as Dictionary<string, object>;
-            var dB = b as Dictionary<string, object>;
+            var lookupA = a as Dictionary<string, object>;
+            var lookupB = b as Dictionary<string, object>;
 
-            if (dA == null | dB == null)
+            if (lookupA == null || lookupB == null)
             {
                 return a.Equals(b);
             }
-            else return dA.All((ka) => HasEqualProperty(dB, ka.Key, ka.Value));
+            else return lookupA.All((kvpA) => HasEqualProperty(lookupB, kvpA.Key, kvpA.Value));
         }
 
-        private bool HasEqualProperty(Dictionary<string,object> lookup, string propertyName, object objectValue)
-        {
-            object BValue;
-            if (lookup.TryGetValue(propertyName, out BValue))
-            {
-                return IsMatch(objectValue, BValue);
-            }
-            else return false;
-        }
+        private bool HasEqualProperty(Dictionary<string, object> lookup, string propertyName, object objectValue, object lookupValue = null)
+            => lookup.TryGetValue(propertyName, out lookupValue) 
+            && IsMatch(objectValue, lookupValue);
 
         // TODO simplify 
-        public bool IsBetweenMatch(object startLookup, object endLookup, object compareValue)
+        public bool IsBetweenMatch(object startRange, object endRange, object compareValue)
         {
-            var sL = startLookup as Dictionary<string, object>;
-            var eL = endLookup as Dictionary<string, object>;
-            var cL = compareValue as Dictionary<string, object>;
+            var start = startRange as Dictionary<string, object>;
+            var end = endRange as Dictionary<string, object>;
+            var comparison = compareValue as Dictionary<string, object>;
 
-            if (sL != null && eL != null && cL != null)
+            if (start == null || end == null || comparison == null)
             {
-                foreach (var sLookup in sL)
-                {
-                    object eValue;
-                    object cValue;
-
-                    if (eL.TryGetValue(sLookup.Key, out eValue) &&
-                        cL.TryGetValue(sLookup.Key, out cValue))
-                    {
-                        if (!IsBetweenMatch(sLookup.Value, eValue, cValue))
-                            return false;
-                    }
-                    else return false;
-                }
-                return true;
+                // compare types, cast to numeric or string
+                return IsBetweenSerializedObjects(startRange, endRange, compareValue);
             }
             else
             {
-                // compare types, cast to numeric or string
-                return IsBetweenSerializedObjects(startLookup, endLookup, compareValue);
+                return start.All(startLookup => PropertiesMatch(startLookup, end, comparison));
             }
-            throw new NotImplementedException();
         }
+
+        private bool PropertiesMatch(KeyValuePair<string, object> startLookup,
+            Dictionary<string, object> end, Dictionary<string, object> comparison,
+            object endVal = null, object compareVal = null)
+            => 
+            end.TryGetValue(startLookup.Key, out endVal)
+            && comparison.TryGetValue(startLookup.Key, out compareVal)
+            && IsBetweenMatch(startLookup.Value, endVal, compareVal);
 
         // TODO simplify 
         private bool IsBetweenSerializedObjects(object a, object b, object between)
@@ -96,15 +87,10 @@ namespace Embark.TextConversion
             if (a.GetType() != between.GetType() || between.GetType() != b.GetType())
                 return false;
 
-            var ca = a as IComparable;
-            if (ca != null)
+            var cBetween = (IComparable)between;
+            if (cBetween != null)
             {
-                var cb = (IComparable)b;
-                var cBetween = (IComparable)between;
-
-                if (ca.CompareTo(between) == 0 || cb.CompareTo(between) == 0)
-                    return true;
-                else return ca.CompareTo(between) != cb.CompareTo(between);
+                return IsComparableEqualOrWithinBounds(cBetween, a, b);
             }
             else // Compare if array is between two other arrays ? Edge case, rethink what it means and what is an expected IsBetween comparison.
             {
@@ -129,5 +115,9 @@ namespace Embark.TextConversion
             }
         }
 
+        private static bool IsComparableEqualOrWithinBounds(IComparable cBetween, object a, object b)
+            => cBetween.CompareTo(a) != cBetween.CompareTo(b)
+                                || cBetween.CompareTo(a) == 0
+                                || cBetween.CompareTo(b) == 0;
     }
 }
