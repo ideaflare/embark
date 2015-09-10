@@ -24,6 +24,14 @@ namespace EmbarkTests.Interaction.MVVM
             bool heightChanging = false;
 
             bool dumbellsWasObserved = false;
+            bool dumbellsUpdatedWithTrigger = false;
+
+            lifter.TriggerWhenPropertyChanged(
+                (bro) => bro.Dumbbells,
+                () =>
+                {
+                    dumbellsUpdatedWithTrigger = true;
+                });
 
             lifter.PropertyChanged += (s, e) =>
                 {
@@ -60,6 +68,7 @@ namespace EmbarkTests.Interaction.MVVM
             Assert.AreEqual(2, lifter.Dumbbells);
 
             Assert.IsTrue(dumbellsWasObserved);
+            Assert.IsTrue(dumbellsUpdatedWithTrigger);
         }
 
         [TestMethod]

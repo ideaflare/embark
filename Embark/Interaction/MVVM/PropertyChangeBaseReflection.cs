@@ -21,10 +21,34 @@ namespace Embark.Interaction.MVVM
         /// <typeparam name="TProperty">Property type to raise event for</typeparam>
         /// <param name="obj">Instance of NotifyChangeBase object</param>
         /// <param name="property">Property to raise event for</param>
-        public static bool RaisePropertyChangedEvent<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : PropertyChangeBase
+        public static bool RaisePropertyChangedEvent<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) 
+            where TSource : PropertyChangeBase
         {
             var propertyName = GetPropertyString(obj, property);
             return obj.RaisePropertyChangedEvent(propertyName);
+        }
+
+        /// <summary>
+        /// Call an action when a certain property is changed
+        /// <para>example:</para>
+        /// <example>
+        /// <para>this.RaisePropertyChangedEvent((dev) => dev.Age, HappyBirthday)</para>
+        /// </example>
+        /// </summary>
+        /// <typeparam name="TSource">Implementation type of NotifyChangeBase class</typeparam>
+        /// <typeparam name="TProperty">Property type to raise event for</typeparam>
+        /// <param name="obj">Instance of NotifyChangeBase object</param>
+        /// <param name="property">Property to raise event for</param>
+        /// <param name="action">Void or anonymous method to call when property raises PropertyChanged event</param>
+        public static void TriggerWhenPropertyChanged<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property, Action action)
+            where TSource : PropertyChangeBase
+        {
+            var propertyName = GetPropertyString(obj, property);
+            obj.PropertyChanged += (sender, eventArgs) =>
+            {
+                if (eventArgs.PropertyName == propertyName)
+                    action();
+            };
         }
 
         /// <summary>
@@ -40,7 +64,8 @@ namespace Embark.Interaction.MVVM
         /// <param name="obj">Instance of NotifyChangeBase object</param>       
         /// <param name="property">Property to raise event for</param> 
         /// <returns>String of property lambda</returns>
-        public static string GetPropertyString<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) where TSource : PropertyChangeBase
+        public static string GetPropertyString<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) 
+            where TSource : PropertyChangeBase
         {
             var lambda = (LambdaExpression)property;
             MemberExpression memberExpression;
