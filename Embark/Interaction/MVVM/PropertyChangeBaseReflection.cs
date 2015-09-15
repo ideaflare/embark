@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq.Expressions;
 
 namespace Embark.Interaction.MVVM
@@ -35,13 +36,13 @@ namespace Embark.Interaction.MVVM
         /// <para>this.RaisePropertyChangedEvent((dev) => dev.Age, HappyBirthday)</para>
         /// </example>
         /// </summary>
-        /// <typeparam name="TSource">Implementation type of NotifyChangeBase class</typeparam>
+        /// <typeparam name="TSource">Implementation type of INotifyPropertyChanged</typeparam>
         /// <typeparam name="TProperty">Property type to raise event for</typeparam>
-        /// <param name="obj">Instance of NotifyChangeBase object</param>
+        /// <param name="obj">Instance of INotifyPropertyChanged object</param>
         /// <param name="property">Property to raise event for</param>
         /// <param name="action">Void or anonymous method to call when property raises PropertyChanged event</param>
         public static void TriggerWhenPropertyChanged<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property, Action action)
-            where TSource : PropertyChangeBase
+            where TSource : INotifyPropertyChanged
         {
             var propertyName = GetPropertyString(obj, property);
             obj.PropertyChanged += (sender, eventArgs) =>
@@ -59,13 +60,13 @@ namespace Embark.Interaction.MVVM
         /// <para>returns string "BarkType"</para>
         /// </example>
         /// </summary>
-        /// <typeparam name="TSource">Implementation type of NotifyChangeBase class</typeparam>
+        /// <typeparam name="TSource">Implementation type of INotifyPropertyChanged</typeparam>
         /// <typeparam name="TProperty">Property type to raise event for</typeparam>
-        /// <param name="obj">Instance of NotifyChangeBase object</param>       
+        /// <param name="obj">Instance of INotifyPropertyChanged object</param>       
         /// <param name="property">Property to raise event for</param> 
         /// <returns>String of property lambda</returns>
         public static string GetPropertyString<TSource, TProperty>(this TSource obj, Expression<Func<TSource, TProperty>> property) 
-            where TSource : PropertyChangeBase
+            where TSource : INotifyPropertyChanged
         {
             var lambda = (LambdaExpression)property;
             MemberExpression memberExpression;
