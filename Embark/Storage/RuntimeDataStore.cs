@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Embark.DataChannel;
 using System.Collections.Concurrent;
-using System;
 
 namespace Embark.Storage
 {
