@@ -17,17 +17,11 @@ namespace Embark.DataChannel
             this.dataStore = dataStore;
             this.textComparer = textComparer;
 
-            var allItems = dataStore.Collections
-                .SelectMany(collection => dataStore.GetAll(collection))
-                .ToList();
+            var futureTimeStamp = System.DateTime.Now.AddMilliseconds(100).Ticks;
 
-            var lastKnownKey = allItems.Any() ? allItems.Max(envelope => envelope.ID) : 0;
+            keyProvider = new DocumentKeySource(futureTimeStamp);
 
-            keyProvider = new DocumentKeySource(lastKnownKey);
-
-            var lockCount = 1000 + (allItems.Count / 1000);
-
-            hashLock = new HashLock(lockCount);
+            hashLock = new HashLock(avaliableLocks: 2000);
         }
 
         private IDataStore dataStore;
