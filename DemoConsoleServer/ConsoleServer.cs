@@ -12,29 +12,7 @@ namespace DemoWebServer
             var port = 8030;
             var dir = @"C:\MyTemp\Embark\Server";
 
-
-            if (args.Length == 1)
-            {
-                int p;
-                if (int.TryParse(args[0], out p))
-                    port = p;
-                else
-                    dir = args[0].ToString();
-            }
-            else if (args.Length > 1)
-            {
-                int p;
-                if (int.TryParse(args[0], out p))
-                {
-                    port = p;
-                    dir = args[1].ToString();
-                }
-                else if (int.TryParse(args[1], out p))
-                {
-                    port = p;
-                    dir = args[0].ToString();
-                }
-            }
+            ParseCommandlineArguments(args, ref port, ref dir);
 
             var server = new Embark.Server(dir, port);
             try
@@ -57,6 +35,32 @@ namespace DemoWebServer
 
                 Console.WriteLine("Error message:\r\n\r\n" + ae.ToString());
                 Console.ReadLine();
+            }
+        }
+
+        private static void ParseCommandlineArguments(string[] args, ref int port, ref string dir)
+        {
+            if (args.Length == 1)
+            {
+                int p;
+                if (int.TryParse(args[0], out p))
+                    port = p;
+                else
+                    dir = args[0].ToString();
+            }
+            else if (args.Length > 1)
+            {
+                int p;
+                if (int.TryParse(args[0], out p))
+                {
+                    port = p;
+                    dir = args[1].ToString();
+                }
+                else if (int.TryParse(args[1], out p))
+                {
+                    port = p;
+                    dir = args[0].ToString();
+                }
             }
         }
     }
