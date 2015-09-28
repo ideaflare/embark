@@ -55,6 +55,7 @@ namespace Embark
                 .Binding;
 
             endpointBinding.MaxReceivedMessageSize = int.MaxValue;
+            endpointBinding.MaxBufferSize = int.MaxValue;
         }
 
         /// <summary>
