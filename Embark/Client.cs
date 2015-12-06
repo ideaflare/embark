@@ -33,7 +33,15 @@ namespace Embark
         /// <returns>Runtime Client with db commands</returns>
         public static Client GetRuntimeDB() => new Client(new RuntimeDataStore());
 
-        private Client(IDataStore dataStore, ITextConverter textConverter = null)
+        /// <summary>
+        /// Modify a custom database
+        /// </summary>
+        /// <param name="dataStore">Custom data store implementation to save data</param>
+        /// <param name="textConverter">Custom converter between objects and text.
+        /// <para>If parameter is NULL, the textConverter is set to default json converter.</para>
+        /// </param>
+        /// <returns>Client with db commands</returns>>
+        public Client(IDataStore dataStore, ITextConverter textConverter = null)
         {
             this.textConverter = textConverter ?? new JavascriptSerializerTextConverter();
 
@@ -41,7 +49,7 @@ namespace Embark
         }
 
         /// <summary>
-        /// Modify a local databas,
+        /// Modify a local database
         /// </summary>
         /// <param name="directory">The path of where to save data
         /// <para>Example: @"C:\MyTemp\Embark\Local\"</para>
