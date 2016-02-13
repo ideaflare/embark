@@ -1,12 +1,11 @@
 ﻿using EmbarkTests._Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace EmbarkTests.Interaction
 {
-    [TestClass]
     public class TestCollection_Basic
     {
-        [TestMethod]
+        [Fact]
         public void Insert_ReturnsID()
         {
             // arrange
@@ -16,10 +15,10 @@ namespace EmbarkTests.Interaction
             object id = MockDB.RuntimeBasicCollection.Insert(sheep);
 
             // assert
-            Assert.AreEqual(typeof(long), id.GetType());
+            Assert.Equal(typeof(long), id.GetType());
         }
 
-        [TestMethod]
+        [Fact]
         public void Update_ModifiesSheep()
         {
             // arrange
@@ -37,14 +36,14 @@ namespace EmbarkTests.Interaction
             Sheep loaded = MockDB.RuntimeBasicCollection.Get<Sheep>(id);
 
             // assert
-            Assert.IsTrue(hasSheepUpdated);
-            Assert.AreEqual(updated.Name, loaded.Name);
-            Assert.AreEqual(updated.Age, loaded.Age);
-            Assert.AreEqual(updated.FavouriteIceCream, loaded.FavouriteIceCream);
-            Assert.AreNotEqual(source.Age, updated.Age);
+            Assert.True(hasSheepUpdated);
+            Assert.Equal(updated.Name, loaded.Name);
+            Assert.Equal(updated.Age, loaded.Age);
+            Assert.Equal(updated.FavouriteIceCream, loaded.FavouriteIceCream);
+            Assert.NotEqual(source.Age, updated.Age);
         }
 
-        [TestMethod]
+        [Fact]
         public void Delete_MakesSheepVanish()
         {
             // arrange
@@ -60,13 +59,13 @@ namespace EmbarkTests.Interaction
             var updateDeletedSheep = MockDB.RuntimeBasicCollection.Update<Sheep>(id, null);
 
             // assert
-            Assert.IsTrue(hasSheepVanished);
-            Assert.IsNotNull(source);
-            Assert.IsNull(loaded);
-            Assert.IsFalse(updateDeletedSheep);
+            Assert.True(hasSheepVanished);
+            Assert.NotNull(source);
+            Assert.Null(loaded);
+            Assert.False(updateDeletedSheep);
         }
 
-        [TestMethod]
+        [Fact]
         public void Get_RetrievesSheep()
         {
             // arrange
@@ -78,9 +77,9 @@ namespace EmbarkTests.Interaction
             Sheep loaded = MockDB.RuntimeBasicCollection.Get<Sheep>(id);
 
             // assert
-            Assert.AreEqual(saved.Name, loaded.Name);
-            Assert.AreEqual(saved.Age, loaded.Age);
-            Assert.AreEqual(saved.FavouriteIceCream, loaded.FavouriteIceCream);
+            Assert.Equal(saved.Name, loaded.Name);
+            Assert.Equal(saved.Age, loaded.Age);
+            Assert.Equal(saved.FavouriteIceCream, loaded.FavouriteIceCream);
         }
     }
 }

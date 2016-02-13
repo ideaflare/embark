@@ -1,33 +1,39 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using Embark;
 using System;
 
 namespace EmbarkTests._Unsorted
 {
-    [TestClass]
     public class TestExpectedErrors
     {
-        const string testPath = @"C:\MyTemp\Embark\TestErr\";
-
-        [TestMethod]
-        [ExpectedException(typeof(NotSupportedException), "Only alphanumerical & underscore characters supported in collection names.")]
+        string testPath = @"C:\MyTemp\Embark\TestErr\";
+        
+        [Fact]
         public void CollectionName_OnlyAlphanumericAndUnderScoreSupported()
         {
-            var na = Client.GetLocalDB(testPath)["!?$@\filesystem.*"];
+            string invalidCharacterMessage = "Only alphanumerical & underscore characters supported in collection names.";
+
+            var err = Assert.Throws<NotSupportedException>(() =>
+            {
+                var na = Client.GetLocalDB(testPath)["!?$@\filesystem.*"];
+            });
+
+            Assert.Equal(invalidCharacterMessage, err.Message);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Collection name should be at least one alphanumerical or underscore character.")]
-        public void CollectionName_CannotBeEmpty()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void CollectionName_CannotBeNullOrEmpty(string collectionName)
         {
-            var na = Client.GetLocalDB(testPath)[""];
-        }
+            string invalidLengthMessage = "Collection name should be at least one alphanumerical or underscore character.";
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Collection name should be at least one alphanumerical or underscore character.")]
-        public void CollectionName_CannotBeNull()
-        {
-            var na = Client.GetLocalDB(testPath)[null];
+            var err = Assert.Throws<ArgumentException>(() =>
+            {
+                var na = Client.GetLocalDB(testPath)[collectionName];
+            });
+
+            Assert.Equal(invalidLengthMessage, err.Message);
         }
     }
 }

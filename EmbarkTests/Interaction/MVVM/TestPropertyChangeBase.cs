@@ -1,12 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using Embark.Interaction.MVVM;
 
 namespace EmbarkTests.Interaction.MVVM
 {
-    [TestClass]
     public class TestPropertyChangeBase
     {
-        [TestMethod]
+        [Fact]
         public void PropertyChangeBase_RaisesEventsAsExpected()
         {
             // arrange
@@ -56,27 +55,27 @@ namespace EmbarkTests.Interaction.MVVM
             dumbellsWasObserved = lifter.RaisePropertyChangedEvent((raiseThe) => raiseThe.Dumbbells);
 
             // assert
-            Assert.IsTrue(nameChanged);
-            Assert.IsTrue(nameChanging);
-            Assert.AreEqual("Alex", lifter.NickName);
+            Assert.True(nameChanged);
+            Assert.True(nameChanging);
+            Assert.Equal("Alex", lifter.NickName);
 
-            Assert.IsFalse(heightChanged);
-            Assert.IsFalse(heightChanging);
-            Assert.AreEqual(6.2, lifter.Height);
+            Assert.False(heightChanged);
+            Assert.False(heightChanging);
+            Assert.Equal(6.2, lifter.Height);
 
-            Assert.IsTrue(dumbbellsraised);
-            Assert.AreEqual(2, lifter.Dumbbells);
+            Assert.True(dumbbellsraised);
+            Assert.Equal(2, lifter.Dumbbells);
 
-            Assert.IsTrue(dumbellsWasObserved);
-            Assert.IsTrue(dumbellsUpdatedWithTrigger);
+            Assert.True(dumbellsWasObserved);
+            Assert.True(dumbellsUpdatedWithTrigger);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetPropertyString_ReturnsSameName()
         {
             var mock = new MockPropertyChangeBase();
             var result = mock.GetPropertyString((vm) => vm.Dumbbells);
-            Assert.AreEqual(nameof(mock.Dumbbells), result);
+            Assert.Equal(nameof(mock.Dumbbells), result);
         }
     }
 

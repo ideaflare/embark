@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,9 @@ using EmbarkTests._Mocks;
 
 namespace EmbarkTests.Interaction
 {
-    [TestClass]
     public class TestCollection_Range
     {
-        [TestMethod]
+        [Fact]
         public void GetAll_ReturnsAllItems()
         {
             // arrange
@@ -36,23 +35,23 @@ namespace EmbarkTests.Interaction
                 .ToArray();
 
             // assert
-            Assert.AreEqual(testHerd.Count, querySheep.Count);
+            Assert.Equal(testHerd.Count, querySheep.Count);
 
             foreach (var documentWrapper in querySheep)
             {
                 var wrappedSheep = wrappedHerd.Where(ws => ws.ID == documentWrapper.ID).Single();
 
-                Assert.IsTrue(documentWrapper.Content.Equals(wrappedSheep.Sheep));
+                Assert.True(documentWrapper.Content.Equals(wrappedSheep.Sheep));
             }
 
             // Assumption that insert order = fetch order. If this changes, change the unit test and allow unordered insert & query.
             for (int i = 0; i < testHerd.Count; i++)
             {
-                Assert.IsTrue(testHerd[i].Equals(unwrappedHerd[i]));
+                Assert.True(testHerd[i].Equals(unwrappedHerd[i]));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void GetBetween_ReturnsBetweenItems()
         {
             // arrange
@@ -80,10 +79,10 @@ namespace EmbarkTests.Interaction
                 .Single();
 
             // assert
-            Assert.IsTrue(betweenSheep.Content.Equals(oldDusty));
+            Assert.True(betweenSheep.Content.Equals(oldDusty));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetWhere_ReturnsMatchingDocument()
         {
             // arrange
@@ -102,13 +101,13 @@ namespace EmbarkTests.Interaction
             var ancients = matchQuery.ToList();
 
             // assert
-            Assert.AreEqual(2, ancients.Count);
+            Assert.Equal(2, ancients.Count);
 
-            Assert.IsFalse(ancients.Any(s => s.Age != 100));
-            Assert.IsFalse(ancients.Any(s => s.Name == "Lassy"));
+            Assert.False(ancients.Any(s => s.Age != 100));
+            Assert.False(ancients.Any(s => s.Name == "Lassy"));
 
-            Assert.IsTrue(ancients.Any(s => s.Name == "Wooly"));
-            Assert.IsTrue(ancients.Any(s => s.Name == "Dusty"));
+            Assert.True(ancients.Any(s => s.Name == "Wooly"));
+            Assert.True(ancients.Any(s => s.Name == "Dusty"));
         }
     }
 }

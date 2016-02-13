@@ -1,14 +1,13 @@
 ﻿using Embark.Interaction;
 using EmbarkTests._Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Linq;
 
 namespace EmbarkTests.Interaction
 {
-    [TestClass]
     public class TestDocumentWrapper
     {
-        [TestMethod]
+        [Fact]
         public void GetWrapper_ReturnsDocument()
         {
             // arrange
@@ -24,13 +23,13 @@ namespace EmbarkTests.Interaction
             var loaded = wrapper.Content;
 
             // assert
-            Assert.AreEqual(wrapper.ID, id);
-            Assert.AreEqual(saved.Name, loaded.Name);
-            Assert.AreEqual(saved.Age, loaded.Age);
-            Assert.AreEqual(saved.FavouriteIceCream, loaded.FavouriteIceCream);
+            Assert.Equal(wrapper.ID, id);
+            Assert.Equal(saved.Name, loaded.Name);
+            Assert.Equal(saved.Age, loaded.Age);
+            Assert.Equal(saved.FavouriteIceCream, loaded.FavouriteIceCream);
         }
 
-        [TestMethod]
+        [Fact]
         public void WrapperUpdate_CommitsChanges()
         {
             // arrange
@@ -47,12 +46,12 @@ namespace EmbarkTests.Interaction
             var agedSheep = io.Get(id);
 
             // assert
-            Assert.IsTrue(updatedSheep);
-            Assert.AreEqual(wrapper.ID, id);
-            Assert.AreEqual(olderAge, agedSheep.Age);
+            Assert.True(updatedSheep);
+            Assert.Equal(wrapper.ID, id);
+            Assert.Equal(olderAge, agedSheep.Age);
         }
 
-        [TestMethod]
+        [Fact]
         public void WrapperDelete_RemovesDocument()
         {
             // arrange
@@ -70,13 +69,13 @@ namespace EmbarkTests.Interaction
             var missingSheep = io.Get(id);
 
             // assert
-            Assert.IsNull(missingSheep);
-            Assert.IsTrue(deletedDocument);
-            Assert.IsFalse(postDeleteUpdate);
-            Assert.IsFalse(postDeleteDelete);
+            Assert.Null(missingSheep);
+            Assert.True(deletedDocument);
+            Assert.False(postDeleteUpdate);
+            Assert.False(postDeleteDelete);
         }
 
-        [TestMethod]
+        [Fact]
         public void WrapperToString_EqualsUnwrappedToString()
         {
             // arrange
@@ -88,12 +87,12 @@ namespace EmbarkTests.Interaction
             var wrappedSheep = io.GetAll().Single();
 
             // assert
-            Assert.AreEqual(sheep.ToString(), wrappedSheep.ToString());
-            Assert.AreEqual(wrappedSheep.ToString(), wrappedSheep.Content.ToString());
+            Assert.Equal(sheep.ToString(), wrappedSheep.ToString());
+            Assert.Equal(wrappedSheep.ToString(), wrappedSheep.Content.ToString());
         }
 
-        [TestMethod]
+        [Fact]
         public void GetNonExistingWrapper_ReturnsNull()
-            => Assert.IsNull(MockDB.RuntimeBasicCollection.GetWrapper<Sheep>(-1));
+            => Assert.Null(MockDB.RuntimeBasicCollection.GetWrapper<Sheep>(-1));
     }
 }

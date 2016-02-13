@@ -1,8 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace EmbarkTests
+﻿namespace EmbarkTests
 {
-    [TestClass]
     public class TestServer
     {
     }

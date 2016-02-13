@@ -1,13 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using Embark.Interaction.Concurrency;
 using System.Linq;
 
 namespace EmbarkTests.Interaction.Concurrency
 {
-    [TestClass]
     public class TestHashLock
     {
-        [TestMethod]
+        [Fact]
         public void CreatedLocks_AreShared()
         {
             // arrange
@@ -20,18 +19,18 @@ namespace EmbarkTests.Interaction.Concurrency
             var lock4 = hl.GetLock(4);
 
             // assert
-            Assert.AreSame(lock1, lock3);
-            Assert.AreSame(lock2, lock4);
+            Assert.Same(lock1, lock3);
+            Assert.Same(lock2, lock4);
 
-            Assert.AreNotSame(lock1, lock2);
-            Assert.AreNotSame(lock3, lock4);
+            Assert.NotSame(lock1, lock2);
+            Assert.NotSame(lock3, lock4);
 
             Enumerable.Range(1,4)
                 .ToList()
-                .ForEach(i => Assert.AreEqual(i, i.GetHashCode()));
+                .ForEach(i => Assert.Equal(i, i.GetHashCode()));
         }
 
-        [TestMethod]
+        [Fact]
         public void NullObject_ReturnsFirstLock()
         {
             var hl = new HashLock(10);
@@ -39,11 +38,11 @@ namespace EmbarkTests.Interaction.Concurrency
             var firstLock = hl.GetLock(0);
             var nullLock = hl.GetLock(null);
 
-            Assert.AreSame(firstLock, nullLock);
-            Assert.AreEqual(0, 0.GetHashCode());
+            Assert.Same(firstLock, nullLock);
+            Assert.Equal(0, 0.GetHashCode());
         }
 
-        [TestMethod]
+        [Fact]
         public void LockObject_CannotBeModified()
         {
             var hl = new HashLock(1);
@@ -51,19 +50,21 @@ namespace EmbarkTests.Interaction.Concurrency
             var lock1 = hl.GetLock("");
             var lock2 = hl.GetLock("");
 
-            Assert.AreSame(lock1, lock2);
+            Assert.Same(lock1, lock2);
 
             lock1 = 5;
-            Assert.AreNotSame(lock1, lock2);
+            Assert.NotSame(lock1, lock2);
 
-            Assert.AreSame(lock2, hl.GetLock(""));
+            Assert.Same(lock2, hl.GetLock(""));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(System.ArgumentException))]
+        [Fact]
         public void LockCount_CannotBeLessThanOne()
         {
-            var hl = new HashLock(0);
+            Assert.Throws<System.ArgumentException>(() =>
+            {
+                var hl = new HashLock(0);
+            });
         }
     }
 }

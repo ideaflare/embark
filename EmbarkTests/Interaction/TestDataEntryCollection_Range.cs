@@ -1,14 +1,13 @@
 ﻿using EmbarkTests._Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace EmbarkTests.Interaction
 {
-    [TestClass]
     public class TestDataEntryCollection_Range
     {
-        [TestMethod]
+        [Fact]
         public void GetAll_ReturnsAllDocuments()
         {
             // arrange
@@ -22,10 +21,10 @@ namespace EmbarkTests.Interaction
             var loaded = io.GetAll().ToList();
 
             // assert
-            Assert.AreEqual(created.Count, loaded.Count);
+            Assert.Equal(created.Count, loaded.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetLike_ReturnsSimilarMatches()
         {
             // arrange
@@ -51,14 +50,14 @@ namespace EmbarkTests.Interaction
             var matches = io.GetWhere(query).ToList();
 
             // assert
-            Assert.IsTrue(matches.Count > 0);
-            Assert.AreEqual(linqLikeCount, matches.Count);
-            Assert.IsTrue(matches.All(m =>
+            Assert.True(matches.Count > 0);
+            Assert.Equal(linqLikeCount, matches.Count);
+            Assert.True(matches.All(m =>
                 m.Description == comparison.Description &&
                 m.Echo.Repetitions == comparison.Echo.Repetitions));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetBetween_ReturnsMatchesRangeQuery()
         {
             // arrange
@@ -93,9 +92,9 @@ namespace EmbarkTests.Interaction
             var matches = io.GetBetween(queryStart, queryEnd).ToList();
 
             // assert
-            Assert.IsTrue(matches.Count > 0);
-            Assert.AreEqual(linqBetweenCount, matches.Count);
-            Assert.IsTrue(matches.All(m =>
+            Assert.True(matches.Count > 0);
+            Assert.Equal(linqBetweenCount, matches.Count);
+            Assert.True(matches.All(m =>
                 100 <= m.Quality && m.Quality <= 150 &&
                 3 <= m.Echo.Repetitions && m.Echo.Repetitions <= 7));
         }

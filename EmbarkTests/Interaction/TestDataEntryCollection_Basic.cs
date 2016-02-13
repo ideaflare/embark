@@ -1,12 +1,11 @@
 ﻿using EmbarkTests._Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace EmbarkTests.Interaction
 {
-    [TestClass]
     public class TestDataEntryCollection_Basic
     {
-        [TestMethod]
+        [Fact]
         public void Insert_SetsID()
         {
             // arrange
@@ -16,11 +15,11 @@ namespace EmbarkTests.Interaction
             var saved = MockDB.RuntimeDataEntryCollection.Insert(created);
 
             // assert
-            Assert.AreEqual(created.ID, saved.ID);
-            Assert.AreEqual(created.Timestamp, saved.Timestamp);
+            Assert.Equal(created.ID, saved.ID);
+            Assert.Equal(created.Timestamp, saved.Timestamp);
         }
 
-        [TestMethod]
+        [Fact]
         public void Get_HasInsertedValues()
         {
             // arrange
@@ -31,13 +30,13 @@ namespace EmbarkTests.Interaction
             var loaded = MockDB.RuntimeDataEntryCollection.Get(created.ID);
 
             // assert
-            Assert.AreEqual(created.ID, loaded.ID); ;
-            Assert.AreEqual(created.Timestamp, loaded.Timestamp);
-            Assert.AreEqual(created.Description, loaded.Description);
-            Assert.AreEqual(created.Quality, loaded.Quality);
+            Assert.Equal(created.ID, loaded.ID); ;
+            Assert.Equal(created.Timestamp, loaded.Timestamp);
+            Assert.Equal(created.Description, loaded.Description);
+            Assert.Equal(created.Quality, loaded.Quality);
         }
 
-        [TestMethod]
+        [Fact]
         public void Update_ChangesValues()
         {
             // arrange
@@ -51,12 +50,12 @@ namespace EmbarkTests.Interaction
             var updated = MockDB.RuntimeDataEntryCollection.Get(created.ID);
 
             // assert
-            Assert.IsTrue(hasUpdated);
-            Assert.AreEqual(updated.Quality, loaded.Quality);
-            Assert.AreNotEqual(created.Quality, loaded.Quality);
+            Assert.True(hasUpdated);
+            Assert.Equal(updated.Quality, loaded.Quality);
+            Assert.NotEqual(created.Quality, loaded.Quality);
         }
 
-        [TestMethod]
+        [Fact]
         public void Delete_RemovesEntry()
         {
             // arrange
@@ -73,15 +72,15 @@ namespace EmbarkTests.Interaction
             var updateDeleted = MockDB.RuntimeDataEntryCollection.Update(created);
 
             // assert
-            Assert.IsTrue(isDeleted);
-            Assert.IsNull(notFound);
-            Assert.IsNull(nullWrapper);
-            Assert.AreNotEqual(initialID, insertedID);
-            Assert.AreEqual(created.ID, inserted.ID);
-            Assert.IsFalse(updateDeleted);
+            Assert.True(isDeleted);
+            Assert.Null(notFound);
+            Assert.Null(nullWrapper);
+            Assert.NotEqual(initialID, insertedID);
+            Assert.Equal(created.ID, inserted.ID);
+            Assert.False(updateDeleted);
         }
 
-        [TestMethod]
+        [Fact]
         public void AutoUpdate_ChangesValues()
         {
             // arrange
@@ -100,10 +99,10 @@ namespace EmbarkTests.Interaction
             registered.Amplitude = 99;
 
             // assert
-            Assert.AreEqual(50, regAmp50);
-            Assert.AreEqual(12, regAmp12);
-            Assert.AreEqual(99, registered.Amplitude);
-            Assert.AreEqual(nonregistered.Amplitude, 100);
+            Assert.Equal(50, regAmp50);
+            Assert.Equal(12, regAmp12);
+            Assert.Equal(99, registered.Amplitude);
+            Assert.Equal(nonregistered.Amplitude, 100);
         }
     }
 }

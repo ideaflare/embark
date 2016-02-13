@@ -1,19 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using System;
 using System.Diagnostics;
 using System.Linq;
 
 namespace EmbarkTests.StorageTests
 {
-    [TestClass]
     public class TestDocumentKeySource
     {
+        // TODO split performance test & parallel generation test.
         // TODO test in RAM only, don't hit disk, increase parallel totalInserts to 100.
-        [TestMethod]
+        [Fact]
         public void NewIDs_AreUnique()
         {
             int totalInserts = 15;
-            double timePerInsert = 20;// milliseconds per insert. 
+            double timePerInsert = 50;// milliseconds per insert. 
             // Test written on laptop with Samsung 840 SSD. Increase insert time if machine uses a spinning magnetic relic.
 
             // insert IDs in parallel
@@ -25,12 +25,12 @@ namespace EmbarkTests.StorageTests
             sw.Stop();
 
             // test that they are unique
-            Assert.AreEqual(totalInserts, newIDs.Distinct().Count());
+            Assert.Equal(totalInserts, newIDs.Distinct().Count());
             // and completed within average timePerInsert time
-            Assert.IsTrue(sw.ElapsedMilliseconds < timePerInsert * totalInserts);
+            Assert.True(sw.ElapsedMilliseconds < timePerInsert * totalInserts);
         }
 
-        [TestMethod]
+        [Fact]
         public void CreatedID_IsTimeStamp()
         {
             // arrange
@@ -42,7 +42,7 @@ namespace EmbarkTests.StorageTests
 
             // assert
             var timeDiff = timestamp.Subtract(now);
-            Assert.IsTrue(timeDiff.TotalSeconds < 1);
+            Assert.True(timeDiff.TotalSeconds < 1);
         }
     }
 }

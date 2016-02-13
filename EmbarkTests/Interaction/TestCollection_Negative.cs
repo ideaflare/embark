@@ -1,12 +1,11 @@
 ﻿using EmbarkTests._Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace EmbarkTests.Interaction
 {
-    [TestClass]
     public class TestCollection_Negative
     {
-        [TestMethod]
+        [Fact]
         public void GetNonExisting_ReturnsNull()
         {
             // arrange
@@ -22,9 +21,9 @@ namespace EmbarkTests.Interaction
             var valueNone = ioValue.Get(-100);
 
             // assert
-            Assert.IsNull(basicNone);
-            Assert.IsNull(classNone);
-            Assert.IsNull(valueNone);
+            Assert.Null(basicNone);
+            Assert.Null(classNone);
+            Assert.Null(valueNone);
         }
     }
 }

@@ -1,17 +1,17 @@
 ﻿using Embark;
 using Embark.Interaction;
 using EmbarkTests._Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System;
 using System.IO;
 using System.Reflection;
 
 namespace EmbarkTests
 {
-    [TestClass]
+    
     public class MockDB
     {
-        internal static Client SharedRuntimeClient;
+        internal static Client SharedRuntimeClient = SetupEnvironmentAndGetTestClient();
         //internal static Client SharedDiskClient;
 
         internal static Collection RuntimeBasicCollection;
@@ -22,22 +22,20 @@ namespace EmbarkTests
             return SharedRuntimeClient.GetDataEntryCollection<Sound>(collectionName);
         }
 
-        [AssemblyInitialize()]
-        public static void MyTestInitialize(TestContext testContext)
+        static Client SetupEnvironmentAndGetTestClient()
         {
             SharedRuntimeClient = Client.GetRuntimeDB();
 
             RuntimeBasicCollection = SharedRuntimeClient.Basic;
             RuntimeDataEntryCollection = SharedRuntimeClient.GetDataEntryCollection<Sound>("ConventionTests");
 
-            Assert.IsNotNull(RuntimeBasicCollection);
-        }
+            Assert.NotNull(RuntimeBasicCollection);
 
-        [AssemblyCleanup()]
-        public static void MytestCleanup()
-        {
-
+            return SharedRuntimeClient;
         }
+     
+
+    
 
         private static string AssemblyDirectory
         {

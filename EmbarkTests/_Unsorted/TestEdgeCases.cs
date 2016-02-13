@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using Embark.Interaction;
 using System;
 using System.Collections.Generic;
@@ -8,12 +8,9 @@ using EmbarkTests._Mocks;
 
 namespace EmbarkTests._Unsorted
 {
-    [TestClass]
     public class TestEdgeCases
     {
-        
-
-        [TestMethod]
+        [Fact]
         public void SaveBlob_CanDeserializeToByteArray()
         {
             // arrange
@@ -36,11 +33,11 @@ namespace EmbarkTests._Unsorted
             byte[] loadedAsArray = MockDB.SharedRuntimeClient.Basic.Get<byte[]>(idRawByteArray);
             
             // assert
-            Assert.IsTrue(Enumerable.SequenceEqual(rawByteArray, loadedAsArray));
-            Assert.IsTrue(Enumerable.SequenceEqual(rawByteArray, loadedSample));
+            Assert.True(Enumerable.SequenceEqual(rawByteArray, loadedAsArray));
+            Assert.True(Enumerable.SequenceEqual(rawByteArray, loadedSample));
         }
 
-        [TestMethod]
+        [Fact]
         public void SaveNonPoco_HandlesComparison()
         {
             // arrange
@@ -50,10 +47,10 @@ namespace EmbarkTests._Unsorted
 
             // act & assert
             RunAllCommands<string>(io, input, out inserted);
-            Assert.AreEqual(input, inserted);            
+            Assert.Equal(input, inserted);            
         }
 
-        [TestMethod]
+        [Fact]
         public void MixedTypeCollection_CanSave()
         {
             // arrange
@@ -75,10 +72,10 @@ namespace EmbarkTests._Unsorted
             //var outSheepText = io.TextConverter.ToText(outputObject);
             //Sheep outputSheep = io.TextConverter.ToObject<Sheep>(outSheepText);
 
-            Assert.AreEqual(inputSheep, outputSheep);
+            Assert.Equal(inputSheep, outputSheep);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetWhere_MatchesSubProperties()
         {
             // arrange
@@ -106,18 +103,18 @@ namespace EmbarkTests._Unsorted
             var oldSheepOnTables = matchQueryAnonymous.ToList();
 
             // assert
-            Assert.AreEqual(1, oldSheepOnTables.Count);
+            Assert.Equal(1, oldSheepOnTables.Count);
 
-            Assert.IsFalse(oldSheepOnTables.Any(s => s.Age != 100));
-            Assert.IsFalse(oldSheepOnTables.Any(s => s.OnTable.Legs != 2));
+            Assert.False(oldSheepOnTables.Any(s => s.Age != 100));
+            Assert.False(oldSheepOnTables.Any(s => s.OnTable.Legs != 2));
 
-            Assert.IsFalse(oldSheepOnTables.Any(s => s.Name == "Lassy"));
-            Assert.IsFalse(oldSheepOnTables.Any(s => s.Name == "Wooly"));
-            Assert.IsFalse(oldSheepOnTables.Any(s => s.Name == "Wooly"));
+            Assert.False(oldSheepOnTables.Any(s => s.Name == "Lassy"));
+            Assert.False(oldSheepOnTables.Any(s => s.Name == "Wooly"));
+            Assert.False(oldSheepOnTables.Any(s => s.Name == "Wooly"));
             
-            Assert.IsTrue(oldSheepOnTables.Any(s => s.Name == "Dusty"));
+            Assert.True(oldSheepOnTables.Any(s => s.Name == "Dusty"));
 
-            Assert.IsTrue(Enumerable.SequenceEqual(inlineSheep, oldSheepOnTables));
+            Assert.True(Enumerable.SequenceEqual(inlineSheep, oldSheepOnTables));
         }
 
         private static void RunAllCommands<T>(Collection<T> io, T input, out T inserted) where T : class
@@ -134,7 +131,7 @@ namespace EmbarkTests._Unsorted
             inserted = io.Get(id);
         }
 
-        //[TestMethod]
+        //[Fact]
         public void UpdateNonExisting_ReturnsFalse()
         {
             throw new NotImplementedException();

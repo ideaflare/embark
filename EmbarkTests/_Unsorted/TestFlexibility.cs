@@ -1,13 +1,12 @@
 ﻿using EmbarkTests._Mocks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Collections.Generic;
 
 namespace EmbarkTests._Unsorted
 {
-    [TestClass]
     public class TestFlexibility
     {
-        [TestMethod]
+        [Fact]
         public void Sheep_CanTurnIntoCat()
         {
             // arrange
@@ -19,13 +18,13 @@ namespace EmbarkTests._Unsorted
             Cat cat = MockDB.RuntimeBasicCollection.Get<Cat>(id);
 
             // assert
-            Assert.AreEqual(cat.Name, sheep.Name);
-            Assert.AreEqual(cat.Age, sheep.Age);
-            Assert.AreEqual(cat.FurDensity, (new Cat()).FurDensity);
-            Assert.AreEqual(cat.HasMeme, (new Cat()).HasMeme);
+            Assert.Equal(cat.Name, sheep.Name);
+            Assert.Equal(cat.Age, sheep.Age);
+            Assert.Equal(cat.FurDensity, (new Cat()).FurDensity);
+            Assert.Equal(cat.HasMeme, (new Cat()).HasMeme);
         }
         
-        [TestMethod]
+        [Fact]
         public void TypofString_CanDeserialize()
         {
             // arrange
@@ -39,10 +38,10 @@ namespace EmbarkTests._Unsorted
             string loadedText = io.Get<string>(idText);
 
             // assert
-            Assert.AreEqual(savedText, loadedText);
+            Assert.Equal(savedText, loadedText);
         }
         
-        [TestMethod]
+        [Fact]
         public void ValueTypes_CanTurnIntoText()
         {
             // arrange
@@ -66,19 +65,19 @@ namespace EmbarkTests._Unsorted
             string loadedBool = io.Get<string>(idBool);
             string loadedChar = io.Get<string>(idChar);
 
-            Assert.AreEqual(savedInt.ToString(), loadedInt);
-            Assert.AreEqual(savedLong.ToString(), loadedLong);            
-            Assert.AreEqual(savedBool.ToString(), loadedBool);
-            Assert.AreEqual(savedChar.ToString(), loadedChar);
+            Assert.Equal(savedInt.ToString(), loadedInt);
+            Assert.Equal(savedLong.ToString(), loadedLong);            
+            Assert.Equal(savedBool.ToString(), loadedBool);
+            Assert.Equal(savedChar.ToString(), loadedChar);
 
             // double type tries to add more precision, ignore with "R".
             // deserializer/locality different rules on , or . separator
             var saveDoubleToString = savedDouble.ToString("R").Replace(",", ".");
             var loadedDoubleToString = loadedDouble.Replace(",", ".");
-            Assert.AreEqual(saveDoubleToString, loadedDoubleToString);
+            Assert.Equal(saveDoubleToString, loadedDoubleToString);
         }
 
-        [TestMethod]
+        [Fact]
         public void ArrayObjects_CanTurnIntoText()
         {
             // arrange
@@ -110,13 +109,13 @@ namespace EmbarkTests._Unsorted
             var objectList = io.Get<List<object>>(idList);
 
             // assert
-            Assert.AreEqual(byteArrString, loadedByteArr);
-            Assert.AreEqual(listString, loadedList);
+            Assert.Equal(byteArrString, loadedByteArr);
+            Assert.Equal(listString, loadedList);
 
-            Assert.IsNotNull(objectList);
+            Assert.NotNull(objectList);
         }
 
-        [TestMethod]
+        [Fact]
         public void Cat_CanTurnIntoJsonText()
         {
             // arrange
@@ -136,7 +135,7 @@ namespace EmbarkTests._Unsorted
             string objectAsString = io.Get<string>(idCat);
 
             // assert}
-            Assert.AreEqual(jsonCat, objectAsString);
+            Assert.Equal(jsonCat, objectAsString);
         }
 
         // TODO 1 Test Save/load different types - primitive, POCO & IDataEntry serialize/deserialize behaviour

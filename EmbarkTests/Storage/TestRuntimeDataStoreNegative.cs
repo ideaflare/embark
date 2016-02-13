@@ -1,23 +1,22 @@
 ﻿using Embark;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Linq;
 
 namespace EmbarkTests.Storage
 {
-    [TestClass]
     public class TestRuntimeDataStoreNegative
     {
-        [TestMethod]
-        public void DeleteNothing_IsFalse()
+        [Fact]
+        public void DeleteNothing_False()
         {
             var tempClient = Client.GetRuntimeDB();
 
             bool deletedSomething = tempClient["test"].Delete(-3);
 
-            Assert.IsFalse(deletedSomething);
+            Assert.False(deletedSomething);
         }
 
-        [TestMethod]
+        [Fact]
         public void GetNothing_ReturnsNothing()
         {
             // arrange
@@ -28,8 +27,8 @@ namespace EmbarkTests.Storage
             var allItems = collection["b"].GetAll<object>().Count();
 
             // assert
-            Assert.AreEqual(null, noItem);
-            Assert.AreEqual(0, allItems);
+            Assert.Equal(null, noItem);
+            Assert.Equal(0, allItems);
         }
     }
 }
