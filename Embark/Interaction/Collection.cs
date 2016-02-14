@@ -2,6 +2,7 @@
 using Embark.DataChannel;
 using Embark.TextConversion;
 using System.Collections.Generic;
+using System;
 
 namespace Embark.Interaction
 {
@@ -109,6 +110,16 @@ namespace Embark.Interaction
             .GetAll(tag)
             .Select(dataEnvelope => new DocumentWrapper<T>(dataEnvelope, this));
 
+        /// <summary>
+        /// Deletes all documents in the collection
+        /// </summary>
+        /// <returns>The number of documents deleted</returns>
+        public int DeleteAll()
+            => textRepository
+            .GetAll(tag)
+            .Count(doc => textRepository.Delete(tag, doc.ID));
+        // TODO performance: Make implementation that doesn't fetch prior to deleting
+        
         /// <summary>
         /// Get similar documents that have matching property values to an example object.
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Embark.Interaction
 {
@@ -81,5 +82,11 @@ namespace Embark.Interaction
         /// <param name="endRange">A second object to comare values agianst to check if search is between example values</param>
         /// <returns><see cref="DocumentWrapper{T}"/> objects from the collection that are within the bounds of the search criterea.</returns>
         public IEnumerable<DocumentWrapper<T>> GetBetween(object startRange, object endRange) => collection.GetBetween<T>(startRange, endRange);
+
+        /// <summary>
+        /// Deletes all documents in the collection
+        /// </summary>
+        /// <returns>The number of documents deleted</returns>
+        public int DeleteAll() => collection.DeleteAll();
     }
 }

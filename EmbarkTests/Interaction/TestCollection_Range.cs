@@ -109,5 +109,28 @@ namespace EmbarkTests.Interaction
             Assert.True(ancients.Any(s => s.Name == "Wooly"));
             Assert.True(ancients.Any(s => s.Name == "Dusty"));
         }
+
+        [Fact]
+        public void DeleteAll_EmptiesCollection()
+        {
+            // arrange
+            var delCollection = MockDB.SharedRuntimeClient["DeleteAll"].AsGenericCollection<Sheep>();
+            int testSize = 7;
+
+            foreach (var sheep in Sheep.GetTestHerd(testSize))
+                delCollection.Insert(sheep);
+
+            Assert.Equal(testSize, delCollection.GetAll().Count());
+
+            // act
+            var deleted = delCollection.DeleteAll();
+            var reDeleted = delCollection.DeleteAll();
+
+            // assert
+            Assert.Equal(0, delCollection.GetAll().Count());
+
+            Assert.Equal(testSize, deleted);
+            Assert.Equal(0, reDeleted);
+        }
     }
 }
