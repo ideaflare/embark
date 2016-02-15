@@ -22,6 +22,8 @@ namespace EmbarkTests
             return SharedRuntimeClient.GetDataEntryCollection<Sound>(collectionName);
         }
 
+        internal static TestDiskDB GetDiskDB() => new TestDiskDB();
+
         static Client SetupEnvironmentAndGetTestClient()
         {
             SharedRuntimeClient = Client.GetRuntimeDB();
@@ -33,18 +35,36 @@ namespace EmbarkTests
 
             return SharedRuntimeClient;
         }
-     
 
-    
-
-        private static string AssemblyDirectory
+        public sealed class TestDiskDB : IDisposable
         {
-            get
+            public Client TestClient { get; private set; }
+            private string testDir;
+
+            public TestDiskDB()
             {
-                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                UriBuilder uri = new UriBuilder(codeBase);
-                string path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
+                testDir = $"{ AssemblyDirectory }\\Embark_Test_Temp_{ Guid.NewGuid() }\\";
+
+                Directory.CreateDirectory(testDir);
+
+                TestClient = Client.GetLocalDB(testDir);
+            }
+
+            private static string AssemblyDirectory
+            {
+                get
+                {
+                    string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                    UriBuilder uri = new UriBuilder(codeBase);
+                    string path = Uri.UnescapeDataString(uri.Path);
+                    return Path.GetDirectoryName(path);
+                }
+            }
+
+
+            public void Dispose()
+            {
+                Directory.Delete(testDir, recursive: true);
             }
         }
     }

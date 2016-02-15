@@ -1,5 +1,4 @@
 ﻿using Xunit;
-using Embark;
 using System.Linq;
 
 namespace EmbarkTests.Storage
@@ -9,26 +8,29 @@ namespace EmbarkTests.Storage
         [Fact]
         public void DeleteNothing_False()
         {
-            var tempClient = Client.GetRuntimeDB();
-
-            bool deletedSomething = tempClient["test"].Delete(-3);
-
-            Assert.False(deletedSomething);
+            using (var testDB = MockDB.GetDiskDB())
+            {
+                bool deletedSomething = testDB.TestClient["test"].Delete(-3);
+                Assert.False(deletedSomething);
+            }
         }
 
         [Fact]
         public void GetNothing_ReturnsNothing()
         {
-            // arrange
-            var collection = Client.GetRuntimeDB();
+            using (var testDB = MockDB.GetDiskDB())
+            {
+                // arrange
+                var client = testDB.TestClient;
 
-            // act
-            var noItem = collection["a"].Get<object>(7);
-            var allItems = collection["b"].GetAll<object>().Count();
+                // act
+                var noItem = client["a"].Get<object>(7);
+                var allItems = client["b"].GetAll<object>().Count();
 
-            // assert
-            Assert.Equal(null, noItem);
-            Assert.Equal(0, allItems);
+                // assert
+                Assert.Equal(null, noItem);
+                Assert.Equal(0, allItems);
+            }
         }
     }
 }
