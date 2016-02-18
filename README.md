@@ -75,6 +75,4 @@ or you can download a simple server from [here](https://trello-attachments.s3.am
 - Optional caching & async data persistency
 - Review & Simplify code
 
-Check out [Embark kanban on trello](https://trello.com/b/rtqlPmrM/development).
-
 Feel free to contact EmbarkDB@gmail.com with any feedback, suggestions or to get involved!
