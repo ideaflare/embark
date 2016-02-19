@@ -31,7 +31,15 @@ namespace Embark
         /// Get a temporary in-memory-only database connection
         /// </summary>
         /// <returns>Runtime Client with db commands</returns>
-        public static Client GetRuntimeDB() => new Client(new RuntimeDataStore());
+        public static Client GetRuntimeDB(ITextConverter textConverter = null) 
+            => new Client(new RuntimeDataStore(), textConverter);
+
+        /// <summary>
+        /// Get a temporary in-memory-only database connection
+        /// </summary>
+        /// <returns>Runtime Client with db commands</returns>
+        public static Client GetCachedDB(string directory, ITextConverter textConverter = null) 
+            => new Client(new CachedDataStore(directory), textConverter);
 
         /// <summary>
         /// Modify a custom database

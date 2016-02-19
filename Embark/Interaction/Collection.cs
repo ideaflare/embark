@@ -2,7 +2,6 @@
 using Embark.DataChannel;
 using Embark.TextConversion;
 using System.Collections.Generic;
-using System;
 
 namespace Embark.Interaction
 {

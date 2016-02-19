@@ -54,6 +54,7 @@
     <Compile Include="Interaction\DataEntryCollection.cs" />
     <Compile Include="Interaction\IDataEntry.cs" />
     <Compile Include="Interaction\MVVM\ActionCommand.cs" />
+    <Compile Include="Storage\CachedDataStore.cs" />
     <Compile Include="Storage\DiskDataStore.cs" />
     <Compile Include="Interaction\DocumentWrapperExtensions.cs" />
     <Compile Include="Storage\IDataStore.cs" />
