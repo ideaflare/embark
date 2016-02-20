@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Embark.DataChannel;
+using System.Collections.Concurrent;
+using System.Threading;
 
 namespace Embark.Storage
 {
@@ -13,16 +13,26 @@ namespace Embark.Storage
         private IDataStore runtimeDataStore;
 
         private Task syncCacheTask;
+        private CancellationTokenSource cancelSource = new CancellationTokenSource();
 
-        // TODO add commands to collection - create command/object enum.
+        private BlockingCollection<Task> asyncDiskTasks;
 
-        public CachedDataStore(string directory)
+        public CachedDataStore(string directory, int maxAsyncOperations)
         {
             diskDataStore = new DiskDataStore(directory);
             runtimeDataStore = new RuntimeDataStore();
+
+            asyncDiskTasks = new BlockingCollection<Task>(maxAsyncOperations);
+
             syncCacheTask = Task.Factory
                 .StartNew(() => LoadCacheFromDisk())
-                .ContinueWith((task) => SyncCommandsToDisk());
+                .ContinueWith((task) => ConsumeAsyncOperations());
+        }
+
+        public void WaitForAsyncComplete()
+        {
+            while (asyncDiskTasks.Count > 0)
+                Thread.Sleep(1);
         }
 
         private void LoadCacheFromDisk()
@@ -34,49 +44,65 @@ namespace Embark.Storage
             }
         }
 
-        private void SyncCommandsToDisk()
+        private void ConsumeAsyncOperations()
         {
-            throw new NotImplementedException();
+            try
+            {
+                foreach (var task in asyncDiskTasks.GetConsumingEnumerable(cancelSource.Token))
+                {
+                    task.Start();
+                    task.Wait();
+                }
+            }
+            catch (OperationCanceledException) { }
         }
+
+        private void AddAsyncDiskOperation(Action<IDataStore> diskAction)
+            => asyncDiskTasks.Add(new Task(() => diskAction(diskDataStore)));
 
         IEnumerable<string> IDataStore.Collections
         {
             get
             {
-                throw new NotImplementedException();
+                return runtimeDataStore.Collections;
             }
         }
 
         bool IDataStore.Delete(string tag, long id)
         {
-            throw new NotImplementedException();
-        }
+            AddAsyncDiskOperation((store) => store.Delete(tag, id));
 
-       
+            return runtimeDataStore.Delete(tag, id);
+        }
 
         string IDataStore.Get(string tag, long id)
-        {
-            throw new NotImplementedException();
-        }
+            => runtimeDataStore.Get(tag, id);
 
         DataEnvelope[] IDataStore.GetAll(string tag)
-        {
-            throw new NotImplementedException();
-        }
+            => runtimeDataStore.GetAll(tag);
 
         void IDataStore.Insert(string tag, long id, string objectToInsert)
         {
-            throw new NotImplementedException();
+            AddAsyncDiskOperation((store) => store.Insert(tag, id, objectToInsert));
+
+            runtimeDataStore.Insert(tag, id, objectToInsert);
         }
 
         bool IDataStore.Update(string tag, long id, string objectToUpdate)
         {
-            throw new NotImplementedException();
+            AddAsyncDiskOperation((store) => store.Update(tag, id, objectToUpdate));
+
+            return runtimeDataStore.Update(tag, id, objectToUpdate);
         }
 
         void IDisposable.Dispose()
         {
-            // TODO cancel
+            asyncDiskTasks.CompleteAdding();
+
+            cancelSource.Cancel();
+
+            WaitForAsyncComplete();
+            
             syncCacheTask.Dispose();
         }
     }

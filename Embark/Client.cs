@@ -38,8 +38,8 @@ namespace Embark
         /// Get a temporary in-memory-only database connection
         /// </summary>
         /// <returns>Runtime Client with db commands</returns>
-        public static Client GetCachedDB(string directory, ITextConverter textConverter = null) 
-            => new Client(new CachedDataStore(directory), textConverter);
+        public static Client GetCachedDB(string directory, ITextConverter textConverter = null, int maxAsyncOperations = 100) 
+            => new Client(new CachedDataStore(directory, maxAsyncOperations), textConverter);
 
         /// <summary>
         /// Modify a custom database
