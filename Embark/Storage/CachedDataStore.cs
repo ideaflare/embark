@@ -25,14 +25,28 @@ namespace Embark.Storage
             asyncDiskTasks = new BlockingCollection<Task>(maxAsyncOperations);
 
             syncCacheTask = Task.Factory
-                .StartNew(() => LoadCacheFromDisk())
-                .ContinueWith((task) => ConsumeAsyncOperations());
+                .StartNew(ConsumeAsyncOperations);
         }
 
         public void WaitForAsyncComplete()
         {
             while (asyncDiskTasks.Count > 0)
                 Thread.Sleep(1);
+        }
+
+        private void ConsumeAsyncOperations()
+        {
+            try
+            {
+                LoadCacheFromDisk();
+
+                foreach (var task in asyncDiskTasks.GetConsumingEnumerable(cancelSource.Token))
+                {
+                    task.Start();
+                    task.Wait();
+                }
+            }
+            catch (OperationCanceledException) { }
         }
 
         private void LoadCacheFromDisk()
@@ -42,19 +56,6 @@ namespace Embark.Storage
             {
                     runtimeDataStore.Insert(collection, document.ID, document.Text);
             }
-        }
-
-        private void ConsumeAsyncOperations()
-        {
-            try
-            {
-                foreach (var task in asyncDiskTasks.GetConsumingEnumerable(cancelSource.Token))
-                {
-                    task.Start();
-                    task.Wait();
-                }
-            }
-            catch (OperationCanceledException) { }
         }
 
         private void AddAsyncDiskOperation(Action<IDataStore> diskAction)
