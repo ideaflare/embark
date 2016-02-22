@@ -36,36 +36,6 @@ namespace EmbarkTests
             return SharedRuntimeClient;
         }
 
-        public sealed class TestDiskDB : IDisposable
-        {
-            public Client TestClient { get; private set; }
-            private string testDir;
-
-            public TestDiskDB()
-            {
-                testDir = $"{ AssemblyDirectory }\\Embark_Test_Temp_{ Guid.NewGuid() }\\";
-
-                Directory.CreateDirectory(testDir);
-
-                TestClient = Client.GetLocalDB(testDir);
-            }
-
-            private static string AssemblyDirectory
-            {
-                get
-                {
-                    string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                    UriBuilder uri = new UriBuilder(codeBase);
-                    string path = Uri.UnescapeDataString(uri.Path);
-                    return Path.GetDirectoryName(path);
-                }
-            }
-
-
-            public void Dispose()
-            {
-                Directory.Delete(testDir, recursive: true);
-            }
-        }
+       
     }
 }

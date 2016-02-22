@@ -11,7 +11,7 @@ namespace EmbarkTests.Storage
         {
             using (var testDB = MockDB.GetDiskDB())
             {
-                var diskClient = testDB.TestClient;
+                var diskClient = testDB.GetNewLocalDB;
                 var runtimeClient = Client.GetRuntimeDB();
 
                 DeleteNothing_ReturnsFalse(diskClient);
@@ -30,7 +30,7 @@ namespace EmbarkTests.Storage
         {
             using (var testDB = MockDB.GetDiskDB())
             {
-                var diskClient = testDB.TestClient;
+                var diskClient = testDB.GetNewLocalDB;
                 var runtimeClient = Client.GetRuntimeDB();
 
                 GetNothing_ReturnsNothing(diskClient);
