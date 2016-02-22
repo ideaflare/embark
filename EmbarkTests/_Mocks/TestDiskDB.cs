@@ -6,7 +6,8 @@ namespace EmbarkTests._Mocks
 {
     public sealed class TestDiskDB : IDisposable
     {
-        public Client GetNewLocalDB => Client.GetLocalDB(testDir);
+        public Client GetNewLocalDB() => Client.GetLocalDB(testDir);
+        public Client GetNewCachedDB() => Client.GetCachedDB(testDir);
 
         private string testDir;
 

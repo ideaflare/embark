@@ -11,10 +11,12 @@ namespace EmbarkTests.Storage
         {
             using (var testDB = MockDB.GetDiskDB())
             {
-                var diskClient = testDB.GetNewLocalDB;
+                var diskClient = testDB.GetNewLocalDB();
+                var cachedClient = testDB.GetNewCachedDB();
                 var runtimeClient = Client.GetRuntimeDB();
 
                 DeleteNothing_ReturnsFalse(diskClient);
+                DeleteNothing_ReturnsFalse(cachedClient);
                 DeleteNothing_ReturnsFalse(runtimeClient);
             }
         }
@@ -30,10 +32,12 @@ namespace EmbarkTests.Storage
         {
             using (var testDB = MockDB.GetDiskDB())
             {
-                var diskClient = testDB.GetNewLocalDB;
+                var diskClient = testDB.GetNewLocalDB();
+                var cachedClient = testDB.GetNewCachedDB();
                 var runtimeClient = Client.GetRuntimeDB();
 
                 GetNothing_ReturnsNothing(diskClient);
+                GetNothing_ReturnsNothing(cachedClient);
                 GetNothing_ReturnsNothing(runtimeClient);
             }
         }

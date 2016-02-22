@@ -2,13 +2,9 @@
 using Embark.Interaction;
 using EmbarkTests._Mocks;
 using Xunit;
-using System;
-using System.IO;
-using System.Reflection;
 
 namespace EmbarkTests
 {
-    
     public class MockDB
     {
         internal static Client SharedRuntimeClient = SetupEnvironmentAndGetTestClient();
@@ -35,7 +31,5 @@ namespace EmbarkTests
 
             return SharedRuntimeClient;
         }
-
-       
     }
 }
