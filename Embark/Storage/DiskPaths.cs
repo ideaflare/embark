@@ -14,7 +14,7 @@ namespace Embark.Storage
         }
 
         internal string CollectionDirectory { get; }
-        private static ConcurrentDictionary<string, string> tagPathLookup = new ConcurrentDictionary<string, string>();
+        private ConcurrentDictionary<string, string> tagPathLookup = new ConcurrentDictionary<string, string>();
 
         public string GetCollectionDirectory(string tag)
             => tagPathLookup.GetOrAdd(tag, newSeenTag =>

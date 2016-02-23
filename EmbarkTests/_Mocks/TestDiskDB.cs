@@ -6,16 +6,16 @@ namespace EmbarkTests._Mocks
 {
     public sealed class TestDiskDB : IDisposable
     {
-        public Client GetNewLocalDB() => Client.GetLocalDB(testDir);
-        public Client GetNewCachedDB() => Client.GetCachedDB(testDir);
+        public Client GetNewLocalDB() => Client.GetLocalDB(TestDir);
+        public Client GetNewCachedDB() => Client.GetCachedDB(TestDir);
 
-        private string testDir;
+        public string TestDir { get; }
 
         public TestDiskDB()
         {
-            testDir = $"{ AssemblyDirectory }\\Embark_Test_Temp_{ Guid.NewGuid() }\\";
+            TestDir = $"{ AssemblyDirectory }\\Embark_Test_Temp_{ Guid.NewGuid() }\\";
 
-            Directory.CreateDirectory(testDir);
+            Directory.CreateDirectory(TestDir);
         }
 
         private static string AssemblyDirectory
@@ -31,7 +31,7 @@ namespace EmbarkTests._Mocks
 
         public void Dispose()
         {
-            Directory.Delete(testDir, recursive: true);
+            Directory.Delete(TestDir, recursive: true);
         }
     }
 }
