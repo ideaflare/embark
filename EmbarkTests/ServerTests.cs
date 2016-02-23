@@ -1,6 +1,6 @@
 ﻿namespace EmbarkTests
 {
-    public class TestServer
+    public class ServerTests
     {
     }
 }

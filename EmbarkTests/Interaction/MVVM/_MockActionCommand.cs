@@ -2,9 +2,9 @@
 
 namespace EmbarkTests.Interaction.MVVM
 {
-    public class MockActionCommand
+    public class _MockActionCommand
     {
-        public MockActionCommand()
+        public _MockActionCommand()
         {
             ExecuteFired = false;
             TestFired = false;

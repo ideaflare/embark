@@ -3,13 +3,13 @@ using Embark.Interaction.MVVM;
 
 namespace EmbarkTests.Interaction.MVVM
 {
-    public class TestPropertyChangeBase
+    public class PropertyChangeBaseTests
     {
         [Fact]
         public void PropertyChangeBase_RaisesEventsAsExpected()
         {
             // arrange
-            var lifter = new MockPropertyChangeBase
+            var lifter = new _MockPropertyChangeBase
             {
                 NickName = "Andre",
                 Dumbbells = 2,
@@ -73,7 +73,7 @@ namespace EmbarkTests.Interaction.MVVM
         [Fact]
         public void GetPropertyString_ReturnsSameName()
         {
-            var mock = new MockPropertyChangeBase();
+            var mock = new _MockPropertyChangeBase();
             var result = mock.GetPropertyString((vm) => vm.Dumbbells);
             Assert.Equal(nameof(mock.Dumbbells), result);
         }

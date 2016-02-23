@@ -5,7 +5,7 @@ using Xunit;
 
 namespace EmbarkTests
 {
-    public class MockDB
+    public class _MockDB
     {
         internal static Client SharedRuntimeClient = SetupEnvironmentAndGetTestClient();
         //internal static Client SharedDiskClient;
@@ -13,10 +13,7 @@ namespace EmbarkTests
         internal static Collection RuntimeBasicCollection;
         internal static DataEntryCollection<Sound> RuntimeDataEntryCollection;
 
-        internal static DataEntryCollection<Sound> GetRuntimeCollection(string collectionName)
-        {
-            return SharedRuntimeClient.GetDataEntryCollection<Sound>(collectionName);
-        }
+       
 
         internal static TestDiskDB GetDiskDB() => new TestDiskDB();
 

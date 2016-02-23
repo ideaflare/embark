@@ -4,12 +4,12 @@ using Embark;
 
 namespace EmbarkTests.Storage
 {
-    public class TestDataStore_EmptyBehaviour
+    public class _DataStore_EmptyBehaviourTests
     {
         [Fact]
         public void DeleteNothing_ReturnsFalse()
         {
-            using (var testDB = MockDB.GetDiskDB())
+            using (var testDB = _MockDB.GetDiskDB())
             {
                 var diskClient = testDB.GetNewLocalDB();
                 var cachedClient = testDB.GetNewCachedDB();
@@ -30,7 +30,7 @@ namespace EmbarkTests.Storage
         [Fact]
         public void GetNothing_ReturnsNothing()
         {
-            using (var testDB = MockDB.GetDiskDB())
+            using (var testDB = _MockDB.GetDiskDB())
             {
                 var diskClient = testDB.GetNewLocalDB();
                 var cachedClient = testDB.GetNewCachedDB();

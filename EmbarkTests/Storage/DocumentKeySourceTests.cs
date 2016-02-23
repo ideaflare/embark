@@ -8,7 +8,6 @@ namespace EmbarkTests.StorageTests
     public class TestDocumentKeySource
     {
         // TODO split performance test & parallel generation test.
-        // TODO test in RAM only, don't hit disk, increase parallel totalInserts to 100.
         [Fact]
         public void NewIDs_AreUnique()
         {
@@ -16,12 +15,16 @@ namespace EmbarkTests.StorageTests
             double timePerInsert = 50;// milliseconds per insert. 
             // Test written on laptop with Samsung 840 SSD. Increase insert time if machine uses a spinning magnetic relic.
 
+            var db = Embark.Client.GetRuntimeDB().Basic;
+
             // insert IDs in parallel
             var sw = Stopwatch.StartNew();
+
             var newIDs = Enumerable.Range(0, totalInserts)
                 .AsParallel()
-                .Select(i => MockDB.RuntimeBasicCollection.Insert(new { n = 0 }))
+                .Select(i => db.Insert(new { n = 0 }))
                 .ToList();
+
             sw.Stop();
 
             // test that they are unique
@@ -35,7 +38,7 @@ namespace EmbarkTests.StorageTests
         {
             // arrange
             var now = DateTime.Now;
-            long id = MockDB.RuntimeBasicCollection.Insert(new { Numero = "Uno" });
+            long id = _MockDB.RuntimeBasicCollection.Insert(new { Numero = "Uno" });
 
             // act
             var timestamp = new DateTime(id);

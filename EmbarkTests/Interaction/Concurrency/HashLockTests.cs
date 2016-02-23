@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace EmbarkTests.Interaction.Concurrency
 {
-    public class TestHashLock
+    public class HashLockTests
     {
         [Fact]
         public void CreatedLocks_AreShared()

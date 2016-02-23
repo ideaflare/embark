@@ -3,7 +3,7 @@ using Xunit;
 
 namespace EmbarkTests.Interaction
 {
-    public class TestCollection_Basic
+    public class CollectionTests_Basic
     {
         [Fact]
         public void Insert_ReturnsID()
@@ -12,7 +12,7 @@ namespace EmbarkTests.Interaction
             var sheep = Sheep.GetTestSheep();
 
             // act
-            object id = MockDB.RuntimeBasicCollection.Insert(sheep);
+            object id = _MockDB.RuntimeBasicCollection.Insert(sheep);
 
             // assert
             Assert.Equal(typeof(long), id.GetType());
@@ -24,16 +24,16 @@ namespace EmbarkTests.Interaction
             // arrange
             var saved = Sheep.GetTestSheep();
 
-            long id = MockDB.RuntimeBasicCollection.Insert(saved);
+            long id = _MockDB.RuntimeBasicCollection.Insert(saved);
 
-            Sheep source = MockDB.RuntimeBasicCollection.Get<Sheep>(id);
+            Sheep source = _MockDB.RuntimeBasicCollection.Get<Sheep>(id);
 
             Sheep updated = new Sheep { Name = source.Name, FavouriteIceCream = source.FavouriteIceCream };
             updated.Age = source.Age + 1;
 
             // act            
-            bool hasSheepUpdated = MockDB.RuntimeBasicCollection.Update(id, updated);
-            Sheep loaded = MockDB.RuntimeBasicCollection.Get<Sheep>(id);
+            bool hasSheepUpdated = _MockDB.RuntimeBasicCollection.Update(id, updated);
+            Sheep loaded = _MockDB.RuntimeBasicCollection.Get<Sheep>(id);
 
             // assert
             Assert.True(hasSheepUpdated);
@@ -49,14 +49,14 @@ namespace EmbarkTests.Interaction
             // arrange
             var saved = Sheep.GetTestSheep();
 
-            long id = MockDB.RuntimeBasicCollection.Insert(saved);
+            long id = _MockDB.RuntimeBasicCollection.Insert(saved);
 
-            Sheep source = MockDB.RuntimeBasicCollection.Get<Sheep>(id);
+            Sheep source = _MockDB.RuntimeBasicCollection.Get<Sheep>(id);
 
             // act            
-            bool hasSheepVanished = MockDB.RuntimeBasicCollection.Delete(id);
-            Sheep loaded = MockDB.RuntimeBasicCollection.Get<Sheep>(id);
-            var updateDeletedSheep = MockDB.RuntimeBasicCollection.Update<Sheep>(id, null);
+            bool hasSheepVanished = _MockDB.RuntimeBasicCollection.Delete(id);
+            Sheep loaded = _MockDB.RuntimeBasicCollection.Get<Sheep>(id);
+            var updateDeletedSheep = _MockDB.RuntimeBasicCollection.Update<Sheep>(id, null);
 
             // assert
             Assert.True(hasSheepVanished);
@@ -71,10 +71,10 @@ namespace EmbarkTests.Interaction
             // arrange
             var saved = Sheep.GetTestSheep();
 
-            long id = MockDB.RuntimeBasicCollection.Insert(saved);
+            long id = _MockDB.RuntimeBasicCollection.Insert(saved);
 
             // act
-            Sheep loaded = MockDB.RuntimeBasicCollection.Get<Sheep>(id);
+            Sheep loaded = _MockDB.RuntimeBasicCollection.Get<Sheep>(id);
 
             // assert
             Assert.Equal(saved.Name, loaded.Name);

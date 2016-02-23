@@ -23,14 +23,14 @@ namespace EmbarkTests._Unsorted
                 Echo = null
             };
 
-            long idRawByteArray = MockDB.SharedRuntimeClient.Basic.Insert(rawByteArray);
-            long idSound = MockDB.SharedRuntimeClient.Basic.Insert(sound);
+            long idRawByteArray = _MockDB.SharedRuntimeClient.Basic.Insert(rawByteArray);
+            long idSound = _MockDB.SharedRuntimeClient.Basic.Insert(sound);
 
             // act    
-            var loadedSound = MockDB.SharedRuntimeClient.Basic.Get<Sound>(idSound);
+            var loadedSound = _MockDB.SharedRuntimeClient.Basic.Get<Sound>(idSound);
             byte[] loadedSample = loadedSound.Sample;
 
-            byte[] loadedAsArray = MockDB.SharedRuntimeClient.Basic.Get<byte[]>(idRawByteArray);
+            byte[] loadedAsArray = _MockDB.SharedRuntimeClient.Basic.Get<byte[]>(idRawByteArray);
             
             // assert
             Assert.True(Enumerable.SequenceEqual(rawByteArray, loadedAsArray));
@@ -41,7 +41,7 @@ namespace EmbarkTests._Unsorted
         public void SaveNonPoco_HandlesComparison()
         {
             // arrange
-            var io = MockDB.SharedRuntimeClient.GetCollection<string>("nonPOCO");
+            var io = _MockDB.SharedRuntimeClient.GetCollection<string>("nonPOCO");
             string input = "string";
             string inserted;
 
@@ -54,7 +54,7 @@ namespace EmbarkTests._Unsorted
         public void MixedTypeCollection_CanSave()
         {
             // arrange
-            var io = MockDB.SharedRuntimeClient.GetCollection<object>("MixedDataObjects");
+            var io = _MockDB.SharedRuntimeClient.GetCollection<object>("MixedDataObjects");
             Sheep inputSheep = new Sheep { Name = "Mittens" };
             object outputObject;
                         
@@ -84,7 +84,7 @@ namespace EmbarkTests._Unsorted
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum, OnTable = new Table { IsSquare = true } };
             var youngBilly = new Sheep { Name = "Billy", Age = 3, OnTable = new Table { Legs = 2 } };
 
-            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("subMatch");
+            var io = _MockDB.SharedRuntimeClient.GetCollection<Sheep>("subMatch");
 
             long id = io.Insert(oldWooly);
             long id2 = io.Insert(oldDusty);

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace EmbarkTests.Interaction
 {
-    public class TestDocumentWrapper
+    public class DocumentWrapperTests
     {
         [Fact]
         public void GetWrapper_ReturnsDocument()
@@ -13,7 +13,7 @@ namespace EmbarkTests.Interaction
             // arrange
             var saved = Sheep.GetTestSheep();
 
-            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapSelect");
+            var io = _MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapSelect");
 
             long id = io.Insert(saved);
 
@@ -34,7 +34,7 @@ namespace EmbarkTests.Interaction
         {
             // arrange
             var saved = Sheep.GetTestSheep();
-            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapUpdate");
+            var io = _MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapUpdate");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
 
@@ -56,7 +56,7 @@ namespace EmbarkTests.Interaction
         {
             // arrange
             var saved = Sheep.GetTestSheep();
-            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapDelete");
+            var io = _MockDB.SharedRuntimeClient.GetCollection<Sheep>("wrapDelete");
             long id = io.Insert(saved);
             DocumentWrapper<Sheep> wrapper = io.GetWrapper(id);
 
@@ -80,7 +80,7 @@ namespace EmbarkTests.Interaction
         {
             // arrange
             var sheep = Sheep.GetTestSheep();
-            var io = MockDB.SharedRuntimeClient.GetCollection<Sheep>("WrapperToString");
+            var io = _MockDB.SharedRuntimeClient.GetCollection<Sheep>("WrapperToString");
 
             // act
             var id = io.Insert(sheep);
@@ -93,6 +93,6 @@ namespace EmbarkTests.Interaction
 
         [Fact]
         public void GetNonExistingWrapper_ReturnsNull()
-            => Assert.Null(MockDB.RuntimeBasicCollection.GetWrapper<Sheep>(-1));
+            => Assert.Null(_MockDB.RuntimeBasicCollection.GetWrapper<Sheep>(-1));
     }
 }

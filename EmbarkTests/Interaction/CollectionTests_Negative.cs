@@ -3,13 +3,13 @@ using Xunit;
 
 namespace EmbarkTests.Interaction
 {
-    public class TestCollection_Negative
+    public class CollectionTests_Negative
     {
         [Fact]
         public void GetNonExisting_ReturnsNull()
         {
             // arrange
-            var client = MockDB.SharedRuntimeClient;
+            var client = _MockDB.SharedRuntimeClient;
             var ioBasic = client["basicNonExist"];
             var ioClass = client.GetCollection<Sheep>("genericClassNonExist");
             var ioValue = client.GetCollection<string>("valueTypeNonExist");

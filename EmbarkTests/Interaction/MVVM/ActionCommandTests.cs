@@ -6,14 +6,14 @@ using System;
 
 namespace EmbarkTests.Interaction.MVVM
 {
-    public class TestActionCommand
+    public class ActionCommandTests
     {
         [Fact]
         public void ActionCommands_FireAsExpected()
         {
             // arrange
-            var fireBasic = new MockActionCommand();
-            var fireParameter = new MockActionCommand();
+            var fireBasic = new _MockActionCommand();
+            var fireParameter = new _MockActionCommand();
 
             ICommand basicCommand = new ActionCommand(fireBasic.ExecuteNone, fireBasic.CanExecute);
             ICommand valueTypeCommand = new ActionCommand<int>(fireParameter.ExecuteParam, fireParameter.CanExecuteParam);
@@ -41,8 +41,8 @@ namespace EmbarkTests.Interaction.MVVM
         public void ActionCommands_InvalidInput_RespondsAsExpected()
         {
             // arrange
-            var fireBasic = new MockActionCommand();
-            var fireParameter = new MockActionCommand();
+            var fireBasic = new _MockActionCommand();
+            var fireParameter = new _MockActionCommand();
 
             ICommand parameterCommandInt32 = new ActionCommand<int>(fireParameter.ExecuteParam, fireParameter.CanExecuteParam);
             ICommand parameterCommandObject = new ActionCommand<object>((o) => { });

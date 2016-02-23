@@ -2,7 +2,7 @@
 
 namespace EmbarkTests.Interaction.MVVM
 {
-    public class MockPropertyChangeBase : PropertyChangeBase
+    public class _MockPropertyChangeBase : PropertyChangeBase
     {
         public int Dumbbells { get; set; }
 

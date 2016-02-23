@@ -7,13 +7,13 @@ using EmbarkTests._Mocks;
 
 namespace EmbarkTests.Interaction
 {
-    public class TestCollection_Range
+    public class CollectionTests_Range
     {
         [Fact]
         public void GetAll_ReturnsAllItems()
         {
             // arrange
-            var allTestCollection = MockDB.SharedRuntimeClient["SelectAll"];
+            var allTestCollection = _MockDB.SharedRuntimeClient["SelectAll"];
             var testHerd = Sheep.GetTestHerd(5);
 
             var wrappedHerd = new List<WrappedSheep>();
@@ -55,7 +55,7 @@ namespace EmbarkTests.Interaction
         public void GetBetween_ReturnsBetweenItems()
         {
             // arrange
-            var allTestCollection = MockDB.SharedRuntimeClient["SelectBetween"];
+            var allTestCollection = _MockDB.SharedRuntimeClient["SelectBetween"];
             var testHerd = new List<Sheep>();
 
             var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
@@ -90,13 +90,13 @@ namespace EmbarkTests.Interaction
             var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate };
             var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum };
 
-            MockDB.RuntimeBasicCollection.Insert(oldWooly);
-            MockDB.RuntimeBasicCollection.Insert(oldDusty);
-            MockDB.RuntimeBasicCollection.Insert(youngLassy);
+            _MockDB.RuntimeBasicCollection.Insert(oldWooly);
+            _MockDB.RuntimeBasicCollection.Insert(oldDusty);
+            _MockDB.RuntimeBasicCollection.Insert(youngLassy);
 
             // act            
 
-            IEnumerable<Sheep> matchQuery = MockDB.RuntimeBasicCollection.GetWhere<Sheep>(new { Age = 100 }).Unwrap();
+            IEnumerable<Sheep> matchQuery = _MockDB.RuntimeBasicCollection.GetWhere<Sheep>(new { Age = 100 }).Unwrap();
 
             var ancients = matchQuery.ToList();
 
@@ -114,7 +114,7 @@ namespace EmbarkTests.Interaction
         public void DeleteAll_EmptiesCollection()
         {
             // arrange
-            var delCollection = MockDB.SharedRuntimeClient["DeleteAll"].AsGenericCollection<Sheep>();
+            var delCollection = _MockDB.SharedRuntimeClient["DeleteAll"].AsGenericCollection<Sheep>();
             int testSize = 7;
 
             foreach (var sheep in Sheep.GetTestHerd(testSize))

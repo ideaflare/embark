@@ -3,7 +3,7 @@ using Xunit;
 
 namespace EmbarkTests.Interaction
 {
-    public class TestDataEntryCollection_Basic
+    public class DataEntryCollectionTests_Basic
     {
         [Fact]
         public void Insert_SetsID()
@@ -12,7 +12,7 @@ namespace EmbarkTests.Interaction
             var created = Sound.GetTestSound();
 
             // act
-            var saved = MockDB.RuntimeDataEntryCollection.Insert(created);
+            var saved = _MockDB.RuntimeDataEntryCollection.Insert(created);
 
             // assert
             Assert.Equal(created.ID, saved.ID);
@@ -24,10 +24,10 @@ namespace EmbarkTests.Interaction
         {
             // arrange
             var created = Sound.GetTestSound();
-            MockDB.RuntimeDataEntryCollection.Insert(created);
+            _MockDB.RuntimeDataEntryCollection.Insert(created);
 
             // act
-            var loaded = MockDB.RuntimeDataEntryCollection.Get(created.ID);
+            var loaded = _MockDB.RuntimeDataEntryCollection.Get(created.ID);
 
             // assert
             Assert.Equal(created.ID, loaded.ID); ;
@@ -41,13 +41,13 @@ namespace EmbarkTests.Interaction
         {
             // arrange
             var created = Sound.GetTestSound();
-            MockDB.RuntimeDataEntryCollection.Insert(created);
-            var loaded = MockDB.RuntimeDataEntryCollection.Get(created.ID);
+            _MockDB.RuntimeDataEntryCollection.Insert(created);
+            var loaded = _MockDB.RuntimeDataEntryCollection.Get(created.ID);
 
             // act
             loaded.Quality = created.Quality + 10;
-            var hasUpdated = MockDB.RuntimeDataEntryCollection.Update(loaded);
-            var updated = MockDB.RuntimeDataEntryCollection.Get(created.ID);
+            var hasUpdated = _MockDB.RuntimeDataEntryCollection.Update(loaded);
+            var updated = _MockDB.RuntimeDataEntryCollection.Get(created.ID);
 
             // assert
             Assert.True(hasUpdated);
@@ -61,15 +61,15 @@ namespace EmbarkTests.Interaction
             // arrange
             var created = Sound.GetTestSound();
             long initialID = created.ID;
-            var inserted = MockDB.RuntimeDataEntryCollection.Insert(created);
+            var inserted = _MockDB.RuntimeDataEntryCollection.Insert(created);
             long insertedID = inserted.ID;
-            var loaded = MockDB.RuntimeDataEntryCollection.Get(created.ID);
+            var loaded = _MockDB.RuntimeDataEntryCollection.Get(created.ID);
 
             // act
-            bool isDeleted = MockDB.RuntimeDataEntryCollection.Delete(loaded);
-            var notFound = MockDB.RuntimeDataEntryCollection.Get(insertedID);
-            var nullWrapper = MockDB.RuntimeDataEntryCollection.GetWrapper(insertedID);
-            var updateDeleted = MockDB.RuntimeDataEntryCollection.Update(created);
+            bool isDeleted = _MockDB.RuntimeDataEntryCollection.Delete(loaded);
+            var notFound = _MockDB.RuntimeDataEntryCollection.Get(insertedID);
+            var nullWrapper = _MockDB.RuntimeDataEntryCollection.GetWrapper(insertedID);
+            var updateDeleted = _MockDB.RuntimeDataEntryCollection.Update(created);
 
             // assert
             Assert.True(isDeleted);
@@ -86,16 +86,16 @@ namespace EmbarkTests.Interaction
             // arrange
             var registered = Sound.GetTestSound();
             registered.Amplitude = 100;
-            MockDB.RuntimeDataEntryCollection.Insert(registered);
-            registered.RegisterAutoUpdate(MockDB.RuntimeDataEntryCollection);
+            _MockDB.RuntimeDataEntryCollection.Insert(registered);
+            registered.RegisterAutoUpdate(_MockDB.RuntimeDataEntryCollection);
 
-            var nonregistered = MockDB.RuntimeDataEntryCollection.Get(registered.ID);
+            var nonregistered = _MockDB.RuntimeDataEntryCollection.Get(registered.ID);
 
             // act
             registered.Amplitude = 50;
-            int regAmp50 = MockDB.RuntimeDataEntryCollection.Get(nonregistered.ID).Amplitude;
+            int regAmp50 = _MockDB.RuntimeDataEntryCollection.Get(nonregistered.ID).Amplitude;
             registered.Amplitude = 12;
-            int regAmp12 = MockDB.RuntimeDataEntryCollection.Get(nonregistered.ID).Amplitude;
+            int regAmp12 = _MockDB.RuntimeDataEntryCollection.Get(nonregistered.ID).Amplitude;
             registered.Amplitude = 99;
 
             // assert

@@ -2,16 +2,21 @@
 using Xunit;
 using System.Collections.Generic;
 using System.Linq;
+using Embark.Interaction;
+using Embark;
 
 namespace EmbarkTests.Interaction
 {
-    public class TestDataEntryCollection_Range
+    public class DataEntryCollectionTests_Range
     {
+        static DataEntryCollection<Sound> GetRuntimeSoundCollection(string collectionName) 
+           => Client.GetRuntimeDB().GetDataEntryCollection<Sound>(collectionName);
+
         [Fact]
         public void GetAll_ReturnsAllDocuments()
         {
             // arrange
-            var io = MockDB.GetRuntimeCollection("GetAllTest");
+            var io = GetRuntimeSoundCollection("GetAllTest");
             var created = GenerateTestSounds();
 
             foreach (var entry in created)
@@ -28,7 +33,7 @@ namespace EmbarkTests.Interaction
         public void GetLike_ReturnsSimilarMatches()
         {
             // arrange
-            var io = MockDB.GetRuntimeCollection("GetLikeTest");
+            var io = GetRuntimeSoundCollection("GetLikeTest");
             var created = GenerateTestSounds();
 
             var comparison = created[0];
@@ -61,7 +66,7 @@ namespace EmbarkTests.Interaction
         public void GetBetween_ReturnsMatchesRangeQuery()
         {
             // arrange
-            var io = MockDB.GetRuntimeCollection("GetBetweenTest");
+            var io = GetRuntimeSoundCollection("GetBetweenTest");
             var created = GenerateTestSounds();
             created.Add(new Sound
             {

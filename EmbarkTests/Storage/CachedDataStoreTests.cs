@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmbarkTests.Storage
 {
-    class TestCachedDataStore
+    class CachedDataStoreTests
     {
     }
 }
