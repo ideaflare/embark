@@ -4,14 +4,14 @@ using System.IO;
 
 namespace EmbarkTests._Mocks
 {
-    public sealed class TestDiskDB : IDisposable
+    public sealed class TestDiskFolder : IDisposable
     {
         public Client GetNewLocalDB() => Client.GetLocalDB(TestDir);
-        public Client GetNewCachedDB() => Client.GetCachedDB(TestDir);
+        public Client GetNewCachedDB(int maxAsyncOperations = int.MaxValue) => Client.GetCachedDB(TestDir, maxAsyncOperations: maxAsyncOperations);
 
         public string TestDir { get; }
 
-        public TestDiskDB()
+        public TestDiskFolder()
         {
             TestDir = $"{ AssemblyDirectory }\\Embark_Test_Temp_{ Guid.NewGuid() }\\";
 

@@ -89,7 +89,7 @@
     <Compile Include="_Mocks\RandomData.cs" />
     <Compile Include="_Mocks\Sheep.cs" />
     <Compile Include="_Mocks\Table.cs" />
-    <Compile Include="_Mocks\TestDiskDB.cs" />
+    <Compile Include="_Mocks\TestDiskFolder.cs" />
     <Compile Include="_Mocks\WrappedSheep.cs" />
     <Compile Include="_Mocks\Sound.cs" />
     <Compile Include="_Unsorted\TestEdgeCases.cs" />

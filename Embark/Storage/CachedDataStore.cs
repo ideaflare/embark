@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Embark.DataChannel;
 using System.Collections.Concurrent;
 using System.Threading;
+using Embark.Storage.Cached;
 
 namespace Embark.Storage
 {
@@ -15,17 +16,18 @@ namespace Embark.Storage
         private Task syncCacheTask;
         private CancellationTokenSource cancelSource = new CancellationTokenSource();
 
-        private BlockingCollection<Task> asyncDiskTasks;
+        private BlockingCollection<OperationRequest> asyncDiskTasks;
 
         public CachedDataStore(string directory, int maxAsyncOperations)
         {
             diskDataStore = new DiskDataStore(directory);
             runtimeDataStore = new RuntimeDataStore();
 
-            asyncDiskTasks = new BlockingCollection<Task>(maxAsyncOperations);
+            asyncDiskTasks = new BlockingCollection<OperationRequest>(maxAsyncOperations);
 
-            syncCacheTask = Task.Factory
-                .StartNew(ConsumeAsyncOperations);
+            LoadCacheFromDisk();
+
+            syncCacheTask = Task.Factory.StartNew(ConsumeAsyncOperations);
         }
 
         public void WaitForAsyncComplete()
@@ -38,12 +40,22 @@ namespace Embark.Storage
         {
             try
             {
-                LoadCacheFromDisk();
-
-                foreach (var task in asyncDiskTasks.GetConsumingEnumerable(cancelSource.Token))
+                foreach (var op in asyncDiskTasks.GetConsumingEnumerable(cancelSource.Token))
                 {
-                    task.Start();
-                    task.Wait();
+                    switch (op.StoreOperation)
+                    {
+                        case StoreOperation.Insert:
+                            diskDataStore.Insert(op.Tag, op.ID, op.ObjectToUpdate);
+                            break;
+                        case StoreOperation.Update:
+                            diskDataStore.Update(op.Tag, op.ID, op.ObjectToUpdate);
+                            break;
+                        case StoreOperation.Delete:
+                            diskDataStore.Delete(op.Tag, op.ID);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             catch (OperationCanceledException) { }
@@ -58,9 +70,6 @@ namespace Embark.Storage
             }
         }
 
-        private void AddAsyncDiskOperation(Action<IDataStore> diskAction)
-            => asyncDiskTasks.Add(new Task(() => diskAction(diskDataStore)));
-
         IEnumerable<string> IDataStore.Collections
         {
             get
@@ -71,7 +80,7 @@ namespace Embark.Storage
 
         bool IDataStore.Delete(string tag, long id)
         {
-            AddAsyncDiskOperation((store) => store.Delete(tag, id));
+            asyncDiskTasks.Add(new OperationRequest(StoreOperation.Delete, tag, id));
 
             return runtimeDataStore.Delete(tag, id);
         }
@@ -84,14 +93,14 @@ namespace Embark.Storage
 
         void IDataStore.Insert(string tag, long id, string objectToInsert)
         {
-            AddAsyncDiskOperation((store) => store.Insert(tag, id, objectToInsert));
+            asyncDiskTasks.Add(new OperationRequest(StoreOperation.Insert, tag, id, objectToInsert));
 
             runtimeDataStore.Insert(tag, id, objectToInsert);
         }
 
         bool IDataStore.Update(string tag, long id, string objectToUpdate)
         {
-            AddAsyncDiskOperation((store) => store.Update(tag, id, objectToUpdate));
+            asyncDiskTasks.Add(new OperationRequest(StoreOperation.Update, tag, id, objectToUpdate));
 
             return runtimeDataStore.Update(tag, id, objectToUpdate);
         }
@@ -106,5 +115,7 @@ namespace Embark.Storage
             
             syncCacheTask.Dispose();
         }
+
+        
     }
 }

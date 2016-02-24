@@ -15,7 +15,7 @@ namespace EmbarkTests
 
        
 
-        internal static TestDiskDB GetDiskDB() => new TestDiskDB();
+        internal static TestDiskFolder GetTestDiskFolder() => new TestDiskFolder();
 
         static Client SetupEnvironmentAndGetTestClient()
         {

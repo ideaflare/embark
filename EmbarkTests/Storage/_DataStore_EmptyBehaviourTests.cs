@@ -9,10 +9,10 @@ namespace EmbarkTests.Storage
         [Fact]
         public void DeleteNothing_ReturnsFalse()
         {
-            using (var testDB = _MockDB.GetDiskDB())
+            using (var testFolder = _MockDB.GetTestDiskFolder())
             {
-                var diskClient = testDB.GetNewLocalDB();
-                var cachedClient = testDB.GetNewCachedDB();
+                var diskClient = testFolder.GetNewLocalDB();
+                var cachedClient = testFolder.GetNewCachedDB();
                 var runtimeClient = Client.GetRuntimeDB();
 
                 DeleteNothing_ReturnsFalse(diskClient);
@@ -30,10 +30,10 @@ namespace EmbarkTests.Storage
         [Fact]
         public void GetNothing_ReturnsNothing()
         {
-            using (var testDB = _MockDB.GetDiskDB())
+            using (var testFolder = _MockDB.GetTestDiskFolder())
             {
-                var diskClient = testDB.GetNewLocalDB();
-                var cachedClient = testDB.GetNewCachedDB();
+                var diskClient = testFolder.GetNewLocalDB();
+                var cachedClient = testFolder.GetNewCachedDB();
                 var runtimeClient = Client.GetRuntimeDB();
 
                 GetNothing_ReturnsNothing(diskClient);

@@ -1,12 +1,8 @@
 ﻿using EmbarkTests._Mocks;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace EmbarkTests.Storage
@@ -14,49 +10,56 @@ namespace EmbarkTests.Storage
     public class CachedDataStoreTests
     {
         [Fact]
-        public void CachedStoreInserts_10xTimesFasterThanDiskStore()
+        public void CachedStoreInserts_IsTimesFasterThanDiskStore()
         {
             // arrange
             int testSize = 100;
 
-            using (var diskDB = _MockDB.GetDiskDB())
-            using (var cachedDB = _MockDB.GetDiskDB())
+            using (var diskFolder = _MockDB.GetTestDiskFolder())
+            using (var cachedFolder = _MockDB.GetTestDiskFolder())
             {
-                var testItems = _Mocks.Sheep.GetTestHerd(testSize);
-                
-                var cachedClient = cachedDB.GetNewCachedDB();
-                var cachedCollection = cachedClient.GetCollection<Sheep>("na");
+                var testItems = Sheep.GetTestHerd(testSize);
 
-                var diskCollection = diskDB.GetNewLocalDB().GetCollection<Sheep>("na");
-                
-                // act
-                var swTimeDisk = Stopwatch.StartNew();
-                foreach (var s in testItems)
-                    diskCollection.Insert(s);
-                swTimeDisk.Stop();
+                var cacheClient = cachedFolder.GetNewCachedDB();
+                var diskClient = diskFolder.GetNewLocalDB();
 
-                var swCacheDisk = Stopwatch.StartNew();
-                foreach (var s in testItems)
-                    cachedCollection.Insert(s);
-                swCacheDisk.Stop();
+                var cachedCollectionA = cacheClient.GetCollection<Sheep>("A");
+                var diskCollectionA = diskClient.GetCollection<Sheep>("A");
+
+                //act
+                var swCache = new Stopwatch();
+                var swDisk = new Stopwatch();
+                foreach(var s in testItems)
+                {
+                    swCache.Start();
+                    cachedCollectionA.Insert(s);
+                    swCache.Stop();
+
+                    swDisk.Start();
+                    diskCollectionA.Insert(s);
+                    swDisk.Stop();
+                }
 
                 // assert
 
-                Assert.True(swTimeDisk.ElapsedMilliseconds > (10 * swCacheDisk.ElapsedMilliseconds));
+                Assert.True(swDisk.ElapsedMilliseconds > swCache.ElapsedMilliseconds);
 
                 // cleanup
-
+                var swCleanup = Stopwatch.StartNew();
                 // Wait for caching to complete..
                 // TODO call complete caching via api.
                 while (true)
                 {
-                    var persistedCacheCount = Directory.GetFiles(cachedDB.TestDir, "*.*", SearchOption.AllDirectories).Count();
+                    var persistedCacheCount = Directory.GetFiles(cachedFolder.TestDir, "*.*", SearchOption.AllDirectories).Count();
 
                     if (persistedCacheCount == testSize)
                         break;
-                       
+
                     Thread.Sleep(100);
                 }
+
+                swCleanup.Stop();
+                var test = swCleanup.ElapsedMilliseconds;
             }
         }
     }
