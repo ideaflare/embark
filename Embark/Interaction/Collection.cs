@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Embark.DataChannel;
 using Embark.TextConversion;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Embark.Interaction
 {
@@ -12,9 +14,20 @@ namespace Embark.Interaction
     {
         internal Collection(string tag, ITextRepository textRepository, ITextConverter textConverter)
         {
+            ValidateCollectionName(tag);
+
             this.tag = tag;
             this.textRepository = textRepository;
             TextConverter = textConverter;
+        }
+
+        private static void ValidateCollectionName(string collectionName)
+        {
+            if (collectionName == null || collectionName.Length < 1)
+                throw new ArgumentException("Collection name should be at least one alphanumerical or underscore character.");
+
+            if (!Regex.IsMatch(collectionName, "^[A-Za-z0-9_]+?$"))
+                throw new NotSupportedException("Only alphanumerical & underscore characters supported in collection names.");
         }
 
         /// <summary>

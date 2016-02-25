@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Embark.Storage;
+﻿using Embark.Storage;
 using Embark.DataChannel;
 using Embark.Interaction;
 using Embark.TextConversion;
@@ -107,11 +105,7 @@ namespace Embark
         /// <param name="collectionName">Name of the collection</param>
         /// <returns>Collection class with commands to perform against the collection</returns>
         public Collection GetCollection(string collectionName)
-        {
-            ValidateCollectionName(collectionName);
-
-            return new Collection(collectionName, textRepository, textConverter);
-        }
+            => new Collection(collectionName, textRepository, textConverter);
 
         /// <summary>
         /// Get a type-specific collection to read/write documents to/from
@@ -137,15 +131,6 @@ namespace Embark
             var basic = GetCollection(collectionName);
 
             return new DataEntryCollection<T>(basic);
-        }
-
-        private static void ValidateCollectionName(string collectionName)
-        {
-            if (collectionName == null || collectionName.Length < 1)
-                throw new ArgumentException("Collection name should be at least one alphanumerical or underscore character.");
-
-            if (!Regex.IsMatch(collectionName, "^[A-Za-z0-9_]+?$"))
-                throw new NotSupportedException("Only alphanumerical & underscore characters supported in collection names.");
         }
     }
 }
