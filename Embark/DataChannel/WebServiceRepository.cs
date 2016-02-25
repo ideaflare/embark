@@ -28,12 +28,12 @@ namespace Embark.DataChannel
             }
         }
 
-        private WebHttpBinding LargeResultWebBinding =>
-             new WebHttpBinding()
-             {
-                 MaxReceivedMessageSize = int.MaxValue,
-                 MaxBufferSize = int.MaxValue
-             };
+        private WebHttpBinding LargeResultWebBinding
+            => new WebHttpBinding()
+            {
+                MaxReceivedMessageSize = int.MaxValue,
+                MaxBufferSize = int.MaxValue
+            };
 
         long ITextRepository.Insert(string tag, string objectToInsert)
             => CallRemoteDatastore((store) => store.Insert(tag, objectToInsert));

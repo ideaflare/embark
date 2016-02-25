@@ -78,8 +78,7 @@ namespace Embark.DataChannel
         }
 
         private IEnumerable<DataEnvelope> GetByFilter(string tag, System.Func<object, bool> filterEnvelopes)
-            =>
-            dataStore.GetAll(tag)
+            => dataStore.GetAll(tag)
             .Where(envelope => filterEnvelopes(textComparer.ToComparisonObject(envelope.Text)));
     }
 }

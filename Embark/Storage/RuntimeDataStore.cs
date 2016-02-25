@@ -11,20 +11,7 @@ namespace Embark.Storage
             = new ConcurrentDictionary<string, ConcurrentDictionary<long, string>>();
 
         IEnumerable<string> IDataStore.Collections => collections.Keys;
-
-        bool IDataStore.Delete(string tag, long id)
-        {
-            string na;
-            return this[tag]?.TryRemove(id, out na) ?? false;
-        }
-
-        string IDataStore.Get(string tag, long id)
-            => GetValueOrNull(id, this[tag]);
-
-        DataEnvelope[] IDataStore.GetAll(string tag)
-            => this[tag]?.Select(kv => new DataEnvelope(kv.Key, kv.Value)).ToArray()
-            ?? new DataEnvelope[] { };
-
+                            
         void IDataStore.Insert(string tag, long id, string objectToInsert)
         {
             var tagCollection = collections.GetOrAdd(tag, new ConcurrentDictionary<long, string>());
@@ -41,8 +28,19 @@ namespace Embark.Storage
             else return false;
         }
 
-        ConcurrentDictionary<long, string> this[string tag]
-            => GetValueOrNull(tag, collections);
+        bool IDataStore.Delete(string tag, long id)
+        {
+            string na;
+            return this[tag]?.TryRemove(id, out na) ?? false;
+        }
+
+        string IDataStore.Get(string tag, long id) => GetValueOrNull(id, this[tag]);
+
+        ConcurrentDictionary<long, string> this[string tag] => GetValueOrNull(tag, collections);
+
+        DataEnvelope[] IDataStore.GetAll(string tag)
+            => this[tag]?.Select(kv => new DataEnvelope(kv.Key, kv.Value)).ToArray()
+            ?? new DataEnvelope[] { };
 
         private T GetValueOrNull<Key, T>(Key key, ConcurrentDictionary<Key, T> dictionary) where T : class
         {

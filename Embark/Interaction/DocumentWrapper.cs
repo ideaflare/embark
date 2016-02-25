@@ -37,7 +37,7 @@ namespace Embark.Interaction
         /// Deserialized Object contained in the wrapper
         /// <para>Synonym for <see cref="Content"/></para>
         /// </summary>
-        //[Obsolete("Use DocumentWrapper.Content instead")]
+        [Obsolete("Use DocumentWrapper.Content instead")]
         public T Value
         {
             get { return Content; }

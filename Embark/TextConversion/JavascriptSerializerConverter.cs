@@ -34,9 +34,7 @@ namespace Embark.TextConversion
         }
 
         public object ToComparisonObject(string text)
-        {
-            return serializer.DeserializeObject(text);
-        }
+            => serializer.DeserializeObject(text);
 
         public bool IsMatch(object a, object b)
         {
