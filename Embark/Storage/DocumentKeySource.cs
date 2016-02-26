@@ -11,7 +11,7 @@ namespace Embark.Storage
 
         long lastKey = 0;
 
-        object syncRoot = new object();
+        readonly object syncRoot = new object();
 
         public long GetNewKey()
         {

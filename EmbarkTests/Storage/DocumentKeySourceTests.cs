@@ -1,36 +1,24 @@
 ﻿using Xunit;
 using System;
-using System.Diagnostics;
 using System.Linq;
 
 namespace EmbarkTests.StorageTests
 {
-    public class TestDocumentKeySource
+    public class DocumentKeySourceTests
     {
-        // TODO split performance test & parallel generation test.
         [Fact]
         public void NewIDs_AreUnique()
         {
-            int totalInserts = 15;
-            double timePerInsert = 50;// milliseconds per insert. 
-            // Test written on laptop with Samsung 840 SSD. Increase insert time if machine uses a spinning magnetic relic.
-
+            int totalInserts = 500;
             var db = Embark.Client.GetRuntimeDB().Basic;
 
-            // insert IDs in parallel
-            var sw = Stopwatch.StartNew();
-
-            var newIDs = Enumerable.Range(0, totalInserts)
+            var uniqueIDs = Enumerable.Range(0, totalInserts)
                 .AsParallel()
                 .Select(i => db.Insert(new { n = 0 }))
-                .ToList();
+                .Distinct()
+                .Count();
 
-            sw.Stop();
-
-            // test that they are unique
-            Assert.Equal(totalInserts, newIDs.Distinct().Count());
-            // and completed within average timePerInsert time
-            Assert.True(sw.ElapsedMilliseconds < timePerInsert * totalInserts);
+            Assert.Equal(totalInserts, uniqueIDs);
         }
 
         [Fact]

@@ -29,7 +29,6 @@ namespace Embark.DataChannel
         private DocumentKeySource keyProvider;
         private HashLock hashLock;
 
-        // Basic
         long ITextRepository.Insert(string tag, string objectToInsert)
         {
             var id = keyProvider.GetNewKey();
