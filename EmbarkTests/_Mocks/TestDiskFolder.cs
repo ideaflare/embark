@@ -1,6 +1,7 @@
 ﻿using Embark;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace EmbarkTests._Mocks
 {
@@ -31,7 +32,20 @@ namespace EmbarkTests._Mocks
 
         public void Dispose()
         {
-            Directory.Delete(TestDir, recursive: true);
+            int retries = 0;
+            while (Directory.Exists(TestDir))
+            {
+                try
+                {
+                    Directory.Delete(TestDir, recursive: true);
+                }
+                catch (Exception)
+                {
+                    if (retries > 10)
+                        throw;
+                    Thread.Sleep(++retries * 100);
+                }
+            }
         }
     }
 }
