@@ -2,6 +2,7 @@
 using Embark;
 using System;
 using Xunit;
+using System.Linq;
 
 namespace EmbarkTests.Interaction
 {
@@ -54,6 +55,19 @@ namespace EmbarkTests.Interaction
             Assert.Null(basicNone);
             Assert.Null(classNone);
             Assert.Null(valueNone);
+        }
+
+        [Fact]
+        public void UpdateNonExisting_DoesNothingAndReturnsFalse()
+        {
+            var emptyCollection = Client.GetRuntimeDB().Basic;
+
+            var hasUpdated = emptyCollection.Update(-1, "");
+
+            var collectionCount = emptyCollection.GetAll<string>().Count();
+
+            Assert.False(hasUpdated);
+            Assert.Equal(0, collectionCount);
         }
     }
 }
