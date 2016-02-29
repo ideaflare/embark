@@ -38,19 +38,6 @@ namespace EmbarkTests._Unsorted
         }
 
         [Fact]
-        public void SaveNonPoco_HandlesComparison()
-        {
-            // arrange
-            var io = _MockDB.SharedRuntimeClient.GetCollection<string>("nonPOCO");
-            string input = "string";
-            string inserted;
-
-            // act & assert
-            RunAllCommands<string>(io, input, out inserted);
-            Assert.Equal(input, inserted);            
-        }
-
-        [Fact]
         public void MixedTypeCollection_CanSave()
         {
             // arrange

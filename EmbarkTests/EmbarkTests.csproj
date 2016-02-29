@@ -82,6 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerTests.cs" />
     <Compile Include="Storage\DocumentKeySourceTests.cs" />
+    <Compile Include="TextConversion\JavascriptSerializerConverterTests.cs" />
     <Compile Include="_MockDB.cs" />
     <Compile Include="_Mocks\Cat.cs" />
     <Compile Include="_Mocks\Echo.cs" />
@@ -97,7 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataChannel\" />
-    <Folder Include="TextConversion\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embark\Embark.csproj">
