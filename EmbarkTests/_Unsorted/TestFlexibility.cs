@@ -6,23 +6,7 @@ namespace EmbarkTests._Unsorted
 {
     public class TestFlexibility
     {
-        [Fact]
-        public void Sheep_CanTurnIntoCat()
-        {
-            // arrange
-            var sheep = Sheep.GetTestSheep();
-
-            long id = _MockDB.RuntimeBasicCollection.Insert(sheep);
-
-            // act
-            Cat cat = _MockDB.RuntimeBasicCollection.Get<Cat>(id);
-
-            // assert
-            Assert.Equal(cat.Name, sheep.Name);
-            Assert.Equal(cat.Age, sheep.Age);
-            Assert.Equal(cat.FurDensity, (new Cat()).FurDensity);
-            Assert.Equal(cat.HasMeme, (new Cat()).HasMeme);
-        }
+        
         
         [Fact]
         public void TypofString_CanDeserialize()
