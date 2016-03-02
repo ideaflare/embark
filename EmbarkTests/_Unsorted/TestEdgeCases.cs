@@ -1,9 +1,7 @@
 ﻿using Xunit;
 using Embark.Interaction;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using EmbarkTests._Mocks;
 
 namespace EmbarkTests._Unsorted
@@ -62,47 +60,7 @@ namespace EmbarkTests._Unsorted
             Assert.Equal(inputSheep, outputSheep);
         }
 
-        [Fact]
-        public void GetWhere_MatchesSubProperties()
-        {
-            // arrange
-            var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
-            var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate, OnTable = new Table { Legs = 2 } };
-            var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum, OnTable = new Table { IsSquare = true } };
-            var youngBilly = new Sheep { Name = "Billy", Age = 3, OnTable = new Table { Legs = 2 } };
-
-            var io = _MockDB.SharedRuntimeClient.GetCollection<Sheep>("subMatch");
-
-            long id = io.Insert(oldWooly);
-            long id2 = io.Insert(oldDusty);
-            long id3 = io.Insert(youngLassy);
-
-            // act            
-
-            IEnumerable<Sheep> matchQueryInline = io.GetWhere(new { Age = 100, OnTable = new { Legs = 2 } }).Unwrap();
-
-            var anonymousTable = new { Legs = 2 };
-            var query = new { Age = 100, OnTable = anonymousTable };
-            IEnumerable<Sheep> matchQueryAnonymous = io.GetWhere(query).Unwrap();
-
-            var inlineSheep = matchQueryInline.ToList();
-
-            var oldSheepOnTables = matchQueryAnonymous.ToList();
-
-            // assert
-            Assert.Equal(1, oldSheepOnTables.Count);
-
-            Assert.False(oldSheepOnTables.Any(s => s.Age != 100));
-            Assert.False(oldSheepOnTables.Any(s => s.OnTable.Legs != 2));
-
-            Assert.False(oldSheepOnTables.Any(s => s.Name == "Lassy"));
-            Assert.False(oldSheepOnTables.Any(s => s.Name == "Wooly"));
-            Assert.False(oldSheepOnTables.Any(s => s.Name == "Wooly"));
-            
-            Assert.True(oldSheepOnTables.Any(s => s.Name == "Dusty"));
-
-            Assert.True(Enumerable.SequenceEqual(inlineSheep, oldSheepOnTables));
-        }
+        
 
         private static void RunAllCommands<T>(Collection<T> io, T input, out T inserted) where T : class
         {

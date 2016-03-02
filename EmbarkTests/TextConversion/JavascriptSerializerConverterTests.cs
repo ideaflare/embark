@@ -1,6 +1,7 @@
 ﻿using Embark;
 using Embark.Interaction;
 using EmbarkTests._Mocks;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -25,6 +26,51 @@ namespace EmbarkTests.TextConversion
             Assert.Equal(loaded.Age, saved.Age);
             Assert.Equal(loaded.FurDensity, defaultCat.FurDensity);
             Assert.Equal(loaded.HasMeme, defaultCat.HasMeme);
+        }
+
+        // TODO: move test setup into seperate Testfixture and split test
+        // -> InlineQuery_SameAsAnonymousQuery
+        // -> QueryData_ReturnsExpectedResult
+        // -> IsBetweenMatch evaluates sub properties
+        // -> Use fixture for other test: "MixedTypeCllection_CanSave" Collection can handle multiple types 
+        [Fact]
+        public void IsBetweenMatch_EvaluatesSubProperties()
+        {
+            // arrange - insert test data
+            var oldWooly = new Sheep { Name = "Wooly", Age = 100, FavouriteIceCream = IceCream.Chocolate };
+            var oldDusty = new Sheep { Name = "Dusty", Age = 100, FavouriteIceCream = IceCream.Chocolate, OnTable = new Table { Legs = 2 } };
+            var youngLassy = new Sheep { Name = "Lassy", Age = 1, FavouriteIceCream = IceCream.Bubblegum, OnTable = new Table { IsSquare = true } };
+
+            var io = Client.GetRuntimeDB().GetCollection<Sheep>("subMatch");
+
+            long id = io.Insert(oldWooly);
+            long id2 = io.Insert(oldDusty);
+            long id3 = io.Insert(youngLassy);
+
+            // act - query inserted data
+            var anonymousTable = new { Legs = 2 };
+            var query = new { Age = 100, OnTable = anonymousTable };
+            IEnumerable<Sheep> matchQueryAnonymous = io.GetWhere(query).Unwrap();
+
+            var queryResult = matchQueryAnonymous.ToList();
+
+            var inlineQueryResult = io
+                .GetWhere(new { Age = 100, OnTable = new { Legs = 2 } })
+                .Unwrap()
+                .ToList();
+
+            // assert
+            Assert.Equal(1, queryResult.Count);
+
+            Assert.False(queryResult.Any(s => s.Age != 100));
+            Assert.False(queryResult.Any(s => s.OnTable.Legs != 2));
+
+            Assert.False(queryResult.Any(s => s.Name == "Lassy"));
+            Assert.False(queryResult.Any(s => s.Name == "Wooly"));
+
+            Assert.True(queryResult.Any(s => s.Name == "Dusty"));
+
+            Assert.True(Enumerable.SequenceEqual(inlineQueryResult, queryResult));
         }
 
         [Fact]
