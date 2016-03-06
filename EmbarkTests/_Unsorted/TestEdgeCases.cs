@@ -8,32 +8,7 @@ namespace EmbarkTests._Unsorted
 {
     public class TestEdgeCases
     {
-        [Fact]
-        public void SaveBlob_CanDeserializeToByteArray()
-        {
-            // arrange
-            byte[] rawByteArray = new byte[64];
-            (new Random()).NextBytes(rawByteArray);
-            
-            var sound = new Sound
-            {
-                Sample = rawByteArray,
-                Echo = null
-            };
-
-            long idRawByteArray = _MockDB.SharedRuntimeClient.Basic.Insert(rawByteArray);
-            long idSound = _MockDB.SharedRuntimeClient.Basic.Insert(sound);
-
-            // act    
-            var loadedSound = _MockDB.SharedRuntimeClient.Basic.Get<Sound>(idSound);
-            byte[] loadedSample = loadedSound.Sample;
-
-            byte[] loadedAsArray = _MockDB.SharedRuntimeClient.Basic.Get<byte[]>(idRawByteArray);
-            
-            // assert
-            Assert.True(Enumerable.SequenceEqual(rawByteArray, loadedAsArray));
-            Assert.True(Enumerable.SequenceEqual(rawByteArray, loadedSample));
-        }
+        
 
         [Fact]
         public void MixedTypeCollection_CanSave()

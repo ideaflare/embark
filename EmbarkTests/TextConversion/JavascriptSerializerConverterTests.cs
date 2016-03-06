@@ -1,14 +1,56 @@
 ﻿using Embark;
 using Embark.Interaction;
 using EmbarkTests._Mocks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
 namespace EmbarkTests.TextConversion
 {
-    class JavascriptSerializerConverterTests
+    public class JavascriptSerializerConverterTests
     {
+        private Random random = new Random();
+
+        [Fact]
+        public void SerializeRawByteArray_CanDeserializeToByteArray()
+        {
+            // arrange
+            byte[] rawByteArray = new byte[64];
+            random.NextBytes(rawByteArray);
+
+            //act
+            long idRawByteArray = _MockDB.SharedRuntimeClient.Basic.Insert(rawByteArray);
+
+            //assert
+            byte[] loadedAsArray = _MockDB.SharedRuntimeClient.Basic.Get<byte[]>(idRawByteArray);
+
+            Assert.True(Enumerable.SequenceEqual(rawByteArray, loadedAsArray));
+        }
+
+        [Fact]
+        public void SerializePropertyByteArray_CanDeserializeToObjectProperty()
+        {
+            // arrange
+            byte[] rawByteArray = new byte[64];
+            random.NextBytes(rawByteArray);
+
+            var sound = new Sound
+            {
+                Sample = rawByteArray,
+                Echo = null
+            };
+
+            long idSound = _MockDB.SharedRuntimeClient.Basic.Insert(sound);
+
+            // act    
+            var loadedSound = _MockDB.SharedRuntimeClient.Basic.Get<Sound>(idSound);
+            byte[] loadedSample = loadedSound.Sample;
+
+            // assert
+            Assert.True(Enumerable.SequenceEqual(rawByteArray, loadedSample));
+        }               
+
         [Fact]
         public void SerializedObject_CanDeserializeToOtherType()
         {
