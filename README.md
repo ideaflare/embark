@@ -8,9 +8,22 @@ Documents are saved as [JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_sy
 ![Documents saved as text files](https://trello-attachments.s3.amazonaws.com/54f89e2e643f7e862d27cf6b/551x192/386d7e8b7a80eb55380f4b733d0e8ca6/explore.png "Documents saved as text files")
 
 ##Simplicity
+Embark uses public properties with get & set to read/load values.
 
 ```csharp
-// arrange some guinea pig
+// arrange some guinea pig for testing
+class Sheep
+{
+  // public get & set used to read/write values
+  public string Name { get; set; }  
+  public IceCream FavouriteIceCream { get; set; }
+}
+enum IceCream
+{
+  Vanilla,
+  Strawberry            
+}
+        
 var pet = new Sheep { Name = "Fluffy", FavouriteIceCream = IceCream.Vanilla };
 
 // save data locally
