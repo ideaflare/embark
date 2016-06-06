@@ -34,33 +34,9 @@
 <h2>
 <a id="simplicity" class="anchor" href="#simplicity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simplicity</h2>
 
-<div class="highlight highlight-csharp"><pre><span class="pl-c">// arrange some guinea pig</span>
-<span class="pl-k">var</span> pet = <span class="pl-k">new</span> Sheep { Name = <span class="pl-s"><span class="pl-pds">"</span>Fluffy<span class="pl-pds">"</span></span>, FavouriteIceCream = IceCream.Vanilla };
+<p></p>Embark uses public properties with get &amp; set to read/load values.</p>
 
-<span class="pl-c">// save data locally</span>
-<span class="pl-k">var</span> db = Embark.Client.GetLocalDB(<span class="pl-s"><span class="pl-pds">@"C:\AnimalsDB\"</span></span>);
-
-<span class="pl-c">// or over a network via REST API to WCF server *see usage section below*</span>
-<span class="pl-k">var</span> db = Embark.Client.GetNetworkDB(<span class="pl-s"><span class="pl-pds">"</span>192.168.1.24<span class="pl-pds">"</span></span>, <span class="pl-c1">8080</span>);
-
-<span class="pl-c">// collections created on-the-fly if needed</span>
-<span class="pl-k">var</span> io = db.GetCollection&lt;Sheep&gt;(<span class="pl-s"><span class="pl-pds">"</span>sheep<span class="pl-pds">"</span></span>);
-
-<span class="pl-c">// create</span>
-<span class="pl-k">long</span> id = io.Insert(pet);
-
-<span class="pl-c">// read</span>
-Sheep fluffy = io.Get(id);
-
-<span class="pl-c">// update</span>
-fluffy.FavouriteIceCream = IceCream.Strawberry;
-<span class="pl-k">bool</span> fluffyNowLikesStrawberry = io.Update(id, fluffy);
-
-<span class="pl-c">// delete</span>
-<span class="pl-k">bool</span> hasSheepVanished = io.Delete(id);
-
-<span class="pl-c">// non-type specific if you want to mix Apples &amp; Oranges objects in the same collection</span>
-<span class="pl-k">var</span> io = db[<span class="pl-s"><span class="pl-pds">"</span>fruit<span class="pl-pds">"</span></span>];</pre></div>
+<script src="https://gist.github.com/ideaflare/db8898706e6aa227918c2751403fe5fb.js"></script>
 
 <h3>
 <a id="some-other-commands-are" class="anchor" href="#some-other-commands-are" aria-hidden="true"><span class="octicon octicon-link"></span></a>Some other commands are</h3>
