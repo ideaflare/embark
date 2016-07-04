@@ -1,13 +1,12 @@
 ﻿using EmbarkTests._Mocks;
 using Xunit;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace EmbarkTests._Unsorted
 {
     public class TestFlexibility
-    {
-        
-        
+    {    
         [Fact]
         public void TypofString_CanDeserialize()
         {
@@ -62,15 +61,26 @@ namespace EmbarkTests._Unsorted
         }
 
         [Fact]
-        public void ArrayObjects_CanTurnIntoText()
+        public void ArrayObjects_SerializesAsString()
         {
-            // arrange
-            var io = _MockDB.SharedRuntimeClient["arraysToString"];
+            var io = _MockDB.SharedRuntimeClient["numberArrayToString"];
 
             byte[] arr = new byte[] { 12, 200, 12, 0, 33 };
-            var byteArrString = "[\r\n   12,\r\n   200,\r\n   12,\r\n   0,\r\n   33\r\n]";
+
             long idByteArr = io.Insert(arr);
 
+            string loadedByteArr = io.Get<string>(idByteArr);
+
+            var match = Regex.Match(loadedByteArr, @"(12\D*200\D*12\D*0\D*33)");
+
+            Assert.True(match.Success);
+        }
+
+        [Fact]
+        public void ComposedObject_SerializesAsString()
+        { 
+            var io = _MockDB.SharedRuntimeClient["composedObjectToString"];
+            
             var mixedList = new List<object>() 
             {
                 "32", 'x', new int[] { 4, 4 }, 2,
@@ -86,16 +96,13 @@ namespace EmbarkTests._Unsorted
             + "         \"VolumeDiminishFactor\" : 0\r\n      },\r\n      \"Sample\" : null,\r\n      \"ID\" : 0,\r\n"
             + "      \"Timestamp\" : \"\\/Date(-62135596800000)\\/\"\r\n   }\r\n]";
 
-            // act
-            string loadedByteArr = io.Get<string>(idByteArr);
+            // act            
             string loadedList = io.Get<string>(idList);
 
             var objectList = io.Get<List<object>>(idList);
 
-            // assert
-            Assert.Equal(byteArrString, loadedByteArr);
+            // assert            
             Assert.Equal(listString, loadedList);
-
             Assert.NotNull(objectList);
         }
 
