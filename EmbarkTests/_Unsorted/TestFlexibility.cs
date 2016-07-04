@@ -105,24 +105,6 @@ namespace EmbarkTests._Unsorted
             Assert.Equal(objectList.Count, composedObject.Count);
         }
 
-        [Fact]
-        public void Cat_CanTurnIntoJsonText()
-        {
-            var io = _MockDB.SharedRuntimeClient["classToJsonText"];
-            var savedCat = new Cat
-            {
-                Name = "Tom",
-                Tale = @"Test deserializer mistake as text object instead of vanilla string?" + "{ Name: \"Tom\","
-            };
-            var textPattern = @"Name.*Tom.*Tale.*...vanilla...*FurDensity...*HasMeme.*";
-            
-            var idCat = io.Insert(savedCat);
-            string textCat = io.Get<string>(idCat);
-            
-            var match = Regex.Match(textCat, textPattern, RegexOptions.Singleline);
-            Assert.True(match.Success);
-        }
-
         // TODO 1 Test Save/load different types - primitive, POCO & IDataEntry serialize/deserialize behaviour
 
         // insert
