@@ -81,7 +81,7 @@ namespace EmbarkTests._Unsorted
         { 
             var io = _MockDB.SharedRuntimeClient["composedObjectToString"];
             
-            var mixedList = new List<object>() 
+            var composedObject = new List<object>() 
             {
                 "32", 'x', new int[] { 4, 4 }, 2,
                 new Sound 
@@ -90,43 +90,37 @@ namespace EmbarkTests._Unsorted
                     Echo = new Echo { Repetitions = 6}
                 }
             };
-            long idList = io.Insert(mixedList);
-            var listString = "[\r\n   \"32\",\r\n   \"x\",\r\n   [\r\n      4,\r\n      4\r\n   ],\r\n   2,\r\n   {\r\n      "
-            + "\"Description\" : \"Multi type Test\",\r\n      \"Quality\" : 0,\r\n      \"Amplitude\" : 0,\r\n      \"Echo\" : {\r\n         \"Repetitions\" : 6,\r\n"
-            + "         \"VolumeDiminishFactor\" : 0\r\n      },\r\n      \"Sample\" : null,\r\n      \"ID\" : 0,\r\n"
-            + "      \"Timestamp\" : \"\\/Date(-62135596800000)\\/\"\r\n   }\r\n]";
+            long idList = io.Insert(composedObject);
+
+            var textPattern = @".*32.*x.*4.*2"
+                + ".*Sound.*Description.*Multi.*Echo.*Repititions.*6"
+                + ".*Sample.*Timestamp"; //other properties in class Sound
 
             // act            
-            string loadedList = io.Get<string>(idList);
-
+            string textObject = io.Get<string>(idList);
             var objectList = io.Get<List<object>>(idList);
 
             // assert            
-            Assert.Equal(listString, loadedList);
-            Assert.NotNull(objectList);
+            var match = Regex.Match(textObject, textPattern, RegexOptions.Singleline);
+            Assert.Equal(objectList.Count, composedObject.Count);
         }
 
         [Fact]
         public void Cat_CanTurnIntoJsonText()
         {
-            // arrange
             var io = _MockDB.SharedRuntimeClient["classToJsonText"];
             var savedCat = new Cat
             {
                 Name = "Tom",
-                Tale = @"Deserializer can mistake as text object instead of vanilla string."
+                Tale = @"Test deserializer mistake as text object instead of vanilla string?" + "{ Name: \"Tom\","
             };
-            var jsonCat = "{\r\n   \"Name\" : \"Tom\",\r\n   \"Age\" : 0,\r\n"
-                +"   \"Tale\" : \"Deserializer can mistake as text object instead of vanilla string.\",\r\n"
-                +"   \"FurDensity\" : 0,\r\n   \"HasMeme\" : false\r\n}";
-
+            var textPattern = @"Name.*Tom.*Tale.*...vanilla...*FurDensity...*HasMeme.*";
+            
             var idCat = io.Insert(savedCat);
-
-            // act
-            string objectAsString = io.Get<string>(idCat);
-
-            // assert}
-            Assert.Equal(jsonCat, objectAsString);
+            string textCat = io.Get<string>(idCat);
+            
+            var match = Regex.Match(textCat, textPattern, RegexOptions.Singleline);
+            Assert.True(match.Success);
         }
 
         // TODO 1 Test Save/load different types - primitive, POCO & IDataEntry serialize/deserialize behaviour
