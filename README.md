@@ -1,13 +1,13 @@
-#Idea
+# Idea
 Easy to use document database with a focus on visibility and simplicity. Made for prototyping or projects with an agile code-first approach. Embark allows you to [defer the plumbing or commitment of choosing a specific database technology](https://www.youtube.com/watch?v=asLUTiJJqdE).
 
-##Visibility
+## Visibility
 
 Documents are saved as [JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example) text files in folders for each collection, so you can easily view/edit data while developing.
 
 ![Documents saved as text files](https://trello-attachments.s3.amazonaws.com/54f89e2e643f7e862d27cf6b/551x192/386d7e8b7a80eb55380f4b733d0e8ca6/explore.png "Documents saved as text files")
 
-##Simplicity
+## Simplicity
 Embark uses public properties with get & set to read/load values.
 
 ```csharp
@@ -51,14 +51,14 @@ bool hasSheepVanished = io.Delete(id);
 // non-type specific if you want to mix Apples & Oranges objects in the same collection
 var io = db["fruit"];
 ```
-###Some other commands are
+### Some other commands are
 
 - GetWhere(new { Name = "Rocket"})
 - GetBetween(new { Score = 15}, new { Score = 39.21})
 - GetAll() returns Document Wrapper with ID & timestamp
 - See the [wiki for details](https://github.com/ubrgw/embark/wiki/SQL-Equivalents)
 
-##That's it!
+## That's it!
 
 The intent of Embark is to stay simple to use and minimal.
 A single .dll under 50 kilobytes and no external dependencies other than the .NET framework. 
@@ -68,7 +68,7 @@ The aim of the project is to provide a DB [while you are building new ideas](htt
 
 ![alt text](https://trello-attachments.s3.amazonaws.com/54f89e2e643f7e862d27cf6b/675x592/ed7a589d1d7470a4eaaa8ded3dfa699c/iterativeB.png "Stepping stone development")
 
-##Usage
+## Usage
 
 Embark has a [NuGet package](https://www.nuget.org/packages/Embark/) to keep devs updated with new features.
 You are also free to download, modify, compile and use the source code as you wish (MIT License).
